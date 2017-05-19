@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OrderVC: BaseViewController {
+class OrderVC: BaseViewController, UITableViewDelegate {
     @IBOutlet weak var headerView: TabView!
     @IBOutlet weak var scrollView: UIScrollView!
     private let titles = ["全部订单", "待付款", "待发货", "待收货", "待评价"]
@@ -27,7 +27,7 @@ class OrderVC: BaseViewController {
     
     var needChange = true
     
-    var selectedIndex = 0 {
+    var selectedIndex = 1 {
         didSet {
             if needChange {
                 if selectedIndex < 5 && selectedIndex >= 0 {
@@ -45,7 +45,7 @@ class OrderVC: BaseViewController {
         setupTableView()
         
         self.automaticallyAdjustsScrollViewInsets = false
-        
+        scrollView.delegate = self
     }
     
     
@@ -56,6 +56,7 @@ class OrderVC: BaseViewController {
         for title in titles {
             let btn = UIButton(type: .custom)
             btn.setTitle(title, for: .normal)
+            //239  47   53
             btn.setTitleColor(UIColor.hexStringToColor(hexString: "#ef2f35"), for: .selected)
             btn.setTitleColor(UIColor.black, for: .normal)
             arr.append(btn)
@@ -69,6 +70,9 @@ class OrderVC: BaseViewController {
         
         headerView.items = arr
         headerView.actions = { [unowned self] index in
+            if self.selectedIndex != index {
+                self.headerView.items[self.selectedIndex].setTitleColor(UIColor.black, for: .normal)
+            }
             self.selectedIndex = index
             UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
                 self.scrollView.contentOffset.x = CGFloat(index) * UIScreen.main.bounds.width
@@ -76,6 +80,8 @@ class OrderVC: BaseViewController {
                 
             })
         }
+        
+        headerView.selectedIndex = selectedIndex
     }
     
     func setupTableView() {
@@ -105,6 +111,21 @@ class OrderVC: BaseViewController {
                 })
             }
         }
+        
+        selectedIndex += 0
+        tableViewList[selectedIndex].beginHeaderRefresh()
+        loadedIndex = loadedIndex | (1 << selectedIndex)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    func loadData() {
+        if loadedIndex & (1 << selectedIndex) == 0 {
+            tableViewList[selectedIndex].beginHeaderRefresh()
+            loadedIndex = loadedIndex | (1 << selectedIndex)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -117,6 +138,39 @@ class OrderVC: BaseViewController {
             i += 1
         }
     }
+    
+    
+    //MARK: 代理
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView is UITableView {
+            return
+        }
+        let progress = scrollView.contentOffset.x / view.frame.width
+        headerView.selectedIndex = Int(progress + 0.1)
+        
+        let offset = progress - CGFloat(selectedIndex)
+        if offset != 0 {
+            let nextIndex = selectedIndex + (offset > 0 ? 1 : -1)
+            
+            let nextBtn = headerView.items[nextIndex]
+            let currentBtn = headerView.items[selectedIndex]
+            
+            //239  47   53
+            let persent = abs(offset)
+            nextBtn.setTitleColor(UIColor(red: 239.0 / 255.0 * persent, green: 47.0 / 255.0 * persent, blue: 53.0 / 255.0 * persent, alpha: 1), for: .normal)
+            currentBtn.setTitleColor(UIColor(red: 239.0 / 255.0 * (1 - persent), green: 47.0 / 255.0 * (1 - persent), blue: 53.0 / 255.0 * (1 - persent), alpha: 1), for: .normal)
+        }
+        
+        if self.selectedIndex != headerView.selectedIndex {
+            needChange = false
+            self.selectedIndex = headerView.selectedIndex
+        }
+        
+        let index = Int(scrollView.contentOffset.x / view.frame.width)
+        
+        loadData()
+    }
+    
 }
 
 

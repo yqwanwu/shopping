@@ -91,9 +91,9 @@ class PullToRefreshView: UIView, UIScrollViewDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.originalTop = self.scrollView.contentInset.top
-        self.originalBottom = self.scrollView.contentInset.bottom
-        self.isHidden = hideWhenComplete
+        
+        self.isHidden = hideWhenComplete && state != .refreshing
+        scrollView.addSubview(self)
     }
     
     ///add actions
@@ -134,6 +134,7 @@ class PullToRefreshView: UIView, UIScrollViewDelegate {
             return
         }
         self.state = .refreshing
+        
         UIView.animate(withDuration: 0.6, animations: {
             if self.type == .header {
                 self.scrollView.contentOffset.y = -(self.refreshHeight + self.originalTop)
@@ -212,6 +213,7 @@ class PullToRefreshDefaultHeader: PullToRefreshView {
         titleLabel.frame = CGRect(x: 0, y: 0, width: frame.width * (1 - ratio), height: 60)
         titleLabel.center = CGPoint(x: self.frame.width / 2, y: centerY)
         progressView.center = CGPoint(x: ratio * frame.width - progressViewWidth / 2, y: centerY)
+        activityIndicator.center = progressView.center
     }
     
     func animationForPulling() {

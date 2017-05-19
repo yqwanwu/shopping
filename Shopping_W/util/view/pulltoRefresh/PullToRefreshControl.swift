@@ -23,16 +23,18 @@ class PullToRefreshControl: NSObject {
     @discardableResult
     func addDefaultFooter(config: ((_ footer: PullToRefreshDefaultFooter) -> Void)? = nil) -> Self {
         let y = maxHeight() + scrollView.contentInset.bottom
-        footer = PullToRefreshDefaultFooter(frame: CGRect(x: 0, y: y, width: scrollView.frame.width, height: 50), scrollView: scrollView)
-        scrollView.insertSubview(footer!, at: 1)
+        footer = PullToRefreshDefaultFooter(frame: CGRect(x: 0, y: y, width: UIScreen.main.bounds.width, height: 50), scrollView: scrollView)
+        //scrollView.insertSubview(footer!, at: 1)
+        scrollView.addSubview(footer!)
         config?(footer as! PullToRefreshDefaultFooter)
         return self
     }
     
     @discardableResult
     func addDefaultHeader(config: ((_ header: PullToRefreshDefaultHeader) -> Void)? = nil) -> Self {
-        header = PullToRefreshDefaultHeader(frame: CGRect(x: 0, y: -60, width: scrollView.frame.width, height: 60), scrollView: scrollView)
-        scrollView.insertSubview(header!, at: 0)
+        header = PullToRefreshDefaultHeader(frame: CGRect(x: 0, y: -60, width: UIScreen.main.bounds.width, height: 60), scrollView: scrollView)
+        //scrollView.insertSubview(header!, at: 0)
+        scrollView.addSubview(header!)
         
         config?(header as! PullToRefreshDefaultHeader)
         return self
@@ -40,9 +42,10 @@ class PullToRefreshControl: NSObject {
     
     @discardableResult
     func addGifHeader(config: (_ header: PullToRefreshDefaultGifHeader) -> Void) -> Self {
-        let gifHeader = PullToRefreshDefaultGifHeader(frame: CGRect(x: 0, y: -80, width: scrollView.frame.width, height: 80), scrollView: scrollView)
+        let gifHeader = PullToRefreshDefaultGifHeader(frame: CGRect(x: 0, y: -80, width: UIScreen.main.bounds.width, height: 80), scrollView: scrollView)
         header = gifHeader
-        scrollView.insertSubview(header!, at: 0)
+        //scrollView.insertSubview(header!, at: 0)
+        scrollView.addSubview(header!)
         
         config(gifHeader)
         
@@ -54,10 +57,10 @@ class PullToRefreshControl: NSObject {
     @discardableResult
     func addGifFooter(config: (_ footer: PullToRefreshDefaultGifFooter) -> Void) -> Self {
         let y = maxHeight() + scrollView.contentInset.bottom
-        let gifFooter = PullToRefreshDefaultGifFooter(frame: CGRect(x: 0, y: y, width: scrollView.frame.width, height: 60), scrollView: scrollView)
+        let gifFooter = PullToRefreshDefaultGifFooter(frame: CGRect(x: 0, y: y, width: UIScreen.main.bounds.width, height: 60), scrollView: scrollView)
         footer = gifFooter
         footer?.margin = 0
-        scrollView.insertSubview(gifFooter, at: 0)
+        //scrollView.insertSubview(gifFooter, at: 0)
         
         config(gifFooter)
         
@@ -175,10 +178,11 @@ class PullToRefreshControl: NSObject {
             footer.frame.origin.y = y
         } else if keyPath == "bounds" {
             if let b = change?[.newKey] as? CGRect {
-                header?.bounds.size.width = b.size.width
+                header?.bounds.size.width = b.size.width == 0 ? UIScreen.main.bounds.width : b.width
                 header?.frame.origin.x = 0
                 footer?.bounds.size.width = b.width
                 footer?.frame.origin.x = 0
+                //scrollView.addSubview(header!)
             }
         }
         

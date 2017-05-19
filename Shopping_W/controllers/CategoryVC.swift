@@ -13,7 +13,7 @@ class CategoryVC: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("")
+        
         let c = CustomTableViewCellItem().build(heightForRow: 50).build(cellClass: CustomTableViewCell.self).build(text: "")
         
         tableView.dataArray = [[c, c]]
@@ -31,6 +31,8 @@ class CategoryVC: BaseViewController {
                 self.tableView.endFooterRefresh()
             })
         }
+        
+        tableView.beginHeaderRefresh()
     }
 
 
