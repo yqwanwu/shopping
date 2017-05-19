@@ -27,7 +27,7 @@ class OrderVC: BaseViewController, UITableViewDelegate {
     
     var needChange = true
     
-    var selectedIndex = 1 {
+    var selectedIndex = 0 {
         didSet {
             if needChange {
                 if selectedIndex < 5 && selectedIndex >= 0 {
@@ -70,10 +70,9 @@ class OrderVC: BaseViewController, UITableViewDelegate {
         
         headerView.items = arr
         headerView.actions = { [unowned self] index in
-            if self.selectedIndex != index {
-                self.headerView.items[self.selectedIndex].setTitleColor(UIColor.black, for: .normal)
-            }
+            self.title = self.titles[self.selectedIndex]
             self.selectedIndex = index
+            self.loadData(index: index)
             UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
                 self.scrollView.contentOffset.x = CGFloat(index) * UIScreen.main.bounds.width
             }, completion: { (finish) in
@@ -82,6 +81,7 @@ class OrderVC: BaseViewController, UITableViewDelegate {
         }
         
         headerView.selectedIndex = selectedIndex
+        self.title = self.titles[selectedIndex]
     }
     
     func setupTableView() {
@@ -121,10 +121,16 @@ class OrderVC: BaseViewController, UITableViewDelegate {
         super.viewDidAppear(animated)
     }
     
-    func loadData() {
-        if loadedIndex & (1 << selectedIndex) == 0 {
-            tableViewList[selectedIndex].beginHeaderRefresh()
-            loadedIndex = loadedIndex | (1 << selectedIndex)
+    func loadData(index: Int? = nil) {
+        let si = index ?? selectedIndex
+        if loadedIndex & (1 << si) == 0 {
+            tableViewList[si].beginHeaderRefresh()
+            loadedIndex = loadedIndex | (1 << si)
+        }
+        self.title = self.titles[si]
+        
+        for btn in headerView.items {
+            btn.setTitleColor(UIColor.black, for: .normal)
         }
     }
     
@@ -139,6 +145,13 @@ class OrderVC: BaseViewController, UITableViewDelegate {
         }
     }
     
+    func selectTablevie() {
+        let progress = scrollView.contentOffset.x / view.frame.width
+        headerView.selectedIndex = Int(progress + 0.1)
+        selectedIndex = headerView.selectedIndex
+        loadData()
+    }
+    
     
     //MARK: 代理
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -146,7 +159,6 @@ class OrderVC: BaseViewController, UITableViewDelegate {
             return
         }
         let progress = scrollView.contentOffset.x / view.frame.width
-        headerView.selectedIndex = Int(progress + 0.1)
         
         let offset = progress - CGFloat(selectedIndex)
         if offset != 0 {
@@ -165,12 +177,15 @@ class OrderVC: BaseViewController, UITableViewDelegate {
             needChange = false
             self.selectedIndex = headerView.selectedIndex
         }
-        
-        let index = Int(scrollView.contentOffset.x / view.frame.width)
-        
-        loadData()
     }
     
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        selectTablevie()
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        selectTablevie()
+    }
 }
 
 
