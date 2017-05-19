@@ -8,18 +8,25 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: BaseViewController {
+    @IBOutlet weak var titleBack: UIView!
+    @IBOutlet weak var searchBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        titleBack.bounds.size.width = self.view.frame.width - 40
+        searchBtn.layer.cornerRadius = 6
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func ac_address(_ sender: Any) {
+        self.navigationController?.pushViewController(SearchVC(), animated: false)
     }
-
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
+    //MARK: 代理
 
 }
 

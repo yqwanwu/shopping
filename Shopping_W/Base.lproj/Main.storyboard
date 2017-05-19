@@ -27,18 +27,84 @@
                                 <color key="backgroundColor" red="0.98431372549999996" green="0.7843137255" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="s9y-z3-QMf"/>
+                    <navigationItem key="navigationItem" id="s9y-z3-QMf">
+                        <nil key="title"/>
+                        <view key="titleView" contentMode="scaleToFill" id="KLk-bn-ebf">
+                            <rect key="frame" x="18" y="5.5" width="339" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="位置" translatesAutoresizingMaskIntoConstraints="NO" id="orO-vL-hKR">
+                                    <rect key="frame" x="0.0" y="7" width="15" height="19"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="15" id="Kbf-mt-YWi"/>
+                                        <constraint firstAttribute="height" constant="19" id="wlX-lI-spO"/>
+                                    </constraints>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMT-RV-u9J">
+                                    <rect key="frame" x="15" y="5" width="60" height="22"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="22" id="VH8-zf-xnJ"/>
+                                        <constraint firstAttribute="width" constant="60" id="m2K-6B-Wa7"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <inset key="titleEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="45" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="成都" image="下拉">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="ac_address:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Ne-YB-h8e"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tx1-z7-SqR">
+                                    <rect key="frame" x="80" y="1" width="259" height="30"/>
+                                    <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="IMr-AZ-p49"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" image="搜索"/>
+                                    <connections>
+                                        <segue destination="uX3-eQ-Ae4" kind="push" id="9DC-gR-IoA"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="UMT-RV-u9J" firstAttribute="leading" secondItem="orO-vL-hKR" secondAttribute="trailing" id="0eh-uw-N2R"/>
+                                <constraint firstItem="UMT-RV-u9J" firstAttribute="centerY" secondItem="KLk-bn-ebf" secondAttribute="centerY" id="3PM-u6-nem"/>
+                                <constraint firstAttribute="trailing" secondItem="Tx1-z7-SqR" secondAttribute="trailing" id="YPF-1c-wm1"/>
+                                <constraint firstItem="orO-vL-hKR" firstAttribute="leading" secondItem="KLk-bn-ebf" secondAttribute="leading" id="dd4-e3-5Zf"/>
+                                <constraint firstItem="Tx1-z7-SqR" firstAttribute="leading" secondItem="UMT-RV-u9J" secondAttribute="trailing" constant="5" id="ha7-Mi-dMC"/>
+                                <constraint firstItem="Tx1-z7-SqR" firstAttribute="centerY" secondItem="KLk-bn-ebf" secondAttribute="centerY" id="tyN-vm-ibE"/>
+                                <constraint firstItem="orO-vL-hKR" firstAttribute="centerY" secondItem="KLk-bn-ebf" secondAttribute="centerY" id="v7L-2H-fJr"/>
+                            </constraints>
+                        </view>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchBtn" destination="Tx1-z7-SqR" id="xxo-uH-LkS"/>
+                        <outlet property="titleBack" destination="KLk-bn-ebf" id="kGF-XQ-iaY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1021.6" y="-467.3163418290855"/>
         </scene>
+        <!--SearchVC-->
+        <scene sceneID="uoe-Ba-D3s">
+            <objects>
+                <viewControllerPlaceholder storyboardName="First" referencedIdentifier="SearchVC" id="uX3-eQ-Ae4" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="3FU-4Q-BSJ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IQ0-e0-Di5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1618" y="-600"/>
+        </scene>
         <!--首页-->
         <scene sceneID="3pO-08-B7z">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Pjf-9M-2K4" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Pjf-9M-2K4" customClass="BaseNavigationController" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="首页" image="首页1" selectedImage="首页2" id="fiJ-qO-e7M"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="q6e-R6-MPR">
@@ -75,7 +141,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="egN-gO-f6a" id="bnj-st-xs1">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -237,10 +303,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="下拉" width="12" height="7"/>
+        <image name="位置" width="15" height="19"/>
         <image name="分类1" width="24" height="24"/>
         <image name="分类2" width="24" height="24"/>
         <image name="我的1" width="24" height="24"/>
         <image name="我的2" width="24" height="24"/>
+        <image name="搜索" width="15" height="15"/>
         <image name="购物车1" width="24" height="24"/>
         <image name="购物车2" width="24" height="24"/>
         <image name="首页1" width="24" height="24"/>

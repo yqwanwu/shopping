@@ -195,7 +195,7 @@ class CustomTabBar: UITabBar {
         
         static var imgHeightRatio: CGFloat = 0.7
         static var selectedTitleColor: UIColor = UIColor.red
-        static var normalTitleColor: UIColor = UIColor.white
+        static var normalTitleColor: UIColor = UIColor.black
         static var defauleFontSize = 13
         
         override var frame: CGRect {

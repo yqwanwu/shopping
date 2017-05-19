@@ -11,7 +11,7 @@ import UIKit
 class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     var showBottomBar = false
     ///更改为 true 默认显示
-    var showCustomBackbtn = false
+    var showCustomBackbtn = true
     var showOriginalColor = true
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -41,10 +41,12 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         
         //设置返回键的文字
         //        let bar = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         self.navigationItem.hidesBackButton = showCustomBackbtn
         if let nav = navigationController, showCustomBackbtn {
             if nav.viewControllers.count > 1 && navigationItem.leftBarButtonItem == nil {
-                let bar = UIBarButtonItem(image: UIImage(named: "Combined Shape"/*"返回icon"*/), style: .plain, target: self, action: #selector(BaseViewController.ac_back))
+                let bar = UIBarButtonItem(image: UIImage(named: "返回icon"), style: .plain, target: self, action: #selector(BaseViewController.ac_back))
+                bar.title = "返回"
                 
                 self.navigationItem.leftBarButtonItem = bar
             }

@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--搜索-->
         <scene sceneID="KsR-Ve-g1f">
             <objects>
-                <viewController id="vus-ek-zpd" sceneMemberID="viewController">
+                <viewController restorationIdentifier="SearchVC" storyboardIdentifier="SearchVC" id="vus-ek-zpd" customClass="SearchVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bBY-JW-LCk"/>
                         <viewControllerLayoutGuide type="bottom" id="daB-dD-QXv"/>
@@ -22,10 +22,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="搜索" id="C6y-F4-yKo"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t7L-DW-fsz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="15" y="-188"/>
+            <point key="canvasLocation" x="952.79999999999995" y="-188.45577211394306"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="KCs-Ya-HQK">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XRf-RE-8sk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aNv-pz-8Xw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vus-ek-zpd" kind="relationship" relationship="rootViewController" id="kEd-RX-DWv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dtA-O3-T2V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="13.6" y="-188.45577211394306"/>
         </scene>
     </scenes>
 </document>

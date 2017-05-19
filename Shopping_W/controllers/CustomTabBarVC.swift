@@ -13,9 +13,7 @@ class CustomTabBarVC: BaseTabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CustomTabBar.CustomTabBarItem.selectedTitleColor = UIColor.red
-        CustomTabBar.CustomTabBarItem.normalTitleColor = UIColor.gray
-//        CustomTabBar.CustomTabBarItem.defauleFontSize = 15
-        
+        CustomTabBar.CustomTabBarItem.normalTitleColor = UIColor.black
     }
 
     

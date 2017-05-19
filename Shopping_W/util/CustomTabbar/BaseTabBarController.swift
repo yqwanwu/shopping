@@ -70,6 +70,7 @@ class BaseTabBarController: UITabBarController, CustomTabBarDelegate {
 
     var inited = false
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         if (!inited) {
             for v in self.tabBar.subviews {
                 if v.isKind(of: UIControl.self) {
