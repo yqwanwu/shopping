@@ -31,7 +31,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.black]
         
-        view.backgroundColor = UIColor.hexStringToColor(hexString: "f0f0f0")
+        view.backgroundColor = UIColor.hexStringToColor(hexString: "dedede")
         
         self.automaticallyAdjustsScrollViewInsets = false
         
@@ -46,7 +46,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         if let nav = navigationController, showCustomBackbtn {
             if nav.viewControllers.count > 1 && navigationItem.leftBarButtonItem == nil {
                 let bar = UIBarButtonItem(image: UIImage(named: "返回icon"), style: .plain, target: self, action: #selector(BaseViewController.ac_back))
-                bar.title = "返回"
+//                bar.title = "返回"
                 
                 self.navigationItem.leftBarButtonItem = bar
             }

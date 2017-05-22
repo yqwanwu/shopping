@@ -49,6 +49,10 @@
 		96902F311ECB334700B219D7 /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902F2A1ECB334700B219D7 /* CustomTabBar.swift */; };
 		96902F321ECB334700B219D7 /* 返回icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96902F2B1ECB334700B219D7 /* 返回icon@2x.png */; };
 		96902F351ECB37DA00B219D7 /* CustomTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902F341ECB37DA00B219D7 /* CustomTabBarVC.swift */; };
+		96A972611ED272CD0007C324 /* CarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A972601ED272CD0007C324 /* CarVC.swift */; };
+		96A9726B1ED275D30007C324 /* CarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A9726A1ED275D30007C324 /* CarTableViewCell.swift */; };
+		96A9726D1ED28A8D0007C324 /* CarSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A9726C1ED28A8D0007C324 /* CarSectionHeader.swift */; };
+		96A9726F1ED28AB20007C324 /* CarSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A9726E1ED28AB20007C324 /* CarSectionHeader.xib */; };
 		96DE99641ECB2D0E0011290E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE99631ECB2D0E0011290E /* AppDelegate.swift */; };
 		96DE99661ECB2D0E0011290E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE99651ECB2D0E0011290E /* ViewController.swift */; };
 		96DE99691ECB2D0E0011290E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96DE99671ECB2D0E0011290E /* Main.storyboard */; };
@@ -105,6 +109,10 @@
 		96902F2A1ECB334700B219D7 /* CustomTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		96902F2B1ECB334700B219D7 /* 返回icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "返回icon@2x.png"; sourceTree = "<group>"; };
 		96902F341ECB37DA00B219D7 /* CustomTabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarVC.swift; sourceTree = "<group>"; };
+		96A972601ED272CD0007C324 /* CarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarVC.swift; sourceTree = "<group>"; };
+		96A9726A1ED275D30007C324 /* CarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableViewCell.swift; sourceTree = "<group>"; };
+		96A9726C1ED28A8D0007C324 /* CarSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarSectionHeader.swift; sourceTree = "<group>"; };
+		96A9726E1ED28AB20007C324 /* CarSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarSectionHeader.xib; sourceTree = "<group>"; };
 		96DE99601ECB2D0E0011290E /* Shopping_W.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shopping_W.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96DE99631ECB2D0E0011290E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96DE99651ECB2D0E0011290E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
@@ -302,6 +310,73 @@
 			name = top;
 			sourceTree = "<group>";
 		};
+		96A9725F1ED272B40007C324 /* car */ = {
+			isa = PBXGroup;
+			children = (
+				96A972601ED272CD0007C324 /* CarVC.swift */,
+			);
+			name = car;
+			sourceTree = "<group>";
+		};
+		96A972621ED2741C0007C324 /* car */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = car;
+			sourceTree = "<group>";
+		};
+		96A972631ED274240007C324 /* first */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = first;
+			sourceTree = "<group>";
+		};
+		96A972641ED2742B0007C324 /* category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = category;
+			sourceTree = "<group>";
+		};
+		96A972651ED274340007C324 /* mine */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = mine;
+			sourceTree = "<group>";
+		};
+		96A972661ED2757D0007C324 /* first */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = first;
+			sourceTree = "<group>";
+		};
+		96A972671ED275870007C324 /* car */ = {
+			isa = PBXGroup;
+			children = (
+				96A9726A1ED275D30007C324 /* CarTableViewCell.swift */,
+				96A9726C1ED28A8D0007C324 /* CarSectionHeader.swift */,
+				96A9726E1ED28AB20007C324 /* CarSectionHeader.xib */,
+			);
+			name = car;
+			sourceTree = "<group>";
+		};
+		96A972681ED2759B0007C324 /* category */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = category;
+			sourceTree = "<group>";
+		};
+		96A972691ED275A40007C324 /* mine */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = mine;
+			sourceTree = "<group>";
+		};
 		96DE99571ECB2D0E0011290E = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +416,7 @@
 		96DE99751ECB2FA80011290E /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				96A9725F1ED272B40007C324 /* car */,
 				966361C61ECEDA5400BC2AFF /* first */,
 				965B9D7D1ECD912D002016C2 /* category */,
 				965B9D781ECC9353002016C2 /* mine */,
@@ -352,6 +428,10 @@
 		96DE99761ECB2FA80011290E /* models */ = {
 			isa = PBXGroup;
 			children = (
+				96A972651ED274340007C324 /* mine */,
+				96A972641ED2742B0007C324 /* category */,
+				96A972631ED274240007C324 /* first */,
+				96A972621ED2741C0007C324 /* car */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -359,6 +439,10 @@
 		96DE99771ECB2FA80011290E /* views */ = {
 			isa = PBXGroup;
 			children = (
+				96A972691ED275A40007C324 /* mine */,
+				96A972681ED2759B0007C324 /* category */,
+				96A972671ED275870007C324 /* car */,
+				96A972661ED2757D0007C324 /* first */,
 				968511221ECC1D900083244F /* common */,
 			);
 			path = views;
@@ -547,6 +631,7 @@
 				96DE99691ECB2D0E0011290E /* Main.storyboard in Resources */,
 				96902F321ECB334700B219D7 /* 返回icon@2x.png in Resources */,
 				965B9D711ECC89D6002016C2 /* First.storyboard in Resources */,
+				96A9726F1ED28AB20007C324 /* CarSectionHeader.xib in Resources */,
 				965B9D751ECC8B80002016C2 /* Mine.storyboard in Resources */,
 				965B9D771ECC8BA1002016C2 /* ShoppingCar.storyboard in Resources */,
 			);
@@ -625,9 +710,11 @@
 				96DE99921ECB2FC90011290E /* UIImage+QRCode.swift in Sources */,
 				96902F2D1ECB334700B219D7 /* BaseTabBarController.swift in Sources */,
 				96902F0B1ECB32B100B219D7 /* CountdownButton.swift in Sources */,
+				96A972611ED272CD0007C324 /* CarVC.swift in Sources */,
 				96DE99911ECB2FC90011290E /* String+QRCode.swift in Sources */,
 				96902F091ECB32B100B219D7 /* CheckTextFiled.swift in Sources */,
 				96902F111ECB32BF00B219D7 /* ProgressButton.swift in Sources */,
+				96A9726D1ED28A8D0007C324 /* CarSectionHeader.swift in Sources */,
 				965B9D7F1ECD9146002016C2 /* CategoryVC.swift in Sources */,
 				96DE99931ECB2FCA0011290E /* XMLDictionary.m in Sources */,
 				96902F131ECB32C800B219D7 /* CustomTableView.swift in Sources */,
@@ -648,6 +735,7 @@
 				96DE99641ECB2D0E0011290E /* AppDelegate.swift in Sources */,
 				96902F351ECB37DA00B219D7 /* CustomTabBarVC.swift in Sources */,
 				96DE99901ECB2FC90011290E /* NJKWebViewProgressView.m in Sources */,
+				96A9726B1ED275D30007C324 /* CarTableViewCell.swift in Sources */,
 				96902F301ECB334700B219D7 /* ContentScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

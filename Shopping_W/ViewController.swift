@@ -22,9 +22,17 @@ class ViewController: BaseViewController {
         self.navigationController?.pushViewController(SearchVC(), animated: false)
     }
     
+    //MARK: 重写
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        self.titleBack.isHidden = true
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.titleBack.isHidden = false
+    }
+    
     
     //MARK: 代理
 

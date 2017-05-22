@@ -11,6 +11,8 @@ import SnapKit
 
 ///购物车的计算按钮
 class CalculateBtn: UIView {
+    
+    let fontSize: CGFloat = 14.0
 
     lazy var subtractBtn: UIButton = {
         let btn = UIButton(type: .system)
@@ -18,7 +20,7 @@ class CalculateBtn: UIView {
         
         btn.setTitle("—", for: .normal)
         btn.setTitleColor(UIColor.hexStringToColor(hexString: "e5e5e5"), for: .disabled)
-        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
         btn.setTitleColor(UIColor.hexStringToColor(hexString: "4f4f4f"), for: .normal)
         btn.addTarget(self, action: #selector(CalculateBtn.btnClick(sender:)), for: .touchUpInside)
         btn.isEnabled = false
@@ -31,7 +33,7 @@ class CalculateBtn: UIView {
         
         btn.setTitle("＋", for: .normal)
         btn.setTitleColor(UIColor.hexStringToColor(hexString: "e5e5e5"), for: .disabled)
-        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: self.fontSize)
         btn.setTitleColor(UIColor.hexStringToColor(hexString: "4f4f4f"), for: .normal)
         btn.addTarget(self, action: #selector(CalculateBtn.btnClick(sender:)), for: .touchUpInside)
         return btn

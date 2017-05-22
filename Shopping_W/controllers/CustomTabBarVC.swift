@@ -16,5 +16,4 @@ class CustomTabBarVC: BaseTabBarController {
         CustomTabBar.CustomTabBarItem.normalTitleColor = UIColor.black
     }
 
-    
 }
