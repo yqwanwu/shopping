@@ -137,10 +137,10 @@ class CarouselCollectionView: UICollectionView, UICollectionViewDelegate, UIColl
         self.showsHorizontalScrollIndicator = false
         
         ///设置 页码
-        pageControl = UIPageControl(frame: CGRect(x: 0, y: self.frame.maxY - 40, width: self.frame.width, height: 20))
+        pageControl = UIPageControl(frame: CGRect(x: 0, y: self.frame.maxY - 25, width: self.frame.width, height: 20))
         pageControl.currentPage = 0
-        pageControl.currentPageIndicatorTintColor = UIColor.yellow
-        pageControl.pageIndicatorTintColor = UIColor.white
+        pageControl.currentPageIndicatorTintColor = UIColor.red
+        pageControl.pageIndicatorTintColor = UIColor.gray
         pageControl.hidesForSinglePage = true
         pageControl.isUserInteractionEnabled = false
         timer.fireDate = Date().addingTimeInterval(self.timing)
