@@ -56,6 +56,7 @@
                                     </state>
                                     <connections>
                                         <action selector="ac_address:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Ne-YB-h8e"/>
+                                        <segue destination="pcQ-R5-L3i" kind="push" id="6FE-bI-Osn"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tx1-z7-SqR">
@@ -90,6 +91,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1021.6" y="-467.3163418290855"/>
+        </scene>
+        <!--AddressVC-->
+        <scene sceneID="m0v-Yg-qP7">
+            <objects>
+                <viewControllerPlaceholder storyboardName="First" referencedIdentifier="AddressVC" id="pcQ-R5-L3i" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="tON-VG-UmU"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hEE-90-pQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1546" y="-716"/>
         </scene>
         <!--SearchVC-->
         <scene sceneID="uoe-Ba-D3s">
@@ -319,7 +330,7 @@
                                         <color key="textColor" red="0.93725490199999995" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oNn-2T-dqX">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oNn-2T-dqX">
                                         <rect key="frame" x="269" y="6" width="95" height="37"/>
                                         <color key="backgroundColor" red="0.93725490199999995" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
@@ -361,6 +372,7 @@
                     <connections>
                         <outlet property="allPriceLabel" destination="lnc-uy-pql" id="ZAI-Yw-JAj"/>
                         <outlet property="selectAllBtn" destination="Och-KR-QGF" id="1JG-Ic-dXP"/>
+                        <outlet property="submitBtn" destination="oNn-2T-dqX" id="LoU-2q-3oc"/>
                         <outlet property="tableVIew" destination="WOi-Un-gb9" id="LsW-gZ-EdW"/>
                     </connections>
                 </viewController>

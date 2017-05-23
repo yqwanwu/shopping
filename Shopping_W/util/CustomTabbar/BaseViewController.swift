@@ -31,7 +31,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         self.navigationController?.navigationBar.tintColor = UIColor.black
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.black]
         
-        view.backgroundColor = UIColor.hexStringToColor(hexString: "dedede")
+        view.backgroundColor = UIColor.hexStringToColor(hexString: "f0f0f0")
         
         self.automaticallyAdjustsScrollViewInsets = false
         
@@ -176,7 +176,7 @@ extension BaseViewController {
         return -1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    @objc(tableView:cellForRowAtIndexPath:) func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //占位的而已，没有实际作用
         return CustomTableViewCell.placeholderCell
     }

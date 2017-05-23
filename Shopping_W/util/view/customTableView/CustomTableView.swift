@@ -172,6 +172,10 @@ extension CustomTableView {
             }
         }
         
+        if dataArray.isEmpty {
+            return 44.0
+        }
+        
         let model: CustomTableViewCellItem = dataArray[indexPath.section][indexPath.row]
         return model.heightForRow
     }
@@ -198,6 +202,10 @@ extension CustomTableView {
             if let _ = od.tableView?(tableView, didSelectRowAt: indexPath) {
                 return
             }
+        }
+        
+        if dataArray.isEmpty {
+            return
         }
         
         let model: CustomTableViewCellItem = dataArray[indexPath.section][indexPath.row]

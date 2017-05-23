@@ -10,7 +10,7 @@ import UIKit
 
 class CarVC: UIViewController, UITableViewDelegate {
     @IBOutlet weak var tableVIew: RefreshTableView!
-
+    @IBOutlet weak var submitBtn: UIButton!
     @IBOutlet weak var allPriceLabel: UILabel!
     @IBOutlet weak var selectAllBtn: UIButton!
     
@@ -18,6 +18,8 @@ class CarVC: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
 
         setupTableView()
+        submitBtn.layer.cornerRadius = CustomValue.btnCornerRadius
+        submitBtn.layer.masksToBounds = true
     }
 
     func setupTableView() {

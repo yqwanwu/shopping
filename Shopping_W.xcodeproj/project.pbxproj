@@ -53,6 +53,9 @@
 		96A9726B1ED275D30007C324 /* CarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A9726A1ED275D30007C324 /* CarTableViewCell.swift */; };
 		96A9726D1ED28A8D0007C324 /* CarSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A9726C1ED28A8D0007C324 /* CarSectionHeader.swift */; };
 		96A9726F1ED28AB20007C324 /* CarSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96A9726E1ED28AB20007C324 /* CarSectionHeader.xib */; };
+		96A972711ED2B59B0007C324 /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A972701ED2B59B0007C324 /* WaterfallLayout.swift */; };
+		96A972731ED2BAF70007C324 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A972721ED2BAF70007C324 /* SearchCollectionViewCell.swift */; };
+		96A972751ED2C5EC0007C324 /* AddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A972741ED2C5EC0007C324 /* AddressVC.swift */; };
 		96DE99641ECB2D0E0011290E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE99631ECB2D0E0011290E /* AppDelegate.swift */; };
 		96DE99661ECB2D0E0011290E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE99651ECB2D0E0011290E /* ViewController.swift */; };
 		96DE99691ECB2D0E0011290E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96DE99671ECB2D0E0011290E /* Main.storyboard */; };
@@ -113,6 +116,9 @@
 		96A9726A1ED275D30007C324 /* CarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarTableViewCell.swift; sourceTree = "<group>"; };
 		96A9726C1ED28A8D0007C324 /* CarSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarSectionHeader.swift; sourceTree = "<group>"; };
 		96A9726E1ED28AB20007C324 /* CarSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarSectionHeader.xib; sourceTree = "<group>"; };
+		96A972701ED2B59B0007C324 /* WaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
+		96A972721ED2BAF70007C324 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
+		96A972741ED2C5EC0007C324 /* AddressVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressVC.swift; sourceTree = "<group>"; };
 		96DE99601ECB2D0E0011290E /* Shopping_W.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shopping_W.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96DE99631ECB2D0E0011290E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96DE99651ECB2D0E0011290E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +172,7 @@
 			children = (
 				96DE99651ECB2D0E0011290E /* ViewController.swift */,
 				966361C71ECEDA6A00BC2AFF /* SearchVC.swift */,
+				96A972741ED2C5EC0007C324 /* AddressVC.swift */,
 			);
 			name = first;
 			sourceTree = "<group>";
@@ -266,6 +273,7 @@
 		96902E301ECB323D00B219D7 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				96A972701ED2B59B0007C324 /* WaterfallLayout.swift */,
 				96902F0E1ECB32BF00B219D7 /* PlacehodelTextView.swift */,
 				96902F0F1ECB32BF00B219D7 /* ProgressButton.swift */,
 				96902EFC1ECB32B100B219D7 /* AnimationsProtocol.swift */,
@@ -349,6 +357,7 @@
 		96A972661ED2757D0007C324 /* first */ = {
 			isa = PBXGroup;
 			children = (
+				96A972721ED2BAF70007C324 /* SearchCollectionViewCell.swift */,
 			);
 			name = first;
 			sourceTree = "<group>";
@@ -696,6 +705,7 @@
 				96902F171ECB32DF00B219D7 /* CircleProgressView.swift in Sources */,
 				96902F181ECB32DF00B219D7 /* PullToRefreshControl.swift in Sources */,
 				96902F0A1ECB32B100B219D7 /* CommonProxy.swift in Sources */,
+				96A972731ED2BAF70007C324 /* SearchCollectionViewCell.swift in Sources */,
 				96902F2E1ECB334700B219D7 /* BaseViewController.swift in Sources */,
 				96902F201ECB330100B219D7 /* ObjC.m in Sources */,
 				966361C81ECEDA6A00BC2AFF /* SearchVC.swift in Sources */,
@@ -716,6 +726,7 @@
 				96902F111ECB32BF00B219D7 /* ProgressButton.swift in Sources */,
 				96A9726D1ED28A8D0007C324 /* CarSectionHeader.swift in Sources */,
 				965B9D7F1ECD9146002016C2 /* CategoryVC.swift in Sources */,
+				96A972751ED2C5EC0007C324 /* AddressVC.swift in Sources */,
 				96DE99931ECB2FCA0011290E /* XMLDictionary.m in Sources */,
 				96902F131ECB32C800B219D7 /* CustomTableView.swift in Sources */,
 				96902F241ECB333700B219D7 /* NetworkManager.swift in Sources */,
@@ -732,6 +743,7 @@
 				96902F081ECB32B100B219D7 /* CarouselCollectionView.swift in Sources */,
 				96902F2C1ECB334700B219D7 /* BaseNavigationController.swift in Sources */,
 				96902EF51ECB328200B219D7 /* Tools.swift in Sources */,
+				96A972711ED2B59B0007C324 /* WaterfallLayout.swift in Sources */,
 				96DE99641ECB2D0E0011290E /* AppDelegate.swift in Sources */,
 				96902F351ECB37DA00B219D7 /* CustomTabBarVC.swift in Sources */,
 				96DE99901ECB2FC90011290E /* NJKWebViewProgressView.m in Sources */,

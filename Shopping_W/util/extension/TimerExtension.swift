@@ -23,7 +23,7 @@ extension Timer {
         }
         
         deinit {
-            print("timer 清空")
+            debugPrint("timer 清空")
         }
     }
     
