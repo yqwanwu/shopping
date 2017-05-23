@@ -171,21 +171,5 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension BaseViewController {
-    //MARK: 默认实现的tableView 代理
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return -1
-    }
-    
-    @objc(tableView:cellForRowAtIndexPath:) func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //占位的而已，没有实际作用
-        return CustomTableViewCell.placeholderCell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.1
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.1
-    }
+
 }

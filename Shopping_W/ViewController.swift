@@ -8,25 +8,51 @@
 
 import UIKit
 
-class ViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate {
+    
+//    let GRIDCELLNAME = "FirstGridTableViewCell"
+//    let FLOWCELLNAME = "FirstFlowTableViewCell"
+    
     @IBOutlet weak var titleBack: UIView!
+    //广告视图
+    
     @IBOutlet weak var searchBtn: UIButton!
     @IBOutlet weak var carouselView: CarouselCollectionView!
     @IBOutlet weak var itemCollectionView: UICollectionView!
+    @IBOutlet weak var tableHeader: UIView!
+    @IBOutlet weak var adImgView: UIImageView!
+    
+    @IBOutlet weak var tableView: RefreshTableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         titleBack.bounds.size.width = self.view.frame.width - 40
         searchBtn.layer.cornerRadius = 6
         
         let top: CGFloat = CGFloat(200 - 70 * 2) / 3
         let left = (self.view.frame.width - 80.0 * 4) / 5
         itemCollectionView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
+        
+        let c1 = CustomTableViewCellItem().build(cellClass: FirstGridTableViewCell.self).build(heightForRow: 268)
+        let c2 = CustomTableViewCellItem().build(cellClass: FirstFlowTableViewCell.self).build(heightForRow: 210)
+        tableView.dataArray = [[c1, c2, c2, c1]]
+        
+        
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        tableView.tableHeaderView = tableHeader
+    }
+    
     @IBAction func ac_address(_ sender: Any) {
         
     }
+    
+    @IBAction func ac_adTap(_ sender: UITapGestureRecognizer) {
+    }
+    
     
     //MARK: 重写
     override func viewDidDisappear(_ animated: Bool) {
@@ -41,6 +67,8 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
     
     
     //MARK: 代理
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == carouselView {
             return 3
