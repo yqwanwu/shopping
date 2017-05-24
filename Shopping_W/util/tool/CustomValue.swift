@@ -13,6 +13,9 @@ struct CustomValue {
     static let referenceScreenW: CGFloat = 375.0
     static let btnCornerRadius: CGFloat = 6
     static let lineSpace: CGFloat = 15
+    
+    static let common_red = UIColor.hexStringToColor(hexString: "f04649")
+    
     static let widthRatio: CGFloat = {
         return UIScreen.main.bounds.width / CustomValue.referenceScreenW
     }()

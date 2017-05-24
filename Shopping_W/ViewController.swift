@@ -9,13 +9,7 @@
 import UIKit
 
 class ViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate {
-    
-//    let GRIDCELLNAME = "FirstGridTableViewCell"
-//    let FLOWCELLNAME = "FirstFlowTableViewCell"
-    
     @IBOutlet weak var titleBack: UIView!
-    //广告视图
-    
     @IBOutlet weak var searchBtn: UIButton!
     @IBOutlet weak var carouselView: CarouselCollectionView!
     @IBOutlet weak var itemCollectionView: UICollectionView!
@@ -40,11 +34,6 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
         
         
     }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-//        tableView.tableHeaderView = tableHeader
-    }
     
     @IBAction func ac_address(_ sender: Any) {
         
@@ -65,6 +54,11 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
         self.titleBack.isHidden = false
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableHeader.frame.size.height = adImgView.frame.maxY
+        tableView.tableHeaderView = tableHeader
+    }
     
     //MARK: 代理
     

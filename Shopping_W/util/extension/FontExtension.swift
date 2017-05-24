@@ -15,6 +15,14 @@ extension UIFont {
     }
 }
 
+extension NSObject {
+    class func getNameString() -> String {
+        let name = NSStringFromClass(self)
+        let ps = (name as NSString).pathExtension
+        return ps == "" ? name : ps
+    }
+}
+
 extension URL {
     static func encodeUrl(string: String) -> URL? {
         if let s = string.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) {

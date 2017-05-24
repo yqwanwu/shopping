@@ -22,6 +22,8 @@
 		96610A471ED4178700C117D6 /* FirstFlowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96610A451ED4178700C117D6 /* FirstFlowTableViewCell.xib */; };
 		96610A4A1ED4179900C117D6 /* FirstGridTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96610A481ED4179900C117D6 /* FirstGridTableViewCell.swift */; };
 		96610A4B1ED4179900C117D6 /* FirstGridTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96610A491ED4179900C117D6 /* FirstGridTableViewCell.xib */; };
+		96610A4D1ED4306800C117D6 /* CategoryLeftTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96610A4C1ED4306800C117D6 /* CategoryLeftTableViewCell.swift */; };
+		96610A4F1ED51F1500C117D6 /* CategoryGoodsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96610A4E1ED51F1500C117D6 /* CategoryGoodsCollectionViewCell.swift */; };
 		966361C81ECEDA6A00BC2AFF /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966361C71ECEDA6A00BC2AFF /* SearchVC.swift */; };
 		968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968511231ECC1DF80083244F /* CalculateBtn.swift */; };
 		96902EF41ECB328200B219D7 /* CustomValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF21ECB328200B219D7 /* CustomValue.swift */; };
@@ -91,6 +93,8 @@
 		96610A451ED4178700C117D6 /* FirstFlowTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstFlowTableViewCell.xib; sourceTree = "<group>"; };
 		96610A481ED4179900C117D6 /* FirstGridTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstGridTableViewCell.swift; sourceTree = "<group>"; };
 		96610A491ED4179900C117D6 /* FirstGridTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstGridTableViewCell.xib; sourceTree = "<group>"; };
+		96610A4C1ED4306800C117D6 /* CategoryLeftTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryLeftTableViewCell.swift; sourceTree = "<group>"; };
+		96610A4E1ED51F1500C117D6 /* CategoryGoodsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryGoodsCollectionViewCell.swift; sourceTree = "<group>"; };
 		966361C71ECEDA6A00BC2AFF /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		968511231ECC1DF80083244F /* CalculateBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateBtn.swift; sourceTree = "<group>"; };
 		96902EF21ECB328200B219D7 /* CustomValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomValue.swift; sourceTree = "<group>"; };
@@ -396,6 +400,8 @@
 		96A972681ED2759B0007C324 /* category */ = {
 			isa = PBXGroup;
 			children = (
+				96610A4C1ED4306800C117D6 /* CategoryLeftTableViewCell.swift */,
+				96610A4E1ED51F1500C117D6 /* CategoryGoodsCollectionViewCell.swift */,
 			);
 			name = category;
 			sourceTree = "<group>";
@@ -740,6 +746,7 @@
 				965B9D7C1ECD7861002016C2 /* RefreshTableView.swift in Sources */,
 				96610A3B1ED3C75D00C117D6 /* CarouselCollectionViewCell.swift in Sources */,
 				96902F0C1ECB32B100B219D7 /* CustomButton.swift in Sources */,
+				96610A4F1ED51F1500C117D6 /* CategoryGoodsCollectionViewCell.swift in Sources */,
 				96902F051ECB32B100B219D7 /* AnimationsProtocol.swift in Sources */,
 				96DE99921ECB2FC90011290E /* UIImage+QRCode.swift in Sources */,
 				96902F2D1ECB334700B219D7 /* BaseTabBarController.swift in Sources */,
@@ -768,6 +775,7 @@
 				96902F081ECB32B100B219D7 /* CarouselCollectionView.swift in Sources */,
 				96902F2C1ECB334700B219D7 /* BaseNavigationController.swift in Sources */,
 				96610A3F1ED3D13900C117D6 /* FirstItem.swift in Sources */,
+				96610A4D1ED4306800C117D6 /* CategoryLeftTableViewCell.swift in Sources */,
 				96902EF51ECB328200B219D7 /* Tools.swift in Sources */,
 				96A972711ED2B59B0007C324 /* WaterfallLayout.swift in Sources */,
 				96DE99641ECB2D0E0011290E /* AppDelegate.swift in Sources */,

@@ -40,7 +40,7 @@ class AddressVC: BaseViewController, UITableViewDelegate, UITableViewDataSource 
     func createTopHot() {
         for t in hotCitys {
             let btn = UIButton(type: .system)
-            btn.backgroundColor = UIColor.hexStringToColor(hexString: "f04649")
+            btn.backgroundColor = CustomValue.common_red
             btn.layer.cornerRadius = CustomValue.btnCornerRadius
             btn.layer.masksToBounds = true
             btn.setTitleColor(UIColor.white, for: .normal)
