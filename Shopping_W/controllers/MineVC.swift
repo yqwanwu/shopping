@@ -34,19 +34,31 @@ class MineVC: BaseViewController {
         setupUI()
         
         //懒得创建新的类，text代表图片名称，detailText代表name
-        let c = CustomTableViewCellItem().build(text: "收藏").build(detailText: "我的收藏")
-        let c1 = CustomTableViewCellItem().build(text: "消费详情").build(detailText: "消费详情")
-        let c2 = CustomTableViewCellItem().build(text: "我的评价").build(detailText: "我的评价")
-        let c3 = CustomTableViewCellItem().build(text: "收货地址").build(detailText: "收货地址")
-        let c4 = CustomTableViewCellItem().build(text: "积分").build(detailText: "积分详情")
-        let c5 = CustomTableViewCellItem().build(text: "浏览记录").build(detailText: "浏览记录")
+        let c = CustomTableViewCellItem().build(imageUrl: "收藏").build(detailText: "我的收藏")
+        let c1 = CustomTableViewCellItem().build(imageUrl: "消费详情").build(detailText: "消费详情")
+        let c2 = CustomTableViewCellItem().build(imageUrl: "我的评价").build(detailText: "我的评价")
+        let c3 = CustomTableViewCellItem().build(imageUrl: "收货地址").build(detailText: "收货地址")
+        let c4 = CustomTableViewCellItem().build(imageUrl: "积分").build(detailText: "积分详情")
+        let c5 = CustomTableViewCellItem().build(imageUrl: "浏览记录").build(detailText: "浏览记录")
+        
+        let datas = [c, c1, c2, c3, c4, c5].map { (model) -> CustomTableViewCellItem in
+            model.setupCellAction({ (idx) in
+                print("我点击了\(idx)")
+            })
+            return model
+        }
+        
+        let height = (self.view.frame.width - 2) / 3 * 0.683 * 2 + 1
+        let cellData = CustomTableViewCellItem().build(heightForRow: height).build(cellClass: MineTableViewCell.self).build(isFromStoryBord: true).build(customValue: ["datas":datas])
+        tableView.dataArray = [[cellData]]
+        tableView.sectionHeaderHeight = 10
     }
     
     ///构建4大收货按钮
     func setupUI() {
         let btnW = UIScreen.main.bounds.width / 4
         let imgs = [#imageLiteral(resourceName: "带付款"), #imageLiteral(resourceName: "待收货"), #imageLiteral(resourceName: "待评价"), #imageLiteral(resourceName: "退货")]
-        let titles = ["代付款", "待收货", "待评价", "退货"]
+        let titles = ["待付款", "待收货", "待评价", "退货"]
         for i in 0..<4 {
             let btn = UIButton(type: .system)
             btn.frame = CGRect(x: btnW * CGFloat(i), y: 0, width: btnW, height: 0)
