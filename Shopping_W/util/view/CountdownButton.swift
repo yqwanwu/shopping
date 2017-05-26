@@ -36,8 +36,8 @@ class CountdownButton: UIButton {
             if !oldValue && isSelected {
                 unowned let weakSelf = self
                 weakSelf.counnt = 60
-                self.frame.size.width = 132
-                self.frame.origin.x = ox - 32
+//                self.frame.size.width = 112
+//                self.frame.origin.x = ox - 32
                 weakSelf.setTitle("\(weakSelf.counnt)秒后重新获取", for: .selected)
                 timer = Timer.scheduledTimer(1, action: { (sender) in
                     Tools.refreshInMainQueue({
@@ -54,8 +54,8 @@ class CountdownButton: UIButton {
                     })
                     }, userInfo: nil, repeats: true)
             } else {
-                self.frame.size.width = 100
-                self.frame.origin.x = ox
+//                self.frame.size.width = 100
+//                self.frame.origin.x = ox
             }
         }
     }

@@ -91,7 +91,10 @@ class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
     func setup() {
         self.dataSource = self
         self.delegate = self
-        self.tableFooterView = UIView()
+        if self.tableFooterView == nil {
+            self.tableFooterView = UIView()
+        }
+        
         self.sectionHeaderHeight = 0.1
         self.sectionFooterHeight = 0.1
     }
@@ -229,12 +232,19 @@ class CustomTableViewCellItem: NSObject {
     ///默认是从xib加载，storybord中设计的cell，就只需要注册class，不用注册nib。
     var isFromStoryBord = false
     
+    var customValue: [String:Any]?
+    
     func setupCellAction(_ cellAction: @escaping cellSelectedAction) {
         self.cellAction = cellAction
     }
     
     override init() {
         super.init()
+    }
+    
+    func build(customValue _customValue: [String:Any]) -> Self {
+        self.customValue = _customValue
+        return self
     }
     
     func build(isFromStoryBord _isFromStoryBord: Bool) -> Self {
