@@ -10,6 +10,7 @@ import UIKit
 
 class MineVC: BaseViewController {
     let k_toReceiving = "toReceiving"
+    let k_toAddress = "toAddress"
     
     @IBOutlet weak var tableView: RefreshTableView!
     @IBOutlet weak var headImg: UIImageView!
@@ -33,6 +34,10 @@ class MineVC: BaseViewController {
         
         setupUI()
         
+        setupTableView()
+    }
+    
+    func setupTableView() {
         //懒得创建新的类，text代表图片名称，detailText代表name
         let c = CustomTableViewCellItem().build(imageUrl: "收藏").build(detailText: "我的收藏")
         let c1 = CustomTableViewCellItem().build(imageUrl: "消费详情").build(detailText: "消费详情")
@@ -41,12 +46,14 @@ class MineVC: BaseViewController {
         let c4 = CustomTableViewCellItem().build(imageUrl: "积分").build(detailText: "积分详情")
         let c5 = CustomTableViewCellItem().build(imageUrl: "浏览记录").build(detailText: "浏览记录")
         
-        let datas = [c, c1, c2, c3, c4, c5].map { (model) -> CustomTableViewCellItem in
-            model.setupCellAction({ (idx) in
-                print("我点击了\(idx)")
-            })
-            return model
+        
+        c3.setupCellAction { [unowned self] (idx) in
+            self.performSegue(withIdentifier: self.k_toAddress, sender: self)
         }
+        
+        
+        
+        let datas = [c, c1, c2, c3, c4, c5]
         
         let height = (self.view.frame.width - 2) / 3 * 0.683 * 2 + 1
         let cellData = CustomTableViewCellItem().build(heightForRow: height).build(cellClass: MineTableViewCell.self).build(isFromStoryBord: true).build(customValue: ["datas":datas])

@@ -146,15 +146,15 @@ extension CustomTableView {
         
         let data = dataArray[indexPath.section][indexPath.row]
         let identifier = (NSStringFromClass(data.cellClass) as NSString).pathExtension
-        if let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as? CustomTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        if let cell = cell as? CustomTableViewCell {
             cell.tableView = tableView
             cell.indexPath = indexPath as NSIndexPath
             cell.model = data
             cell.accessoryType = data.accessoryType
-            return cell
         }
         
-        return CustomTableViewCell.placeholderCell
+        return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

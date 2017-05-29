@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CarTableViewCell: UITableViewCell {
+class CarTableViewCell: CustomTableViewCell {
     @IBOutlet weak var chooseBtn: UIButton!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var countBtn: CalculateBtn!

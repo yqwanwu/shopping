@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CarSectionHeader: UIView {
+class CarSectionHeader: UITableViewHeaderFooterView {
 
     @IBOutlet weak var selectBtn: UIButton!
     @IBOutlet weak var lineView: UIView!

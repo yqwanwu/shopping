@@ -14,7 +14,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     @IBOutlet weak var tableView: CustomTableView!
     @IBOutlet weak var collectionView: UICollectionView!
     var currentTableCell: UITableViewCell?
-    let cellWidth: CGFloat = 95
+    let cellWidth: CGFloat = 80
     
     static let bkColor = UIColor.hexStringToColor(hexString: "f9f9f9")
     
@@ -44,7 +44,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let l = (self.collectionView.frame.width - cellWidth * 3) / 4
+        let l = (self.collectionView.frame.width - cellWidth * 3) / 4 - 1
         self.collectionView.contentInset = UIEdgeInsets(top: 10, left: l, bottom: 10, right: l)
     }
 
@@ -76,7 +76,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return (self.collectionView.frame.width - cellWidth * 3) / 4
+        return (self.collectionView.frame.width - cellWidth * 3) / 6
     }
     
 }

@@ -27,8 +27,12 @@ class CarVC: UIViewController, UITableViewDelegate {
             .build(cellClass: CarTableViewCell.self)
             .build(isFromStoryBord: true)
             .build(heightForRow: 137)
-        tableVIew.dataArray = [[c, c, c], [c, c]]
         tableVIew.delegate = self
+        
+        tableVIew.dataArray = [[c, c, c], [c, c]]
+        
+        let nib = UINib(nibName: "CarSectionHeader", bundle: Bundle.main)
+        tableVIew.register(nib, forHeaderFooterViewReuseIdentifier: "CarSectionHeader")
     }
     
     
@@ -42,14 +46,26 @@ class CarVC: UIViewController, UITableViewDelegate {
     
     //MARK: 代理
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let nib = UINib(nibName: "CarSectionHeader", bundle: Bundle.main)
-        let header = nib.instantiate(withOwner: nil, options: nil).first as! CarSectionHeader
-        
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CarSectionHeader") as! CarSectionHeader
         return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 48
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let a = UITableViewRowAction(style: .default, title: "删除") { (action, idx) in
+            self.tableVIew.dataArray[indexPath.section].remove(at: indexPath.row)
+            if self.tableVIew.dataArray[indexPath.section].isEmpty {
+                self.tableVIew.dataArray.remove(at: indexPath.section)
+                tableView.deleteSections(IndexSet(integer: indexPath.section), with: .left)
+            } else {
+                self.tableVIew.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
+            }
+        }
+        return [a]
+    }
+
     
 }

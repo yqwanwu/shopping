@@ -38,6 +38,10 @@
 		96610A771ED6B2EB00C117D6 /* PwdQuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96610A761ED6B2EB00C117D6 /* PwdQuestionTableViewCell.swift */; };
 		96610A791ED7FA1500C117D6 /* MineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96610A781ED7FA1500C117D6 /* MineVC.swift */; };
 		96610A7B1ED814CF00C117D6 /* MineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96610A7A1ED814CF00C117D6 /* MineTableViewCell.swift */; };
+		96610A7D1ED95EF900C117D6 /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96610A7C1ED95EF900C117D6 /* AddressTableViewCell.swift */; };
+		96610A7F1ED95FEC00C117D6 /* ReviceAddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96610A7E1ED95FEC00C117D6 /* ReviceAddressVC.swift */; };
+		96610A811ED961BC00C117D6 /* CornerBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96610A801ED961BC00C117D6 /* CornerBtn.swift */; };
+		96610A831ED9752900C117D6 /* AddressUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96610A821ED9752900C117D6 /* AddressUpdateVC.swift */; };
 		966361C81ECEDA6A00BC2AFF /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966361C71ECEDA6A00BC2AFF /* SearchVC.swift */; };
 		968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968511231ECC1DF80083244F /* CalculateBtn.swift */; };
 		96902EF41ECB328200B219D7 /* CustomValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF21ECB328200B219D7 /* CustomValue.swift */; };
@@ -123,6 +127,10 @@
 		96610A761ED6B2EB00C117D6 /* PwdQuestionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PwdQuestionTableViewCell.swift; sourceTree = "<group>"; };
 		96610A781ED7FA1500C117D6 /* MineVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineVC.swift; sourceTree = "<group>"; };
 		96610A7A1ED814CF00C117D6 /* MineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MineTableViewCell.swift; path = ../models/MineTableViewCell.swift; sourceTree = "<group>"; };
+		96610A7C1ED95EF900C117D6 /* AddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
+		96610A7E1ED95FEC00C117D6 /* ReviceAddressVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviceAddressVC.swift; sourceTree = "<group>"; };
+		96610A801ED961BC00C117D6 /* CornerBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerBtn.swift; sourceTree = "<group>"; };
+		96610A821ED9752900C117D6 /* AddressUpdateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressUpdateVC.swift; sourceTree = "<group>"; };
 		966361C71ECEDA6A00BC2AFF /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		968511231ECC1DF80083244F /* CalculateBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateBtn.swift; sourceTree = "<group>"; };
 		96902EF21ECB328200B219D7 /* CustomValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomValue.swift; sourceTree = "<group>"; };
@@ -202,6 +210,8 @@
 			children = (
 				965B9D791ECC93F1002016C2 /* OrderVC.swift */,
 				96610A781ED7FA1500C117D6 /* MineVC.swift */,
+				96610A7E1ED95FEC00C117D6 /* ReviceAddressVC.swift */,
+				96610A821ED9752900C117D6 /* AddressUpdateVC.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -272,6 +282,7 @@
 			children = (
 				968511231ECC1DF80083244F /* CalculateBtn.swift */,
 				965B9D7B1ECD7861002016C2 /* RefreshTableView.swift */,
+				96610A801ED961BC00C117D6 /* CornerBtn.swift */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -472,6 +483,7 @@
 			isa = PBXGroup;
 			children = (
 				96610A7A1ED814CF00C117D6 /* MineTableViewCell.swift */,
+				96610A7C1ED95EF900C117D6 /* AddressTableViewCell.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -800,6 +812,7 @@
 				96610A5E1ED566C500C117D6 /* PersonMdel.swift in Sources */,
 				96610A691ED667F100C117D6 /* RegisterVC.swift in Sources */,
 				96902F101ECB32BF00B219D7 /* PlacehodelTextView.swift in Sources */,
+				96610A7D1ED95EF900C117D6 /* AddressTableViewCell.swift in Sources */,
 				96902F171ECB32DF00B219D7 /* CircleProgressView.swift in Sources */,
 				96902F181ECB32DF00B219D7 /* PullToRefreshControl.swift in Sources */,
 				96902F0A1ECB32B100B219D7 /* CommonProxy.swift in Sources */,
@@ -822,6 +835,8 @@
 				96DE99921ECB2FC90011290E /* UIImage+QRCode.swift in Sources */,
 				96610A6D1ED67AB400C117D6 /* ForgetPwdVC.swift in Sources */,
 				96902F2D1ECB334700B219D7 /* BaseTabBarController.swift in Sources */,
+				96610A831ED9752900C117D6 /* AddressUpdateVC.swift in Sources */,
+				96610A811ED961BC00C117D6 /* CornerBtn.swift in Sources */,
 				96902F0B1ECB32B100B219D7 /* CountdownButton.swift in Sources */,
 				96A972611ED272CD0007C324 /* CarVC.swift in Sources */,
 				96DE99911ECB2FC90011290E /* String+QRCode.swift in Sources */,
@@ -843,6 +858,7 @@
 				96902EF41ECB328200B219D7 /* CustomValue.swift in Sources */,
 				96902F311ECB334700B219D7 /* CustomTabBar.swift in Sources */,
 				96610A631ED5696400C117D6 /* LoginVC.swift in Sources */,
+				96610A7F1ED95FEC00C117D6 /* ReviceAddressVC.swift in Sources */,
 				965B9D7A1ECC93F1002016C2 /* OrderVC.swift in Sources */,
 				96902F1C1ECB32F200B219D7 /* ShadowView.swift in Sources */,
 				968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */,
