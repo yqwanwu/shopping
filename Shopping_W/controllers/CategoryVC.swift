@@ -44,7 +44,10 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let l = (self.collectionView.frame.width - cellWidth * 3) / 4 - 1
+        var l = (self.collectionView.frame.width - cellWidth * 3) / 4 - 1
+        if l < 0 {
+            l = (self.collectionView.frame.width - cellWidth * 2) / 3 - 1
+        }
         self.collectionView.contentInset = UIEdgeInsets(top: 10, left: l, bottom: 10, right: l)
     }
 

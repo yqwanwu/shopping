@@ -109,6 +109,10 @@ class MineVC: BaseViewController {
         
     }
     
+    @IBAction func ac_toSettings(_ sender: UIButton) {
+        self.navigationController?.pushViewController(SettingsVC(), animated: true)
+    }
+    
     //MARK: 重写
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

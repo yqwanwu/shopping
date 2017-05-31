@@ -10,7 +10,7 @@ import UIKit
 
 class ReviceAddressVC: BaseViewController {
     @IBOutlet weak var tableView: CustomTableView!
-
+    let addVC = Tools.getClassFromStorybord(sbName: .mine, clazz: AddressUpdateVC.self)
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,10 +28,13 @@ class ReviceAddressVC: BaseViewController {
         tableView.estimatedRowHeight = 157
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.dataArray = [[c, c, c]]
+        
+        
+        self.addChildViewController(addVC)
     }
 
     func ac_add() {
-        print("aaaa")
+        view.addSubview(addVC.view)
     }
 
 }
