@@ -11,6 +11,7 @@ import UIKit
 class MineVC: BaseViewController {
     let k_toReceiving = "toReceiving"
     let k_toAddress = "toAddress"
+    let k_toIntegral = "toIntegral"
     
     @IBOutlet weak var tableView: RefreshTableView!
     @IBOutlet weak var headImg: UIImageView!
@@ -140,6 +141,16 @@ class MineVC: BaseViewController {
         super.viewWillDisappear(animated)
         
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == k_toIntegral {
+            if let vc = segue.destination as? BalanceVC {
+                vc.type = .integral
+            }
+        }
     }
 
 }

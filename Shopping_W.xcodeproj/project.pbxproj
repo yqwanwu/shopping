@@ -53,6 +53,8 @@
 		967187D51EDEB71800DDD61B /* GoodsCommonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 967187D31EDEB71800DDD61B /* GoodsCommonTableViewCell.xib */; };
 		967187D71EDFA5CC00DDD61B /* GoodsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187D61EDFA5CC00DDD61B /* GoodsListVC.swift */; };
 		967187D91EDFE99500DDD61B /* SecKillVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187D81EDFE99500DDD61B /* SecKillVC.swift */; };
+		967187DB1EDFFB3300DDD61B /* BalanceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187DA1EDFFB3300DDD61B /* BalanceVC.swift */; };
+		967187DD1EE0000B00DDD61B /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187DC1EE0000B00DDD61B /* BalanceTableViewCell.swift */; };
 		968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968511231ECC1DF80083244F /* CalculateBtn.swift */; };
 		96902EF41ECB328200B219D7 /* CustomValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF21ECB328200B219D7 /* CustomValue.swift */; };
 		96902EF51ECB328200B219D7 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF31ECB328200B219D7 /* Tools.swift */; };
@@ -152,6 +154,8 @@
 		967187D31EDEB71800DDD61B /* GoodsCommonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsCommonTableViewCell.xib; sourceTree = "<group>"; };
 		967187D61EDFA5CC00DDD61B /* GoodsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsListVC.swift; sourceTree = "<group>"; };
 		967187D81EDFE99500DDD61B /* SecKillVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecKillVC.swift; sourceTree = "<group>"; };
+		967187DA1EDFFB3300DDD61B /* BalanceVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceVC.swift; sourceTree = "<group>"; };
+		967187DC1EE0000B00DDD61B /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
 		968511231ECC1DF80083244F /* CalculateBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateBtn.swift; sourceTree = "<group>"; };
 		96902EF21ECB328200B219D7 /* CustomValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomValue.swift; sourceTree = "<group>"; };
 		96902EF31ECB328200B219D7 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 				96610A821ED9752900C117D6 /* AddressUpdateVC.swift */,
 				967187C81EDEA29700DDD61B /* SettingsVC.swift */,
 				967187D01EDEA92000DDD61B /* CustomerServicesVC.swift */,
+				967187DA1EDFFB3300DDD61B /* BalanceVC.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -522,6 +527,7 @@
 			children = (
 				96610A7A1ED814CF00C117D6 /* MineTableViewCell.swift */,
 				96610A7C1ED95EF900C117D6 /* AddressTableViewCell.swift */,
+				967187DC1EE0000B00DDD61B /* BalanceTableViewCell.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -876,6 +882,7 @@
 				96902F051ECB32B100B219D7 /* AnimationsProtocol.swift in Sources */,
 				96DE99921ECB2FC90011290E /* UIImage+QRCode.swift in Sources */,
 				96610A6D1ED67AB400C117D6 /* ForgetPwdVC.swift in Sources */,
+				967187DD1EE0000B00DDD61B /* BalanceTableViewCell.swift in Sources */,
 				96902F2D1ECB334700B219D7 /* BaseTabBarController.swift in Sources */,
 				96610A831ED9752900C117D6 /* AddressUpdateVC.swift in Sources */,
 				96610A811ED961BC00C117D6 /* CornerBtn.swift in Sources */,
@@ -907,6 +914,7 @@
 				965B9D7A1ECC93F1002016C2 /* OrderVC.swift in Sources */,
 				96902F1C1ECB32F200B219D7 /* ShadowView.swift in Sources */,
 				968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */,
+				967187DB1EDFFB3300DDD61B /* BalanceVC.swift in Sources */,
 				96902F1D1ECB32F200B219D7 /* TabView.swift in Sources */,
 				967187CE1EDEA51800DDD61B /* NormalTableViewCell.swift in Sources */,
 				96902F061ECB32B100B219D7 /* BadgeView.swift in Sources */,
