@@ -49,6 +49,10 @@
 		967187CE1EDEA51800DDD61B /* NormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187CC1EDEA51800DDD61B /* NormalTableViewCell.swift */; };
 		967187CF1EDEA51800DDD61B /* NormalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 967187CD1EDEA51800DDD61B /* NormalTableViewCell.xib */; };
 		967187D11EDEA92000DDD61B /* CustomerServicesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187D01EDEA92000DDD61B /* CustomerServicesVC.swift */; };
+		967187D41EDEB71800DDD61B /* GoodsCommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187D21EDEB71800DDD61B /* GoodsCommonTableViewCell.swift */; };
+		967187D51EDEB71800DDD61B /* GoodsCommonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 967187D31EDEB71800DDD61B /* GoodsCommonTableViewCell.xib */; };
+		967187D71EDFA5CC00DDD61B /* GoodsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187D61EDFA5CC00DDD61B /* GoodsListVC.swift */; };
+		967187D91EDFE99500DDD61B /* SecKillVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187D81EDFE99500DDD61B /* SecKillVC.swift */; };
 		968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968511231ECC1DF80083244F /* CalculateBtn.swift */; };
 		96902EF41ECB328200B219D7 /* CustomValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF21ECB328200B219D7 /* CustomValue.swift */; };
 		96902EF51ECB328200B219D7 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF31ECB328200B219D7 /* Tools.swift */; };
@@ -144,6 +148,10 @@
 		967187CC1EDEA51800DDD61B /* NormalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NormalTableViewCell.swift; sourceTree = "<group>"; };
 		967187CD1EDEA51800DDD61B /* NormalTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NormalTableViewCell.xib; sourceTree = "<group>"; };
 		967187D01EDEA92000DDD61B /* CustomerServicesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerServicesVC.swift; sourceTree = "<group>"; };
+		967187D21EDEB71800DDD61B /* GoodsCommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsCommonTableViewCell.swift; sourceTree = "<group>"; };
+		967187D31EDEB71800DDD61B /* GoodsCommonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodsCommonTableViewCell.xib; sourceTree = "<group>"; };
+		967187D61EDFA5CC00DDD61B /* GoodsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsListVC.swift; sourceTree = "<group>"; };
+		967187D81EDFE99500DDD61B /* SecKillVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecKillVC.swift; sourceTree = "<group>"; };
 		968511231ECC1DF80083244F /* CalculateBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateBtn.swift; sourceTree = "<group>"; };
 		96902EF21ECB328200B219D7 /* CustomValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomValue.swift; sourceTree = "<group>"; };
 		96902EF31ECB328200B219D7 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
@@ -439,6 +447,8 @@
 			isa = PBXGroup;
 			children = (
 				96A972601ED272CD0007C324 /* CarVC.swift */,
+				967187D61EDFA5CC00DDD61B /* GoodsListVC.swift */,
+				967187D81EDFE99500DDD61B /* SecKillVC.swift */,
 			);
 			name = car;
 			sourceTree = "<group>";
@@ -492,6 +502,8 @@
 				96A9726A1ED275D30007C324 /* CarTableViewCell.swift */,
 				96A9726C1ED28A8D0007C324 /* CarSectionHeader.swift */,
 				96A9726E1ED28AB20007C324 /* CarSectionHeader.xib */,
+				967187D21EDEB71800DDD61B /* GoodsCommonTableViewCell.swift */,
+				967187D31EDEB71800DDD61B /* GoodsCommonTableViewCell.xib */,
 			);
 			name = car;
 			sourceTree = "<group>";
@@ -769,6 +781,7 @@
 				967187CF1EDEA51800DDD61B /* NormalTableViewCell.xib in Resources */,
 				96902F2F1ECB334700B219D7 /* Combined Shape@2x.png in Resources */,
 				96DE996E1ECB2D0E0011290E /* LaunchScreen.storyboard in Resources */,
+				967187D51EDEB71800DDD61B /* GoodsCommonTableViewCell.xib in Resources */,
 				96DE996B1ECB2D0E0011290E /* Assets.xcassets in Resources */,
 				967187C61EDE668500DDD61B /* address.txt in Resources */,
 				965B9D731ECC8B72002016C2 /* Category.storyboard in Resources */,
@@ -840,6 +853,7 @@
 				96610A5E1ED566C500C117D6 /* PersonMdel.swift in Sources */,
 				96610A691ED667F100C117D6 /* RegisterVC.swift in Sources */,
 				96902F101ECB32BF00B219D7 /* PlacehodelTextView.swift in Sources */,
+				967187D41EDEB71800DDD61B /* GoodsCommonTableViewCell.swift in Sources */,
 				96610A7D1ED95EF900C117D6 /* AddressTableViewCell.swift in Sources */,
 				96902F171ECB32DF00B219D7 /* CircleProgressView.swift in Sources */,
 				96902F181ECB32DF00B219D7 /* PullToRefreshControl.swift in Sources */,
@@ -885,6 +899,7 @@
 				96902F131ECB32C800B219D7 /* CustomTableView.swift in Sources */,
 				96902F241ECB333700B219D7 /* NetworkManager.swift in Sources */,
 				96902EFB1ECB329A00B219D7 /* TimerExtension.swift in Sources */,
+				967187D71EDFA5CC00DDD61B /* GoodsListVC.swift in Sources */,
 				96902EF41ECB328200B219D7 /* CustomValue.swift in Sources */,
 				96902F311ECB334700B219D7 /* CustomTabBar.swift in Sources */,
 				96610A631ED5696400C117D6 /* LoginVC.swift in Sources */,
@@ -903,6 +918,7 @@
 				96902F2C1ECB334700B219D7 /* BaseNavigationController.swift in Sources */,
 				96610A3F1ED3D13900C117D6 /* FirstItem.swift in Sources */,
 				96610A4D1ED4306800C117D6 /* CategoryLeftTableViewCell.swift in Sources */,
+				967187D91EDFE99500DDD61B /* SecKillVC.swift in Sources */,
 				96902EF51ECB328200B219D7 /* Tools.swift in Sources */,
 				96A972711ED2B59B0007C324 /* WaterfallLayout.swift in Sources */,
 				96DE99641ECB2D0E0011290E /* AppDelegate.swift in Sources */,

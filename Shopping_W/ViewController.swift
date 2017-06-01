@@ -96,7 +96,16 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
             //MARK: 必须用 realCurrentIndexPath才是准确的
             print(carouselView.realCurrentIndexPath)
         } else {
+            let data = FirstItem.defaultDatas[indexPath.row]
+            var vc: UIViewController!
+            if data.title == "秒杀" {
+                vc = SecKillVC()
+                
+            } else {
+                vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self)
+            }
             
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         
     }

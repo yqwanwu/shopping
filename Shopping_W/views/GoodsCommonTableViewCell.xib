@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="118" id="KGk-i7-Jjw" customClass="GoodsCommonTableViewCell" customModule="Shopping_W" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="118"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="117.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placehoder" translatesAutoresizingMaskIntoConstraints="NO" id="DaE-jR-35H">
+                        <rect key="frame" x="8" y="26" width="99" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="99" id="o0v-Vj-KJ5"/>
+                            <constraint firstAttribute="height" constant="64" id="qUS-yT-cju"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="那个桃子" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0b-AX-z5g">
+                        <rect key="frame" x="115" y="15" width="197" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="gXB-Mx-U4H"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvC-pR-ZME">
+                        <rect key="frame" x="115" y="38" width="197" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="ruA-tN-g0l"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ahh-i0-lfX">
+                        <rect key="frame" x="115" y="65" width="80" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="jK4-KS-lT2"/>
+                            <constraint firstAttribute="height" constant="21" id="yx8-MV-qwR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.93725490199999995" green="0.20000000000000001" blue="0.21960784310000001" alpha="1" colorSpace="deviceRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1斤" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRk-sa-yGA">
+                        <rect key="frame" x="209" y="65" width="42" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="fYS-Uy-3bC"/>
+                            <constraint firstAttribute="width" constant="42" id="rxY-Rt-fVZ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DLp-ai-hGh">
+                        <rect key="frame" x="115" y="88" width="80" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="TVa-rd-zhg"/>
+                            <constraint firstAttribute="height" constant="21" id="xaU-W0-1yQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                        <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="DLp-ai-hGh" firstAttribute="top" secondItem="ahh-i0-lfX" secondAttribute="bottom" constant="2" id="2Dq-OD-Qfe"/>
+                    <constraint firstItem="DLp-ai-hGh" firstAttribute="leading" secondItem="DaE-jR-35H" secondAttribute="trailing" constant="8" id="6Ea-w0-w7y"/>
+                    <constraint firstItem="ahh-i0-lfX" firstAttribute="top" secondItem="UvC-pR-ZME" secondAttribute="bottom" constant="11" id="NOL-me-JPU"/>
+                    <constraint firstItem="ahh-i0-lfX" firstAttribute="leading" secondItem="DaE-jR-35H" secondAttribute="trailing" constant="8" id="Sig-kt-hoa"/>
+                    <constraint firstItem="W0b-AX-z5g" firstAttribute="leading" secondItem="DaE-jR-35H" secondAttribute="trailing" constant="8" id="Wua-6i-f0u"/>
+                    <constraint firstItem="W0b-AX-z5g" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="bRz-Uf-Hmg"/>
+                    <constraint firstItem="UvC-pR-ZME" firstAttribute="top" secondItem="W0b-AX-z5g" secondAttribute="bottom" constant="2" id="d41-oT-f9C"/>
+                    <constraint firstItem="SRk-sa-yGA" firstAttribute="top" secondItem="UvC-pR-ZME" secondAttribute="bottom" constant="11" id="dUn-aU-CIg"/>
+                    <constraint firstItem="W0b-AX-z5g" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="duN-TP-iSS"/>
+                    <constraint firstItem="SRk-sa-yGA" firstAttribute="leading" secondItem="ahh-i0-lfX" secondAttribute="trailing" constant="14" id="e9C-Zx-z6g"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="UvC-pR-ZME" secondAttribute="trailing" id="fUh-4q-xQf"/>
+                    <constraint firstItem="DaE-jR-35H" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="iIv-Pb-pLY"/>
+                    <constraint firstItem="UvC-pR-ZME" firstAttribute="leading" secondItem="DaE-jR-35H" secondAttribute="trailing" constant="8" id="o1O-2W-jfa"/>
+                    <constraint firstItem="DaE-jR-35H" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="rWY-25-vbC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="countLabel" destination="SRk-sa-yGA" id="y74-V0-PoG"/>
+                <outlet property="currentPriceLabel" destination="ahh-i0-lfX" id="ZUW-FO-lMp"/>
+                <outlet property="descLabel" destination="UvC-pR-ZME" id="HdW-OL-Li4"/>
+                <outlet property="imgView" destination="DaE-jR-35H" id="HVV-v9-OYR"/>
+                <outlet property="nameLabel" destination="W0b-AX-z5g" id="RpK-gv-GKG"/>
+                <outlet property="oldPriceLabel" destination="DLp-ai-hGh" id="goR-n1-njh"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="148"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="placehoder" width="1068" height="658"/>
+    </resources>
+</document>

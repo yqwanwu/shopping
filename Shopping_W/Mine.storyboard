@@ -259,7 +259,7 @@
                                             <action selector="ac_showSelector:" destination="Vm6-dl-N9k" eventType="touchUpInside" id="P9r-EE-EzE"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="右" translatesAutoresizingMaskIntoConstraints="NO" id="Kzn-0b-FwV">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="右2" translatesAutoresizingMaskIntoConstraints="NO" id="Kzn-0b-FwV">
                                         <rect key="frame" x="274" y="122" width="9" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="9" id="KTn-gC-gJk"/>
@@ -404,6 +404,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="右" width="9" height="15"/>
+        <image name="右2" width="9" height="15"/>
     </resources>
 </document>

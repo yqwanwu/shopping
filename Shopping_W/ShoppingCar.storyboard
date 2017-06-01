@@ -23,10 +23,58 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="W1r-mj-cJk"/>
+                    <connections>
+                        <segue destination="Xwd-QG-xvJ" kind="show" id="VTk-7Q-K3Z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ola-bi-6jI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1079.2" y="167.76611694152925"/>
+        </scene>
+        <!--Goods ListVC-->
+        <scene sceneID="Sjc-H9-2Tn">
+            <objects>
+                <viewController storyboardIdentifier="GoodsListVC" id="Xwd-QG-xvJ" customClass="GoodsListVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EMs-sb-6QD"/>
+                        <viewControllerLayoutGuide type="bottom" id="JOX-Nl-haL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yrv-f2-ZgS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Phk-9m-WEN" customClass="TabView" customModule="Shopping_W" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="74" width="375" height="35"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="lml-Tv-sXj"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ooX-jN-XUf" customClass="RefreshTableView" customModule="Shopping_W" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="110" width="375" height="557"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Phk-9m-WEN" firstAttribute="top" secondItem="EMs-sb-6QD" secondAttribute="bottom" constant="10" id="Fob-9a-aiE"/>
+                            <constraint firstItem="Phk-9m-WEN" firstAttribute="leading" secondItem="yrv-f2-ZgS" secondAttribute="leading" id="MHx-F3-tYq"/>
+                            <constraint firstItem="ooX-jN-XUf" firstAttribute="top" secondItem="Phk-9m-WEN" secondAttribute="bottom" constant="1" id="OVg-Qa-rdD"/>
+                            <constraint firstItem="ooX-jN-XUf" firstAttribute="leading" secondItem="yrv-f2-ZgS" secondAttribute="leading" id="ree-WY-JqF"/>
+                            <constraint firstAttribute="trailing" secondItem="Phk-9m-WEN" secondAttribute="trailing" id="s0f-5B-fD0"/>
+                            <constraint firstItem="JOX-Nl-haL" firstAttribute="top" secondItem="ooX-jN-XUf" secondAttribute="bottom" id="xO5-85-e0p"/>
+                            <constraint firstAttribute="trailing" secondItem="ooX-jN-XUf" secondAttribute="trailing" id="zdR-Rj-XgG"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="headerView" destination="Phk-9m-WEN" id="cGu-lh-EmJ"/>
+                        <outlet property="tableView" destination="ooX-jN-XUf" id="d3e-Ig-Wk6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KrO-bP-C2K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1821.5999999999999" y="167.76611694152925"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7ma-o2-8jg">

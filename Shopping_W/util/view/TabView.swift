@@ -12,6 +12,7 @@ class TabView: UIView {
     let scroll: UIScrollView = UIScrollView()
     var margin: CGFloat = 20
     var showSeparator = false
+    var lineTopMargin: CGFloat = 0
     var actions: ((_ index: Int) -> Void)? = nil
     var selectedIndex = 0 {
         didSet {
@@ -101,7 +102,7 @@ class TabView: UIView {
         
         for btn in items {
             if showSeparator && btn != items.last {
-                let line = UIView(frame: CGRect(x: btn.frame.width - 1, y: 0, width: 1, height: btn.frame.height))
+                let line = UIView(frame: CGRect(x: btn.frame.width - 1, y: lineTopMargin, width: 1, height: btn.frame.height - lineTopMargin * 2))
                 line.backgroundColor = UIColor.hexStringToColor(hexString: "e5e5e5")
                 btn.addSubview(line)
             }
