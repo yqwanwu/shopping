@@ -60,9 +60,8 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
         tableView.tableHeaderView = tableHeader
     }
     
-    //MARK: 代理
     
-    
+    //MARK: 代理    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == carouselView {
             return 3
@@ -97,15 +96,20 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
             print(carouselView.realCurrentIndexPath)
         } else {
             let data = FirstItem.defaultDatas[indexPath.row]
-            var vc: UIViewController!
-            if data.title == "秒杀" {
-                vc = SecKillVC()
-                
+            
+            if data.title == "全部分类" {
+                self.tabBarController?.selectedIndex = 1
             } else {
-                vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self)
+                var vc: UIViewController!
+                if data.title == "秒杀" {
+                    vc = SecKillVC()
+                } else {
+                    vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self)
+                }
+                
+                self.navigationController?.pushViewController(vc, animated: true)
             }
             
-            self.navigationController?.pushViewController(vc, animated: true)
         }
         
     }

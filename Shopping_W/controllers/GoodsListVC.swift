@@ -11,11 +11,30 @@ import UIKit
 class GoodsListVC: BaseViewController {
     @IBOutlet weak var tableView: RefreshTableView!
     @IBOutlet weak var headerView: TabView!
+    
+    enum ListType {
+        ///   二级页面  团购   秒杀      一般的   促销
+        case level2, group, seckill, normal, promotions
+    }
+    
+    var type = ListType.group
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let c = CustomTableViewCellItem().build(cellClass: GoodsCommonTableViewCell.self).build(heightForRow: 118)
+        let c = CustomTableViewCellItem().build(heightForRow: 118)
+        
+        if type == .level2 {
+            c.build(cellClass: GoodListLevel2Cell.self)
+        } else {
+            c.build(cellClass: GoodsCommonTableViewCell.self)
+        }
+        
+        c.setupCellAction { [unowned self] (idx) in
+            let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
         tableView.dataArray = [[c, c, c, c]]
         
         setupTabView()

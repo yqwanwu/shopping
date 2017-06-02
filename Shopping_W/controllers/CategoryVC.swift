@@ -82,4 +82,11 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         return (self.collectionView.frame.width - cellWidth * 3) / 6
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self) as! GoodsListVC
+        vc.type = .level2
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
 }

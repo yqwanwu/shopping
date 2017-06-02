@@ -26,7 +26,7 @@
                             <constraint firstAttribute="height" constant="64" id="qUS-yT-cju"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="那个桃子" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W0b-AX-z5g">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="那个桃子" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="W0b-AX-z5g">
                         <rect key="frame" x="115" y="15" width="197" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="gXB-Mx-U4H"/>
@@ -54,11 +54,10 @@
                         <color key="textColor" red="0.93725490199999995" green="0.20000000000000001" blue="0.21960784310000001" alpha="1" colorSpace="deviceRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1斤" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRk-sa-yGA">
-                        <rect key="frame" x="209" y="65" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1斤" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="SRk-sa-yGA">
+                        <rect key="frame" x="209" y="65" width="88" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="fYS-Uy-3bC"/>
-                            <constraint firstAttribute="width" constant="42" id="rxY-Rt-fVZ"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -79,6 +78,7 @@
                     <constraint firstItem="DLp-ai-hGh" firstAttribute="top" secondItem="ahh-i0-lfX" secondAttribute="bottom" constant="2" id="2Dq-OD-Qfe"/>
                     <constraint firstItem="DLp-ai-hGh" firstAttribute="leading" secondItem="DaE-jR-35H" secondAttribute="trailing" constant="8" id="6Ea-w0-w7y"/>
                     <constraint firstItem="ahh-i0-lfX" firstAttribute="top" secondItem="UvC-pR-ZME" secondAttribute="bottom" constant="11" id="NOL-me-JPU"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="SRk-sa-yGA" secondAttribute="trailing" constant="15" id="Od9-MR-fe7"/>
                     <constraint firstItem="ahh-i0-lfX" firstAttribute="leading" secondItem="DaE-jR-35H" secondAttribute="trailing" constant="8" id="Sig-kt-hoa"/>
                     <constraint firstItem="W0b-AX-z5g" firstAttribute="leading" secondItem="DaE-jR-35H" secondAttribute="trailing" constant="8" id="Wua-6i-f0u"/>
                     <constraint firstItem="W0b-AX-z5g" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="bRz-Uf-Hmg"/>
