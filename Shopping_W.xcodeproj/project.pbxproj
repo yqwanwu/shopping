@@ -55,6 +55,10 @@
 		967187D91EDFE99500DDD61B /* SecKillVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187D81EDFE99500DDD61B /* SecKillVC.swift */; };
 		967187DB1EDFFB3300DDD61B /* BalanceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187DA1EDFFB3300DDD61B /* BalanceVC.swift */; };
 		967187DD1EE0000B00DDD61B /* BalanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187DC1EE0000B00DDD61B /* BalanceTableViewCell.swift */; };
+		967187E11EE009EC00DDD61B /* DotRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187E01EE009EC00DDD61B /* DotRefresh.swift */; };
+		967187E31EE0F4F000DDD61B /* WithdrawVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187E21EE0F4F000DDD61B /* WithdrawVC.swift */; };
+		967187E51EE0FDE000DDD61B /* RewardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187E41EE0FDE000DDD61B /* RewardVC.swift */; };
+		967187E71EE0FE1200DDD61B /* RewardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187E61EE0FE1200DDD61B /* RewardTableViewCell.swift */; };
 		968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968511231ECC1DF80083244F /* CalculateBtn.swift */; };
 		96902EF41ECB328200B219D7 /* CustomValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF21ECB328200B219D7 /* CustomValue.swift */; };
 		96902EF51ECB328200B219D7 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF31ECB328200B219D7 /* Tools.swift */; };
@@ -156,6 +160,10 @@
 		967187D81EDFE99500DDD61B /* SecKillVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecKillVC.swift; sourceTree = "<group>"; };
 		967187DA1EDFFB3300DDD61B /* BalanceVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceVC.swift; sourceTree = "<group>"; };
 		967187DC1EE0000B00DDD61B /* BalanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceTableViewCell.swift; sourceTree = "<group>"; };
+		967187E01EE009EC00DDD61B /* DotRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotRefresh.swift; sourceTree = "<group>"; };
+		967187E21EE0F4F000DDD61B /* WithdrawVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithdrawVC.swift; sourceTree = "<group>"; };
+		967187E41EE0FDE000DDD61B /* RewardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RewardVC.swift; sourceTree = "<group>"; };
+		967187E61EE0FE1200DDD61B /* RewardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RewardTableViewCell.swift; sourceTree = "<group>"; };
 		968511231ECC1DF80083244F /* CalculateBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateBtn.swift; sourceTree = "<group>"; };
 		96902EF21ECB328200B219D7 /* CustomValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomValue.swift; sourceTree = "<group>"; };
 		96902EF31ECB328200B219D7 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
@@ -239,6 +247,8 @@
 				967187C81EDEA29700DDD61B /* SettingsVC.swift */,
 				967187D01EDEA92000DDD61B /* CustomerServicesVC.swift */,
 				967187DA1EDFFB3300DDD61B /* BalanceVC.swift */,
+				967187E21EE0F4F000DDD61B /* WithdrawVC.swift */,
+				967187E41EE0FDE000DDD61B /* RewardVC.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -321,6 +331,7 @@
 				96610A801ED961BC00C117D6 /* CornerBtn.swift */,
 				967187CC1EDEA51800DDD61B /* NormalTableViewCell.swift */,
 				967187CD1EDEA51800DDD61B /* NormalTableViewCell.xib */,
+				967187E01EE009EC00DDD61B /* DotRefresh.swift */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -528,6 +539,7 @@
 				96610A7A1ED814CF00C117D6 /* MineTableViewCell.swift */,
 				96610A7C1ED95EF900C117D6 /* AddressTableViewCell.swift */,
 				967187DC1EE0000B00DDD61B /* BalanceTableViewCell.swift */,
+				967187E61EE0FE1200DDD61B /* RewardTableViewCell.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -857,6 +869,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96610A5E1ED566C500C117D6 /* PersonMdel.swift in Sources */,
+				967187E31EE0F4F000DDD61B /* WithdrawVC.swift in Sources */,
 				96610A691ED667F100C117D6 /* RegisterVC.swift in Sources */,
 				96902F101ECB32BF00B219D7 /* PlacehodelTextView.swift in Sources */,
 				967187D41EDEB71800DDD61B /* GoodsCommonTableViewCell.swift in Sources */,
@@ -882,8 +895,10 @@
 				96902F051ECB32B100B219D7 /* AnimationsProtocol.swift in Sources */,
 				96DE99921ECB2FC90011290E /* UIImage+QRCode.swift in Sources */,
 				96610A6D1ED67AB400C117D6 /* ForgetPwdVC.swift in Sources */,
+				967187E51EE0FDE000DDD61B /* RewardVC.swift in Sources */,
 				967187DD1EE0000B00DDD61B /* BalanceTableViewCell.swift in Sources */,
 				96902F2D1ECB334700B219D7 /* BaseTabBarController.swift in Sources */,
+				967187E71EE0FE1200DDD61B /* RewardTableViewCell.swift in Sources */,
 				96610A831ED9752900C117D6 /* AddressUpdateVC.swift in Sources */,
 				96610A811ED961BC00C117D6 /* CornerBtn.swift in Sources */,
 				96902F0B1ECB32B100B219D7 /* CountdownButton.swift in Sources */,
@@ -895,6 +910,7 @@
 				965B9D7F1ECD9146002016C2 /* CategoryVC.swift in Sources */,
 				967187C71EDE668500DDD61B /* LinkedPicker.swift in Sources */,
 				96610A651ED5711200C117D6 /* MineButton.swift in Sources */,
+				967187E11EE009EC00DDD61B /* DotRefresh.swift in Sources */,
 				96610A771ED6B2EB00C117D6 /* PwdQuestionTableViewCell.swift in Sources */,
 				967187D11EDEA92000DDD61B /* CustomerServicesVC.swift in Sources */,
 				96610A7B1ED814CF00C117D6 /* MineTableViewCell.swift in Sources */,

@@ -647,7 +647,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="187-EU-sNV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1628" y="1899"/>
+            <point key="canvasLocation" x="1721" y="2093"/>
         </scene>
         <!--购物车-->
         <scene sceneID="MoZ-Sc-AJG">
@@ -679,7 +679,7 @@
                                                         <constraint firstAttribute="width" constant="43" id="qJR-Dc-3RX"/>
                                                     </constraints>
                                                     <state key="normal" image="button:D9c-xS-HPc:image"/>
-                                                    <state key="selected" image="8FC9BE08-03B0-4EC9-8DE2-400503B0FB94"/>
+                                                    <state key="selected" image="5C1FD8E6-AA2A-46E8-ACDA-A051F255657D"/>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placehoder" translatesAutoresizingMaskIntoConstraints="NO" id="yED-2Q-Hvd">
                                                     <rect key="frame" x="41" y="24" width="90" height="90"/>
@@ -923,6 +923,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="ac_reword:" destination="tP4-A2-WMW" eventType="touchUpInside" id="L3e-Jm-B96"/>
+                                                        <segue destination="R48-6t-wRO" kind="push" id="SgE-Ks-jSU"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dc2-c4-4qS">
@@ -937,6 +938,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="ac_withdraw:" destination="tP4-A2-WMW" eventType="touchUpInside" id="gs6-Kz-5rz"/>
+                                                        <segue destination="IUb-NI-DNW" kind="push" id="RFs-88-ofI"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rs8-SX-fQR">
@@ -1211,7 +1213,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="40H-G7-rFu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="365.60000000000002" y="1862.5187406296852"/>
+            <point key="canvasLocation" x="356" y="2069"/>
         </scene>
         <!--BalanceVC-->
         <scene sceneID="a8t-eq-qwZ">
@@ -1221,7 +1223,27 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g0f-W2-3DO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="977" y="1816"/>
+            <point key="canvasLocation" x="1183" y="1921"/>
+        </scene>
+        <!--RewardVC-->
+        <scene sceneID="SoD-HR-VN4">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Mine" referencedIdentifier="RewardVC" id="R48-6t-wRO" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="EZ6-eD-hG1"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vdi-tw-Jfq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="831" y="1839"/>
+        </scene>
+        <!--WithdrawVC-->
+        <scene sceneID="gtn-L0-3Re">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Mine" referencedIdentifier="WithdrawVC" id="IUb-NI-DNW" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="fNR-q3-yPT"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3ay-ef-yG1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1005" y="1874"/>
         </scene>
         <!--receiving-->
         <scene sceneID="U06-dY-ZSO">
@@ -1838,6 +1860,11 @@
                                     <constraint firstAttribute="height" constant="1" id="2pz-1L-lo5"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Tt-y2-k2N" customClass="DotRefresh" customModule="Shopping_W" customModuleProvider="target">
+                                <rect key="frame" x="24" y="447" width="135" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1961,7 +1988,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jbt-Z3-n73" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-372" y="1863"/>
+            <point key="canvasLocation" x="-372" y="2049"/>
         </scene>
         <!--Base Navigation Controller-->
         <scene sceneID="E4Y-pa-X8w">
@@ -1983,7 +2010,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="8FC9BE08-03B0-4EC9-8DE2-400503B0FB94" width="18" height="18">
+        <image name="5C1FD8E6-AA2A-46E8-ACDA-A051F255657D" width="18" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
