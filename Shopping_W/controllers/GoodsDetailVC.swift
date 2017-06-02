@@ -17,11 +17,32 @@ class GoodsDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var typeBk: UIView!
     
-    //根据情况自定义
-    @IBOutlet weak var customBk: UIView!
     
     //标记而已
     @IBOutlet weak var typeBkFirstItem: UILabel!
+    
+    ///promotions
+    @IBOutlet weak var promotionsBk: UIView!
+    @IBOutlet weak var promotionsLabel: UILabel!
+    @IBOutlet weak var logoLabel: UILabel!
+    
+    ///seckill
+    @IBOutlet weak var seckillBk: UIView!
+    @IBOutlet weak var seckilltime: UILabel!
+    @IBOutlet weak var seckillNumber: UILabel!
+    @IBOutlet weak var seckillLastTime: UILabel!
+    
+    ///group
+    @IBOutlet weak var groupStartTime: UILabel!
+    //团购结束时间：2017-3-30
+    @IBOutlet weak var groupEndTime: UILabel!
+    //总数量：10000
+    @IBOutlet weak var groupNUmber: UILabel!
+    //剩余时间：1231
+    @IBOutlet weak var groupLaseTime: UILabel!
+    @IBOutlet weak var groupBk: UIView!
+    
+    
     
     var type = GoodsListVC.ListType.normal
 
@@ -33,17 +54,40 @@ class GoodsDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
     }
     
     func setupCustomBk() {
-//        let
+        var promotionsH: CGFloat = 0//45
+        var seckillH: CGFloat = 0//70
+        var groupH: CGFloat = 0//73
+        
         if type == .normal {
-            customBk.snp.updateConstraints({ (make) in
-                make.height.equalTo(0)
-            })
+            
         } else if type == .promotions {//促销
-            
+            promotionsH = 45
         } else if type == .seckill { // 秒杀
-            
+            seckillH = 70
         } else if type == .group { // 团购
-            
+            groupH = 73
+        }
+        
+        if promotionsH == 0 {
+            promotionsBk.isHidden = true
+        }
+        
+        if seckillH == 0 {
+            seckillBk.isHidden = true
+        }
+        
+        if groupH == 0 {
+            groupBk.isHidden = true
+        }
+        
+        promotionsBk.snp.updateConstraints { (make) in
+            make.height.equalTo(promotionsH)
+        }
+        seckillBk.snp.updateConstraints { (make) in
+            make.height.equalTo(seckillH)
+        }
+        groupBk.snp.updateConstraints { (make) in
+            make.height.equalTo(groupH)
         }
     }
     

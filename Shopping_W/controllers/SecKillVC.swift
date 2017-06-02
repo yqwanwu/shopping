@@ -28,6 +28,11 @@ class SecKillVC: BaseViewController {
         self.view.addSubview(tableView)
         
         let c = CustomTableViewCellItem().build(cellClass: GoodsCommonTableViewCell.self).build(heightForRow: 118)
+        c.setupCellAction { [unowned self] (idx) in
+            let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+            vc.type = .seckill
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         tableView.dataArray = [[c, c, c, c]]
         
         self.view.addSubview(headerView)

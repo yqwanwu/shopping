@@ -31,7 +31,8 @@ class GoodsListVC: BaseViewController {
         }
         
         c.setupCellAction { [unowned self] (idx) in
-            let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self)
+            let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+            vc.type = self.type
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

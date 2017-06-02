@@ -105,6 +105,10 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
                     vc = SecKillVC()
                 } else {
                     vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self)
+                    let listVC = vc as! GoodsListVC
+                    if FirstItem.defaultDatas[indexPath.row].title == "促销" {
+                        listVC.type = .promotions
+                    }
                 }
                 
                 self.navigationController?.pushViewController(vc, animated: true)
