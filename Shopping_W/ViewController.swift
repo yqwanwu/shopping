@@ -106,8 +106,11 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
                 } else {
                     vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self)
                     let listVC = vc as! GoodsListVC
-                    if FirstItem.defaultDatas[indexPath.row].title == "促销" {
+                    let t = FirstItem.defaultDatas[indexPath.row].title
+                    if t == "促销" {
                         listVC.type = .promotions
+                    } else if t == "团购" {
+                        listVC.type = .group
                     }
                 }
                 

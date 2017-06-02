@@ -17,7 +17,7 @@ class GoodsListVC: BaseViewController {
         case level2, group, seckill, normal, promotions
     }
     
-    var type = ListType.group
+    var type = ListType.normal
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -15,12 +15,22 @@ class GoodsCommonTableViewCell: UITableViewCell {
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var currentPriceLabel: UILabel!
     @IBOutlet weak var oldPriceLabel: UILabel!
+    @IBOutlet weak var commonLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         
         let attrStr = NSMutableAttributedString(string: "12312", attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
         oldPriceLabel.attributedText = attrStr
+        
+        let htmlStr = CustomValue.htmlHeader + "<p>" +
+                        "<span style='color: #fdc249'>10件</span>" +
+                        "<span style='color: black'>成团，还差</span>" +
+                        "<span style='color: #fdc249'>3件</span>" +
+                    "</p>" + CustomValue.htmlFooter
+        let htmlData = htmlStr.data(using: .utf8)
+        let htmlattr = try! NSAttributedString(data: htmlData!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+        commonLabel.attributedText = htmlattr
     }
     
 }

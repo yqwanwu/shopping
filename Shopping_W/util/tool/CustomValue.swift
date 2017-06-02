@@ -19,6 +19,17 @@ struct CustomValue {
     static let widthRatio: CGFloat = {
         return UIScreen.main.bounds.width / CustomValue.referenceScreenW
     }()
+    
+    
+    static let htmlHeader = "<html lang='en'>" +
+                                "<head>" +
+                                "<meta charset='UTF-8'>" +
+                                "</head>" +
+                                "<body>"
+    static let htmlFooter = "</body></html>"
+    
+    
+    
     //友盟
     //58228ae53eae251ae0002164
     static let UMACountPPKEY = "58228ae53eae251ae0002164"

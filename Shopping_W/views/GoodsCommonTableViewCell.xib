@@ -73,26 +73,39 @@
                         <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="IcJ-Da-jC8">
+                        <rect key="frame" x="200" y="88" width="97" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="8Tb-wV-ubI"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="DLp-ai-hGh" firstAttribute="top" secondItem="ahh-i0-lfX" secondAttribute="bottom" constant="2" id="2Dq-OD-Qfe"/>
                     <constraint firstItem="DLp-ai-hGh" firstAttribute="leading" secondItem="DaE-jR-35H" secondAttribute="trailing" constant="8" id="6Ea-w0-w7y"/>
+                    <constraint firstItem="IcJ-Da-jC8" firstAttribute="leading" secondItem="DLp-ai-hGh" secondAttribute="trailing" constant="5" id="7oR-Fd-qrc"/>
                     <constraint firstItem="ahh-i0-lfX" firstAttribute="top" secondItem="UvC-pR-ZME" secondAttribute="bottom" constant="11" id="NOL-me-JPU"/>
                     <constraint firstAttribute="trailingMargin" secondItem="SRk-sa-yGA" secondAttribute="trailing" constant="15" id="Od9-MR-fe7"/>
                     <constraint firstItem="ahh-i0-lfX" firstAttribute="leading" secondItem="DaE-jR-35H" secondAttribute="trailing" constant="8" id="Sig-kt-hoa"/>
                     <constraint firstItem="W0b-AX-z5g" firstAttribute="leading" secondItem="DaE-jR-35H" secondAttribute="trailing" constant="8" id="Wua-6i-f0u"/>
+                    <constraint firstItem="IcJ-Da-jC8" firstAttribute="centerY" secondItem="DLp-ai-hGh" secondAttribute="centerY" id="bLj-dU-pPg"/>
                     <constraint firstItem="W0b-AX-z5g" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="bRz-Uf-Hmg"/>
                     <constraint firstItem="UvC-pR-ZME" firstAttribute="top" secondItem="W0b-AX-z5g" secondAttribute="bottom" constant="2" id="d41-oT-f9C"/>
                     <constraint firstItem="SRk-sa-yGA" firstAttribute="top" secondItem="UvC-pR-ZME" secondAttribute="bottom" constant="11" id="dUn-aU-CIg"/>
                     <constraint firstItem="W0b-AX-z5g" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="duN-TP-iSS"/>
                     <constraint firstItem="SRk-sa-yGA" firstAttribute="leading" secondItem="ahh-i0-lfX" secondAttribute="trailing" constant="14" id="e9C-Zx-z6g"/>
                     <constraint firstAttribute="trailingMargin" secondItem="UvC-pR-ZME" secondAttribute="trailing" id="fUh-4q-xQf"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="IcJ-Da-jC8" secondAttribute="trailing" constant="15" id="fpc-Yv-yfA"/>
                     <constraint firstItem="DaE-jR-35H" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="iIv-Pb-pLY"/>
                     <constraint firstItem="UvC-pR-ZME" firstAttribute="leading" secondItem="DaE-jR-35H" secondAttribute="trailing" constant="8" id="o1O-2W-jfa"/>
                     <constraint firstItem="DaE-jR-35H" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="rWY-25-vbC"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="commonLabel" destination="IcJ-Da-jC8" id="ujE-WX-zLW"/>
                 <outlet property="countLabel" destination="SRk-sa-yGA" id="y74-V0-PoG"/>
                 <outlet property="currentPriceLabel" destination="ahh-i0-lfX" id="ZUW-FO-lMp"/>
                 <outlet property="descLabel" destination="UvC-pR-ZME" id="HdW-OL-Li4"/>
