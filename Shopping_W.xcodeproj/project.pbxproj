@@ -62,6 +62,10 @@
 		967187EA1EE106AC00DDD61B /* GoodListLevel2Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187E81EE106AB00DDD61B /* GoodListLevel2Cell.swift */; };
 		967187EB1EE106AC00DDD61B /* GoodListLevel2Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 967187E91EE106AC00DDD61B /* GoodListLevel2Cell.xib */; };
 		967187EE1EE10F9000DDD61B /* GoodsDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967187ED1EE10F9000DDD61B /* GoodsDetailVC.swift */; };
+		9674E2A11EE4EAD60004D9EE /* GoodsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674E2A01EE4EAD60004D9EE /* GoodsListModel.swift */; };
+		9674E2A41EE4F64D0004D9EE /* OrerListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674E2A21EE4F64D0004D9EE /* OrerListCell.swift */; };
+		9674E2A51EE4F64D0004D9EE /* OrerListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9674E2A31EE4F64D0004D9EE /* OrerListCell.xib */; };
+		9674E2A71EE4F9FF0004D9EE /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674E2A61EE4F9FF0004D9EE /* OrderModel.swift */; };
 		968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968511231ECC1DF80083244F /* CalculateBtn.swift */; };
 		96902EF41ECB328200B219D7 /* CustomValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF21ECB328200B219D7 /* CustomValue.swift */; };
 		96902EF51ECB328200B219D7 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF31ECB328200B219D7 /* Tools.swift */; };
@@ -170,6 +174,10 @@
 		967187E81EE106AB00DDD61B /* GoodListLevel2Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodListLevel2Cell.swift; sourceTree = "<group>"; };
 		967187E91EE106AC00DDD61B /* GoodListLevel2Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GoodListLevel2Cell.xib; sourceTree = "<group>"; };
 		967187ED1EE10F9000DDD61B /* GoodsDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsDetailVC.swift; sourceTree = "<group>"; };
+		9674E2A01EE4EAD60004D9EE /* GoodsListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsListModel.swift; sourceTree = "<group>"; };
+		9674E2A21EE4F64D0004D9EE /* OrerListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrerListCell.swift; sourceTree = "<group>"; };
+		9674E2A31EE4F64D0004D9EE /* OrerListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrerListCell.xib; sourceTree = "<group>"; };
+		9674E2A61EE4F9FF0004D9EE /* OrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
 		968511231ECC1DF80083244F /* CalculateBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateBtn.swift; sourceTree = "<group>"; };
 		96902EF21ECB328200B219D7 /* CustomValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomValue.swift; sourceTree = "<group>"; };
 		96902EF31ECB328200B219D7 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
@@ -488,6 +496,7 @@
 		96A972621ED2741C0007C324 /* car */ = {
 			isa = PBXGroup;
 			children = (
+				9674E2A01EE4EAD60004D9EE /* GoodsListModel.swift */,
 			);
 			name = car;
 			sourceTree = "<group>";
@@ -510,6 +519,7 @@
 		96A972651ED274340007C324 /* mine */ = {
 			isa = PBXGroup;
 			children = (
+				9674E2A61EE4F9FF0004D9EE /* OrderModel.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -557,6 +567,8 @@
 				96610A7C1ED95EF900C117D6 /* AddressTableViewCell.swift */,
 				967187DC1EE0000B00DDD61B /* BalanceTableViewCell.swift */,
 				967187E61EE0FE1200DDD61B /* RewardTableViewCell.swift */,
+				9674E2A21EE4F64D0004D9EE /* OrerListCell.swift */,
+				9674E2A31EE4F64D0004D9EE /* OrerListCell.xib */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -814,6 +826,7 @@
 				96610A4B1ED4179900C117D6 /* FirstGridTableViewCell.xib in Resources */,
 				96610A711ED686F900C117D6 /* PwdPhoneView.xib in Resources */,
 				967187CF1EDEA51800DDD61B /* NormalTableViewCell.xib in Resources */,
+				9674E2A51EE4F64D0004D9EE /* OrerListCell.xib in Resources */,
 				96902F2F1ECB334700B219D7 /* Combined Shape@2x.png in Resources */,
 				96DE996E1ECB2D0E0011290E /* LaunchScreen.storyboard in Resources */,
 				967187D51EDEB71800DDD61B /* GoodsCommonTableViewCell.xib in Resources */,
@@ -917,6 +930,7 @@
 				967187DD1EE0000B00DDD61B /* BalanceTableViewCell.swift in Sources */,
 				96902F2D1ECB334700B219D7 /* BaseTabBarController.swift in Sources */,
 				967187E71EE0FE1200DDD61B /* RewardTableViewCell.swift in Sources */,
+				9674E2A41EE4F64D0004D9EE /* OrerListCell.swift in Sources */,
 				96610A831ED9752900C117D6 /* AddressUpdateVC.swift in Sources */,
 				96610A811ED961BC00C117D6 /* CornerBtn.swift in Sources */,
 				96902F0B1ECB32B100B219D7 /* CountdownButton.swift in Sources */,
@@ -950,6 +964,7 @@
 				965B9D7A1ECC93F1002016C2 /* OrderVC.swift in Sources */,
 				96902F1C1ECB32F200B219D7 /* ShadowView.swift in Sources */,
 				968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */,
+				9674E2A11EE4EAD60004D9EE /* GoodsListModel.swift in Sources */,
 				967187DB1EDFFB3300DDD61B /* BalanceVC.swift in Sources */,
 				96902F1D1ECB32F200B219D7 /* TabView.swift in Sources */,
 				967187CE1EDEA51800DDD61B /* NormalTableViewCell.swift in Sources */,
@@ -966,6 +981,7 @@
 				96902EF51ECB328200B219D7 /* Tools.swift in Sources */,
 				96A972711ED2B59B0007C324 /* WaterfallLayout.swift in Sources */,
 				96DE99641ECB2D0E0011290E /* AppDelegate.swift in Sources */,
+				9674E2A71EE4F9FF0004D9EE /* OrderModel.swift in Sources */,
 				96902F351ECB37DA00B219D7 /* CustomTabBarVC.swift in Sources */,
 				96DE99901ECB2FC90011290E /* NJKWebViewProgressView.m in Sources */,
 				96A9726B1ED275D30007C324 /* CarTableViewCell.swift in Sources */,

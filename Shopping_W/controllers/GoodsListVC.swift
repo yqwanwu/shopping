@@ -22,14 +22,14 @@ class GoodsListVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let c = CustomTableViewCellItem().build(heightForRow: 118)
+        let c = GoodsListModel().build(heightForRow: 118)
         
         if type == .level2 {
             c.build(cellClass: GoodListLevel2Cell.self)
         } else {
             c.build(cellClass: GoodsCommonTableViewCell.self)
         }
-        
+        c.type = type
         c.setupCellAction { [unowned self] (idx) in
             let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
             vc.type = self.type

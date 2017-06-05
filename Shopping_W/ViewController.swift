@@ -112,6 +112,7 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
                     } else if t == "团购" {
                         listVC.type = .group
                     }
+                    vc.title = data.title
                 }
                 
                 self.navigationController?.pushViewController(vc, animated: true)

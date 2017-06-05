@@ -8,9 +8,11 @@
 
 import UIKit
 
-class FirstItem: NSObject {
+class FirstItem: CustomTableViewCellItem {
     var title = ""
     var imgName = ""
+    
+    var type = GoodsListVC.ListType.normal
     
     convenience init(title: String, imgName: String) {
         self.init()

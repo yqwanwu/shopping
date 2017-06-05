@@ -8,10 +8,15 @@
 
 import UIKit
 
-class OrderVC: BaseViewController, UITableViewDelegate {
+class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var headerView: TabView!
     @IBOutlet weak var scrollView: UIScrollView!
     private let titles = ["全部订单", "待付款", "待发货", "待收货", "待评价"]
+    
+    enum OrderType: Int {
+        case all = 0, pay, send, recive, evaluate, alreadyEvaluate
+    }
+    
     
     lazy var tableViewList: [RefreshTableView] = {
         var arr = [RefreshTableView]()
@@ -85,15 +90,10 @@ class OrderVC: BaseViewController, UITableViewDelegate {
     }
     
     func setupTableView() {
+        var i = 0
         for tableView in tableViewList {
             self.scrollView.addSubview(tableView)
             tableView.backgroundColor = UIColor.randColor()
-            
-            let c = CustomTableViewCellItem()
-                .build(text: "qweqwe")
-                .build(cellClass: CustomTableViewCell.self)
-                .build(heightForRow: 100)
-            tableView.dataArray = [[c, c]]
             
             tableView.addHeaderAction {
                 print("sdadsadas")
@@ -110,6 +110,15 @@ class OrderVC: BaseViewController, UITableViewDelegate {
                     tableView.endFooterRefresh()
                 })
             }
+            
+            tableView.dataSource = self
+            
+            //MARK: 假数据
+            let c = OrderModel().build(cellClass: OrerListCell.self).build(heightForRow: 118)
+            c.type = OrderType(rawValue: i)!
+            tableView.dataArray = [[c, c, c, c]]
+            
+            i += 1
         }
         
         selectedIndex += 0
@@ -154,6 +163,26 @@ class OrderVC: BaseViewController, UITableViewDelegate {
     
     
     //MARK: 代理
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let data = (tableView as! RefreshTableView).dataArray[indexPath.section][indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: OrerListCell.getNameString(), for: indexPath) as! OrerListCell
+        cell.model = data
+        
+        cell.logisticsAction = { [unowned self] _ in
+            print("adasd")
+        }
+        
+        cell.reciveAction = { [unowned self] _ in
+            print("213213")
+        }
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return -1
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView is UITableView {
             return
