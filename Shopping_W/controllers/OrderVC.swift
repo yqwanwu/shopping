@@ -116,6 +116,13 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
             //MARK: 假数据
             let c = OrderModel().build(cellClass: OrerListCell.self).build(heightForRow: 118)
             c.type = OrderType(rawValue: i)!
+            
+            c.setupCellAction({ [unowned self] (idx) in
+                let vc = OrderDetailVC()
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
+            
             tableView.dataArray = [[c, c, c, c]]
             
             i += 1
