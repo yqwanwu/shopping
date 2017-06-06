@@ -8,7 +8,8 @@
 
 import UIKit
 
-class GoodsDetailVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIPopoverPresentationControllerDelegate {
+    @IBOutlet weak var scrollBk: UIScrollView!
     @IBOutlet weak var carouselView: CarouselCollectionView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
@@ -41,16 +42,45 @@ class GoodsDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
     //剩余时间：1231
     @IBOutlet weak var groupLaseTime: UILabel!
     @IBOutlet weak var groupBk: UIView!
+    @IBOutlet weak var rightItem: UIBarButtonItem!
     
+    //底部
+    @IBOutlet weak var carBtn: CustomTabBarItem!
+    @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var serverbtn: CustomTabBarItem!
+    @IBOutlet weak var bottomBk: UIView!
+    
+    //评分
+    @IBOutlet weak var starView: StarMarkView!
+    
+    @IBOutlet weak var evaluateCountLabel: UILabel!
     
     
     var type = GoodsListVC.ListType.normal
+    @IBOutlet weak var tableView: CustomTableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //fdc249
         setupTypeView()
         setupCustomBk()
+        
+        starView.sadImg = #imageLiteral(resourceName: "p4.6.1.1-评价-灰.png")
+        starView.likeImg = #imageLiteral(resourceName: "p4.6.1.1-评价-红.png")
+        starView.margin = 5
+        
+        carBtn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
+        carBtn.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        carBtn.badgeValue = "21"
+        serverbtn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
+        serverbtn.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        
+        tableView.estimatedRowHeight = 80
+        tableView.rowHeight = UITableViewAutomaticDimension
+        let c = CustomTableViewCellItem().build(cellClass: EvaluateCell.self)
+        tableView.dataArray = [[c, c, c]]
+        
+        self.automaticallyAdjustsScrollViewInsets = false
     }
     
     func setupCustomBk() {
@@ -114,9 +144,49 @@ class GoodsDetailVC: UIViewController, UICollectionViewDataSource, UICollectionV
             currentView = currentBtn
         }
     }
+    
+    
+    //MARK: 底部点击事件
+    
+    @IBAction func ac_shopingCar(_ sender: CustomTabBarItem) {
+        CustomTabBarVC.instance.selectToFirst(index: 2)
+    }
+    @IBAction func ac_server(_ sender: CustomTabBarItem) {
+    }
+    @IBAction func ac_add(_ sender: UIButton) {
+    }
+    
+    
+    @IBAction func ac_right(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    
+    //重写
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.scrollBk.contentSize.height = tableView.frame.maxY
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "popoverSegue" {
+            let vc = segue.destination
+            
+            vc.view.backgroundColor = UIColor.red
+            vc.modalPresentationStyle = .popover
+            vc.popoverPresentationController?.delegate = self
+            vc.preferredContentSize = CGSize(width: 140, height: 100)
+        }
+    }
 
     
     //MARK: 代理
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == carouselView {
             return 3

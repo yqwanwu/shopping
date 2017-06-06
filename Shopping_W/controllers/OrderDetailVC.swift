@@ -19,6 +19,10 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
         return t
     } ()
     
+    //就是这么任性，纯代码写的，，，
+    var showPayBtn = true
+    let totalPriceLabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,8 +30,40 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
         
         self.view.addSubview(tableView)
         setupData()
+        
+        if showPayBtn {
+            tableView.frame.size.height -= 51
+            setupPayBack()
+        }
     }
     
+    func setupPayBack() {
+        let bk = UIView(frame: CGRect(x: 0, y: tableView.frame.maxY + 1, width: self.view.frame.width, height: 50))
+        bk.backgroundColor = UIColor.white
+        view.addSubview(bk)
+        
+        let l1 = UILabel()
+        l1.text = "合计："
+        l1.font = UIFont.systemFont(ofSize: 15)
+        l1.textColor = UIColor.hexStringToColor(hexString: "888888")
+        bk.addSubview(l1)
+        
+        l1.snp.makeConstraints { (make) in
+            make.left.equalTo(bk.snp.left).offset(15)
+            make.centerY.equalTo(bk.snp.centerY)
+            make.width.height.greaterThanOrEqualTo(20)
+        }
+        
+        totalPriceLabel.text = "¥1232"
+        totalPriceLabel.font = UIFont.systemFont(ofSize: 15)
+        totalPriceLabel.textColor = CustomValue.common_red
+        bk.addSubview(totalPriceLabel)
+        totalPriceLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(l1.snp.right).offset(2)
+            make.centerY.equalTo(bk.snp.centerY)
+            make.width.height.greaterThanOrEqualTo(20)
+        }
+    }
     
     func setupData() {
         let addr = CustomTableViewCellItem().build(cellClass: Address_reciveCell.self)

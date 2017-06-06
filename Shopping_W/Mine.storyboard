@@ -373,7 +373,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RewardTableViewCell" rowHeight="131" id="DUm-pa-ZAK" customClass="RewardTableViewCell" customModule="Shopping_W" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="131"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DUm-pa-ZAK" id="FUH-RZ-ATK">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="130.5"/>

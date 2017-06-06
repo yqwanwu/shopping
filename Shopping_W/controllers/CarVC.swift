@@ -16,7 +16,7 @@ class CarVC: UIViewController, UITableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupTableView()
         submitBtn.layer.cornerRadius = CustomValue.btnCornerRadius
         submitBtn.layer.masksToBounds = true

@@ -8,9 +8,6 @@
 
 import UIKit
 
-/**
- *  五角星评分视图
- */
 class StarMarkView: UIView {
     
     var isPanGestureEnable = true
@@ -22,7 +19,7 @@ class StarMarkView: UIView {
             setLength()
         }
     }
-
+    
     var starCount = 5 {
         didSet {
             setup()
@@ -92,7 +89,7 @@ class StarMarkView: UIView {
         for l in likeStarList {
             likeBackView.addSubview(l)
         }
-
+        
         let pan = UIPanGestureRecognizer(target: self, action: #selector(StarMarkView.ac_pan(sender:)))
         let tap = UITapGestureRecognizer(target: self, action: #selector(StarMarkView.ac_tap(sender:)))
         
@@ -109,9 +106,9 @@ class StarMarkView: UIView {
         }
         
         let point = sender.location(in: self)
-        let length = sadStarList.last?.frame.maxX ?? 1
+        //        let length = sadStarList.last?.frame.maxX ?? 1
         
-        score = (point.x / length) * CGFloat(sadStarList.count)
+        calculateScore(point: point)
     }
     
     func ac_tap(sender: UITapGestureRecognizer) {
@@ -119,9 +116,36 @@ class StarMarkView: UIView {
             return
         }
         let point = sender.location(in: self)
-        let length = sadStarList.last?.frame.maxX ?? 1
+        //        let length = sadStarList.last?.frame.maxX ?? 1
         
-        score = (point.x / length) * CGFloat(sadStarList.count)
+        calculateScore(point: point)
+    }
+    
+    func calculateScore(point: CGPoint) {
+        if sadStarList.isEmpty {
+            score = 0
+            return
+        }
+        if point.x < 0 {
+            score = 0
+        } else if point.x > sadStarList.last?.frame.maxX ?? 0 {
+            score = CGFloat(sadStarList.count)
+        } else {
+            let x = point.x
+            for i in 0..<sadStarList.count {
+                let star = sadStarList[i]
+                let maxX = star.frame.maxX
+                let w = star.frame.width
+                if maxX < x && maxX + margin > x {
+                    score = isFullStar ? ceil(CGFloat(i + 1)) : CGFloat(i + 1)
+                    return
+                } else if maxX >= x {
+                    let s = CGFloat(i + 1) - (maxX - x) / w
+                    score = isFullStar ? ceil(s) : s
+                    return
+                }
+            }
+        }
     }
     
     override func layoutSubviews() {
@@ -135,9 +159,9 @@ class StarMarkView: UIView {
         
         var w = (self.frame.width - margin * CGFloat(starCount - 1)) / CGFloat(starCount)
         w = w < self.frame.height ? w : self.frame.height
-        let y = (self.frame.height - w) / 2
+        //        let y = (self.frame.height - w) / 2
         for i in 0..<starCount {
-            let f = CGRect(x: CGFloat(i) * (margin + w), y: y, width: w, height: self.frame.height)
+            let f = CGRect(x: CGFloat(i) * (margin + w), y: 0, width: w, height: self.frame.height)
             sadStarList[i].frame = f
             likeStarList[i].frame = f
         }
@@ -148,7 +172,7 @@ class StarMarkView: UIView {
     func setLength() {
         let length = sadStarList.last?.frame.maxX ?? 1
         maskLayer.frame = likeBackView.frame
-        maskLayer.frame.size.width = (isFullStar ? ceil(score) : score) / CGFloat(sadStarList.count) * length
+        maskLayer.frame.size.width = score / CGFloat(sadStarList.count) * length
     }
-
+    
 }

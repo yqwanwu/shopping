@@ -10,10 +10,22 @@ import UIKit
 
 class CustomTabBarVC: BaseTabBarController {
     
+    static var instance: CustomTabBarVC!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        CustomTabBar.CustomTabBarItem.selectedTitleColor = UIColor.red
-        CustomTabBar.CustomTabBarItem.normalTitleColor = UIColor.black
+        CustomTabBarVC.instance = self
+        CustomTabBarItem.selectedTitleColor = UIColor.red
+        CustomTabBarItem.normalTitleColor = UIColor.black
     }
-
+    
+    func selectToFirst(index: Int) {
+        if let nav = self.viewControllers?[index] as? UINavigationController {
+            nav.popToRootViewController(animated: false)
+            self.selectedIndex = index
+            if let vc = nav.viewControllers.first {
+                vc.tabBarController?.tabBar.isHidden = false
+            }
+        }
+    }
 }
