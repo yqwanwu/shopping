@@ -18,6 +18,8 @@ class MyEvaluateListVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = "我的评价"
+        
         self.view.addSubview(tableView)
         
         let c = OrderModel().build(cellClass: OrerListCell.self).build(heightForRow: 118)

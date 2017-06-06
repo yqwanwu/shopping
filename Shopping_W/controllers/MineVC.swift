@@ -48,6 +48,10 @@ class MineVC: BaseViewController {
         let c4 = CustomTableViewCellItem().build(imageUrl: "积分").build(detailText: "积分详情")
         let c5 = CustomTableViewCellItem().build(imageUrl: "浏览记录").build(detailText: "浏览记录")
         
+        c.setupCellAction { [unowned self] (idx) in
+            let vc = MyCollectionVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         c2.setupCellAction { [unowned self] (idx) in
             let vc = MyEvaluateListVC()
             self.navigationController?.pushViewController(vc, animated: true)

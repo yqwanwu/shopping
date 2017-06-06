@@ -38,6 +38,10 @@ class OrerListCell: CustomTableViewCell {
                     reciveBtn.setTitle("追加评价", for: .normal)
                 case .myCollection:
                     reciveBtn.setTitle("查看", for: .normal)
+                    reciveBtn.snp.updateConstraints({ (make) in
+                        let r = (UIScreen.main.bounds.width - 130 - 80) / 2
+                        make.right.equalTo(self.contentView).offset(-r)
+                    })
                 case .myEvaluate:
                     reciveBtn.layer.borderColor = UIColor.hexStringToColor(hexString: "888888").cgColor
                     reciveBtn.layer.borderWidth = 1
