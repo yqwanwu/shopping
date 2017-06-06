@@ -115,6 +115,12 @@
 		96A972711ED2B59B0007C324 /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A972701ED2B59B0007C324 /* WaterfallLayout.swift */; };
 		96A972731ED2BAF70007C324 /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A972721ED2BAF70007C324 /* SearchCollectionViewCell.swift */; };
 		96A972751ED2C5EC0007C324 /* AddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A972741ED2C5EC0007C324 /* AddressVC.swift */; };
+		96C4030F1EE69F00003A2318 /* MyEvaluateListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C4030E1EE69F00003A2318 /* MyEvaluateListVC.swift */; };
+		96C403111EE69F13003A2318 /* MyCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C403101EE69F13003A2318 /* MyCollectionVC.swift */; };
+		96DA5ABF1EE6880100E9CF8F /* MyEvaluateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DA5ABE1EE6880100E9CF8F /* MyEvaluateVC.swift */; };
+		96DA5AC21EE68EAD00E9CF8F /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DA5AC01EE68EAD00E9CF8F /* AlertVC.swift */; };
+		96DA5AC31EE68EAD00E9CF8F /* AlertVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96DA5AC11EE68EAD00E9CF8F /* AlertVC.xib */; };
+		96DA5AC51EE6979000E9CF8F /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96DA5AC41EE6979000E9CF8F /* MBProgressHUD.bundle */; };
 		96DE99641ECB2D0E0011290E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE99631ECB2D0E0011290E /* AppDelegate.swift */; };
 		96DE99661ECB2D0E0011290E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE99651ECB2D0E0011290E /* ViewController.swift */; };
 		96DE99691ECB2D0E0011290E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 96DE99671ECB2D0E0011290E /* Main.storyboard */; };
@@ -237,6 +243,12 @@
 		96A972701ED2B59B0007C324 /* WaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
 		96A972721ED2BAF70007C324 /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		96A972741ED2C5EC0007C324 /* AddressVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressVC.swift; sourceTree = "<group>"; };
+		96C4030E1EE69F00003A2318 /* MyEvaluateListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEvaluateListVC.swift; sourceTree = "<group>"; };
+		96C403101EE69F13003A2318 /* MyCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionVC.swift; sourceTree = "<group>"; };
+		96DA5ABE1EE6880100E9CF8F /* MyEvaluateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEvaluateVC.swift; sourceTree = "<group>"; };
+		96DA5AC01EE68EAD00E9CF8F /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
+		96DA5AC11EE68EAD00E9CF8F /* AlertVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertVC.xib; sourceTree = "<group>"; };
+		96DA5AC41EE6979000E9CF8F /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		96DE99601ECB2D0E0011290E /* Shopping_W.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shopping_W.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96DE99631ECB2D0E0011290E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		96DE99651ECB2D0E0011290E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../ViewController.swift; sourceTree = "<group>"; };
@@ -272,6 +284,7 @@
 		965B9D781ECC9353002016C2 /* mine */ = {
 			isa = PBXGroup;
 			children = (
+				96C4030D1EE69ECB003A2318 /* 评价收藏 */,
 				965B9D791ECC93F1002016C2 /* OrderVC.swift */,
 				9674E2B11EE52C010004D9EE /* OrderDetailVC.swift */,
 				96610A781ED7FA1500C117D6 /* MineVC.swift */,
@@ -282,6 +295,9 @@
 				967187DA1EDFFB3300DDD61B /* BalanceVC.swift */,
 				967187E21EE0F4F000DDD61B /* WithdrawVC.swift */,
 				967187E41EE0FDE000DDD61B /* RewardVC.swift */,
+				96DA5ABE1EE6880100E9CF8F /* MyEvaluateVC.swift */,
+				96DA5AC01EE68EAD00E9CF8F /* AlertVC.swift */,
+				96DA5AC11EE68EAD00E9CF8F /* AlertVC.xib */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -432,6 +448,7 @@
 			children = (
 				96902EF61ECB329A00B219D7 /* FontExtension.swift */,
 				96902EF71ECB329A00B219D7 /* MBHUDExternsion.swift */,
+				96DA5AC41EE6979000E9CF8F /* MBProgressHUD.bundle */,
 				96902EF81ECB329A00B219D7 /* TimerExtension.swift */,
 			);
 			path = extension;
@@ -606,6 +623,15 @@
 				967187E61EE0FE1200DDD61B /* RewardTableViewCell.swift */,
 			);
 			name = mine;
+			sourceTree = "<group>";
+		};
+		96C4030D1EE69ECB003A2318 /* 评价收藏 */ = {
+			isa = PBXGroup;
+			children = (
+				96C4030E1EE69F00003A2318 /* MyEvaluateListVC.swift */,
+				96C403101EE69F13003A2318 /* MyCollectionVC.swift */,
+			);
+			name = "评价收藏";
 			sourceTree = "<group>";
 		};
 		96DE99571ECB2D0E0011290E = {
@@ -869,12 +895,14 @@
 				967187D51EDEB71800DDD61B /* GoodsCommonTableViewCell.xib in Resources */,
 				9674E2B81EE63E6C0004D9EE /* EvaluateCell.xib in Resources */,
 				96DE996B1ECB2D0E0011290E /* Assets.xcassets in Resources */,
+				96DA5AC31EE68EAD00E9CF8F /* AlertVC.xib in Resources */,
 				967187C61EDE668500DDD61B /* address.txt in Resources */,
 				965B9D731ECC8B72002016C2 /* Category.storyboard in Resources */,
 				967187EB1EE106AC00DDD61B /* GoodListLevel2Cell.xib in Resources */,
 				96DE99691ECB2D0E0011290E /* Main.storyboard in Resources */,
 				96902F321ECB334700B219D7 /* 返回icon@2x.png in Resources */,
 				96610A471ED4178700C117D6 /* FirstFlowTableViewCell.xib in Resources */,
+				96DA5AC51EE6979000E9CF8F /* MBProgressHUD.bundle in Resources */,
 				965B9D711ECC89D6002016C2 /* First.storyboard in Resources */,
 				96A9726F1ED28AB20007C324 /* CarSectionHeader.xib in Resources */,
 				965B9D751ECC8B80002016C2 /* Mine.storyboard in Resources */,
@@ -942,6 +970,7 @@
 				96610A691ED667F100C117D6 /* RegisterVC.swift in Sources */,
 				96902F101ECB32BF00B219D7 /* PlacehodelTextView.swift in Sources */,
 				9674E2BC1EE65AFC0004D9EE /* CollectionPopoverVC.swift in Sources */,
+				96DA5ABF1EE6880100E9CF8F /* MyEvaluateVC.swift in Sources */,
 				967187D41EDEB71800DDD61B /* GoodsCommonTableViewCell.swift in Sources */,
 				96610A7D1ED95EF900C117D6 /* AddressTableViewCell.swift in Sources */,
 				96902F171ECB32DF00B219D7 /* CircleProgressView.swift in Sources */,
@@ -977,9 +1006,11 @@
 				96A972611ED272CD0007C324 /* CarVC.swift in Sources */,
 				96DE99911ECB2FC90011290E /* String+QRCode.swift in Sources */,
 				96902F091ECB32B100B219D7 /* CheckTextFiled.swift in Sources */,
+				96DA5AC21EE68EAD00E9CF8F /* AlertVC.swift in Sources */,
 				96902F111ECB32BF00B219D7 /* ProgressButton.swift in Sources */,
 				96A9726D1ED28A8D0007C324 /* CarSectionHeader.swift in Sources */,
 				967187EE1EE10F9000DDD61B /* GoodsDetailVC.swift in Sources */,
+				96C4030F1EE69F00003A2318 /* MyEvaluateListVC.swift in Sources */,
 				965B9D7F1ECD9146002016C2 /* CategoryVC.swift in Sources */,
 				967187EA1EE106AC00DDD61B /* GoodListLevel2Cell.swift in Sources */,
 				9674E2AF1EE52AFE0004D9EE /* RightTitleCell.swift in Sources */,
@@ -1016,6 +1047,7 @@
 				96610A461ED4178700C117D6 /* FirstFlowTableViewCell.swift in Sources */,
 				967187C91EDEA29700DDD61B /* SettingsVC.swift in Sources */,
 				96902EFA1ECB329A00B219D7 /* MBHUDExternsion.swift in Sources */,
+				96C403111EE69F13003A2318 /* MyCollectionVC.swift in Sources */,
 				96DE998F1ECB2FC90011290E /* NJKWebViewProgress.m in Sources */,
 				96902F081ECB32B100B219D7 /* CarouselCollectionView.swift in Sources */,
 				96902F2C1ECB334700B219D7 /* BaseNavigationController.swift in Sources */,

@@ -12,6 +12,7 @@ class MineVC: BaseViewController {
     let k_toReceiving = "toReceiving"
     let k_toAddress = "toAddress"
     let k_toIntegral = "toIntegral"
+    let k_toAllRecive = "toAllRecive"
     
     @IBOutlet weak var tableView: RefreshTableView!
     @IBOutlet weak var headImg: UIImageView!
@@ -47,7 +48,10 @@ class MineVC: BaseViewController {
         let c4 = CustomTableViewCellItem().build(imageUrl: "积分").build(detailText: "积分详情")
         let c5 = CustomTableViewCellItem().build(imageUrl: "浏览记录").build(detailText: "浏览记录")
         
-        
+        c2.setupCellAction { [unowned self] (idx) in
+            let vc = MyEvaluateListVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         c3.setupCellAction { [unowned self] (idx) in
             self.performSegue(withIdentifier: self.k_toAddress, sender: self)
         }
@@ -96,8 +100,9 @@ class MineVC: BaseViewController {
         }
     }
     
-    
+    var orderIndex = 0
     func ac_gotoRevice(sender: UIButton) {
+        orderIndex = sender.tag - 1023
         self.performSegue(withIdentifier: k_toReceiving, sender: self)
     }
     
@@ -146,10 +151,17 @@ class MineVC: BaseViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if segue.identifier == k_toIntegral {
+        let identifier = segue.identifier
+        
+        if identifier == k_toIntegral {
             if let vc = segue.destination as? BalanceVC {
                 vc.type = .integral
             }
+        } else if identifier == k_toAllRecive {
+            orderIndex = 0
+        } else if identifier == k_toReceiving {
+            let vc = segue.destination as! OrderVC
+            vc.selectedIndex = orderIndex
         }
     }
 

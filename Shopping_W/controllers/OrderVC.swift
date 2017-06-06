@@ -7,14 +7,18 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var headerView: TabView!
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    let k_toEvaluateVC = "toEvaluateVC"
+    
     private let titles = ["全部订单", "待付款", "待发货", "待收货", "待评价"]
     
     enum OrderType: Int {
-        case all = 0, pay, send, recive, evaluate, alreadyEvaluate
+        case all = 0, pay, send, recive, evaluate, alreadyEvaluate, myEvaluate, myCollection
     }
     
     
@@ -34,7 +38,7 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     var selectedIndex = 0 {
         didSet {
-            if needChange {
+            if needChange && self.scrollView != nil {
                 if selectedIndex < 5 && selectedIndex >= 0 {
                     self.scrollView.contentOffset.x = CGFloat(selectedIndex) * UIScreen.main.bounds.width
                 }
@@ -93,7 +97,6 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         var i = 0
         for tableView in tableViewList {
             self.scrollView.addSubview(tableView)
-            tableView.backgroundColor = UIColor.randColor()
             
             tableView.addHeaderAction {
                 print("sdadsadas")
@@ -132,10 +135,6 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         tableViewList[selectedIndex].beginHeaderRefresh()
         loadedIndex = loadedIndex | (1 << selectedIndex)
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
     
     func loadData(index: Int? = nil) {
         let si = index ?? selectedIndex
@@ -150,13 +149,18 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    //MARK: 重写
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         let w = self.view.frame.width
         var i: CGFloat = 0.0
         for tableView in tableViewList {
-            tableView.frame = CGRect(x: i * w, y: 0, width: w, height: self.scrollView.frame.height - 100)
+            tableView.frame = CGRect(x: i * w, y: 0, width: w, height: self.scrollView.frame.height)
             i += 1
         }
     }
@@ -180,7 +184,16 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.reciveAction = { [unowned self] _ in
-            print("213213")
+            if let model = data as? OrderModel {
+                if model.type == .evaluate {
+                    self.performSegue(withIdentifier: self.k_toEvaluateVC, sender: self)
+                } else if model.type == OrderType.recive {
+                    let alert = AlertVC()
+                    self.present(alert, animated: true, completion: nil)
+                } else if model.type == .send {
+                    MBProgressHUD.show(successText: "已提醒卖家尽快发货")
+                }
+            }
         }
         
         return cell

@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     var showBottomBar = false
     ///更改为 true 默认显示

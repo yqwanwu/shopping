@@ -31,12 +31,35 @@ class OrerListCell: CustomTableViewCell {
                     reciveBtn.setTitle("立即付款", for: .normal)
                 case .send:
                     reciveBtn.setTitle("提醒卖家发货", for: .normal)
-                  
                     reciveWidth.constant = 110
                 case .evaluate:
                     reciveBtn.setTitle("评价", for: .normal)
                 case .alreadyEvaluate:
                     reciveBtn.setTitle("追加评价", for: .normal)
+                case .myCollection:
+                    reciveBtn.setTitle("查看", for: .normal)
+                case .myEvaluate:
+                    reciveBtn.layer.borderColor = UIColor.hexStringToColor(hexString: "888888").cgColor
+                    reciveBtn.layer.borderWidth = 1
+                    reciveBtn.backgroundColor = UIColor.clear
+                    reciveBtn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
+                    logisticsBtn.isHidden = false
+                    logisticsBtn.backgroundColor = CustomValue.common_red
+                    logisticsBtn.setTitle("查看", for: .normal)
+                    logisticsBtn.setTitleColor(UIColor.white, for: .normal)
+                    logisticsBtn.layer.borderWidth = 0
+                    reciveBtn.setTitle("重新评价", for: .normal)
+                    
+                    logisticsBtn.snp.updateConstraints({ (make) in
+                        make.width.equalTo(50)
+                    })
+                    reciveBtn.snp.remakeConstraints({ (make) in
+                        make.height.equalTo(30)
+                        make.width.equalTo(80)
+                        make.top.equalTo(priceLabel.snp.bottom).offset(10)
+                        make.left.equalTo(logisticsBtn.snp.right).offset(15)
+                    })
+                    
                 default:
                     break
                 }

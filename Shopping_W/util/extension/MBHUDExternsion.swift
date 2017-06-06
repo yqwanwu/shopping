@@ -28,6 +28,10 @@ extension MBProgressHUD {
             hud?.backgroundColor = UIColor.clear
         }
         
+        if let i = icon {
+            hud.customView = UIImageView(image: i)
+        }
+        
         if let t = text {
             hud?.label.text = t
         }

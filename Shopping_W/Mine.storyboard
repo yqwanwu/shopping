@@ -50,11 +50,129 @@
                         <outlet property="headerView" destination="nGC-BY-QzR" id="Th0-DR-ypp"/>
                         <outlet property="scrollView" destination="cvE-ca-cR2" id="Qnm-Sg-r3S"/>
                         <segue destination="vW1-ca-R7B" kind="show" id="wDl-n9-n7H"/>
+                        <segue destination="5Ee-gg-qmc" kind="show" identifier="toEvaluateVC" id="Hgb-ft-2i4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zN8-kx-SeL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1657" y="-20"/>
+        </scene>
+        <!--评价-->
+        <scene sceneID="FG6-UL-5xT">
+            <objects>
+                <viewController title="评价" id="5Ee-gg-qmc" customClass="MyEvaluateVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9v6-hY-oMT"/>
+                        <viewControllerLayoutGuide type="bottom" id="0f9-NL-ddo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="U2N-MV-OER">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="星级" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qjv-Ch-Z6g">
+                                <rect key="frame" x="25" y="89" width="31" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="94G-n7-gbk"/>
+                                    <constraint firstAttribute="width" constant="31" id="sVy-Wo-m2x"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgc-VL-sMM" customClass="StarMarkView" customModule="Shopping_W" customModuleProvider="target">
+                                <rect key="frame" x="142" y="84" width="217" height="28"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="217" id="3QW-mv-JtZ"/>
+                                    <constraint firstAttribute="height" constant="28" id="Yap-9T-rBa"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSy-xZ-2Mb">
+                                <rect key="frame" x="25" y="127" width="149" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="149" id="ebO-Mv-o5c"/>
+                                    <constraint firstAttribute="height" constant="17" id="s35-ni-tbk"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="评价内容">
+                                        <attributes>
+                                            <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="14"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="（">
+                                        <attributes>
+                                            <color key="NSColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="10-100">
+                                        <attributes>
+                                            <color key="NSColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="字）">
+                                        <attributes>
+                                            <color key="NSColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="TpG-nE-654" customClass="PlacehodelTextView" customModule="Shopping_W" customModuleProvider="target">
+                                <rect key="frame" x="25" y="163" width="325" height="152"/>
+                                <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="152" id="DxY-Bv-7Bn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWD-zp-4EM">
+                                <rect key="frame" x="96" y="341" width="183" height="35"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="O33-dm-Kn4"/>
+                                </constraints>
+                                <state key="normal" title="提交">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="ac_submit:" destination="5Ee-gg-qmc" eventType="touchUpInside" id="TKh-4U-VET"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jSy-xZ-2Mb" firstAttribute="leading" secondItem="U2N-MV-OER" secondAttribute="leading" constant="25" id="1vu-KQ-XM8"/>
+                            <constraint firstItem="Qjv-Ch-Z6g" firstAttribute="top" secondItem="9v6-hY-oMT" secondAttribute="bottom" constant="25" id="2lb-Zm-DW3"/>
+                            <constraint firstItem="eWD-zp-4EM" firstAttribute="leading" secondItem="U2N-MV-OER" secondAttribute="leadingMargin" constant="80" id="56i-kc-O4N"/>
+                            <constraint firstItem="TpG-nE-654" firstAttribute="top" secondItem="jSy-xZ-2Mb" secondAttribute="bottom" constant="19" id="DFS-vt-hA4"/>
+                            <constraint firstItem="eWD-zp-4EM" firstAttribute="top" secondItem="TpG-nE-654" secondAttribute="bottom" constant="26" id="Ng3-rf-Mzw"/>
+                            <constraint firstItem="jSy-xZ-2Mb" firstAttribute="top" secondItem="vgc-VL-sMM" secondAttribute="bottom" constant="15" id="Re0-Yd-9y4"/>
+                            <constraint firstItem="Qjv-Ch-Z6g" firstAttribute="leading" secondItem="U2N-MV-OER" secondAttribute="leading" constant="25" id="SLU-br-Wtq"/>
+                            <constraint firstItem="vgc-VL-sMM" firstAttribute="top" secondItem="9v6-hY-oMT" secondAttribute="bottom" constant="20" id="VAO-V7-VAY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eWD-zp-4EM" secondAttribute="trailing" constant="80" id="fSJ-6q-5NL"/>
+                            <constraint firstItem="TpG-nE-654" firstAttribute="leading" secondItem="U2N-MV-OER" secondAttribute="leading" constant="25" id="fpx-pp-ljU"/>
+                            <constraint firstAttribute="trailing" secondItem="TpG-nE-654" secondAttribute="trailing" constant="25" id="rGz-Lv-AzJ"/>
+                            <constraint firstItem="vgc-VL-sMM" firstAttribute="trailing" secondItem="U2N-MV-OER" secondAttribute="trailingMargin" id="vBe-IH-Qo5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="starView" destination="vgc-VL-sMM" id="fth-s1-CJR"/>
+                        <outlet property="submitBtn" destination="eWD-zp-4EM" id="mYW-zg-ZuD"/>
+                        <outlet property="textView" destination="TpG-nE-654" id="o10-cg-HWg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="578-9U-Ig0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2120.8000000000002" y="-752.47376311844084"/>
         </scene>
         <!--Address UpdateVC-->
         <scene sceneID="kem-tP-7M1">

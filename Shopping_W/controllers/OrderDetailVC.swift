@@ -63,6 +63,25 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
             make.centerY.equalTo(bk.snp.centerY)
             make.width.height.greaterThanOrEqualTo(20)
         }
+        
+        let btn = UIButton(type: .system)
+        btn.backgroundColor = CustomValue.common_red
+        btn.layer.cornerRadius = CustomValue.btnCornerRadius
+        btn.setTitleColor(UIColor.white, for: .normal)
+        btn.setTitle("立即支付", for: .normal)
+        btn.addTarget(self, action: #selector(OrderDetailVC.ac_pay), for: .touchUpInside)
+        
+        bk.addSubview(btn)
+        btn.snp.makeConstraints { (make) in
+            make.right.equalTo(bk.snp.right).offset(-15)
+            make.height.equalTo(34)
+            make.width.equalTo(80)
+            make.centerY.equalTo(bk)
+        }
+    }
+    
+    func ac_pay() {
+        debugPrint("还支付")
     }
     
     func setupData() {
