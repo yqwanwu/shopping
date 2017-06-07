@@ -14,11 +14,12 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var scrollView: UIScrollView!
     
     let k_toEvaluateVC = "toEvaluateVC"
+    let k_Logistics = "toLogistics"
     
     private let titles = ["全部订单", "待付款", "待发货", "待收货", "待评价"]
     
     enum OrderType: Int {
-        case all = 0, pay, send, recive, evaluate, alreadyEvaluate, myEvaluate, myCollection
+        case all = 0, pay, send, recive, evaluate, alreadyEvaluate, myEvaluate, myCollection, cookies, /*换货*/returned, /*换货中*/returning
     }
     
     
@@ -180,7 +181,11 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         cell.model = data
         
         cell.logisticsAction = { [unowned self] _ in
-            print("adasd")
+            if let model = data as? OrderModel {
+                if model.type == .recive {
+                    self.performSegue(withIdentifier: self.k_Logistics, sender: self)
+                }
+            }
         }
         
         cell.reciveAction = { [unowned self] _ in

@@ -12,6 +12,8 @@ class MyCollectionVC: BaseViewController {
 
     lazy var tableView: CustomTableView = {
         let t = CustomTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height), style: .plain)
+        t.sectionHeaderHeight = 8
+
         return t
     } ()
     

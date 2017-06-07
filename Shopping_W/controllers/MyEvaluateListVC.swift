@@ -12,6 +12,8 @@ class MyEvaluateListVC: BaseViewController {
     
     lazy var tableView: CustomTableView = {
         let t = CustomTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height), style: .plain)
+        t.sectionHeaderHeight = 8
+
         return t
     } ()
 
@@ -24,6 +26,7 @@ class MyEvaluateListVC: BaseViewController {
         
         let c = OrderModel().build(cellClass: OrerListCell.self).build(heightForRow: 118)
         c.type = .myEvaluate
+        
         tableView.dataArray = [[c, c, c, c]]
     }
 

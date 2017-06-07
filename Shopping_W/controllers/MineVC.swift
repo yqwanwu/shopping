@@ -13,6 +13,7 @@ class MineVC: BaseViewController {
     let k_toAddress = "toAddress"
     let k_toIntegral = "toIntegral"
     let k_toAllRecive = "toAllRecive"
+    let k_toBalance = "toBalance"
     
     @IBOutlet weak var tableView: RefreshTableView!
     @IBOutlet weak var headImg: UIImageView!
@@ -52,6 +53,9 @@ class MineVC: BaseViewController {
             let vc = MyCollectionVC()
             self.navigationController?.pushViewController(vc, animated: true)
         }
+        c1.setupCellAction { [unowned self] (idx) in
+            self.performSegue(withIdentifier: self.k_toBalance, sender: self)
+        }
         c2.setupCellAction { [unowned self] (idx) in
             let vc = MyEvaluateListVC()
             self.navigationController?.pushViewController(vc, animated: true)
@@ -59,7 +63,13 @@ class MineVC: BaseViewController {
         c3.setupCellAction { [unowned self] (idx) in
             self.performSegue(withIdentifier: self.k_toAddress, sender: self)
         }
-        
+        c4.setupCellAction { [unowned self] (idx) in
+            self.performSegue(withIdentifier: self.k_toIntegral, sender: self)
+        }
+        c5.setupCellAction { [unowned self] (idx) in
+            let vc = CookiesVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
         
         let datas = [c, c1, c2, c3, c4, c5]
@@ -93,7 +103,6 @@ class MineVC: BaseViewController {
             btn.addSubview(label)
             
             btn.addTarget(self, action: #selector(MineVC.ac_gotoRevice(sender:)), for: .touchUpInside)
-            btn.tag = 1024 + i
             
             if i != 0 {
                 let line = UIView(frame: CGRect(x: CGFloat(i) * btnW, y: 15, width: 1, height: 0))
@@ -102,12 +111,26 @@ class MineVC: BaseViewController {
                 lines.append(line)
             }
         }
+        
+        reciveBtns[0].tag = 1024
+        reciveBtns[1].tag = 1024 + 2
+        reciveBtns[2].tag = 1024 + 3
+        reciveBtns[3].tag = 2048
     }
     
+    //MARK: 4大点击事件
     var orderIndex = 0
     func ac_gotoRevice(sender: UIButton) {
-        orderIndex = sender.tag - 1023
-        self.performSegue(withIdentifier: k_toReceiving, sender: self)
+        let tag = sender.tag - 1023
+        if tag > 0 {
+            if sender.tag == 2048 {
+                let vc = ReturnedVC()
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                orderIndex = tag
+                self.performSegue(withIdentifier: k_toReceiving, sender: self)
+            }
+        }
     }
     
 

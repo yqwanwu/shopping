@@ -20,9 +20,19 @@ class OrerListCell: CustomTableViewCell {
     var logisticsAction: (() -> Void)?
     var reciveAction: (() -> Void)?
     
+    let customLabel: UILabel = {
+        let l = UILabel(frame: CGRect.zero)
+        l.textAlignment = .center
+        l.textColor = CustomValue.common_red
+        l.text = "换货中..."
+        l.isHidden = true
+        return l
+    } ()
+    
     override var model: CustomTableViewCellItem? {
         didSet {
             logisticsBtn.isHidden = false
+            customLabel.isHidden = true
             if let m = model as? OrderModel {
                 logisticsBtn.isHidden = m.type != .recive
                 reciveWidth.constant = 80
@@ -39,7 +49,7 @@ class OrerListCell: CustomTableViewCell {
                 case .myCollection:
                     reciveBtn.setTitle("查看", for: .normal)
                     reciveBtn.snp.updateConstraints({ (make) in
-                        let r = (UIScreen.main.bounds.width - 130 - 80) / 2
+                        let r = (UIScreen.main.bounds.width - 116 - 80) / 2
                         make.right.equalTo(self.contentView).offset(-r)
                     })
                 case .myEvaluate:
@@ -63,7 +73,20 @@ class OrerListCell: CustomTableViewCell {
                         make.top.equalTo(priceLabel.snp.bottom).offset(10)
                         make.left.equalTo(logisticsBtn.snp.right).offset(15)
                     })
-                    
+                case .cookies:
+                    reciveBtn.setTitle("查看", for: .normal)
+                    reciveBtn.snp.updateConstraints({ (make) in
+                        let r = (UIScreen.main.bounds.width - 116 - 80)
+                        make.right.equalTo(self.contentView).offset(-r)
+                    })
+                case .returned:
+                    reciveBtn.setTitle("申请退换货", for: .normal)
+                    reciveWidth.constant = 100
+                    reciveBtn.isHidden = false
+                case .returning:
+                    customLabel.isHidden = false
+                    reciveBtn.isHidden = true
+                    break
                 default:
                     break
                 }
@@ -78,6 +101,8 @@ class OrerListCell: CustomTableViewCell {
         logisticsBtn.layer.borderWidth = 1
         logisticsBtn.layer.cornerRadius = CustomValue.btnCornerRadius
         reciveBtn.layer.cornerRadius = CustomValue.btnCornerRadius
+        
+        contentView.addSubview(customLabel)
     }
 
     @IBAction func ac_logistics(_ sender: UIButton) {
@@ -90,5 +115,6 @@ class OrerListCell: CustomTableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        customLabel.frame = reciveBtn.frame
     }
 }

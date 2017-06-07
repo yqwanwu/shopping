@@ -144,11 +144,15 @@ extension CustomTableView {
             }
         }
         
+        return createDefaultCell(indexPath: indexPath)
+    }
+    
+    func createDefaultCell(indexPath: IndexPath) -> UITableViewCell {
         let data = dataArray[indexPath.section][indexPath.row]
         let identifier = (NSStringFromClass(data.cellClass) as NSString).pathExtension
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         if let cell = cell as? CustomTableViewCell {
-            cell.tableView = tableView
+            cell.tableView = self
             cell.indexPath = indexPath as NSIndexPath
             cell.model = data
             cell.accessoryType = data.accessoryType

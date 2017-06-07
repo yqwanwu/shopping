@@ -117,6 +117,12 @@
 		96A972751ED2C5EC0007C324 /* AddressVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A972741ED2C5EC0007C324 /* AddressVC.swift */; };
 		96C4030F1EE69F00003A2318 /* MyEvaluateListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C4030E1EE69F00003A2318 /* MyEvaluateListVC.swift */; };
 		96C403111EE69F13003A2318 /* MyCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C403101EE69F13003A2318 /* MyCollectionVC.swift */; };
+		96C403131EE78DEA003A2318 /* LogisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C403121EE78DEA003A2318 /* LogisticsVC.swift */; };
+		96C403151EE794A7003A2318 /* LogisticsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C403141EE794A7003A2318 /* LogisticsModel.swift */; };
+		96C403171EE79870003A2318 /* LogisticsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C403161EE79870003A2318 /* LogisticsCell.swift */; };
+		96C403191EE79E51003A2318 /* CookiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C403181EE79E51003A2318 /* CookiesVC.swift */; };
+		96C4031B1EE7A864003A2318 /* ReturnedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C4031A1EE7A864003A2318 /* ReturnedVC.swift */; };
+		96C4031D1EE7D080003A2318 /* ReturnedDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C4031C1EE7D080003A2318 /* ReturnedDetailVC.swift */; };
 		96DA5ABF1EE6880100E9CF8F /* MyEvaluateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DA5ABE1EE6880100E9CF8F /* MyEvaluateVC.swift */; };
 		96DA5AC21EE68EAD00E9CF8F /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DA5AC01EE68EAD00E9CF8F /* AlertVC.swift */; };
 		96DA5AC31EE68EAD00E9CF8F /* AlertVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96DA5AC11EE68EAD00E9CF8F /* AlertVC.xib */; };
@@ -245,6 +251,12 @@
 		96A972741ED2C5EC0007C324 /* AddressVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressVC.swift; sourceTree = "<group>"; };
 		96C4030E1EE69F00003A2318 /* MyEvaluateListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEvaluateListVC.swift; sourceTree = "<group>"; };
 		96C403101EE69F13003A2318 /* MyCollectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionVC.swift; sourceTree = "<group>"; };
+		96C403121EE78DEA003A2318 /* LogisticsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogisticsVC.swift; sourceTree = "<group>"; };
+		96C403141EE794A7003A2318 /* LogisticsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogisticsModel.swift; sourceTree = "<group>"; };
+		96C403161EE79870003A2318 /* LogisticsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogisticsCell.swift; sourceTree = "<group>"; };
+		96C403181EE79E51003A2318 /* CookiesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CookiesVC.swift; sourceTree = "<group>"; };
+		96C4031A1EE7A864003A2318 /* ReturnedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReturnedVC.swift; sourceTree = "<group>"; };
+		96C4031C1EE7D080003A2318 /* ReturnedDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReturnedDetailVC.swift; sourceTree = "<group>"; };
 		96DA5ABE1EE6880100E9CF8F /* MyEvaluateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEvaluateVC.swift; sourceTree = "<group>"; };
 		96DA5AC01EE68EAD00E9CF8F /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		96DA5AC11EE68EAD00E9CF8F /* AlertVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertVC.xib; sourceTree = "<group>"; };
@@ -298,6 +310,7 @@
 				96DA5ABE1EE6880100E9CF8F /* MyEvaluateVC.swift */,
 				96DA5AC01EE68EAD00E9CF8F /* AlertVC.swift */,
 				96DA5AC11EE68EAD00E9CF8F /* AlertVC.xib */,
+				96C403121EE78DEA003A2318 /* LogisticsVC.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -378,6 +391,7 @@
 				9674E2AA1EE527670004D9EE /* Address_reciveCell.xib */,
 				9674E2AD1EE52AFE0004D9EE /* RightTitleCell.swift */,
 				9674E2AE1EE52AFE0004D9EE /* RightTitleCell.xib */,
+				96C403161EE79870003A2318 /* LogisticsCell.swift */,
 			);
 			name = "订单";
 			sourceTree = "<group>";
@@ -571,6 +585,7 @@
 			isa = PBXGroup;
 			children = (
 				9674E2A61EE4F9FF0004D9EE /* OrderModel.swift */,
+				96C403141EE794A7003A2318 /* LogisticsModel.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -630,6 +645,9 @@
 			children = (
 				96C4030E1EE69F00003A2318 /* MyEvaluateListVC.swift */,
 				96C403101EE69F13003A2318 /* MyCollectionVC.swift */,
+				96C403181EE79E51003A2318 /* CookiesVC.swift */,
+				96C4031A1EE7A864003A2318 /* ReturnedVC.swift */,
+				96C4031C1EE7D080003A2318 /* ReturnedDetailVC.swift */,
 			);
 			name = "评价收藏";
 			sourceTree = "<group>";
@@ -969,6 +987,7 @@
 				967187E31EE0F4F000DDD61B /* WithdrawVC.swift in Sources */,
 				96610A691ED667F100C117D6 /* RegisterVC.swift in Sources */,
 				96902F101ECB32BF00B219D7 /* PlacehodelTextView.swift in Sources */,
+				96C4031D1EE7D080003A2318 /* ReturnedDetailVC.swift in Sources */,
 				9674E2BC1EE65AFC0004D9EE /* CollectionPopoverVC.swift in Sources */,
 				96DA5ABF1EE6880100E9CF8F /* MyEvaluateVC.swift in Sources */,
 				967187D41EDEB71800DDD61B /* GoodsCommonTableViewCell.swift in Sources */,
@@ -1012,6 +1031,7 @@
 				967187EE1EE10F9000DDD61B /* GoodsDetailVC.swift in Sources */,
 				96C4030F1EE69F00003A2318 /* MyEvaluateListVC.swift in Sources */,
 				965B9D7F1ECD9146002016C2 /* CategoryVC.swift in Sources */,
+				96C4031B1EE7A864003A2318 /* ReturnedVC.swift in Sources */,
 				967187EA1EE106AC00DDD61B /* GoodListLevel2Cell.swift in Sources */,
 				9674E2AF1EE52AFE0004D9EE /* RightTitleCell.swift in Sources */,
 				967187C71EDE668500DDD61B /* LinkedPicker.swift in Sources */,
@@ -1043,7 +1063,9 @@
 				967187DB1EDFFB3300DDD61B /* BalanceVC.swift in Sources */,
 				96902F1D1ECB32F200B219D7 /* TabView.swift in Sources */,
 				967187CE1EDEA51800DDD61B /* NormalTableViewCell.swift in Sources */,
+				96C403171EE79870003A2318 /* LogisticsCell.swift in Sources */,
 				96902F061ECB32B100B219D7 /* BadgeView.swift in Sources */,
+				96C403191EE79E51003A2318 /* CookiesVC.swift in Sources */,
 				96610A461ED4178700C117D6 /* FirstFlowTableViewCell.swift in Sources */,
 				967187C91EDEA29700DDD61B /* SettingsVC.swift in Sources */,
 				96902EFA1ECB329A00B219D7 /* MBHUDExternsion.swift in Sources */,
@@ -1056,6 +1078,8 @@
 				967187D91EDFE99500DDD61B /* SecKillVC.swift in Sources */,
 				96902EF51ECB328200B219D7 /* Tools.swift in Sources */,
 				96A972711ED2B59B0007C324 /* WaterfallLayout.swift in Sources */,
+				96C403151EE794A7003A2318 /* LogisticsModel.swift in Sources */,
+				96C403131EE78DEA003A2318 /* LogisticsVC.swift in Sources */,
 				96DE99641ECB2D0E0011290E /* AppDelegate.swift in Sources */,
 				9674E2A71EE4F9FF0004D9EE /* OrderModel.swift in Sources */,
 				96902F351ECB37DA00B219D7 /* CustomTabBarVC.swift in Sources */,
