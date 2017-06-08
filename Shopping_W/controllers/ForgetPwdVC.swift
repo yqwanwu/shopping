@@ -19,6 +19,9 @@ class ForgetPwdVC: BaseViewController {
     @IBOutlet weak var questionView: CustomTableView!
     
     var pwdPhoneView: PwdPhoneView!
+    
+    var isModify = false
+    var selectPhone = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +86,15 @@ class ForgetPwdVC: BaseViewController {
     }
 
     @IBAction func ac_save(_ sender: UIButton) {
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !self.selectPhone {
+            ac_pwdClick(pwdBtn)
+            segment.selectedIndex = 1
+        }
     }
 }
 

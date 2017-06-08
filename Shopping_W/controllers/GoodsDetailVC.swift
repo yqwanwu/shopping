@@ -174,7 +174,6 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         if segue.identifier == "popoverSegue" {
             let vc = segue.destination
             
-            vc.view.backgroundColor = UIColor.red
             vc.modalPresentationStyle = .popover
             vc.popoverPresentationController?.delegate = self
             vc.preferredContentSize = CGSize(width: 140, height: 100)

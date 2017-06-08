@@ -46,22 +46,34 @@ class NetworkManager: NSObject {
         }
     }
     
-//    Alamofire.upload(
-//    multipartFormData: { multipartFormData in
-//    multipartFormData.append(unicornImageURL, withName: "unicorn")
-//    multipartFormData.append(rainbowImageURL, withName: "rainbow")
-//    },
-//    to: "https://httpbin.org/post",
-//    encodingCompletion: { encodingResult in
-//    switch encodingResult {
-//    case .success(let upload, _, _):
-//    upload.responseJSON { response in
-//    debugPrint(response)
-//    }
-//    case .failure(let encodingError):
-//    print(encodingError)
-//    }
-//    }
-//    )
     
+    static func upload(data: Data, url: String, progressHander: ((Progress) -> Void)?) {
+        Alamofire.upload(data, to: url)
+            .uploadProgress { progress in // main queue by default
+                progressHander?(progress)
+            }
+            .responseJSON { response in
+                debugPrint(response)
+        }
+        
+        
+//        Alamofire.upload(
+//            multipartFormData: { multipartFormData in
+//                multipartFormData.append(unicornImageURL, withName: "unicorn")
+//                multipartFormData.append(rainbowImageURL, withName: "rainbow")
+//        },
+//            to: "https://httpbin.org/post",
+//            encodingCompletion: { encodingResult in
+//                switch encodingResult {
+//                case .success(let upload, _, _):
+//                    upload.responseJSON { response in
+//                        debugPrint(response)
+//                    }
+//                case .failure(let encodingError):
+//                    print(encodingError)
+//                }
+//        }
+//        )
     }
+    
+}

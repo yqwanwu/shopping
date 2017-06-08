@@ -22,7 +22,7 @@ class DotRefresh: UIView {
     
     func setup() {
         let baseLayer = CAShapeLayer()
-        baseLayer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        baseLayer.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         baseLayer.cornerRadius = baseLayer.frame.width / 2
         baseLayer.backgroundColor = CustomValue.common_red.cgColor
         
@@ -30,7 +30,7 @@ class DotRefresh: UIView {
         rl.frame = self.bounds
         rl.instanceCount = 3
         rl.instanceDelay = 0.8 / 3
-        rl.instanceTransform = CATransform3DMakeTranslation(30, 0, 0)
+        rl.instanceTransform = CATransform3DMakeTranslation(15, 0, 0)
         rl.addSublayer(baseLayer)
         self.layer.addSublayer(rl)
         

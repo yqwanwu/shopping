@@ -84,6 +84,7 @@ class OrerListCell: CustomTableViewCell {
                     reciveWidth.constant = 100
                     reciveBtn.isHidden = false
                 case .returning:
+                    reciveWidth.constant = 100
                     customLabel.isHidden = false
                     reciveBtn.isHidden = true
                     break
@@ -103,6 +104,10 @@ class OrerListCell: CustomTableViewCell {
         reciveBtn.layer.cornerRadius = CustomValue.btnCornerRadius
         
         contentView.addSubview(customLabel)
+        
+        customLabel.snp.makeConstraints { (make) in
+            make.top.right.height.width.equalTo(reciveBtn)
+        }
     }
 
     @IBAction func ac_logistics(_ sender: UIButton) {
@@ -115,6 +120,5 @@ class OrerListCell: CustomTableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        customLabel.frame = reciveBtn.frame
     }
 }

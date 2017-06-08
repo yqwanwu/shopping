@@ -76,6 +76,11 @@
 		9674E2BA1EE643910004D9EE /* EvaluateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674E2B91EE643910004D9EE /* EvaluateVC.swift */; };
 		9674E2BC1EE65AFC0004D9EE /* CollectionPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674E2BB1EE65AFC0004D9EE /* CollectionPopoverVC.swift */; };
 		968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968511231ECC1DF80083244F /* CalculateBtn.swift */; };
+		968DFE521EE7E5F100DE32F9 /* WaitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968DFE511EE7E5F100DE32F9 /* WaitVC.swift */; };
+		968DFE541EE7E97600DE32F9 /* PersonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968DFE531EE7E97600DE32F9 /* PersonVC.swift */; };
+		968DFE571EE7F89C00DE32F9 /* SexPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968DFE561EE7F89C00DE32F9 /* SexPopoverVC.swift */; };
+		968DFE591EE8DF6B00DE32F9 /* NickNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968DFE581EE8DF6B00DE32F9 /* NickNameVC.swift */; };
+		968DFE5B1EE8E79A00DE32F9 /* SafeCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968DFE5A1EE8E79A00DE32F9 /* SafeCenterVC.swift */; };
 		96902EF41ECB328200B219D7 /* CustomValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF21ECB328200B219D7 /* CustomValue.swift */; };
 		96902EF51ECB328200B219D7 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF31ECB328200B219D7 /* Tools.swift */; };
 		96902EF91ECB329A00B219D7 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF61ECB329A00B219D7 /* FontExtension.swift */; };
@@ -209,6 +214,11 @@
 		9674E2B91EE643910004D9EE /* EvaluateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvaluateVC.swift; sourceTree = "<group>"; };
 		9674E2BB1EE65AFC0004D9EE /* CollectionPopoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionPopoverVC.swift; sourceTree = "<group>"; };
 		968511231ECC1DF80083244F /* CalculateBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateBtn.swift; sourceTree = "<group>"; };
+		968DFE511EE7E5F100DE32F9 /* WaitVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitVC.swift; sourceTree = "<group>"; };
+		968DFE531EE7E97600DE32F9 /* PersonVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonVC.swift; sourceTree = "<group>"; };
+		968DFE561EE7F89C00DE32F9 /* SexPopoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SexPopoverVC.swift; sourceTree = "<group>"; };
+		968DFE581EE8DF6B00DE32F9 /* NickNameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NickNameVC.swift; sourceTree = "<group>"; };
+		968DFE5A1EE8E79A00DE32F9 /* SafeCenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeCenterVC.swift; sourceTree = "<group>"; };
 		96902EF21ECB328200B219D7 /* CustomValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomValue.swift; sourceTree = "<group>"; };
 		96902EF31ECB328200B219D7 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		96902EF61ECB329A00B219D7 /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
@@ -311,6 +321,7 @@
 				96DA5AC01EE68EAD00E9CF8F /* AlertVC.swift */,
 				96DA5AC11EE68EAD00E9CF8F /* AlertVC.xib */,
 				96C403121EE78DEA003A2318 /* LogisticsVC.swift */,
+				968DFE551EE7F87300DE32F9 /* 个人信息 */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -419,6 +430,17 @@
 				967187E01EE009EC00DDD61B /* DotRefresh.swift */,
 			);
 			name = common;
+			sourceTree = "<group>";
+		};
+		968DFE551EE7F87300DE32F9 /* 个人信息 */ = {
+			isa = PBXGroup;
+			children = (
+				968DFE531EE7E97600DE32F9 /* PersonVC.swift */,
+				968DFE561EE7F89C00DE32F9 /* SexPopoverVC.swift */,
+				968DFE581EE8DF6B00DE32F9 /* NickNameVC.swift */,
+				968DFE5A1EE8E79A00DE32F9 /* SafeCenterVC.swift */,
+			);
+			name = "个人信息";
 			sourceTree = "<group>";
 		};
 		96902E281ECB323D00B219D7 /* util */ = {
@@ -648,6 +670,7 @@
 				96C403181EE79E51003A2318 /* CookiesVC.swift */,
 				96C4031A1EE7A864003A2318 /* ReturnedVC.swift */,
 				96C4031C1EE7D080003A2318 /* ReturnedDetailVC.swift */,
+				968DFE511EE7E5F100DE32F9 /* WaitVC.swift */,
 			);
 			name = "评价收藏";
 			sourceTree = "<group>";
@@ -995,6 +1018,7 @@
 				96902F171ECB32DF00B219D7 /* CircleProgressView.swift in Sources */,
 				96902F181ECB32DF00B219D7 /* PullToRefreshControl.swift in Sources */,
 				96902F0A1ECB32B100B219D7 /* CommonProxy.swift in Sources */,
+				968DFE591EE8DF6B00DE32F9 /* NickNameVC.swift in Sources */,
 				96A972731ED2BAF70007C324 /* SearchCollectionViewCell.swift in Sources */,
 				96902F2E1ECB334700B219D7 /* BaseViewController.swift in Sources */,
 				96902F201ECB330100B219D7 /* ObjC.m in Sources */,
@@ -1018,12 +1042,14 @@
 				967187DD1EE0000B00DDD61B /* BalanceTableViewCell.swift in Sources */,
 				96902F2D1ECB334700B219D7 /* BaseTabBarController.swift in Sources */,
 				967187E71EE0FE1200DDD61B /* RewardTableViewCell.swift in Sources */,
+				968DFE521EE7E5F100DE32F9 /* WaitVC.swift in Sources */,
 				9674E2A41EE4F64D0004D9EE /* OrerListCell.swift in Sources */,
 				96610A831ED9752900C117D6 /* AddressUpdateVC.swift in Sources */,
 				96610A811ED961BC00C117D6 /* CornerBtn.swift in Sources */,
 				96902F0B1ECB32B100B219D7 /* CountdownButton.swift in Sources */,
 				96A972611ED272CD0007C324 /* CarVC.swift in Sources */,
 				96DE99911ECB2FC90011290E /* String+QRCode.swift in Sources */,
+				968DFE5B1EE8E79A00DE32F9 /* SafeCenterVC.swift in Sources */,
 				96902F091ECB32B100B219D7 /* CheckTextFiled.swift in Sources */,
 				96DA5AC21EE68EAD00E9CF8F /* AlertVC.swift in Sources */,
 				96902F111ECB32BF00B219D7 /* ProgressButton.swift in Sources */,
@@ -1071,6 +1097,8 @@
 				96902EFA1ECB329A00B219D7 /* MBHUDExternsion.swift in Sources */,
 				96C403111EE69F13003A2318 /* MyCollectionVC.swift in Sources */,
 				96DE998F1ECB2FC90011290E /* NJKWebViewProgress.m in Sources */,
+				968DFE541EE7E97600DE32F9 /* PersonVC.swift in Sources */,
+				968DFE571EE7F89C00DE32F9 /* SexPopoverVC.swift in Sources */,
 				96902F081ECB32B100B219D7 /* CarouselCollectionView.swift in Sources */,
 				96902F2C1ECB334700B219D7 /* BaseNavigationController.swift in Sources */,
 				96610A3F1ED3D13900C117D6 /* FirstItem.swift in Sources */,
