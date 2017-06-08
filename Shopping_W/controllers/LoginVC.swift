@@ -11,15 +11,22 @@ import UIKit
 class LoginVC: BaseViewController {
     @IBOutlet weak var headerImgBack: UIView!
     @IBOutlet weak var textBack: UIView!
-    @IBOutlet weak var phonrText: UITextField!
-    @IBOutlet weak var pwdText: UITextField!
+    @IBOutlet weak var phonrText: CheckTextFiled!
+    @IBOutlet weak var pwdText: CheckTextFiled!
     @IBOutlet weak var autoLoginBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        phonrText.setCheck { (tf) -> Bool in
+            let r = Tools.searchStr(str: tf.text ?? "", regexStr: "(^\\d{11}$)")
+            return r != nil
+        }
+        pwdText.setCheck { (tf) -> Bool in
+            let c = (tf.text ?? "").characters.count
+            return c < 15 && c > 5
+        }
     }
     
 

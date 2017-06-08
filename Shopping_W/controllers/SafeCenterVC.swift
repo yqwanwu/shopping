@@ -28,13 +28,20 @@ class SafeCenterVC: BaseViewController {
         let c2 = CustomTableViewCellItem().build(text: "支付密码").build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
         let c3 = CustomTableViewCellItem().build(text: "密保问题").build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
         
-        c1.setupCellAction { (idx) in
+        c.setupCellAction { [unowned self] (idx) in
+            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ModifyPwdVC.self)
+            self.present(vc, animated: false, completion: nil)
+        }
+        c1.setupCellAction { [unowned self] (idx) in
             let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self) as! ForgetPwdVC
             vc.isModify = true
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        
-        c3.setupCellAction { (idx) in
+        c2.setupCellAction { [unowned self] (idx) in
+            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ModifyPwdVC.self)
+            self.present(vc, animated: false, completion: nil)
+        }
+        c3.setupCellAction { [unowned self] (idx) in
             let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self) as! ForgetPwdVC
             vc.isModify = true
             vc.selectPhone = false

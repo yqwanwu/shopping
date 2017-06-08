@@ -20,7 +20,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
     } ()
     
     //就是这么任性，纯代码写的，，，
-    var showPayBtn = true
+    var showPayBtn = false
     let totalPriceLabel = UILabel()
     
     override func viewDidLoad() {
@@ -81,7 +81,8 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
     }
     
     func ac_pay() {
-        debugPrint("还支付")
+        let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: PayWayVC.self) as! PayWayVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func setupData() {

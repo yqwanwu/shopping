@@ -10,7 +10,7 @@ import UIKit
 
 class RegisterTableViewCell: CustomTableViewCell {
 
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textField: CheckTextFiled!
     @IBOutlet weak var nameLabel: UILabel!
     
     override var model: CustomTableViewCellItem? {
@@ -18,10 +18,18 @@ class RegisterTableViewCell: CustomTableViewCell {
             if let m = model {
                 textField.placeholder = m.detailText
                 nameLabel.text = m.text
-                if m.text == "密码" {
+                if m.text?.contains("密码") ?? false {
                     textField.isSecureTextEntry = true
-                } else if m.text == "手机号" {
+                    textField.setCheck { (tf) -> Bool in
+                        let c = (tf.text ?? "").characters.count
+                        return c < 15 && c > 5
+                    }
+                } else if m.text?.contains("手机号") ?? false {
                     textField.keyboardType = .numberPad
+                    textField.setCheck { (tf) -> Bool in
+                        let r = Tools.searchStr(str: tf.text ?? "", regexStr: "(^\\d{11}$)")
+                        return r != nil
+                    }
                 } else {
                     textField.isSecureTextEntry = false
                     textField.keyboardType = .default

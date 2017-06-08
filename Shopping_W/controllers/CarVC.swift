@@ -27,6 +27,12 @@ class CarVC: UIViewController, UITableViewDelegate {
             .build(cellClass: CarTableViewCell.self)
             .build(isFromStoryBord: true)
             .build(heightForRow: 137)
+        
+        c.setupCellAction { [unowned self] (idx) in
+            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
         tableVIew.delegate = self
         
         tableVIew.dataArray = [[c, c, c], [c, c]]
@@ -41,6 +47,8 @@ class CarVC: UIViewController, UITableViewDelegate {
     }
     
     @IBAction func ac_submit(_ sender: UIButton) {
+        let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: OrderVC.self) as! OrderVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     

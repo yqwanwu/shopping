@@ -23,8 +23,8 @@ class RegisterVC: BaseViewController {
     func setupTableView() {
         tableView.sectionHeaderHeight = 10
         let c = CustomTableViewCellItem().build(text: "用户名:").build(detailText: "请输入用户名")
-        let c1 = CustomTableViewCellItem().build(text: "密码:").build(detailText: "密码至少6位")
-        let c2 = CustomTableViewCellItem().build(text: "确认密码:").build(detailText: "密码至少6位")
+        let c1 = CustomTableViewCellItem().build(text: "密码:").build(detailText: "密码6-14位")
+        let c2 = CustomTableViewCellItem().build(text: "确认密码:").build(detailText: "密码6-14位")
         let c3 = CustomTableViewCellItem().build(text: "手机号:").build(detailText: "请输入手机号")
         let c4 = CustomTableViewCellItem()
             .build(text: "验证码:").build(heightForRow: 50)

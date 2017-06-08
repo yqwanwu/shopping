@@ -82,7 +82,7 @@
         <!--Goods DetailVC-->
         <scene sceneID="Yuc-Vm-yzR">
             <objects>
-                <viewController restorationIdentifier="GoodsDetailVC" storyboardIdentifier="GoodsDetailVC" automaticallyAdjustsScrollViewInsets="NO" id="bFe-Kb-7br" customClass="GoodsDetailVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GoodsDetailVC" automaticallyAdjustsScrollViewInsets="NO" id="bFe-Kb-7br" customClass="GoodsDetailVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2NC-BA-gSi"/>
                         <viewControllerLayoutGuide type="bottom" id="LEr-Af-8Lk"/>

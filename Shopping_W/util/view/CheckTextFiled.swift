@@ -20,6 +20,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class CheckTextFiled: UITextField, AnimationsProtocol, UITextFieldDelegate {
     private var checkError: ((_ textFiled: CheckTextFiled) -> Bool)?
+    var canBeEmpty = false
     
     func setCheck(_ check: ((_ textFiled: CheckTextFiled) -> Bool)?) {
         checkError = check
@@ -32,6 +33,12 @@ class CheckTextFiled: UITextField, AnimationsProtocol, UITextFieldDelegate {
     @discardableResult
     func check() -> Bool {
         if let check = checkError {
+            if !canBeEmpty {
+                if !Tools.stringIsNotBlank(text: self.text) {
+                    self.shake()
+                    return false
+                }
+            }
             if !check(self) {//不通过
                 self.shake()
 //                self.beRed()

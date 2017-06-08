@@ -41,6 +41,7 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         didSet {
             if needChange && self.scrollView != nil {
                 if selectedIndex < 5 && selectedIndex >= 0 {
+                    headerView.selectedIndex = selectedIndex
                     self.scrollView.contentOffset.x = CGFloat(selectedIndex) * UIScreen.main.bounds.width
                 }
             }
@@ -123,7 +124,9 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
             
             c.setupCellAction({ [unowned self] (idx) in
                 let vc = OrderDetailVC()
-                
+                if let data = tableView.dataArray[idx.section][idx.row] as? OrderModel {
+                    vc.showPayBtn = data.type == .pay
+                }
                 self.navigationController?.pushViewController(vc, animated: true)
             })
             
@@ -197,6 +200,9 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                     self.present(alert, animated: true, completion: nil)
                 } else if model.type == .send {
                     MBProgressHUD.show(successText: "已提醒卖家尽快发货")
+                } else if model.type == .pay {
+                    let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: PayWayVC.self) as! PayWayVC
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
         }

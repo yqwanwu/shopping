@@ -10,9 +10,9 @@ import UIKit
 
 class PwdPhoneView: UIView {
 
-    @IBOutlet weak var phoneText: UITextField!
-    @IBOutlet weak var codeText: UITextField!
-    @IBOutlet weak var pwdText: UITextField!
+    @IBOutlet weak var phoneText: CheckTextFiled!
+    @IBOutlet weak var codeText: CheckTextFiled!
+    @IBOutlet weak var pwdText: CheckTextFiled!
     
     @IBOutlet weak var codeBtn: CountdownButton!
     
@@ -22,6 +22,15 @@ class PwdPhoneView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        phoneText.setCheck { (tf) -> Bool in
+            let r = Tools.searchStr(str: tf.text ?? "", regexStr: "(^\\d{11}$)")
+            return r != nil
+        }
+        pwdText.setCheck { (tf) -> Bool in
+            let c = (tf.text ?? "").characters.count
+            return c < 15 && c > 5
+        }
     }
     
 }

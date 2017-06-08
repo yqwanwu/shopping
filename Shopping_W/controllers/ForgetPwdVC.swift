@@ -86,6 +86,7 @@ class ForgetPwdVC: BaseViewController {
     }
 
     @IBAction func ac_save(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,6 +95,14 @@ class ForgetPwdVC: BaseViewController {
         if !self.selectPhone {
             ac_pwdClick(pwdBtn)
             segment.selectedIndex = 1
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let p = touches.first?.location(in: self.view) ?? CGPoint.zero
+        
+        if !bkVIew.frame.contains(p) {
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }

@@ -77,7 +77,7 @@ class OrerListCell: CustomTableViewCell {
                     reciveBtn.setTitle("查看", for: .normal)
                     reciveBtn.snp.updateConstraints({ (make) in
                         let r = (UIScreen.main.bounds.width - 116 - 80)
-                        make.right.equalTo(self.contentView).offset(-r)
+                        make.left.equalTo(self.imgView).offset(r)
                     })
                 case .returned:
                     reciveBtn.setTitle("申请退换货", for: .normal)

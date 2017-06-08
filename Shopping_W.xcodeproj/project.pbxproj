@@ -81,6 +81,9 @@
 		968DFE571EE7F89C00DE32F9 /* SexPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968DFE561EE7F89C00DE32F9 /* SexPopoverVC.swift */; };
 		968DFE591EE8DF6B00DE32F9 /* NickNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968DFE581EE8DF6B00DE32F9 /* NickNameVC.swift */; };
 		968DFE5B1EE8E79A00DE32F9 /* SafeCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968DFE5A1EE8E79A00DE32F9 /* SafeCenterVC.swift */; };
+		968DFE5D1EE8EFF900DE32F9 /* ModifyPwdVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968DFE5C1EE8EFF900DE32F9 /* ModifyPwdVC.swift */; };
+		968DFE5F1EE8FA3900DE32F9 /* PayWayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968DFE5E1EE8FA3900DE32F9 /* PayWayVC.swift */; };
+		968DFE611EE91ECD00DE32F9 /* PayResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968DFE601EE91ECD00DE32F9 /* PayResultVC.swift */; };
 		96902EF41ECB328200B219D7 /* CustomValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF21ECB328200B219D7 /* CustomValue.swift */; };
 		96902EF51ECB328200B219D7 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF31ECB328200B219D7 /* Tools.swift */; };
 		96902EF91ECB329A00B219D7 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96902EF61ECB329A00B219D7 /* FontExtension.swift */; };
@@ -219,6 +222,9 @@
 		968DFE561EE7F89C00DE32F9 /* SexPopoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SexPopoverVC.swift; sourceTree = "<group>"; };
 		968DFE581EE8DF6B00DE32F9 /* NickNameVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NickNameVC.swift; sourceTree = "<group>"; };
 		968DFE5A1EE8E79A00DE32F9 /* SafeCenterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeCenterVC.swift; sourceTree = "<group>"; };
+		968DFE5C1EE8EFF900DE32F9 /* ModifyPwdVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyPwdVC.swift; sourceTree = "<group>"; };
+		968DFE5E1EE8FA3900DE32F9 /* PayWayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayWayVC.swift; sourceTree = "<group>"; };
+		968DFE601EE91ECD00DE32F9 /* PayResultVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayResultVC.swift; sourceTree = "<group>"; };
 		96902EF21ECB328200B219D7 /* CustomValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomValue.swift; sourceTree = "<group>"; };
 		96902EF31ECB328200B219D7 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		96902EF61ECB329A00B219D7 /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
@@ -321,6 +327,8 @@
 				96DA5AC01EE68EAD00E9CF8F /* AlertVC.swift */,
 				96DA5AC11EE68EAD00E9CF8F /* AlertVC.xib */,
 				96C403121EE78DEA003A2318 /* LogisticsVC.swift */,
+				968DFE5E1EE8FA3900DE32F9 /* PayWayVC.swift */,
+				968DFE601EE91ECD00DE32F9 /* PayResultVC.swift */,
 				968DFE551EE7F87300DE32F9 /* 个人信息 */,
 			);
 			name = mine;
@@ -436,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				968DFE531EE7E97600DE32F9 /* PersonVC.swift */,
+				968DFE5C1EE8EFF900DE32F9 /* ModifyPwdVC.swift */,
 				968DFE561EE7F89C00DE32F9 /* SexPopoverVC.swift */,
 				968DFE581EE8DF6B00DE32F9 /* NickNameVC.swift */,
 				968DFE5A1EE8E79A00DE32F9 /* SafeCenterVC.swift */,
@@ -1030,6 +1039,7 @@
 				96610A6B1ED66FF800C117D6 /* RegisterCodeTableViewCell.swift in Sources */,
 				96DE99661ECB2D0E0011290E /* ViewController.swift in Sources */,
 				965B9D7C1ECD7861002016C2 /* RefreshTableView.swift in Sources */,
+				968DFE5D1EE8EFF900DE32F9 /* ModifyPwdVC.swift in Sources */,
 				96610A671ED666F500C117D6 /* RegisterTableViewCell.swift in Sources */,
 				96610A3B1ED3C75D00C117D6 /* CarouselCollectionViewCell.swift in Sources */,
 				96902F0C1ECB32B100B219D7 /* CustomButton.swift in Sources */,
@@ -1083,6 +1093,7 @@
 				96610A7F1ED95FEC00C117D6 /* ReviceAddressVC.swift in Sources */,
 				965B9D7A1ECC93F1002016C2 /* OrderVC.swift in Sources */,
 				96902F1C1ECB32F200B219D7 /* ShadowView.swift in Sources */,
+				968DFE5F1EE8FA3900DE32F9 /* PayWayVC.swift in Sources */,
 				9674E2AB1EE527670004D9EE /* Address_reciveCell.swift in Sources */,
 				968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */,
 				9674E2A11EE4EAD60004D9EE /* GoodsListModel.swift in Sources */,
@@ -1094,6 +1105,7 @@
 				96C403191EE79E51003A2318 /* CookiesVC.swift in Sources */,
 				96610A461ED4178700C117D6 /* FirstFlowTableViewCell.swift in Sources */,
 				967187C91EDEA29700DDD61B /* SettingsVC.swift in Sources */,
+				968DFE611EE91ECD00DE32F9 /* PayResultVC.swift in Sources */,
 				96902EFA1ECB329A00B219D7 /* MBHUDExternsion.swift in Sources */,
 				96C403111EE69F13003A2318 /* MyCollectionVC.swift in Sources */,
 				96DE998F1ECB2FC90011290E /* NJKWebViewProgress.m in Sources */,
