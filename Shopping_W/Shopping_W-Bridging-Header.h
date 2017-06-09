@@ -6,3 +6,12 @@
 #import "NJKWebViewProgress.h"
 #import "XMLDictionary.h"
 #import "ObjC.h"
+
+
+
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
+#import <UMSocialCore/UMSocialCore.h>
+#import "UMSocialSinaHandler.h"
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <UShareUI/UMSocialUIManager.h>

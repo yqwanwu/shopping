@@ -37,15 +37,13 @@ struct CustomValue {
     static let placehoderImg = UIImage(named: "placehoder")
     
     
-    static let wxAppId = "wx2b2533783589cf47"
-    static let wxAppSecret = "cf1d5b9bfdfcbdb4ca9d6804559cb42c"
-    static let qqAppId = "1104857775"//41dacaaf
+    static let wxAppId = "wxdc1e388c3822c80b"
+    static let wxAppSecret = "3baf1193c85774b3fd9d18447d76cab0"
+    static let qqAppId = "100424468"//41dacaaf
     static let qqAppSecret = "c7394704798a158208a74ab60104f0ba"
-    static let sinaAppId = "305666980"
-    static let sinaAppSecret = "c7decb6906b0fd9f7cc75cb2f7506223"
-    
-    static let iconimg = UIImage(named: "AppIcon.png")
-    
+    static let sinaAppId = "3921700954"
+    static let sinaAppSecret = "04b48b094faeb16683c32669824ebdad"
+        
     static func validatePhone(phone: String?) -> Bool {
         if Tools.stringIsNotBlank(text: phone) {
             return phone!.hasPrefix("1") && phone!.characters.count == 11

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class LoginVC: BaseViewController {
     @IBOutlet weak var headerImgBack: UIView!
@@ -35,13 +36,37 @@ class LoginVC: BaseViewController {
     }
    
     @IBAction func loginByQQ(_ sender: MineButton) {
+        
+       UMSocialManager.default().getUserInfo(with: .QQ, currentViewController: self) { [unowned self] (result, err) in
+            self.loginByUm(result: result, err: err)
+        }
     }
     
     @IBAction func loginByWx(_ sender: MineButton) {
+        UMSocialManager.default().getUserInfo(with: .wechatSession, currentViewController: self) { [unowned self] (result, err) in
+            self.loginByUm(result: result, err: err)
+        }
     }
     
     @IBAction func loginByTb(_ sender: MineButton) {
+        
     }
+    
+    
+    var p = PersonMdel()
+    func loginByUm(result: Any?, err: Error?) {
+        p = PersonMdel()
+        if err != nil {
+            MBProgressHUD.show(errorText: "登录失败")
+        } else {
+            if let resp = result as? UMSocialUserInfoResponse {
+                print("\(resp.name)  \(resp.iconurl)  \(resp.unionGender)")
+            } else {
+                MBProgressHUD.show(errorText: "登录失败")
+            }
+        }
+    }
+    
     
     func setupUI() {
         headerImgBack.layer.cornerRadius = headerImgBack.frame.width / 2

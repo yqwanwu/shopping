@@ -20,9 +20,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
+        
+        //友盟
+        let redirectUrl = "https://www.baidu.com"
+        UMSocialManager.default().umSocialAppkey = CustomValue.UMAPPKEY
+        UMSocialManager.default().setPlaform(.wechatSession, appKey: CustomValue.wxAppId, appSecret: CustomValue.wxAppSecret, redirectURL: redirectUrl)
+        UMSocialManager.default().setPlaform(.QQ, appKey: CustomValue.qqAppId, appSecret: CustomValue.qqAppSecret, redirectURL: redirectUrl)
+        UMSocialManager.default().setPlaform(.sina, appKey: CustomValue.sinaAppId, appSecret: CustomValue.sinaAppSecret, redirectURL: redirectUrl)
+        UMSocialManager.default().removePlatformProvider(withPlatformTypes: [UMSocialPlatformType.qzone.rawValue, UMSocialPlatformType.wechatFavorite.rawValue])
+        
+        
         return true
     }
 
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
+        let result = UMSocialManager.default().handleOpen(url)
+        if !result {
+            //调用其他 SDK
+        }
+        return result
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        let result = UMSocialManager.default().handleOpen(url)
+        if !result {
+            //调用其他 SDK
+        }
+        return result
+    }
+    
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

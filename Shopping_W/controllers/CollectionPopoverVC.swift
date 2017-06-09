@@ -8,8 +8,10 @@
 
 import UIKit
 
-class CollectionPopoverVC: UIViewController {
+class CollectionPopoverVC: BaseViewController, UITableViewDelegate {
     @IBOutlet weak var tableView: CustomTableView!
+    
+    weak var parentVC: UIViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +27,23 @@ class CollectionPopoverVC: UIViewController {
         }
         tableView.dataArray = [[c, c1]]
         
+        tableView.delegate = self
+        
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            break
+        case 1:
+            ThirdLoginOrShare.show(viewController: parentVC!, title: "分享", text: "asdsafew", img: #imageLiteral(resourceName: "placehoder"), url: "https://www.baidu.com")
+        default:
+            break
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+    }
 
-  
     
 
 }

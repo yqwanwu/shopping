@@ -172,11 +172,12 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popoverSegue" {
-            let vc = segue.destination
-            
-            vc.modalPresentationStyle = .popover
-            vc.popoverPresentationController?.delegate = self
-            vc.preferredContentSize = CGSize(width: 140, height: 100)
+            if let vc = segue.destination as? CollectionPopoverVC {
+                vc.modalPresentationStyle = .popover
+                vc.popoverPresentationController?.delegate = self
+                vc.preferredContentSize = CGSize(width: 140, height: 100)
+                vc.parentVC = self
+            }
         }
     }
 
