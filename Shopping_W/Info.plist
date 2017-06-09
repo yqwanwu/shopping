@@ -50,6 +50,14 @@
 				<string>wb3921700954</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tbopen24030927</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -77,6 +85,8 @@
 		<string>weibosdk</string>
 		<string>weibosdk2.5</string>
 		<string>sinaweibo</string>
+        <string>tbopen</string>
+        <string>tmall</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

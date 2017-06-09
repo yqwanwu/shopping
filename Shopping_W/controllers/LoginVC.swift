@@ -49,7 +49,19 @@ class LoginVC: BaseViewController {
     }
     
     @IBAction func loginByTb(_ sender: MineButton) {
+        //淘宝
+        ALBBSDK.sharedInstance().albbsdkInit()
+        ALBBSDK.sharedInstance().login(by: URL(string: "tbopen24030927"))
+        ALBBSDK.sharedInstance().setAppkey("24030927")
+        ALBBSDK.sharedInstance().setAuthOption(AuthOption(2))
         
+        
+        ALBBSDK.sharedInstance().auth(self, successCallback: { (session) in
+            let u = session?.getUser()
+            print("\(u?.nick)   \(u?.avatarUrl)   ")
+        }) { (session, err) in
+          print(session)
+        }
     }
     
     

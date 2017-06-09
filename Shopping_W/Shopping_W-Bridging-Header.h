@@ -15,3 +15,7 @@
 #import "UMSocialSinaHandler.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <UShareUI/UMSocialUIManager.h>
+
+
+
+#import <AlibabaAuthSDK/ALBBSDK.h>

@@ -16,3 +16,4 @@ static NSString *host = @"http://123.57.35.40:8080/privilege/";//@"http://kofuf.
 + (void)autoDisappearAlert:(CGFloat)time title:(NSString *)title msg:(NSString *)msg;
 
 @end
+
