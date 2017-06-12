@@ -77,6 +77,7 @@
 		9674E2BC1EE65AFC0004D9EE /* CollectionPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9674E2BB1EE65AFC0004D9EE /* CollectionPopoverVC.swift */; };
 		968511241ECC1DF80083244F /* CalculateBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968511231ECC1DF80083244F /* CalculateBtn.swift */; };
 		968714BB1EEE2B030065AF8E /* AddressSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968714BA1EEE2B030065AF8E /* AddressSelectVC.swift */; };
+		9689C3D71EEE867000EF7E4F /* MessageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689C3D61EEE867000EF7E4F /* MessageVC.swift */; };
 		968D00D01EEA794000DE32F9 /* AlibabaAuthSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 968D00CE1EEA794000DE32F9 /* AlibabaAuthSDK.bundle */; };
 		968D00D11EEA794000DE32F9 /* AlibabaAuthSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968D00CF1EEA794000DE32F9 /* AlibabaAuthSDK.framework */; };
 		968D00D31EEA829200DE32F9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 968D00D21EEA829200DE32F9 /* QuartzCore.framework */; };
@@ -271,6 +272,7 @@
 		9674E2BB1EE65AFC0004D9EE /* CollectionPopoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionPopoverVC.swift; sourceTree = "<group>"; };
 		968511231ECC1DF80083244F /* CalculateBtn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateBtn.swift; sourceTree = "<group>"; };
 		968714BA1EEE2B030065AF8E /* AddressSelectVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressSelectVC.swift; sourceTree = "<group>"; };
+		9689C3D61EEE867000EF7E4F /* MessageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageVC.swift; sourceTree = "<group>"; };
 		968D00CE1EEA794000DE32F9 /* AlibabaAuthSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlibabaAuthSDK.bundle; sourceTree = "<group>"; };
 		968D00CF1EEA794000DE32F9 /* AlibabaAuthSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlibabaAuthSDK.framework; sourceTree = "<group>"; };
 		968D00D21EEA829200DE32F9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1094,6 +1096,7 @@
 				967187ED1EE10F9000DDD61B /* GoodsDetailVC.swift */,
 				9674E2B91EE643910004D9EE /* EvaluateVC.swift */,
 				9674E2BB1EE65AFC0004D9EE /* CollectionPopoverVC.swift */,
+				9689C3D61EEE867000EF7E4F /* MessageVC.swift */,
 			);
 			name = car;
 			sourceTree = "<group>";
@@ -1610,6 +1613,7 @@
 				96DE99911ECB2FC90011290E /* String+QRCode.swift in Sources */,
 				968DFE5B1EE8E79A00DE32F9 /* SafeCenterVC.swift in Sources */,
 				96902F091ECB32B100B219D7 /* CheckTextFiled.swift in Sources */,
+				9689C3D71EEE867000EF7E4F /* MessageVC.swift in Sources */,
 				96DA5AC21EE68EAD00E9CF8F /* AlertVC.swift in Sources */,
 				96902F111ECB32BF00B219D7 /* ProgressButton.swift in Sources */,
 				96A9726D1ED28A8D0007C324 /* CarSectionHeader.swift in Sources */,

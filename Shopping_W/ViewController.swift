@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
+class ViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UIPopoverPresentationControllerDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var addressBtn: UIButton!
     @IBOutlet weak var titleBack: UIView!
@@ -19,6 +20,20 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
     @IBOutlet weak var adImgView: UIImageView!
     
     @IBOutlet weak var tableView: RefreshTableView!
+    
+    
+    lazy var locationM: CLLocationManager = {//info.plist add :Privacy - Location Always Usage Description
+        let locationM = CLLocationManager()
+        locationM.delegate = self
+        if #available(iOS 8.0, *) {
+            locationM.requestAlwaysAuthorization()
+        }
+        return locationM
+    }()
+    
+    lazy var geoCoder: CLGeocoder = {
+        return CLGeocoder()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +49,12 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
         let c2 = CustomTableViewCellItem().build(cellClass: FirstFlowTableViewCell.self).build(heightForRow: 210)
         tableView.dataArray = [[c1, c2, c2, c1]]
         
-        
+        locationM.startUpdatingLocation()
     }
     
     @IBAction func ac_address(_ sender: Any) {
-        
+        let vc = Tools.getClassFromStorybord(sbName: .first, clazz: AddressVC.self)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func ac_adTap(_ sender: UITapGestureRecognizer) {
@@ -63,12 +79,12 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? AddressSelectVC {
-            vc.modalPresentationStyle = .popover
-            vc.preferredContentSize = CGSize(width: 200, height: 300)
-            vc.popoverPresentationController?.delegate = self
-            vc.topVC = self
-        }
+//        if let vc = segue.destination as? AddressSelectVC {
+//            vc.modalPresentationStyle = .popover
+//            vc.preferredContentSize = CGSize(width: 200, height: 300)
+//            vc.popoverPresentationController?.delegate = self
+//            vc.topVC = self
+//        }
     }
     
     //MARK: 代理 
@@ -133,7 +149,26 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
             }
             
         }
-        
+    }
+    
+    //定位
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let newLocation = locations.last else {return}
+//        print(newLocation)//<+31.26514482,+121.61259089> +/- 50.00m (speed 0.00 mps / course -1.00) @ 2016/11/14 中国标准时间 14:49:51
+        if newLocation.horizontalAccuracy < 0 { return }
+        geoCoder.reverseGeocodeLocation(newLocation) { (pls: [CLPlacemark]?, error: Error?) in
+            if error == nil {
+                guard let pl = pls?.first else {return}
+//                print(pl.name!)//金京路
+//                print(pl.locality!)//上海市
+                var name = pl.locality ?? ""
+                if name.substring(from: name.index(name.endIndex, offsetBy: -1)) == "市" {
+                    name = name.substring(to: name.index(name.endIndex, offsetBy: -1))
+                }
+                self.addressBtn.setTitle(name, for: .normal)
+            }
+        }
+        manager.stopUpdatingLocation()
     }
 }
 

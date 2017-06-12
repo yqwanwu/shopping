@@ -85,13 +85,14 @@
 		<string>weibosdk</string>
 		<string>weibosdk2.5</string>
 		<string>sinaweibo</string>
-        <string>tbopen</string>
-        <string>tmall</string>
-        <string>uppaysdk</string>
-        <string>uppaywallet</string>
-        <string>uppayx1</string>
-        <string>uppayx2</string>
-        <string>uppayx3</string>
+		<string>tbopen</string>
+		<string>tmall</string>
+		<string>uppaysdk</string>
+		<string>uppaywallet</string>
+		<string>uppayx1</string>
+		<string>uppayx2</string>
+		<string>uppayx3</string>
+        <string>taobao</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -112,6 +113,8 @@
 	<string>是否允许访问麦克风</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>需要您的同意才能读取媒体资料库</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>是否允许获取位置信息</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

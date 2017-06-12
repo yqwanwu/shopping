@@ -13,7 +13,23 @@ class AddressVC: BaseViewController, UITableViewDelegate, UITableViewDataSource 
     @IBOutlet weak var tableVIew: CustomTableView!
     
     let hotCitys = ["北京", "上海", "深圳", "成都", "广州", "湖南"]
-    let hotCitysForTableView = ["北京", "上海", "深圳", "成都", "广州", "湖南", "绵阳", "天津", "河北", "雅安", "峨眉", "达州", "德阳", "北川"]
+//    let hotCitysForTableView = ["北京", "上海", "深圳", "成都", "广州", "湖南", "绵阳", "天津", "河北", "雅安", "峨眉", "达州", "德阳", "北川"]
+    
+    static let hotCitysForTableView: [String] = {
+        let str = try! String(contentsOfFile: Bundle.main.path(forResource: "address", ofType: "txt") ?? "", encoding: String.Encoding.utf8)
+        let dataArr = try! JSONSerialization.jsonObject(with: str.data(using: .utf8)!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSArray
+        let cityArr = (dataArr[0] as! NSDictionary)["city"] as! NSArray
+        var citys = [String]()
+        
+        for city in dataArr {
+            for cityDic in (city as! NSDictionary)["city"] as! NSArray {
+                citys.append((cityDic as! NSDictionary)["name"] as! String)
+            }
+        }
+        
+        return citys
+    } ()
+    
     let indexArr: [String] = {
         var arr = [String]()
         for i in 0..<26 {
@@ -54,7 +70,7 @@ class AddressVC: BaseViewController, UITableViewDelegate, UITableViewDataSource 
     
     func setupData() {
         var cityNamesMap = [String: [String]]()
-        for name in hotCitysForTableView {
+        for name in AddressVC.hotCitysForTableView {
             let pinYin = Tools.getPinyinHead(str: name)
             if let arr = cityNamesMap[pinYin] {
                 var newArr = [name]
