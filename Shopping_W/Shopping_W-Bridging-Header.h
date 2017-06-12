@@ -19,3 +19,4 @@
 
 
 #import <AlibabaAuthSDK/ALBBSDK.h>
+#import <AlipaySDK/AlipaySDK.h>

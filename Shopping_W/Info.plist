@@ -87,6 +87,11 @@
 		<string>sinaweibo</string>
         <string>tbopen</string>
         <string>tmall</string>
+        <string>uppaysdk</string>
+        <string>uppaywallet</string>
+        <string>uppayx1</string>
+        <string>uppayx2</string>
+        <string>uppayx3</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

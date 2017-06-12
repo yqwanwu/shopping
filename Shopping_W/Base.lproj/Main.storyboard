@@ -12,6 +12,66 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Address SelectVC-->
+        <scene sceneID="3S6-Ce-qDG">
+            <objects>
+                <viewController id="HdD-TL-kmF" customClass="AddressSelectVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="A2x-Wt-G0j"/>
+                        <viewControllerLayoutGuide type="bottom" id="ljJ-3X-bfM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EBa-Da-u1y">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rZU-ck-29G" customClass="LinkedPicker" customModule="Shopping_W" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="42" width="200" height="258"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qMz-iK-bi6">
+                                <rect key="frame" x="149" y="12" width="31" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="31" id="frW-0f-YMc"/>
+                                    <constraint firstAttribute="height" constant="30" id="tYa-Pg-kUP"/>
+                                </constraints>
+                                <state key="normal" title="确定"/>
+                                <connections>
+                                    <action selector="ac_ok:" destination="HdD-TL-kmF" eventType="touchUpInside" id="JRx-pT-aYQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P7h-EB-B5U">
+                                <rect key="frame" x="20" y="12" width="31" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="f27-KN-EwJ"/>
+                                    <constraint firstAttribute="width" constant="31" id="s2n-k6-kbn"/>
+                                </constraints>
+                                <state key="normal" title="取消"/>
+                                <connections>
+                                    <action selector="ac_cancle:" destination="HdD-TL-kmF" eventType="touchUpInside" id="j69-ui-Sm4"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="qMz-iK-bi6" secondAttribute="trailing" constant="20" id="R4A-Dp-dRs"/>
+                            <constraint firstItem="qMz-iK-bi6" firstAttribute="top" secondItem="EBa-Da-u1y" secondAttribute="top" constant="12" id="RXX-ZC-KJE"/>
+                            <constraint firstItem="ljJ-3X-bfM" firstAttribute="top" secondItem="rZU-ck-29G" secondAttribute="bottom" id="XBn-9b-2nZ"/>
+                            <constraint firstItem="P7h-EB-B5U" firstAttribute="top" secondItem="EBa-Da-u1y" secondAttribute="top" constant="12" id="hPT-Tg-qI4"/>
+                            <constraint firstItem="rZU-ck-29G" firstAttribute="top" secondItem="qMz-iK-bi6" secondAttribute="bottom" id="nLc-Ne-dmp"/>
+                            <constraint firstItem="rZU-ck-29G" firstAttribute="leading" secondItem="EBa-Da-u1y" secondAttribute="leading" id="sTF-2n-er7"/>
+                            <constraint firstItem="P7h-EB-B5U" firstAttribute="leading" secondItem="EBa-Da-u1y" secondAttribute="leading" constant="20" id="ubi-ja-5Qy"/>
+                            <constraint firstAttribute="trailing" secondItem="rZU-ck-29G" secondAttribute="trailing" id="zS6-V1-1pC"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="200" height="300"/>
+                    <connections>
+                        <outlet property="picker" destination="rZU-ck-29G" id="Okd-A9-fIH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cea-Hg-PRg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1217.5999999999999" y="-1116.3418290854574"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -199,7 +259,9 @@
                                     </state>
                                     <connections>
                                         <action selector="ac_address:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Ne-YB-h8e"/>
-                                        <segue destination="pcQ-R5-L3i" kind="push" id="6FE-bI-Osn"/>
+                                        <segue destination="HdD-TL-kmF" kind="popoverPresentation" identifier="toAddressSelectVC" popoverAnchorView="UMT-RV-u9J" id="Veh-gN-T6n">
+                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                        </segue>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tx1-z7-SqR">
@@ -228,6 +290,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="adImgView" destination="1j3-ep-Q8l" id="ucy-WH-JvE"/>
+                        <outlet property="addressBtn" destination="UMT-RV-u9J" id="nik-E6-wbH"/>
                         <outlet property="carouselView" destination="Zdh-Sn-gGa" id="hZc-eG-BDw"/>
                         <outlet property="itemCollectionView" destination="V8V-hB-a3T" id="FRw-aR-qLb"/>
                         <outlet property="searchBtn" destination="Tx1-z7-SqR" id="xxo-uH-LkS"/>
@@ -679,7 +742,7 @@
                                                         <constraint firstAttribute="width" constant="43" id="qJR-Dc-3RX"/>
                                                     </constraints>
                                                     <state key="normal" image="button:D9c-xS-HPc:image"/>
-                                                    <state key="selected" image="5CD7E297-5FFE-4EF4-B9DB-28D19942F6CA"/>
+                                                    <state key="selected" image="0A2B6CF3-D2D4-4A90-AA5E-630446AE018C"/>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placehoder" translatesAutoresizingMaskIntoConstraints="NO" id="yED-2Q-Hvd">
                                                     <rect key="frame" x="41" y="24" width="90" height="90"/>
@@ -2194,7 +2257,11 @@
                         <outlet property="loginBtn" destination="oL6-rO-Mw8" id="ZX2-xc-Bdw"/>
                         <outlet property="phonrText" destination="lW3-pC-HgJ" id="tqy-me-zoG"/>
                         <outlet property="pwdText" destination="npK-Lk-TpL" id="2p5-gv-9qk"/>
+                        <outlet property="qqBtn" destination="bfe-86-OFu" id="Kbw-SM-iMa"/>
+                        <outlet property="tbBtn" destination="kGB-qH-QSs" id="u1F-HV-hVx"/>
                         <outlet property="textBack" destination="8vE-BQ-sLr" id="g6q-uc-Zcd"/>
+                        <outlet property="thirdLoginTitle" destination="P3R-sz-bfG" id="eMd-FQ-po7"/>
+                        <outlet property="wxBtn" destination="Pjm-EQ-RsX" id="T1e-Ae-QGn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BC7-qh-2Cj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2299,7 +2366,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="5CD7E297-5FFE-4EF4-B9DB-28D19942F6CA" width="18" height="18">
+        <image name="0A2B6CF3-D2D4-4A90-AA5E-630446AE018C" width="18" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -49540,9 +49607,8 @@ AQAAAAAAAABBAAAAAAAAAAAAAAAAACrvYQ
         <image name="首页2" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dGf-ct-tp2"/>
+        <segue reference="9DC-gR-IoA"/>
         <segue reference="anp-RW-Vvy"/>
-        <segue reference="FMs-9s-zjP"/>
-        <segue reference="nHv-H7-ijn"/>
+        <segue reference="dGf-ct-tp2"/>
     </inferredMetricsTieBreakers>
 </document>

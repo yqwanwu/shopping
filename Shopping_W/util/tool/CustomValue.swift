@@ -96,6 +96,16 @@ struct CustomValue {
         }
     }
     
+    static var isWXInsted: Bool {
+        set {
+            
+        }
+        
+        get {
+            return UIApplication.shared.canOpenURL(URL(string: "wechat://")!)
+        }
+    }
+    
     static var isSinaInsted: Bool {
         set {
             
@@ -103,6 +113,16 @@ struct CustomValue {
         
         get {
             return UIApplication.shared.canOpenURL(URL(string: "sinaweibosso://")!)
+        }
+    }
+    
+    static var isTBInsted: Bool {
+        set {
+            
+        }
+        
+        get {
+            return UIApplication.shared.canOpenURL(URL(string: "taobao://")!)
         }
     }
     

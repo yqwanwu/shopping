@@ -52,7 +52,10 @@ class LinkedPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
         }
         itemsArr[1] = citys
         
-        itemsArr[2] = (cityArr[city] as! NSDictionary)["area"] as! [String]
+        if itemsArr.count > 2 {
+            itemsArr[2] = (cityArr[city] as! NSDictionary)["area"] as! [String]
+        }
+        
     }
     
     func readData() -> String {
@@ -88,15 +91,17 @@ class LinkedPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
         self.reloadComponent(1)
         self.reloadComponent(2)
         
-        let area = self.itemsArr[2].index(of: data[2]) ?? 0
-        
         self.selectRow(province, inComponent: 0, animated: true)
         self.selectRow(city, inComponent: 1, animated: true)
-        self.selectRow(area, inComponent: 2, animated: true)
         
         selectedCoordinates[0].row = province
         selectedCoordinates[1].row = city
-        selectedCoordinates[2].row = area
+        
+        if itemsArr.count > 2 {
+            let area = self.itemsArr[2].index(of: data[2]) ?? 0
+            self.selectRow(area, inComponent: 2, animated: true)
+            selectedCoordinates[2].row = area
+        }
     }
     
     func findIndex(name: String, component: Int) {
@@ -128,7 +133,7 @@ extension LinkedPicker {
         var label: UILabel!
         
         if view == nil {
-            label = UILabel(frame: CGRect(x: 0, y: 0, width: pickerView.frame.width / 3, height: 44))
+            label = UILabel(frame: CGRect(x: 0, y: 0, width: pickerView.frame.width / CGFloat(itemsArr.count), height: 44))
         } else {
             label = view as! UILabel
         }

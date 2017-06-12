@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate {
+class ViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UIPopoverPresentationControllerDelegate {
+    
+    @IBOutlet weak var addressBtn: UIButton!
     @IBOutlet weak var titleBack: UIView!
     @IBOutlet weak var searchBtn: UIButton!
     @IBOutlet weak var carouselView: CarouselCollectionView!
@@ -60,8 +62,20 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
         tableView.tableHeaderView = tableHeader
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? AddressSelectVC {
+            vc.modalPresentationStyle = .popover
+            vc.preferredContentSize = CGSize(width: 200, height: 300)
+            vc.popoverPresentationController?.delegate = self
+            vc.topVC = self
+        }
+    }
     
-    //MARK: 代理    
+    //MARK: 代理 
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == carouselView {
             return 3

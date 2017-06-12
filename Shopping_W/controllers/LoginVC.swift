@@ -16,6 +16,12 @@ class LoginVC: BaseViewController {
     @IBOutlet weak var pwdText: CheckTextFiled!
     @IBOutlet weak var autoLoginBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
+    
+    @IBOutlet weak var qqBtn: MineButton!
+    @IBOutlet weak var wxBtn: MineButton!
+    @IBOutlet weak var tbBtn: MineButton!
+    @IBOutlet weak var thirdLoginTitle: UILabel!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +33,16 @@ class LoginVC: BaseViewController {
         pwdText.setCheck { (tf) -> Bool in
             let c = (tf.text ?? "").characters.count
             return c < 15 && c > 5
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        qqBtn.isHidden = !CustomValue.isQQInsted
+        wxBtn.isHidden = !CustomValue.isWXInsted
+        tbBtn.isHidden = !CustomValue.isTBInsted
+        if qqBtn.isHidden && wxBtn.isHidden && tbBtn.isHidden {
+            thirdLoginTitle.isHidden = true
         }
     }
     
