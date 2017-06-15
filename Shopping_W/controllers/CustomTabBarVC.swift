@@ -28,4 +28,23 @@ class CustomTabBarVC: BaseTabBarController {
             }
         }
     }
+    
+    override func tabBar(_ tabBar: CustomTabBar, form: Int, to: Int) {
+        super.tabBar(tabBar, form: form, to: to)
+        
+        if form == to {
+            var vc = self.viewControllers?.first
+            if let nav =  vc as? UINavigationController {
+                vc = nav.viewControllers.first
+            }
+            if vc != nil {
+                for v in vc!.view.subviews {
+                    if let sv = v as? UIScrollView {
+                        sv.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+                    }
+                }
+            }
+            
+        }
+    }
 }
