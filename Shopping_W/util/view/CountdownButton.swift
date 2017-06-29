@@ -39,13 +39,14 @@ class CountdownButton: UIButton {
 //                self.frame.size.width = 112
 //                self.frame.origin.x = ox - 32
                 weakSelf.setTitle("\(weakSelf.counnt)秒后重新获取", for: .selected)
+                
                 timer = Timer.scheduledTimer(1, action: { (sender) in
                     Tools.refreshInMainQueue({
                         weakSelf.setTitle("\(weakSelf.counnt)秒后重新获取", for: .selected)
                         weakSelf.counnt -= 1
                         if weakSelf.counnt <= 0 {
                             weakSelf.isSelected = false
-                            
+                            weakSelf.isEnabled = true
                             if let c = weakSelf.complete {
                                 c()
                             }
@@ -61,10 +62,6 @@ class CountdownButton: UIButton {
     }
     
     var complete: (() -> Void)?
-    
-    override func draw(_ rect: CGRect) {
-        
-    }
     
     deinit {
         if timer != nil {

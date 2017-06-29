@@ -26,6 +26,7 @@ protocol ParseModelProtocol: NSObjectProtocol {
     func autoEncode(coder: NSCoder)
     
     func autoDecode(coder: NSCoder)
+    
 }
 
 extension ParseModelProtocol where Self: NSObject {

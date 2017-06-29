@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ObjectMapper
 
 class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
     ///必须卸载这防止提前被释放
@@ -223,7 +224,7 @@ extension CustomTableView {
 
 
 
-class CustomTableViewCellItem: NSObject {
+class CustomTableViewCellItem: BaseModel {
     typealias cellSelectedAction = (_ idx: IndexPath) -> Void
     
     var imageUrl: String?
@@ -242,9 +243,6 @@ class CustomTableViewCellItem: NSObject {
         self.cellAction = cellAction
     }
     
-    override init() {
-        super.init()
-    }
     
     @discardableResult
     func build(customValue _customValue: [String:Any]) -> Self {

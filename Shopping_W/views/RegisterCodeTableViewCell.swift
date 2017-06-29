@@ -30,8 +30,16 @@ class RegisterCodeTableViewCell: CustomTableViewCell {
     }
 
     @IBAction func ac_getCode(_ sender: UIButton) {
-        print("asdasfas")
-        sender.isSelected = true
-        codeTF.becomeFirstResponder()
+        if !sender.isSelected {
+            if let m = model as? CodeModel {
+                if m.getCodeAction() != "" {
+                    CodeModel.requestData(phone: m.getCodeAction(), type: .r)
+                    sender.isSelected = true
+                    codeTF.becomeFirstResponder()
+                }
+            }
+        }
     }
+    
+    
 }
