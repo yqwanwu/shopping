@@ -61,11 +61,21 @@ class RegisterVC: BaseViewController, UITableViewDataSource {
             return
         }
         
-        let datas = self.tableView.dataArray
         let phone = textFieldList[3].text ?? ""
         
-        var p = NetworkManager.getAllparams(params: ["method":"apiusersms", "phone":phone])
-//        NetworkManager.DataRequest(urlString: NetworkManager.SERBERURL, method: .post, params: p, success: <#T##(Data) -> ()#>, failture: <#T##(Error) -> ()#>)
+        let upperStr = (textFieldList[1].text ?? "").MD5.uppercased()
+        
+        let p = ["method":"apiuserreg", "phone":phone, "name":textFieldList[0].text ?? "", "pass":upperStr, "phonecode":textFieldList[4].text ?? ""]
+        
+        NetworkManager.JsonPostRequest(params: p, success: { (json) in
+            if json["code"].intValue == 0 {
+                NetworkManager.sessionId = json["sessionId"].stringValue
+            } else {
+                MBProgressHUD.show(errorText: json["message"].stringValue)
+            }
+        }) { (err) in
+            MBProgressHUD.show(errorText: "请求失败")
+        }
     }
 
 }
@@ -75,7 +85,7 @@ extension RegisterVC {
         let cell = self.tableView.createDefaultCell(indexPath: indexPath)
         
         if let cell = cell as? RegisterTableViewCell {
-            textFieldList.append(cell.textField)
+            textFieldList.insert(cell.textField, at: indexPath.row)
             if indexPath.row == 3 {
                 c4.getCodeAction = {
                     if !cell.textField.check() {
@@ -84,6 +94,8 @@ extension RegisterVC {
                     return cell.textField.text ?? ""
                 }
             }
+        } else if let cell = cell as? RegisterCodeTableViewCell {
+            textFieldList.insert(cell.codeTF, at: indexPath.row)
         }
         
         return cell

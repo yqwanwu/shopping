@@ -20,3 +20,7 @@
 
 #import <AlibabaAuthSDK/ALBBSDK.h>
 #import <AlipaySDK/AlipaySDK.h>
+
+
+//MD5
+#import <CommonCrypto/CommonDigest.h>

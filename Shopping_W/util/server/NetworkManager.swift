@@ -12,22 +12,22 @@ import SwiftyJSON
 
 class NetworkManager: NSObject {
     
-    static let SERBERURL = "http://111.161.41.28:8088/tjgy/api"
+//    static let SERBERURL = "http://111.161.41.28:8088/tjgy/api"
     
-//    static let SERBERURL = "http://192.168.1.37:8080/tjgy/api"
+    static let SERBERURL = "http://192.168.0.115:8080/tjgy/api"
     
-    private static var sessionId = ""
+    static var sessionId = ""
     private static let version = "1.0"
     private static let format = "json"
     private static let locale = "0"
     private static let sign = "0"
     
-    static func JsonGetRequest(params : [String : Any]?, success : @escaping (_ response : [String : Any])->(), failture : @escaping (_ error : Error)->()) {
+    static func JsonGetRequest(params : [String : Any]?, success : @escaping (_ response : JSON)->(), failture : @escaping (_ error : Error)->()) {
         let allp = getAllparams(params: params)
         request(urlString: SERBERURL, method: .get, params: allp, success: success, failture: failture)
     }
     
-    static  func JsonPostRequest(params : [String : Any]?, success : @escaping (_ response : [String : Any])->(), failture : @escaping (_ error : Error)->()) {
+    static  func JsonPostRequest(params : [String : Any]?, success : @escaping (_ response : JSON)->(), failture : @escaping (_ error : Error)->()) {
         let allp = getAllparams(params: params)
         request(urlString: SERBERURL, method: .post, params: allp, success: success, failture: failture)
     }
@@ -44,12 +44,13 @@ class NetworkManager: NSObject {
         })
     }
     
-    static func request(urlString: String, method: HTTPMethod, params : [String : Any]?, success : @escaping (_ response : [String : Any])->(), failture : @escaping (_ error : Error)->()) {
+    static func request(urlString: String, method: HTTPMethod, params : [String : Any]?, success : @escaping (_ response : JSON)->(), failture : @escaping (_ error : Error)->()) {
         Alamofire.request(urlString, method: method, parameters: params)
-            .responseJSON { (response) in
+            .responseString { (response) in
                 switch response.result {
                 case .success(let value):
-                    success(value as! [String : Any])
+                    let j = JSON(parseJSON: value)
+                    success(j)
                 case .failure(let error):
                     failture(error)
                 }
