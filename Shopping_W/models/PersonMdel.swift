@@ -9,23 +9,31 @@
 import UIKit
 
 class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
-    static let man = "M"
-    static let woman = "F"
-    static let secrite = "S"
     
-    var id: Double = 0
-    var name: String?
-    var gender: String?
+    var fAccountid = 0
+    ///登录名
+    var fUsername: String = ""
+    var fUserpass = ""
+    var fNickname = ""
+    ///性别 0女 1男
+    var fSex = 1
 
-    var photo: String?
-    var tag: NSDictionary?
+    var fPhone = ""
+    ///类型 0普通用户 1内部用户
+    var fType = 0
     
-    class func getGenderStr(gender: String?) -> String {
+    ///身份证
+    var fNumber = ""
+    var fName = ""
+    var fReferee = -1
+    var fHeadImgUrl = ""
+    
+    class func getGenderStr(gender: Int) -> String {
         switch gender {
-        case man?:
+        case 1:
             return "男"
             
-        case woman?:
+        case 0:
             return "女"
             
         default:
@@ -56,7 +64,7 @@ class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
         NSKeyedArchiver.archiveRootObject(self, toFile: filePath!)
     }
     
-    override init() {
+    override required init() {
         super.init()
     }
     

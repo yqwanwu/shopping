@@ -19,7 +19,7 @@ class CodeModel: CustomTableViewCellItem {
     var getCodeAction: () -> String = { "" }
     
     static func requestData(phone: String, type: captChaType) {
-        NetworkManager.requestModel(params: ["method":"apiusersms", "phone":phone, "captChaType":type.rawValue], success: { (code: CodeModel) in
+        NetworkManager.requestModel(params: ["method":"apiusersms", "phone":phone, "captChaType":type.rawValue], success: { (code: BaseModel<CodeModel>) in
             if code.code != "0" {
                 MBProgressHUD.show(errorText: code.message)
             } else {

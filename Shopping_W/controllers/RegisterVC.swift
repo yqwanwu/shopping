@@ -14,6 +14,9 @@ class RegisterVC: BaseViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: CustomTableView!
     @IBOutlet weak var registerBtn: UIButton!
     
+    
+    weak var loginVC: LoginVC?
+    
     var textFieldList = [CheckTextFiled]()
     
     let c = CustomTableViewCellItem().build(text: "用户名:").build(detailText: "请输入用户名")
@@ -67,13 +70,18 @@ class RegisterVC: BaseViewController, UITableViewDataSource {
         
         let p = ["method":"apiuserreg", "phone":phone, "name":textFieldList[0].text ?? "", "pass":upperStr, "phonecode":textFieldList[4].text ?? ""]
         
+        MBProgressHUD.show()
         NetworkManager.JsonPostRequest(params: p, success: { (json) in
+            MBProgressHUD.hideHUD()
             if json["code"].intValue == 0 {
-                NetworkManager.sessionId = json["sessionId"].stringValue
+                self.loginVC?.phonrText.text = phone
+                self.loginVC?.pwdText.text = self.textFieldList[1].text ?? ""
+                self.navigationController?.popViewController(animated: true)
             } else {
                 MBProgressHUD.show(errorText: json["message"].stringValue)
             }
         }) { (err) in
+            MBProgressHUD.hideHUD()
             MBProgressHUD.show(errorText: "请求失败")
         }
     }

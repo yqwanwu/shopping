@@ -27,12 +27,15 @@ protocol ParseModelProtocol: NSObjectProtocol {
     
     func autoDecode(coder: NSCoder)
     
+    init()
+    
 }
 
 extension ParseModelProtocol where Self: NSObject {
     func getArrayClassType() -> [String:String] {
         return [String:String]()
     }
+
     
     func deal(withSpecialPropertyName name: String!) -> String! {
         return name;
@@ -58,21 +61,21 @@ extension ParseModelProtocol where Self: NSObject {
         ModelParser.decode(model: self, coder: coder)
     }
     
-    static func parseArr(object: NSArray?) -> [Self] {
-        var result = [Self]()
-        if object != nil {
-            for item in object! {
-                if item is NSDictionary {
-                    let model = Self()
-                    model.parse(dic: item as! NSDictionary)
-                    result.append(model)
-                }
-            }
-        }
-    
-        return result
-        
-    }
+//    static func parseArr(object: NSArray?) -> [Self] {
+//        var result = [Self]()
+//        if object != nil {
+//            for item in object! {
+//                if item is NSDictionary {
+//                    let model = Self()
+//                    model.parse(dic: item as! NSDictionary)
+//                    result.append(model)
+//                }
+//            }
+//        }
+//    
+//        return result
+//        
+//    }
 }
 
 
@@ -91,10 +94,10 @@ class ModelParser: NSObject {
         }
         
         while m.superclassMirror != nil {
-            var subjectTypeStr = String(describing: m.subjectType).replacingOccurrences(of: "Optional<", with: "").replacingOccurrences(of: ">", with: "")
-            if !subjectTypeStr.hasPrefix(header) && !subjectTypeStr.hasPrefix("Swift") {
-                subjectTypeStr = header + "." + subjectTypeStr
-            }
+            let subjectTypeStr = NSStringFromClass(m.subjectType as! AnyClass).replacingOccurrences(of: "Optional<", with: "").replacingOccurrences(of: ">", with: "")
+//            if !subjectTypeStr.hasPrefix(header) && !subjectTypeStr.hasPrefix("Swift") {
+//                subjectTypeStr = header + "." + subjectTypeStr
+//            }
             
             if NSClassFromString(subjectTypeStr) == nil {
                 break
@@ -104,7 +107,7 @@ class ModelParser: NSObject {
                 guard child.label != nil else {
                     continue
                 }
-                
+                     
                 dicValueName = child.label!
                 ///处理特殊字段
                 if let om = originalModel as? ParseModelProtocol {
@@ -148,9 +151,9 @@ class ModelParser: NSObject {
                             } else {//非数组的情况
                                 //可转换的对象
                                 typeStr = str
-                                if !typeStr.hasPrefix(header) && !typeStr.hasPrefix("Swift") {
-                                    typeStr = header + "." + typeStr
-                                }
+//                                if !typeStr.hasPrefix(header) && !typeStr.hasPrefix("Swift") {
+//                                    typeStr = header + "." + typeStr
+//                                }
                                 
                                 if let clazz = NSClassFromString(typeStr), let v = val as? NSDictionary {
                                     let obj = clazz.alloc()
@@ -163,7 +166,8 @@ class ModelParser: NSObject {
                         }
                     })
                     
-                } catch {
+                } catch let err as NSError {
+                    debugPrint(err)
                     continue
                 }
             }

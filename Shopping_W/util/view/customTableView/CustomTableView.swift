@@ -224,7 +224,7 @@ extension CustomTableView {
 
 
 
-class CustomTableViewCellItem: BaseModel {
+class CustomTableViewCellItem: NSObject, ParseModelProtocol {
     typealias cellSelectedAction = (_ idx: IndexPath) -> Void
     
     var imageUrl: String?
@@ -243,6 +243,9 @@ class CustomTableViewCellItem: BaseModel {
         self.cellAction = cellAction
     }
     
+    override required init() {
+        super.init()
+    }
     
     @discardableResult
     func build(customValue _customValue: [String:Any]) -> Self {

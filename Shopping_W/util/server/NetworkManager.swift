@@ -9,12 +9,16 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import MBProgressHUD
+import ObjectMapper
 
 class NetworkManager: NSObject {
     
-//    static let SERBERURL = "http://111.161.41.28:8088/tjgy/api"
+    static let SERBERURL = "http://111.161.41.28:8088/tjgy/api"
     
-    static let SERBERURL = "http://192.168.0.115:8080/tjgy/api"
+    static let REQUEST_ERROR = "请求失败"
+    
+//    static let SERBERURL = "http://192.168.0.102:8080/tjgy/api"
     
     static var sessionId = ""
     private static let version = "1.0"
@@ -57,22 +61,29 @@ class NetworkManager: NSObject {
         }
     }
     
+    fileprivate static func setupBaseModel<T: ParseModelProtocol>(model: BaseModel<T>, json: JSON){
+        model.code = json["code"].stringValue
+        model.message = json["message"].stringValue
+        model.sessionId = json["sessionId"].stringValue
+        model.currentPage = json["currentPage"].intValue
+        model.pageSize = json["pageSize"].intValue
+        model.pageCount = json["pageCount"].intValue
+        model.total = json["total"].intValue
+    }
+    
     ///必须是json
-    static func requestModel<T: BaseModel>(method: HTTPMethod = .post, params : [String : Any]?, success : @escaping (_ response : T)->(), failture : @escaping (_ error : Error)->()) {
+    static func requestModel<T: ParseModelProtocol>(method: HTTPMethod = .post, params : [String : Any]?, success : @escaping (_ response : BaseModel<T>)->(), failture : @escaping (_ error : Error)->()) {
         
         let allp = getAllparams(params: params)
         
         Alamofire.request(SERBERURL, method: method, parameters: allp)
-            .responseJSON { (response) in
+            .responseString { (response) in
                 switch response.result {
                 case .success:
-                    let model = T()
-                    if let dic = response.result.value as? NSDictionary {
-                        model.parse(dic: dic)
-                        success(model)
-                    } else {
-                        failture(NSError(domain: "模型转换失败: \(response.result.value ?? "")", code: 10010, userInfo: nil))
-                    }
+                    let model = BaseModel<T>()
+                    let json = JSON(parseJSON: response.result.value ?? "")
+                    setupBaseModel(model: model, json: json)
+                    success(model)
                 case .failure(let error):
                     failture(error)
                 }
@@ -130,42 +141,52 @@ class NetworkManager: NSObject {
 
 extension NetworkManager {
     ///必须是json
-    static func requestListModel<T: BaseModel>(method: HTTPMethod = .post, params : [String : Any]?, success : @escaping (_ response : T)->(), failture : @escaping (_ error : Error)->()) {
+    static func requestListModel<T: ParseModelProtocol>(method: HTTPMethod = .post, params : [String : Any]?, success : @escaping (_ response : BaseModel<T>)->(), failture : @escaping (_ error : Error)->()) {
         
         let allp = getAllparams(params: params)
         
         Alamofire.request(SERBERURL, method: method, parameters: allp)
-            .responseJSON { (response) in
+            .responseString { (response) in
                 switch response.result {
                 case .success:
-                    let model = T()
-                    if let dic = response.result.value as? NSDictionary {
-                        model.parse(dic: dic)
-                        success(model)
-                    } else {
-                        failture(NSError(domain: "模型转换失败: \(response.result.value ?? "")", code: 10010, userInfo: nil))
+                    let model = BaseModel<T>()
+                    let json = JSON(parseJSON: response.result.value ?? "")
+                    setupBaseModel(model: model, json: json)
+                    
+                    var list = [T]()
+                    for item in json["list"].arrayValue {
+                        let t = T()
+                        if let dic = item.dictionaryObject as NSDictionary? {
+                            t.parse(dic: dic)
+                        }
+                        list.append(t)
                     }
+                    model.list = list
+                    success(model)
                 case .failure(let error):
                     failture(error)
                 }
         }
     }
     
-    static func requestTModel<T: BaseModel>(method: HTTPMethod = .post, params : [String : Any]?, success : @escaping (_ response : T)->(), failture : @escaping (_ error : Error)->()) {
+    static func requestTModel<T: ParseModelProtocol>(method: HTTPMethod = .post, params : [String : Any]?, success : @escaping (_ response : BaseModel<T>)->(), failture : @escaping (_ error : Error)->()) {
         
         let allp = getAllparams(params: params)
         
         Alamofire.request(SERBERURL, method: method, parameters: allp)
-            .responseJSON { (response) in
+            .responseString { (response) in
                 switch response.result {
                 case .success:
-                    let model = T()
-                    if let dic = response.result.value as? NSDictionary {
-                        model.parse(dic: dic)
-                        success(model)
-                    } else {
-                        failture(NSError(domain: "模型转换失败: \(response.result.value ?? "")", code: 10010, userInfo: nil))
+                    let model = BaseModel<T>()
+                    let json = JSON(parseJSON: response.result.value ?? "")
+                    setupBaseModel(model: model, json: json)
+                    let t = T()
+                    if let dic = json["t"].dictionaryObject as NSDictionary? {
+                        t.parse(dic: dic)
                     }
+                    model.t = t
+                    
+                    success(model)
                 case .failure(let error):
                     failture(error)
                 }
@@ -175,12 +196,42 @@ extension NetworkManager {
 
 
 
-class BaseModel: NSObject, ParseModelProtocol{
+class BaseModel<T: ParseModelProtocol>: NSObject {
     var code = "-1"
     var message = ""
-    var t: ParseModelProtocol?
-    var list: [ParseModelProtocol]?
+    var t: T?
+    var list: [T]?
+    
+    var sessionId = ""
+    var currentPage = 0
+    var pageSize = 0
+    var pageCount = 0
+    var total = 0
+    
+    var isSuccess: Bool {
+        return code == "0"
+    }
 
+    @discardableResult
+    func whenSuccess(action: () -> Void) -> Self {
+        if self.isSuccess {
+            if let _ = t {
+                action()
+            }
+        } else {
+            MBProgressHUD.show(errorText: self.message)
+        }
+        return self
+    }
+    
+    @discardableResult
+    func whenNoData(action: () -> Void) -> Self {
+        if t == nil {
+            action()
+        }
+        return self
+    }
+    
     required override init() {
         super.init()
     }

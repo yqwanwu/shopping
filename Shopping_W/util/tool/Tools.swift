@@ -8,7 +8,6 @@
 
 import UIKit
 
-/// swift3 升级，代码大量修改，提前准备，到时只需要改这里的代码
 class Tools: NSObject {
     enum StoryboardName: String {
         case main = "Main", first = "First", category = "Category", mine = "Mine", shoppingCar = "ShoppingCar"

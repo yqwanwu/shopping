@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     @IBOutlet weak var titleBack: UIView!
@@ -29,8 +30,19 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         let c = CustomTableViewCellItem().build(text: "空调").build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 70)
         tableView.dataArray = [[c, c, c, c]]
     
+        requestData()
     }
     
+    
+    func requestData() {
+        NetworkManager.requestListModel(params: ["method":"apicategorylist"], success: { (bm: BaseModel<CategoryModel>) in
+            bm.whenSuccess {
+                
+            }
+        }) { (err) in
+            
+        }
+    }
     
     //MARK: 重写
     override func viewDidAppear(_ animated: Bool) {

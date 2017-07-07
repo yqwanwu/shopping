@@ -22,6 +22,8 @@ class LoginVC: BaseViewController {
     @IBOutlet weak var tbBtn: MineButton!
     @IBOutlet weak var thirdLoginTitle: UILabel!
     
+    let k_toRegisterVC = "toRegisterVC"
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +48,21 @@ class LoginVC: BaseViewController {
         }
     }
     
+    
+    static func login(userName: String, pwd: String, successAction: @escaping () -> Void) {
+        let params = ["method":"apiuserlogin", "fUsername":userName, "fUserpass":pwd]
+        NetworkManager.requestTModel(params: params, success: { (bm: BaseModel<PersonMdel>) in
+            MBProgressHUD.hideHUD()
+            bm.whenSuccess {
+//                bm.t!.saveData()
+                successAction()
+            }
+        }) { (err) in
+            MBProgressHUD.hideHUD()
+            MBProgressHUD.show(errorText: NetworkManager.REQUEST_ERROR)
+        }
+    }
+    
 
     @IBAction func ac_autoLogin(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
@@ -57,6 +74,16 @@ class LoginVC: BaseViewController {
             self.loginByUm(result: result, err: err)
         }
     }
+    
+    @IBAction func ac_login(_ sender: Any) {
+        MBProgressHUD.show(text: "登录中...")
+        let md5Pwd = (pwdText.text ?? "").MD5.uppercased()
+        LoginVC.login(userName: phonrText.text ?? "", pwd: md5Pwd) {
+            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: CustomTabBarVC.self)
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+    
     
     @IBAction func loginByWx(_ sender: MineButton) {
         UMSocialManager.default().getUserInfo(with: .wechatSession, currentViewController: self) { [unowned self] (result, err) in
@@ -112,6 +139,15 @@ class LoginVC: BaseViewController {
         setupUI()
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == k_toRegisterVC {
+            let vc = segue.destination as! RegisterVC
+            vc.loginVC = self
+        }
+    }
     
 }
 

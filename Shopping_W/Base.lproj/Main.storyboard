@@ -738,7 +738,7 @@
                                                         <constraint firstAttribute="width" constant="43" id="qJR-Dc-3RX"/>
                                                     </constraints>
                                                     <state key="normal" image="button:D9c-xS-HPc:image"/>
-                                                    <state key="selected" image="567197FB-E872-44F4-BA41-3CC438188C68"/>
+                                                    <state key="selected" image="25FE1ABD-EF06-4011-8DFE-205B08947989"/>
                                                 </button>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placehoder" translatesAutoresizingMaskIntoConstraints="NO" id="yED-2Q-Hvd">
                                                     <rect key="frame" x="41" y="24" width="90" height="90"/>
@@ -1861,7 +1861,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hlm-ul-txe" customClass="CheckTextFiled" customModule="Shopping_W" customModuleProvider="target">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hlm-ul-txe" customClass="CheckTextFiled" customModule="Shopping_W" customModuleProvider="target">
                                                     <rect key="frame" x="103" y="6.5" width="249" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="5OR-Bg-TnO"/>
@@ -1972,7 +1972,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tPV-zc-hsK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-954.39999999999998" y="-555.47226386806597"/>
+            <point key="canvasLocation" x="-793" y="-562"/>
         </scene>
         <!--登录-->
         <scene sceneID="3Z7-hF-GfY">
@@ -2025,7 +2025,7 @@
                                                     <constraint firstAttribute="height" constant="18" id="O1L-mX-qxh"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lW3-pC-HgJ" customClass="CheckTextFiled" customModule="Shopping_W" customModuleProvider="target">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lW3-pC-HgJ" customClass="CheckTextFiled" customModule="Shopping_W" customModuleProvider="target">
                                                 <rect key="frame" x="43" y="7" width="261" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="Pp0-EH-daR"/>
@@ -2054,7 +2054,7 @@
                                                     <constraint firstAttribute="width" constant="16" id="yIC-ae-uX8"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入6-14位密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="npK-Lk-TpL" customClass="CheckTextFiled" customModule="Shopping_W" customModuleProvider="target">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入6-14位密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="npK-Lk-TpL" customClass="CheckTextFiled" customModule="Shopping_W" customModuleProvider="target">
                                                 <rect key="frame" x="43" y="6" width="261" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="gtP-xU-ty0"/>
@@ -2130,7 +2130,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Pa7-ef-aLn" kind="modal" id="vil-F8-7GR"/>
+                                    <action selector="ac_login:" destination="pp4-xG-2WS" eventType="touchUpInside" id="lHa-a5-ZzW"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CqA-Bb-guK">
@@ -2144,7 +2144,7 @@
                                     <color key="titleColor" red="0.93725490199999995" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="j58-dB-yPT" kind="push" id="1eE-Nc-gvw"/>
+                                    <segue destination="j58-dB-yPT" kind="push" identifier="toRegisterVC" id="1eE-Nc-gvw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfe-86-OFu" customClass="MineButton" customModule="Shopping_W" customModuleProvider="target">
@@ -2267,7 +2267,7 @@
         <!--Custom Tab BarVC-->
         <scene sceneID="ESa-rj-1Te">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Pa7-ef-aLn" customClass="CustomTabBarVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="CustomTabBarVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Pa7-ef-aLn" customClass="CustomTabBarVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="YhI-zY-wYc">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -2362,7 +2362,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="567197FB-E872-44F4-BA41-3CC438188C68" width="18" height="18">
+        <image name="25FE1ABD-EF06-4011-8DFE-205B08947989" width="18" height="18">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

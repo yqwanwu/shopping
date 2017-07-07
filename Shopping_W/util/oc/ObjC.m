@@ -9,7 +9,7 @@
         return YES;
     }
     @catch (NSException *exception) {
-        *error = [[NSError alloc] initWithDomain:exception.name code:0 userInfo:exception.userInfo];
+        *error = [[NSError alloc] initWithDomain:exception.reason code:0 userInfo:exception.userInfo];
     }
 }
 
