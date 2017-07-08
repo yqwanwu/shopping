@@ -36,6 +36,17 @@ class LoginVC: BaseViewController {
             let c = (tf.text ?? "").characters.count
             return c < 15 && c > 5
         }
+        
+        self.autoLoginBtn.isSelected = true
+        
+        if let p = PersonMdel.readData() {
+            self.autoLoginBtn.isSelected = p.isAutoLogin
+            
+            if p.isAutoLogin {
+                self.phonrText.text = p.fPhone
+                self.pwdText.text = p.fUserpass
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,11 +61,12 @@ class LoginVC: BaseViewController {
     
     
     static func login(userName: String, pwd: String, successAction: @escaping () -> Void) {
-        let params = ["method":"apiuserlogin", "fUsername":userName, "fUserpass":pwd]
+        let params = ["method":"apiuserlogin", "fUsername":userName, "fUserpass":pwd.MD5.uppercased()]
         NetworkManager.requestTModel(params: params, success: { (bm: BaseModel<PersonMdel>) in
             MBProgressHUD.hideHUD()
             bm.whenSuccess {
-//                bm.t!.saveData()
+                bm.t?.fUserpass = pwd
+                bm.t!.saveData()
                 successAction()
             }
         }) { (err) in
@@ -76,9 +88,12 @@ class LoginVC: BaseViewController {
     }
     
     @IBAction func ac_login(_ sender: Any) {
+        if !self.phonrText.check() || !self.pwdText.check() {
+            return
+        }
+        
         MBProgressHUD.show(text: "登录中...")
-        let md5Pwd = (pwdText.text ?? "").MD5.uppercased()
-        LoginVC.login(userName: phonrText.text ?? "", pwd: md5Pwd) {
+        LoginVC.login(userName: phonrText.text ?? "", pwd: pwdText.text ?? "") {
             let vc = Tools.getClassFromStorybord(sbName: .main, clazz: CustomTabBarVC.self)
             self.present(vc, animated: true, completion: nil)
         }

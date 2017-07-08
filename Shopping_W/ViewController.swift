@@ -50,7 +50,9 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
         tableView.dataArray = [[c1, c2, c2, c1]]
         
         locationM.startUpdatingLocation()
+        
     }
+    
     
     @IBAction func ac_address(_ sender: Any) {
         let vc = Tools.getClassFromStorybord(sbName: .first, clazz: AddressVC.self)

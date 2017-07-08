@@ -51,6 +51,14 @@ class CarVC: UIViewController, UITableViewDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @IBAction func ac_test(_ sender: Any) {
+        ///测试商品详情
+        GoodsDetailModel.requestData(fGoodsid: 1, fGeid: nil).setSuccessAction { (bm) in
+            bm.whenSuccess {
+                
+            }
+        }
+    }
     
     //MARK: 代理
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -27,15 +27,38 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         titleBack.bounds.size.width = self.view.frame.width - 40
         searchBtn.layer.cornerRadius = 6
         
-        let c = CustomTableViewCellItem().build(text: "空调").build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 70)
-        tableView.dataArray = [[c, c, c, c]]
-    
-        requestData()
+//        let c = CustomTableViewCellItem().build(text: "空调").build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 70)
+//        tableView.dataArray = [[c, c, c, c]]
+//    
+        requestCategoryData()
     }
     
-    
-    func requestData() {
+    ///请求左边的数据
+    func requestCategoryData() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         NetworkManager.requestListModel(params: ["method":"apicategorylist"], success: { (bm: BaseModel<CategoryModel>) in
+            MBProgressHUD.hideHUD(forView: self.view)
+            bm.whenSuccess {
+                let arr = bm.list!.map({ (model) -> CategoryModel in
+                    return model.build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 70)
+                })
+                self.tableView.dataArray = [arr]
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
+                self.requestGoodsData(categoryId: arr[0].fCategoryid)
+            }
+        }) { (err) in
+            MBProgressHUD.hideHUD(forView: self.view)
+        }
+    }
+
+    ///请求商品信息
+    func requestGoodsData(categoryId: Int) {
+        let params = ["method":"apigoodslist", "fCategoryid":categoryId, "currentPage":1, "pageSize":20] as [String : Any]
+        NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<GoodsModel>) in
             bm.whenSuccess {
                 
             }

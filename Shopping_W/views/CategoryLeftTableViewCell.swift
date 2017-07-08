@@ -26,10 +26,8 @@ class CategoryLeftTableViewCell: CustomTableViewCell {
     
     override var model: CustomTableViewCellItem? {
         didSet {
-            if let m = model {
-                if m.detailText != nil {
-                    
-                }
+            if let m = model as? CategoryModel {
+                self.titleLabel.text = m.fCategoryname
             }
         }
     }

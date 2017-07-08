@@ -47,6 +47,8 @@ class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
     
     var havearticle = "NO"
     
+    var isAutoLogin = true
+    
     var openId: String?
 //    var loginType = NewFeatureLoginView.loginType_qq
     

@@ -12,9 +12,9 @@ class GoodsListVC: BaseViewController {
     @IBOutlet weak var tableView: RefreshTableView!
     @IBOutlet weak var headerView: TabView!
     
-    enum ListType {
+    enum ListType: String {
         ///   二级页面  团购   秒杀      一般的   促销
-        case level2, group, seckill, normal, promotions
+        case level2, group = "1", seckill = "2", normal, promotions = "3,4,5,6"
     }
     
     var type = ListType.normal
@@ -39,6 +39,21 @@ class GoodsListVC: BaseViewController {
         tableView.dataArray = [[c, c, c, c]]
         
         setupTabView()
+        
+        requestPromotions()
+    }
+    
+    ///促销列表
+    func requestPromotions() {
+        let params = ["method":"apipromotions", "fTypes":type.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":1, "pageSize":20] as [String : Any]
+        
+        NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
+            bm.whenSuccess {
+                
+            }
+        }) { (err) in
+            
+        }
     }
     
     func setupTabView() {
