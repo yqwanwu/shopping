@@ -65,6 +65,7 @@ class GoodsDetailModel: NSObject, ParseModelProtocol {
     var fFivestarperc = 0
     
     var exList: [GoodsTypeModel]?
+    var picList: [NSDictionary]?
     
     override required init() {
         super.init()

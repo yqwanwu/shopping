@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var scrollBk: UIScrollView!
@@ -17,7 +18,6 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     @IBOutlet weak var perPriceLabel: UILabel!
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var typeBk: UIView!
-    
     
     //标记而已
     @IBOutlet weak var typeBkFirstItem: UILabel!
@@ -58,6 +58,9 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     var type = GoodsListVC.ListType.normal
     @IBOutlet weak var tableView: CustomTableView!
+    
+    var detailModel = GoodsDetailModel()
+    var goodsModel: GoodsModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +84,28 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         tableView.dataArray = [[c, c, c]]
         
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        requestData()
+    }
+    
+    func setupUI(model: GoodsDetailModel) {
+        self.detailModel = model
+        self.carouselView.reloadData()
+        
+        self.nameLabel.text = model.fGoodsname
+        self.typeLabel.text = model.fTags
+    }
+    
+    func requestData() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        GoodsDetailModel.requestData(fGoodsid: goodsModel.fGoodsid, fGeid: nil).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
+            MBProgressHUD.hideHUD(forView: self.view)
+            if let m = bm.list?.first {
+                self.setupUI(model: m)
+            }
+        }.seterrorAction { (err) in
+            MBProgressHUD.hideHUD(forView: self.view)
+        }
     }
     
     func setupCustomBk() {
@@ -189,14 +214,15 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == carouselView {
-            return 3
+            return (detailModel.picList?.count) ?? 0
         }
         return FirstItem.defaultDatas.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CarouselCollectionViewCell
-        cell.imageView.image = #imageLiteral(resourceName: "placehoder")
+        let dic = detailModel.picList![indexPath.row]
+        cell.imageView.sd_setImage(with: URL.encodeUrl(string: dic["fUrl"] as! String), placeholderImage: #imageLiteral(resourceName: "placehoder"))
         return cell
     }
     

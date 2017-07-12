@@ -138,14 +138,19 @@ class ModelParser: NSObject {
                                 let rang = str.range(of: "Array<")
                                 if let r = rang {
                                     typeStr = str.substring(from: r.upperBound)
-                                    if !typeStr.hasPrefix(header) && !typeStr.hasPrefix("Swift") {
-                                        typeStr = header + "." + typeStr
+//                                    if !typeStr.hasPrefix(header) && !typeStr.hasPrefix("Swift") {
+//                                        typeStr = header + "." + typeStr
+//                                    }
+                                    
+                                    if NSClassFromString(typeStr) is ParseModelProtocol {
+                                        let list = getModelList(dicVal: val as! NSArray, typeStr: typeStr, originalModel: originalModel)
+                                        if list.count > 0 {
+                                            modelObj.setValue(list, forKey: child.label!)
+                                        }
+                                    } else {
+                                        modelObj.setValue(val, forKey: child.label!)
                                     }
                                     
-                                    let list = getModelList(dicVal: val as! NSArray, typeStr: typeStr, originalModel: originalModel)
-                                    if list.count > 0 {
-                                        modelObj.setValue(list, forKey: child.label!)
-                                    }
                                 }
                             } else {//非数组的情况
                                 //可转换的对象

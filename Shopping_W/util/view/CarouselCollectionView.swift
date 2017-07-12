@@ -30,6 +30,9 @@ class CarouselCollectionView: UICollectionView, UICollectionViewDelegate, UIColl
     lazy var timer: Timer = {
         let t = Timer.scheduledTimer(self.timing, action: { [unowned self] (t) in
             //todo 增加timer
+            if self.itemCount <= 0 {
+                return
+            }
             let idx = IndexPath(row: self.currentIndexPath.row + 1, section: self.currentIndexPath.section)
             self.currentIndexPath = idx
             self.scrollToItem(at: idx, at: self.scrollDirection == .horizontal ? .centeredHorizontally : .centeredVertically, animated: true)

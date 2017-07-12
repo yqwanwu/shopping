@@ -69,6 +69,11 @@ class PullToRefreshControl: NSObject {
         return self
     }
     
+    func endRefresh() {
+        self.footer?.endRefresh()
+        self.header?.endRefresh()
+    }
+    
     private func setup() {
         scrollView.addObserver(self, forKeyPath: "panGestureRecognizer.state", options: .new, context: nil)
         scrollView?.addObserver(self, forKeyPath: "contentOffset", options: .new, context: nil)

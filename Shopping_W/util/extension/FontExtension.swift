@@ -26,7 +26,12 @@ extension NSObject {
 extension URL {
     static func encodeUrl(string: String) -> URL? {
         if let s = string.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) {
-            return URL(string: s)
+            if s.hasPrefix("http") {
+                return URL(string: s)
+            } else {
+                 return URL(string: (NetworkManager.SERBERURL as NSString).appendingPathComponent(s))
+            }
+           
         }
         return URL(string: string)
     }

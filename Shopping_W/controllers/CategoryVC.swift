@@ -17,6 +17,8 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     var currentTableCell: UITableViewCell?
     let cellWidth: CGFloat = 80
     
+    var goodsList = [GoodsModel]()
+    
     static let bkColor = UIColor.hexStringToColor(hexString: "f9f9f9")
     
     override func viewDidLoad() {
@@ -29,7 +31,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         
 //        let c = CustomTableViewCellItem().build(text: "空调").build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 70)
 //        tableView.dataArray = [[c, c, c, c]]
-//    
+//
         requestCategoryData()
     }
     
@@ -60,7 +62,8 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         let params = ["method":"apigoodslist", "fCategoryid":categoryId, "currentPage":1, "pageSize":20] as [String : Any]
         NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<GoodsModel>) in
             bm.whenSuccess {
-                
+                self.goodsList = (bm.pageInfo?.list)!
+                self.collectionView.reloadData()
             }
         }) { (err) in
             
@@ -104,12 +107,14 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return goodsList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryGoodsCollectionViewCell.getNameString(), for: indexPath) as! CategoryGoodsCollectionViewCell
-        
+        let goods = goodsList[indexPath.row]
+        cell.imgView.sd_setImage(with: URL.encodeUrl(string: goods.fUrl))
+        cell.titleLabel.text = goods.fGoodsname
         return cell
     }
     

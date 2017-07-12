@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import SDWebImage
 
 class ViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UIPopoverPresentationControllerDelegate, CLLocationManagerDelegate {
     
@@ -20,6 +21,8 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
     @IBOutlet weak var adImgView: UIImageView!
     
     @IBOutlet weak var tableView: RefreshTableView!
+    
+    var topAdsData = [BannerModel]()
     
     
     lazy var locationM: CLLocationManager = {//info.plist add :Privacy - Location Always Usage Description
@@ -51,6 +54,32 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
         
         locationM.startUpdatingLocation()
         
+        requestGoods()
+        requestADs()
+    }
+    
+    //下方商品
+    func requestGoods() {
+        let params = ["method":"apigoodslist", "currentPage":"1", "pageSize":"20"] as [String:Any]
+        NetworkManager.requestPageInfoModel(params: params)
+            .setSuccessAction { (bm: BaseModel<GoodsModel>) in
+            
+        }
+    }
+    
+    func requestADs() {
+        NetworkManager.requestListModel(params: ["method":"apibannerlist"])
+            .setSuccessAction { (bm: BaseModel<BannerModel>) in
+                self.topAdsData.removeAll()
+                for banner in bm.list! {
+                    if banner.fPage == -100 {
+                        self.topAdsData.append(banner)
+                    } else if banner.fPage == -101 {
+                        self.adImgView.sd_setImage(with: URL.encodeUrl(string: banner.fPicurl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
+                    }
+                }
+                self.carouselView.reloadData()
+        }
     }
     
     
@@ -96,7 +125,7 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == carouselView {
-            return 3
+            return topAdsData.count
         }
         return FirstItem.defaultDatas.count
     }
@@ -104,7 +133,8 @@ class ViewController: BaseViewController, UICollectionViewDataSource, UICollecti
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == carouselView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CarouselCollectionViewCell
-            cell.imageView.image = #imageLiteral(resourceName: "placehoder")
+            let data = topAdsData[self.carouselView.realCurrentIndexPath.row]
+            cell.imageView.sd_setImage(with: URL.encodeUrl(string: data.fPicurl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FirstItemCollectionViewCell
