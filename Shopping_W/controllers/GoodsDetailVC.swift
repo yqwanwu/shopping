@@ -57,16 +57,17 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     
     var type = GoodsListVC.ListType.normal
+    var currentPage = 1
     @IBOutlet weak var tableView: CustomTableView!
     
     var detailModel = GoodsDetailModel()
-    var goodsModel: GoodsModel!
+    var goodsId: Int = 0
+    var evaluationList = [EvaluationModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //fdc249
-        setupTypeView()
-        setupCustomBk()
+//        setupCustomBk()
         
         starView.sadImg = #imageLiteral(resourceName: "p4.6.1.1-评价-灰.png")
         starView.likeImg = #imageLiteral(resourceName: "p4.6.1.1-评价-红.png")
@@ -80,12 +81,11 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         
         tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableViewAutomaticDimension
-        let c = CustomTableViewCellItem().build(cellClass: EvaluateCell.self)
-        tableView.dataArray = [[c, c, c]]
         
         self.automaticallyAdjustsScrollViewInsets = false
         
         requestData()
+        requestEvaluations()
     }
     
     func setupUI(model: GoodsDetailModel) {
@@ -94,17 +94,50 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         
         self.nameLabel.text = model.fGoodsname
         self.typeLabel.text = model.fTags
+        
+        starView.score = CGFloat(model.fFivestarperc) / 20.0
+        starView.isTapGestureEnable = false
+        starView.isPanGestureEnable = false
+        
+        switch detailModel.fPromotiontype {
+        case 1:
+            self.type = .group
+        case 2:
+            self.type = .seckill
+        case 3, 4 ,5, 6:
+            self.type = .promotions
+        default:
+            self.type = .normal
+        }
+        
+        setupCustomBk()
+        
+        setupTypeView(list: model.exList)
     }
     
     func requestData() {
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        GoodsDetailModel.requestData(fGoodsid: goodsModel.fGoodsid, fGeid: nil).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
+        GoodsDetailModel.requestData(fGoodsid: goodsId, fGeid: nil).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
             MBProgressHUD.hideHUD(forView: self.view)
             if let m = bm.list?.first {
                 self.setupUI(model: m)
             }
         }.seterrorAction { (err) in
             MBProgressHUD.hideHUD(forView: self.view)
+        }
+    }
+    
+    //请求评价
+    func requestEvaluations() {
+        let params = ["method":"apievaluations", "fGoodsid":goodsId, "fStartext":"", "currentPage":currentPage, "pageSize":CustomValue.pageSize] as [String : Any]
+        NetworkManager.requestPageInfoModel(params: params).setSuccessAction { (bm: BaseModel<EvaluationModel>) in
+            self.evaluationList = bm.pageInfo?.list ?? [EvaluationModel]()
+            .map({ (model) -> EvaluationModel in
+                return model.build(cellClass: EvaluateCell.self)
+            })
+            self.tableView.dataArray = [self.evaluationList]
+            
+            self.tableView.reloadData()
         }
     }
     
@@ -146,10 +179,16 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         }
     }
     
-    func setupTypeView() {
+    func setupTypeView(list: [GoodsTypeModel]?) {
+        if (list?.count) ?? 0 <= 0 {
+            typeBkFirstItem.isHidden = true
+            return
+        }
         var currentView: UIView = typeBkFirstItem
-        for i in 0..<3 {
+        for i in 0..<list!.count {
+            let goodsType = list![i]
             let currentBtn = UIButton(type: .system)
+            
             currentBtn.setTitle("\(i)个", for: .normal)
             currentBtn.setTitleColor(UIColor.hexStringToColor(hexString: "fdc249"), for: .normal)
             currentBtn.setTitleColor(CustomValue.common_red, for: .highlighted)
@@ -176,9 +215,19 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     @IBAction func ac_shopingCar(_ sender: CustomTabBarItem) {
         CustomTabBarVC.instance.selectToFirst(index: 2)
     }
+    
     @IBAction func ac_server(_ sender: CustomTabBarItem) {
     }
+    
     @IBAction func ac_add(_ sender: UIButton) {
+        let params = ["method":"apiaddtoshopcart", "fGoodsid":self.goodsId, "fCount":1, "fGeid":1, "fPromotionid":""] as [String : Any]
+        NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+            bm.whenSuccess {
+                MBProgressHUD.show(successText: "添加成功")
+            }
+        }) { (err) in
+            
+        }
     }
     
     

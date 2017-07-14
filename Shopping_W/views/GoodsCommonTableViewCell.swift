@@ -19,10 +19,17 @@ class GoodsCommonTableViewCell: CustomTableViewCell {
     
     override var model: CustomTableViewCellItem? {
         didSet {
-            if let m = model as? GoodsListModel {
-                
+            commonLabel.isHidden = false
+            if let m = model as? GoodsModel {
+                imgView.sd_setImage(with: URL.encodeUrl(string: m.fUrl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
                 commonLabel.isHidden = false
+                let attrStr = NSMutableAttributedString(string: "12312", attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                oldPriceLabel.attributedText = attrStr
                 
+            } else if let m = model as? PromotionModel {
+                nameLabel.text = m.fGoodsname
+//                imgView.sd_setImage(with: URL.encodeUrl(string: m.f), placeholderImage: <#T##UIImage?#>)
+                descLabel.text = m.fSummary
                 if m.type == .promotions {
                     let attrStr = NSMutableAttributedString(string: "满意100减20", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
                     oldPriceLabel.attributedText = attrStr
@@ -44,7 +51,7 @@ class GoodsCommonTableViewCell: CustomTableViewCell {
                         commonLabel.isHidden = true
                     }
                 }
-            }
+            } 
         }
     }
 

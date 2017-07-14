@@ -21,26 +21,69 @@ class SecKillVC: BaseViewController {
         return t
     } ()
     
+    var currentPage = 1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.addSubview(headerView)
         self.view.addSubview(tableView)
         
-        let c = GoodsListModel().build(cellClass: GoodsCommonTableViewCell.self).build(heightForRow: 118)
-        c.type = .seckill
-        c.setupCellAction { [unowned self] (idx) in
-            let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
-            vc.type = .seckill
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        tableView.dataArray = [[c, c, c, c]]
-        
         self.view.addSubview(headerView)
         setupTabView()
         
         self.title = "秒杀"
+        
+        self.tableView.addHeaderAction { [unowned self] _ in
+            self.currentPage = 1
+            self.requestData()
+        }
+        self.tableView.addFooterAction { [unowned self] _ in
+            self.currentPage += 1
+            self.requestData()
+        }
+        self.tableView.beginHeaderRefresh()
     }
+    
+    func requestData() {
+        let params = ["method":"apipromotions", "fTypes":GoodsListVC.ListType.seckill.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":currentPage, "pageSize":20] as [String : Any]
+        
+        NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
+            self.tableView.endHeaderRefresh()
+            self.tableView.endFooterRefresh()
+            bm.whenSuccess {
+                if let list = bm.pageInfo?.list {
+                    var arr = list.map({ (model) -> PromotionModel in
+                        model.build(heightForRow: 118)
+                        model.build(cellClass: GoodsCommonTableViewCell.self)
+                        model.type = .seckill
+                        
+                        model.setupCellAction { [unowned self] (idx) in
+                            let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+                            vc.type = .seckill
+                            
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                        return model
+                    })
+                    if self.currentPage > 1  {
+                        if self.tableView.dataArray.count > 0 {
+                            arr.insert(contentsOf: self.tableView.dataArray[0] as! [PromotionModel], at: 0)
+                            self.tableView.dataArray = [arr]
+                        }
+                    }
+                    self.tableView.dataArray = [arr]
+                    self.tableView.reloadData()
+                }
+                if !(bm.pageInfo?.hasNextPage ?? false) {
+                    self.tableView.pullTORefreshControl.footer?.state = .noMoreData
+                }
+            }
+        }) { (err) in
+            
+        }
+    }
+
     
     func setupTabView() {
         var arr = [UIButton]()

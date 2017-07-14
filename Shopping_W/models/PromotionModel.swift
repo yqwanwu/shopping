@@ -42,7 +42,8 @@ class PromotionModel: CustomTableViewCellItem {
      "fEndtime": "2017-07-02 23:06:50",结束时间
      "fType": 5 //促销类别 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
 */
-    
+    var type = GoodsListVC.ListType.normal
+
     var fNo = ""
     var fPurchasecount = 0
     ///json

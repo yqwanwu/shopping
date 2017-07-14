@@ -25,6 +25,8 @@ class GoodsModel: CustomTableViewCellItem {
      "fUrl": "\\upload\\2017-06\\20170602000710_5dbf3b00-b2e2-4ffd-bba2-88fc51363c2f.jpg" //商品主图
  */
     
+    var type = GoodsListVC.ListType.normal
+    
     var fShopname = ""
     ///正在参与促销类别 0:无 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分
     var fPromotiontype = 0

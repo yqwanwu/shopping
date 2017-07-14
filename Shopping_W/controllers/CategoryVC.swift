@@ -19,6 +19,16 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     
     var goodsList = [GoodsModel]()
     
+    var currentPage = 1
+    var CurrentCategoryId = 0
+    
+    lazy var refreshContrl: PullToRefreshControl = {
+        let p = PullToRefreshControl(scrollView: self.collectionView)
+        p.addDefaultHeader().addDefaultFooter()
+        
+        return p
+    } ()
+    
     static let bkColor = UIColor.hexStringToColor(hexString: "f9f9f9")
     
     override func viewDidLoad() {
@@ -28,11 +38,17 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         
         titleBack.bounds.size.width = self.view.frame.width - 40
         searchBtn.layer.cornerRadius = 6
-        
-//        let c = CustomTableViewCellItem().build(text: "空调").build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 70)
-//        tableView.dataArray = [[c, c, c, c]]
-//
+
         requestCategoryData()
+        
+        refreshContrl.header?.addAction(with: .refreshing, action: {
+            self.currentPage = 1
+            self.requestGoodsData()
+        })
+        refreshContrl.footer?.addAction(with: .refreshing, action: {
+            self.currentPage += 1
+            self.requestGoodsData()
+        })
     }
     
     ///请求左边的数据
@@ -48,9 +64,12 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    if arr.count > 0 {
+                        self.CurrentCategoryId = arr[0].fCategoryid
+                        self.requestGoodsData()
+                    }
+                    self.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.top)
                 }
-                
-                self.requestGoodsData(categoryId: arr[0].fCategoryid)
             }
         }) { (err) in
             MBProgressHUD.hideHUD(forView: self.view)
@@ -58,15 +77,19 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     }
 
     ///请求商品信息
-    func requestGoodsData(categoryId: Int) {
-        let params = ["method":"apigoodslist", "fCategoryid":categoryId, "currentPage":1, "pageSize":20] as [String : Any]
+    func requestGoodsData() {
+        if self.currentPage == 1 {
+            goodsList.removeAll()
+        }
+        let params = ["method":"apigoodslist", "fCategoryid":CurrentCategoryId, "currentPage":currentPage, "pageSize":20] as [String : Any]
         NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<GoodsModel>) in
+            self.refreshContrl.endRefresh()
             bm.whenSuccess {
-                self.goodsList = (bm.pageInfo?.list)!
+                self.goodsList.append(contentsOf: (bm.pageInfo?.list)!)
                 self.collectionView.reloadData()
             }
         }) { (err) in
-            
+            self.refreshContrl.endRefresh()
         }
     }
     
@@ -93,13 +116,24 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     //MARK: 代理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = self.tableView.cellForRow(at: indexPath) as! CategoryLeftTableViewCell
+        
+        if cell.isSelected {
+            return
+        }
         currentTableCell?.isSelected = false
         cell.isSelected = true
+        let data = self.tableView.dataArray[indexPath.section][indexPath.row] as! CategoryModel
+        
+        goodsList.removeAll()
+        self.collectionView.reloadData()
+        self.currentPage = 1
+        self.CurrentCategoryId = data.fCategoryid
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let cell = self.tableView.cellForRow(at: indexPath) as! CategoryLeftTableViewCell
-        cell.isSelected = false
+        if let cell = self.tableView.cellForRow(at: indexPath) as? CategoryLeftTableViewCell {
+            cell.isSelected = false
+        }
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -113,7 +147,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryGoodsCollectionViewCell.getNameString(), for: indexPath) as! CategoryGoodsCollectionViewCell
         let goods = goodsList[indexPath.row]
-        cell.imgView.sd_setImage(with: URL.encodeUrl(string: goods.fUrl))
+        cell.imgView.sd_setImage(with: URL.encodeUrl(string: goods.fUrl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
         cell.titleLabel.text = goods.fGoodsname
         return cell
     }

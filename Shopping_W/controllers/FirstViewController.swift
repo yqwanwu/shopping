@@ -157,7 +157,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         if indexPath.section >= 1 {
             let goods = goodsList[indexPath.row]
             let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
-            vc.goodsModel = goods
+            vc.goodsId = goods.fGoodsid
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

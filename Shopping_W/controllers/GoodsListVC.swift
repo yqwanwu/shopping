@@ -17,44 +17,104 @@ class GoodsListVC: BaseViewController {
         case level2, group = "1", seckill = "2", normal, promotions = "3,4,5,6"
     }
     
+    var tags = ""
+    var currentPage = 1
+    
     var type = ListType.normal
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let c = GoodsListModel().build(heightForRow: 118)
-        
-        if type == .level2 {
-            c.build(cellClass: GoodListLevel2Cell.self)
-        } else {
-            c.build(cellClass: GoodsCommonTableViewCell.self)
-        }
-        c.type = type
-        c.setupCellAction { [unowned self] (idx) in
-            let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
-            vc.type = self.type
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        
-        tableView.dataArray = [[c, c, c, c]]
+//        tableView.dataArray = [[c, c, c, c]]
         
         setupTabView()
         
-        requestPromotions()
+        self.tableView.addFooterAction { [unowned self] _ in
+            self.currentPage += 1
+            self.requestPromotions()
+        }
+        
+        self.tableView.addHeaderAction { [unowned self] _ in
+            self.currentPage = 1
+            self.requestPromotions()
+        }
+        self.tableView.beginHeaderRefresh()
     }
     
     ///促销列表
     func requestPromotions() {
-        let params = ["method":"apipromotions", "fTypes":type.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":1, "pageSize":20] as [String : Any]
-        
-        NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
-            bm.whenSuccess {
+        if type != .normal && type != .level2 {
+            let params = ["method":"apipromotions", "fTypes":type.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":currentPage, "pageSize":20] as [String : Any]
+            
+            NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
+                self.tableView.endHeaderRefresh()
+                self.tableView.endFooterRefresh()
+                bm.whenSuccess {
+                    if let list = bm.pageInfo?.list {
+                        self.dealModels(list: list)
+                    }
+                    if !(bm.pageInfo?.hasNextPage ?? false) {
+                        self.tableView.pullTORefreshControl.footer?.state = .noMoreData
+                    }
+                }
+            }) { (err) in
                 
             }
-        }) { (err) in
-            
+        } else {
+            let params = ["method":"apigoodslist", "fTags":tags, "currentPage":currentPage, "pageSize":20] as [String : Any]
+            NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<GoodsModel>) in
+                self.tableView.endHeaderRefresh()
+                self.tableView.endFooterRefresh()
+                bm.whenSuccess {
+                    if let list = bm.pageInfo?.list {
+                        self.dealModels(list: list)
+                    }
+                    if !(bm.pageInfo?.hasNextPage ?? false) {
+                        self.tableView.pullTORefreshControl.footer?.state = .noMoreData
+                    }
+                }
+            }) { (err) in
+                self.tableView.endHeaderRefresh()
+                self.tableView.endFooterRefresh()
+            }
         }
     }
+    
+    
+    private func dealModels<T: CustomTableViewCellItem>(list: [T]) {
+        var arr = list.map({ (model) -> T in
+            model.build(heightForRow: 118)
+            if self.type == .level2 {
+                model.build(cellClass: GoodListLevel2Cell.self)
+            } else {
+                model.build(cellClass: GoodsCommonTableViewCell.self)
+            }
+            if let model = model as? PromotionModel {
+                model.type = self.type
+            } else if let model = model as? GoodsModel {
+                model.type = self.type
+            }
+            
+            model.setupCellAction { [unowned self] (idx) in
+                let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+                vc.type = self.type
+                if let m = model as? GoodsModel {
+                    vc.goodsId = m.fGoodsid
+                }
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            return model
+        })
+        if self.currentPage > 1  {
+            if self.tableView.dataArray.count > 0 {
+                arr.insert(contentsOf: self.tableView.dataArray[0] as! [T], at: 0)
+                self.tableView.dataArray = [arr]
+            }
+        }
+        self.tableView.dataArray = [arr]
+        self.tableView.reloadData()
+    }
+    
     
     func setupTabView() {
         headerView.lineTopMargin = 6

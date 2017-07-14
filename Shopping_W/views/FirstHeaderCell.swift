@@ -99,6 +99,8 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                         listVC.type = .promotions
                     } else if t == "团购" {
                         listVC.type = .group
+                    } else {
+                        listVC.tags = data.title
                     }
                     vc.title = data.title
                 }

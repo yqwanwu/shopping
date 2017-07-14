@@ -52,8 +52,7 @@ struct CustomValue {
     }
     
     static let opcity: Float = 0.3
-    
-    static let host = "http://121.40.216.238/PsychologicalEvaluationSys/"//"http://192.168.1.3:8080/PsychologicalEvaluationSys/"//
+ 
     static let pageSize = 10
         
     static func dealNumber(num: Int) -> String {
