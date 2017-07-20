@@ -47,6 +47,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         titleBack.bounds.size.width = self.view.frame.width - 40
         searchBtn.layer.cornerRadius = 6
         
+        RegionModel.requestData()
         
         collectionView.delegate = self
         collectionView.dataSource = self

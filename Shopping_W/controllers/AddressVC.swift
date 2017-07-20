@@ -7,27 +7,28 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddressVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var topBack: UIView!
     @IBOutlet weak var tableVIew: CustomTableView!
     
-    let hotCitys = ["北京", "上海", "深圳", "成都", "广州", "湖南"]
-//    let hotCitysForTableView = ["北京", "上海", "深圳", "成都", "广州", "湖南", "绵阳", "天津", "河北", "雅安", "峨眉", "达州", "德阳", "北川"]
+    let hotCitys = RegionModel.findHotCitys()
     
-    static let hotCitysForTableView: [String] = {
-        let str = try! String(contentsOfFile: Bundle.main.path(forResource: "address", ofType: "txt") ?? "", encoding: String.Encoding.utf8)
-        let dataArr = try! JSONSerialization.jsonObject(with: str.data(using: .utf8)!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSArray
-        let cityArr = (dataArr[0] as! NSDictionary)["city"] as! NSArray
-        var citys = [String]()
+    static let hotCitysForTableView: Results<RegionModel> = {
+//        let str = try! String(contentsOfFile: Bundle.main.path(forResource: "address", ofType: "txt") ?? "", encoding: String.Encoding.utf8)
+//        let dataArr = try! JSONSerialization.jsonObject(with: str.data(using: .utf8)!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSArray
+//        let cityArr = (dataArr[0] as! NSDictionary)["city"] as! NSArray
+//        var citys = [String]()
+//        
+//        for city in dataArr {
+//            for cityDic in (city as! NSDictionary)["city"] as! NSArray {
+//                citys.append((cityDic as! NSDictionary)["name"] as! String)
+//            }
+//        }
         
-        for city in dataArr {
-            for cityDic in (city as! NSDictionary)["city"] as! NSArray {
-                citys.append((cityDic as! NSDictionary)["name"] as! String)
-            }
-        }
-        
-        return citys
+//        return citys
+        return RegionModel.findAllCitys()
     } ()
     
     let indexArr: [String] = {
@@ -39,12 +40,11 @@ class AddressVC: BaseViewController, UITableViewDelegate, UITableViewDataSource 
         return arr
     } ()
     var topHotBtns = [UIButton]()
-    var sortedNameTuple = [(key: String, value: [String])]()
+    var sortedNameTuple = [(key: String, value: [RegionModel])]()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         createTopHot()
         
         tableVIew.sectionIndexColor = UIColor.white
@@ -54,34 +54,39 @@ class AddressVC: BaseViewController, UITableViewDelegate, UITableViewDataSource 
     }
 
     func createTopHot() {
+        var i = 0
         for t in hotCitys {
             let btn = UIButton(type: .system)
             btn.backgroundColor = CustomValue.common_red
             btn.layer.cornerRadius = CustomValue.btnCornerRadius
             btn.layer.masksToBounds = true
             btn.setTitleColor(UIColor.white, for: .normal)
-            btn.setTitle(t, for: .normal)
+            btn.setTitle(t.fName, for: .normal)
             self.topBack.addSubview(btn)
             topHotBtns.append(btn)
+            i += 1
+            if i >= 6 {
+                break
+            }
         }
         topBack.setNeedsLayout()
         topBack.layoutIfNeeded()
     }
     
     func setupData() {
-        var cityNamesMap = [String: [String]]()
-        for name in AddressVC.hotCitysForTableView {
-            let pinYin = Tools.getPinyinHead(str: name)
+        var cityNamesMap = [String: [RegionModel]]()
+        for r in AddressVC.hotCitysForTableView {
+            let pinYin = Tools.getPinyinHead(str: r.fName)
             if let arr = cityNamesMap[pinYin] {
-                var newArr = [name]
+                var newArr = [r]
                 newArr.append(contentsOf: arr)
                 cityNamesMap[pinYin] = newArr
             } else {
-                cityNamesMap[pinYin] = [name]
+                cityNamesMap[pinYin] = [r]
             }
         }
         
-        sortedNameTuple = cityNamesMap.sorted(by: { (p1: (key: String, value: [String]), p2: (key: String, value: [String])) -> Bool in
+        sortedNameTuple = cityNamesMap.sorted(by: { (p1: (key: String, value: [RegionModel]), p2: (key: String, value: [RegionModel])) -> Bool in
             return p1.key <  p2.key
         })
     }
@@ -120,7 +125,7 @@ class AddressVC: BaseViewController, UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = sortedNameTuple[indexPath.section].value[indexPath.row]
+        cell.textLabel?.text = sortedNameTuple[indexPath.section].value[indexPath.row].fName
         return cell
     }
     

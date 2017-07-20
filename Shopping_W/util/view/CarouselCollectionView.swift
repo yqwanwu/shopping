@@ -147,6 +147,9 @@ class CarouselCollectionView: UICollectionView, UICollectionViewDelegate, UIColl
         pageControl.hidesForSinglePage = true
         pageControl.isUserInteractionEnabled = false
         timer.fireDate = Date().addingTimeInterval(self.timing)
+        
+        //连续滑动网络图片显示不正常，
+//        self.isPagingEnabled = true
     }
     
     override func layoutSubviews() {
@@ -165,6 +168,7 @@ class CarouselCollectionView: UICollectionView, UICollectionViewDelegate, UIColl
         let y = self.contentOffset.y
         if let indexPath = self.indexPathForItem(at: CGPoint(x: x + bounds.width / 2, y: y + bounds.height / 2)) {
             currentIndexPath = indexPath
+            pageControl.currentPage = currentIndexPath.row % itemCount
             if !self.isPagingEnabled {
 //                goToIndex(idx: IndexPath(item: indexPath.row % self.itemCount, section: 0))
 //                return
@@ -176,7 +180,7 @@ class CarouselCollectionView: UICollectionView, UICollectionViewDelegate, UIColl
 
                 }
             }
-            pageControl.currentPage = currentIndexPath.row % itemCount
+            
         }
     }
     
@@ -184,6 +188,7 @@ class CarouselCollectionView: UICollectionView, UICollectionViewDelegate, UIColl
         super.scrollToItem(at: idx, at: scrollDirection == .horizontal ? .centeredHorizontally : .centeredVertically, animated: false)
         pageControl.currentPage = currentIndexPath.row % itemCount
         currentIndexPath = idx
+        pageControl.currentPage = currentIndexPath.row % itemCount
     }
     
     deinit {

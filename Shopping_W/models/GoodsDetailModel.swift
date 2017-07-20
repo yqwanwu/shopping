@@ -71,12 +71,8 @@ class GoodsDetailModel: NSObject, ParseModelProtocol {
         super.init()
     }
     
-    static func requestData(fGoodsid: Int, fGeid: Int?) -> BaseModel<GoodsDetailModel> {
-        var params = ["method":"apigoodsdetail", "fGoodsid": "\(fGoodsid)"]
-       
-        if let id = fGeid {
-            params["fGeid"] = "\(id)"
-        }
+    static func requestData(fGoodsid: Int) -> BaseModel<GoodsDetailModel> {
+        let params = ["method":"apigoodsdetail", "fGoodsid": "\(fGoodsid)"]
         
         return NetworkManager.requestListModel(params: params)
     }

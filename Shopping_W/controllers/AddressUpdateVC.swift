@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class AddressUpdateVC: UIViewController {
     @IBOutlet weak var bkView: UIView!
@@ -17,6 +18,12 @@ class AddressUpdateVC: UIViewController {
     @IBOutlet weak var mailTF: UITextField!
     @IBOutlet weak var tagTF: UITextField!
     @IBOutlet weak var bkTop: NSLayoutConstraint!
+    
+    @IBOutlet weak var saveBtn: UIButton!
+    
+    weak var topVC: ReviceAddressVC!
+    
+    var model: AddressModel?
     
     let addressPicker = LinkedPicker()
     let cancleBtn = UIButton(type: .system)
@@ -40,6 +47,23 @@ class AddressUpdateVC: UIViewController {
         setupPicker()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let m = model {
+            nameTF.text = m.fName
+            phoneTF.text = m.fPhone
+            let j = JSON(parseJSON: m.fAddressparams)
+            let addressName = j["province"].stringValue + j["city"].stringValue + j["area"].stringValue
+            addressBtn.setTitle(addressName, for: .normal)
+            detailText.text = m.fAddress
+            tagTF.text = m.fTagname
+            
+            addressPicker.setup(data: [j["province"].stringValue, j["city"].stringValue, j["area"].stringValue])
+        } else {
+            self.saveBtn.setTitle("保存", for: .normal)
+        }
+    }
+    
     func setupPicker() {
         cancleBtn.setTitle("取消", for: .normal)
         sureBtn.setTitle("确定", for: .normal)
@@ -53,19 +77,44 @@ class AddressUpdateVC: UIViewController {
         cancleBtn.isHidden = true
         sureBtn.isHidden = true
         
-        addressPicker.setup(data: ["河北", "唐山", "路北区"])
     }
     
-    func ac_cancle() {
+    @IBAction func ac_cancle() {
         selectorClick()
     }
+    
+    @IBAction func ac_dismiss(_ sender: Any) {
+        self.view.removeFromSuperview()
+    }
+    
     
     func ac_sure() {
         selectorClick()
         
-        let name = addressPicker.getAddressArr().joined(separator: " ")
+        let name = addressPicker.getAddressArr().joined(separator: "")
         self.addressBtn.setTitle(name, for: .normal)
     }
+    
+    @IBAction func ac_save(_ sender: Any) {
+        let areaArr = addressPicker.getAddressArr()
+        let area = NetworkManager.ObjToJson(obj: ["area":areaArr[2], "city":areaArr[1], "province":areaArr[0]])
+        var params = ["method":"apiaddressadd", "fPhone":phoneTF.text ?? "", "fName":nameTF.text ?? "", "fAddressparams":area, "fTagname":tagTF.text ?? "", "fAddress":detailText.text ?? "", "fType":1] as [String:Any]
+        
+        if let m = model {
+            params["fAddressid"] = m.fAddressid
+            params["method"] = "apiaddressedit"
+        }
+        
+        NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+            bm.whenSuccess {
+                self.view.removeFromSuperview()
+                self.topVC.requestData()
+            }
+        }) { (err) in
+            
+        }
+    }
+    
     
     func selectorClick() {
         cancleBtn.isHidden = true
@@ -79,7 +128,7 @@ class AddressUpdateVC: UIViewController {
         super.touchesBegan(touches, with: event)
         
         if !self.bkView.frame.contains((touches.first?.location(in: self.view))!) {
-            self.view.removeFromSuperview()
+            self.resignFirstResponder()
         }
     }
 

@@ -117,7 +117,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     func requestData() {
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        GoodsDetailModel.requestData(fGoodsid: goodsId, fGeid: nil).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
+        GoodsDetailModel.requestData(fGoodsid: goodsId).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
             MBProgressHUD.hideHUD(forView: self.view)
             if let m = bm.list?.first {
                 self.setupUI(model: m)
@@ -220,7 +220,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     }
     
     @IBAction func ac_add(_ sender: UIButton) {
-        let params = ["method":"apiaddtoshopcart", "fGoodsid":self.goodsId, "fCount":1, "fGeid":1, "fPromotionid":""] as [String : Any]
+        let fgid = (detailModel.exList?.first?.fGeid) ?? 0
+        let params = ["method":"apiaddtoshopcart", "fGoodsid":self.goodsId, "fCount":1, "fGeid":fgid, "fPromotionid":""] as [String : Any]
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             bm.whenSuccess {
                 MBProgressHUD.show(successText: "添加成功")

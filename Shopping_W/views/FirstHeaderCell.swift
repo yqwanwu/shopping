@@ -59,7 +59,8 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == carouselView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CarouselCollectionViewCell
-            let data = topAdsData[self.carouselView.realCurrentIndexPath.row]
+            let data = topAdsData[indexPath.row]
+            print(self.carouselView.realCurrentIndexPath.row)
             cell.imageView.sd_setImage(with: URL.encodeUrl(string: data.fPicurl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
             return cell
         } else {
@@ -81,7 +82,10 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == carouselView {
             //MARK: 必须用 realCurrentIndexPath才是准确的
-            print(carouselView.realCurrentIndexPath)
+            let data = topAdsData[self.carouselView.realCurrentIndexPath.row]
+            let web = BaseWebViewController()
+            web.url = data.fLink
+            topVC.navigationController?.pushViewController(web, animated: true)
         } else {
             let data = FirstItem.defaultDatas[indexPath.row]
             

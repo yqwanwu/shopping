@@ -53,11 +53,11 @@ class CarVC: UIViewController, UITableViewDelegate {
     
     @IBAction func ac_test(_ sender: Any) {
         ///测试商品详情
-        GoodsDetailModel.requestData(fGoodsid: 1, fGeid: nil).setSuccessAction { (bm) in
-            bm.whenSuccess {
-                
-            }
-        }
+//        GoodsDetailModel.requestData(fGoodsid: 1, fGeid: nil).setSuccessAction { (bm) in
+//            bm.whenSuccess {
+//                
+//            }
+//        }
     }
     
     //MARK: 代理

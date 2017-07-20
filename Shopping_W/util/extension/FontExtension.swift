@@ -29,7 +29,7 @@ extension URL {
             if s.hasPrefix("http") {
                 return URL(string: s)
             } else {
-                 return URL(string: (NetworkManager.SERBERURL as NSString).appendingPathComponent(s))
+                 return URL(string: (NetworkManager.BASESERVER as NSString).appendingPathComponent(s))
             }
            
         }

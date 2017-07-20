@@ -15,6 +15,7 @@ import ObjectMapper
 class NetworkManager: NSObject {
     
     static let SERBERURL = "http://111.161.41.28:8088/tjgy/api"
+    static let BASESERVER = "http://111.161.41.28:8088/tjgy"
     
     static let REQUEST_ERROR = "请求失败"
     
@@ -25,6 +26,16 @@ class NetworkManager: NSObject {
     private static let format = "json"
     private static let locale = "0"
     private static let sign = "0"
+    
+    class func ObjToJson(obj: NSDictionary) -> String {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: obj, options: .prettyPrinted)
+            return String(data: data, encoding: .utf8) ?? "{}"
+        } catch {
+            
+        }
+        return "{}"
+    }
     
     static func JsonGetRequest(params : [String : Any]?, success : @escaping (_ response : JSON)->(), failture : @escaping (_ error : Error)->()) {
         let allp = getAllparams(params: params)

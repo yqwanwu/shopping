@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SwiftyJSON
 
-class AddressTableViewCell: UITableViewCell {
+class AddressTableViewCell: CustomTableViewCell {
 
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -17,11 +18,27 @@ class AddressTableViewCell: UITableViewCell {
     @IBOutlet weak var addressdetailLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     
+    override var model: CustomTableViewCellItem? {
+        didSet {
+            if let m = model as? AddressModel {
+                phoneLabel.text = m.fPhone
+                nameLabel.text = m.fName
+                let j = JSON(parseJSON: m.fAddressparams)
+                add1Label.text = j["province"].stringValue + j["city"].stringValue + j["area"].stringValue
+                addressdetailLabel.text = m.fAddress
+                typeLabel.text = m.fTagname
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
     @IBAction func ac_modify(_ sender: UIButton) {
+        if let m = model as? AddressModel {
+            m.updateAcrion?()
+        }
     }
 }

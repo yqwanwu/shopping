@@ -57,7 +57,10 @@ class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
         let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
         
         let filePath = (path as NSString?)?.appendingPathComponent("pm.pf")
-        return NSKeyedUnarchiver.unarchiveObject(withFile: filePath!) as? PersonMdel
+        if FileManager.default.fileExists(atPath: filePath ?? "") {
+            return NSKeyedUnarchiver.unarchiveObject(withFile: filePath!) as? PersonMdel
+        }
+        return nil
     }
     
     func saveData() {

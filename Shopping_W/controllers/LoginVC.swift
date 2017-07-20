@@ -68,6 +68,7 @@ class LoginVC: BaseViewController {
                 bm.t?.fUserpass = pwd
                 bm.t!.saveData()
                 successAction()
+                NetworkManager.sessionId = bm.sessionId
             }
         }) { (err) in
             MBProgressHUD.hideHUD()

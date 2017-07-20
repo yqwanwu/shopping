@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 class LinkedPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var dataArr = NSArray()
-    var itemsArr = [[String]]()
+    var itemsArr = [Results<RegionModel>]()
     var selectedCoordinates = [SelectedPicker]()
+    
+    var allProvince = RegionModel.findAllProvince()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,45 +30,16 @@ class LinkedPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     func setupUI() {
         self.delegate = self
         self.dataSource = self
-        let s = readData()
         
-        dataArr = try! JSONSerialization.jsonObject(with: s.data(using: .utf8)!, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSArray
-        itemsArr = [[String](), [String](), [String]()]
+        itemsArr.append(allProvince)
+        let provinceModel = itemsArr[0][0]
+        itemsArr.append(RegionModel.findCity(provinceId: provinceModel.fRegionid))
+        let cityModel = itemsArr[1][0]
+        itemsArr.append(RegionModel.findArea(cityId: cityModel.fRegionid))
         
-        var names = [String]()
-        for item in dataArr {
-            let dic = item as! NSDictionary
-            names.append(dic["name"] as! String)
-        }
-        itemsArr[0] = names
-        findFor(province: 0, city: 0)
         for i in 0..<3 {
             selectedCoordinates.append(SelectedPicker(component: i, row: 0))
         }
-    }
-    
-    func findFor(province: Int, city: Int) {
-        let cityArr = (dataArr[province] as! NSDictionary)["city"] as! NSArray
-        var citys = [String]()
-        for cityDic in cityArr {
-            citys.append((cityDic as! NSDictionary)["name"] as! String)
-        }
-        itemsArr[1] = citys
-        
-        if itemsArr.count > 2 {
-            itemsArr[2] = (cityArr[city] as! NSDictionary)["area"] as! [String]
-        }
-        
-    }
-    
-    func readData() -> String {
-        do {
-            let str = try String(contentsOfFile: Bundle.main.path(forResource: "address", ofType: "txt") ?? "", encoding: String.Encoding.utf8)
-            return str
-        } catch {
-            
-        }
-        return ""
     }
     
     ///获取当前 选中的
@@ -73,7 +47,7 @@ class LinkedPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
         var arr = [String]()
         for i in 0..<itemsArr.count {
             let coor = selectedCoordinates[i]
-            arr.append(itemsArr[coor.component][coor.row])
+            arr.append(itemsArr[coor.component][coor.row].fName)
         }
         return arr
     }
@@ -83,11 +57,27 @@ class LinkedPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
         if data.count < itemsArr.count {
             return
         }
-        let province = itemsArr[0].index(of: data[0]) ?? 0
         
-        findFor(province: province, city: 0)
-        let city = itemsArr[1].index(of: data[1]) ?? 0
-        findFor(province: province, city: city)
+        var province = 0
+        for i in 0..<allProvince.count {
+            let p = allProvince[i]
+            if p.fName.contains(data[0]) {
+                province = i
+                self.itemsArr[1] = RegionModel.findCity(provinceId: p.fRegionid)
+                break
+            }
+        }
+        
+        var city = 0
+        for i in 0..<itemsArr[1].count {
+            let p = itemsArr[1][i]
+            if p.fName.contains(data[1]) {
+                city = i
+                self.itemsArr[2] = RegionModel.findArea(cityId: p.fRegionid)
+                break
+            }
+        }
+        
         self.reloadComponent(1)
         self.reloadComponent(2)
         
@@ -98,15 +88,19 @@ class LinkedPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
         selectedCoordinates[1].row = city
         
         if itemsArr.count > 2 {
-            let area = self.itemsArr[2].index(of: data[2]) ?? 0
+            var area = 0
+            for i in 0..<itemsArr[2].count {
+                let p = itemsArr[2][i]
+                if p.fName.contains(data[2]) {
+                    area = i
+                    break
+                }
+            }
             self.selectRow(area, inComponent: 2, animated: true)
             selectedCoordinates[2].row = area
         }
     }
     
-    func findIndex(name: String, component: Int) {
-        
-    }
     
     struct SelectedPicker {
         var component = 0
@@ -122,7 +116,7 @@ class LinkedPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension LinkedPicker {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return itemsArr.count
+        return 3
     }
     
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -144,16 +138,20 @@ extension LinkedPicker {
         label.textColor = UIColor.black
         label.adjustsFontSizeToFitWidth = true
         
-        label.text = itemsArr[component][row]
+        label.text = itemsArr[component][row].fName
         
         return label
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if selectedCoordinates[component].row != row {
-            let province = pickerView.selectedRow(inComponent: 0)
-            let city = pickerView.selectedRow(inComponent: 1)
-            findFor(province: province, city: component > 0 ? city : 0)
+            let provinceIdx = pickerView.selectedRow(inComponent: 0)
+            let cityIdx = pickerView.selectedRow(inComponent: 1)
+            
+            let provinceModel = itemsArr[0][provinceIdx]
+            itemsArr[1] = RegionModel.findCity(provinceId: provinceModel.fRegionid)
+            let cityModel = itemsArr[1][cityIdx]
+            itemsArr[2] = RegionModel.findArea(cityId: cityModel.fRegionid)
             
             for i in component + 1..<itemsArr.count {
                 pickerView.reloadComponent(i)
