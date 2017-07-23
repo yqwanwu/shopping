@@ -68,8 +68,9 @@ class ReviceAddressVC: BaseViewController, UITableViewDelegate {
     //MARK: 代理
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let ac = UITableViewRowAction(style: .default, title: "删除") { (action, idx) in
+            let model = self.tableView.dataArray[indexPath.section][indexPath.row] as! AddressModel
             MBProgressHUD.show(text: "删除中", view: self.view, autoHide: false)
-            NetworkManager.requestModel(params: ["method":"apiaddressdel", "fAddressid":1], success: { (bm: BaseModel<CodeModel>) in
+            NetworkManager.requestModel(params: ["method":"apiaddressdel", "fAddressid":model.fAddressid], success: { (bm: BaseModel<CodeModel>) in
                 MBProgressHUD.hideHUD(forView: self.view)
                 bm.whenSuccess {
                     self.tableView.dataArray[idx.section].remove(at: idx.row)

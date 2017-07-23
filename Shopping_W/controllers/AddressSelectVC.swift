@@ -10,7 +10,7 @@ import UIKit
 
 class AddressSelectVC: UIViewController {
     @IBOutlet weak var picker: LinkedPicker!
-    weak var topVC: ViewController?
+    weak var topVC: FirstViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()

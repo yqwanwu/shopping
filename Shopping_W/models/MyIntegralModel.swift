@@ -16,4 +16,6 @@ class MyIntegralModel: CustomTableViewCellItem {
     var fOrderid = 0//订单ID
     var fCreatetime = "" //积分产生时间
     var fLevelintegral = 0 //等级积分
+    
+    
 }

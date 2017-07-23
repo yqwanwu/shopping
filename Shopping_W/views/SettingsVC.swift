@@ -33,6 +33,9 @@ class SettingsVC: BaseViewController, UITableViewDelegate {
     //MARK: 代理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
+        case 2:
+            let vc = TextVC()
+            self.navigationController?.pushViewController(vc, animated: true)
         case 3:
             self.navigationController?.pushViewController(CustomerServicesVC(), animated: true)
         default:

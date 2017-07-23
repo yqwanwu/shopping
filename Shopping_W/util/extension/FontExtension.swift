@@ -11,7 +11,14 @@ import UIKit
 extension UIFont {
     class func customFont(px: CGFloat) -> UIFont {
         let size = px / 2
+        
         return UIFont.systemFont(ofSize: size)
+    }
+}
+
+extension Double {
+    func moneyValue() -> String {
+        return String(format: "%.2f", self)
     }
 }
 

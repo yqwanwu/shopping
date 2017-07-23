@@ -76,6 +76,7 @@ class NetworkManager: NSObject {
         model.code = json["code"].stringValue
         model.message = json["message"].stringValue
         model.sessionId = json["sessionId"].stringValue
+        model.ai = json["ai"].stringValue
     }
     
     ///必须是json
@@ -286,6 +287,8 @@ class BaseModel<T: ParseModelProtocol>: NSObject {
     var list: [T]?
     var sessionId = ""
     var pageInfo: PageInfo<T>?
+    
+    var ai = ""
     
     var isSuccess: Bool {
         return code == "0"

@@ -12,6 +12,8 @@ class PayWayVC: BaseViewController, UITableViewDelegate {
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var tableView: CustomTableView!
     
+    var orderModel: OrderModel!
+    
     let k_toPayResultVC = "toPayResultVC"
 
     override func viewDidLoad() {
@@ -37,7 +39,25 @@ class PayWayVC: BaseViewController, UITableViewDelegate {
     }
     
     @IBAction func ac_ok(_ sender: Any) {
-        self.performSegue(withIdentifier: k_toPayResultVC, sender: self)
+        /*
+         method	string	apiPayforalipay	无
+         fOrderid	string	前台获取	订单ID用','串联
+         fType	string	前台获取	0订单 1充值
+         fAmount	string	前台获取	付款金额
+ */
+        NetworkManager.JsonPostRequest(params: ["method":"apiPayforalipay", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount], success: { (json) in
+            if json["code"].stringValue == "0" {
+                let str = json["message"].stringValue
+                AlipaySDK.defaultService().payOrder(str, fromScheme: "tjgy_ios") { (dic) in
+                    print(dic)
+                }
+            }
+        }) { (err) in
+            
+        }
+        
+        
+//        self.performSegue(withIdentifier: k_toPayResultVC, sender: self)
     }
     
     

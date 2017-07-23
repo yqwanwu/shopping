@@ -119,18 +119,18 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
             tableView.dataSource = self
             
             //MARK: 假数据
-            let c = OrderModel().build(cellClass: OrerListCell.self).build(heightForRow: 118)
-            c.type = OrderType(rawValue: i)!
-            
-            c.setupCellAction({ [unowned self] (idx) in
-                let vc = OrderDetailVC()
-                if let data = tableView.dataArray[idx.section][idx.row] as? OrderModel {
-                    vc.showPayBtn = data.type == .pay
-                }
-                self.navigationController?.pushViewController(vc, animated: true)
-            })
-            
-            tableView.dataArray = [[c, c, c, c]]
+//            let c = OrderModel().build(cellClass: OrerListCell.self).build(heightForRow: 118)
+//            c.type = OrderType(rawValue: i)!
+//            
+//            c.setupCellAction({ [unowned self] (idx) in
+//                let vc = OrderDetailVC()
+//                if let data = tableView.dataArray[idx.section][idx.row] as? OrderModel {
+//                    vc.showPayBtn = data.type == .pay
+//                }
+//                self.navigationController?.pushViewController(vc, animated: true)
+//            })
+//            
+//            tableView.dataArray = [[c, c, c, c]]
             
             i += 1
         }
@@ -142,9 +142,33 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     func loadData(index: Int? = nil) {
         let si = index ?? selectedIndex
-        if loadedIndex & (1 << si) == 0 {
+        if loadedIndex & (1 << si) == 0 {//没有请求过
             tableViewList[si].beginHeaderRefresh()
             loadedIndex = loadedIndex | (1 << si)
+//            method	string	apiorders	无
+//            fState	string	订单状态	0待付款 1已付款 2待发货 3已发货 4完成 5关闭,多个用逗号分割
+            NetworkManager.requestPageInfoModel(params: ["method":"apiorders", "fState":"0", "currentPage":1, "pageSize":CustomValue.pageSize]).setSuccessAction(action: { (bm: BaseModel<OrderModel>) in
+                
+                bm.whenSuccess {
+                    let tableView = self.tableViewList[1]
+                    let arr = bm.pageInfo!.list!.map({ (c) -> OrderModel in
+                        c.build(cellClass: OrerListCell.self).build(heightForRow: 118)
+                        c.type = OrderType(rawValue: 1)!
+                        
+                        c.setupCellAction({ [unowned self] (idx) in
+                            let vc = OrderDetailVC()
+                            if let data = tableView.dataArray[idx.section][idx.row] as? OrderModel {
+                                vc.showPayBtn = data.type == .pay
+                            }
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        })
+                        return c
+                    })
+                    tableView.dataArray = [arr]
+                    tableView.reloadData()
+                }
+                
+            })
         }
         self.title = self.titles[si]
         
@@ -202,6 +226,7 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                     MBProgressHUD.show(successText: "已提醒卖家尽快发货")
                 } else if model.type == .pay {
                     let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: PayWayVC.self) as! PayWayVC
+                    vc.orderModel = model
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }

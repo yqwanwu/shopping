@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class NickNameVC: BaseViewController {
 
@@ -26,7 +27,14 @@ class NickNameVC: BaseViewController {
 
     @IBAction func ac_submit(_ sender: UIButton) {
         if Tools.stringIsNotBlank(text: nickNameTF.text) {
-            self.dismiss(animated: true, completion: nil)
+            if let p = PersonMdel.readData() {
+                MBProgressHUD.show()
+                p.fNickname = nickNameTF.text!
+                p.update {
+                    MBProgressHUD.hideHUD()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
         } else {
             tipLabel.isHidden = false
         }
@@ -37,7 +45,16 @@ class NickNameVC: BaseViewController {
         let p = touches.first?.location(in: self.view) ?? CGPoint.zero
         
         if !bkView.frame.contains(p) {
-            self.dismiss(animated: true, completion: nil)
+            let _ = Tools.findAllSubViews(topView: self.view).filter({ (v) -> Bool in
+                if let t = v as? UITextField {
+                    if t.isFirstResponder {
+                        t.resignFirstResponder()
+                    } else {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+                return false
+            })
         }
     }
 }

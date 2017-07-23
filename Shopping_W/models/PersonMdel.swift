@@ -15,7 +15,7 @@ class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
     var fUsername: String = ""
     var fUserpass = ""
     var fNickname = ""
-    ///性别 0女 1男
+    ///性别 0女 1男 3 保密
     var fSex = 1
 
     var fPhone = ""
@@ -27,6 +27,10 @@ class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
     var fName = ""
     var fReferee = -1
     var fHeadImgUrl = ""
+    
+    func sexString() -> String {
+        return self.fSex == 0 ? "女" : fSex == 1 ? "男" : "保密"
+    }
     
     class func getGenderStr(gender: Int) -> String {
         switch gender {
@@ -67,6 +71,21 @@ class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
         let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
         let filePath = (path as NSString?)?.appendingPathComponent("pm.pf")
         NSKeyedArchiver.archiveRootObject(self, toFile: filePath!)
+    }
+    
+    func update(complete: @escaping () -> Void) {
+        let params = ["method":"apieditmyinfo", "fHeadimgurl":self.fHeadImgUrl, "fNickname":self.fNickname, "fSex":self.fSex] as [String : Any]
+        let person = self
+        NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+            complete()
+            
+            bm.whenSuccess {
+                person.saveData()
+            }
+            
+        }) { (err) in
+            complete()
+        }
     }
     
     override required init() {

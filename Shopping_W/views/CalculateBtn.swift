@@ -27,6 +27,8 @@ class CalculateBtn: UIView {
         return btn
     } ()
     
+    var changeAction: BLANK_CLOSURE?
+    
     lazy var addBtn: UIButton = {
         let btn = UIButton(type: .system)
         btn.backgroundColor = UIColor.hexStringToColor(hexString: "f6f6f6")
@@ -42,7 +44,7 @@ class CalculateBtn: UIView {
     lazy var numberText: UITextField = {
         let text = UITextField()
         text.text = "1"
-        text.addTarget(self, action: #selector(CalculateBtn.textChange(sender:)), for: .valueChanged)
+        text.addTarget(self, action: #selector(CalculateBtn.textChange(sender:)), for: .editingChanged)
         text.backgroundColor = UIColor.white
         text.textAlignment = .center
         text.adjustsFontSizeToFitWidth = true
@@ -52,6 +54,7 @@ class CalculateBtn: UIView {
     
     func textChange(sender: UITextField) {
         checkText()
+        
     }
     
     func btnClick(sender: UIButton) {
@@ -69,6 +72,8 @@ class CalculateBtn: UIView {
         }
         subtractBtn.isEnabled = number != 1
         self.numberText.text = "\(number)"
+        
+        changeAction?()
     }
     
     override func awakeFromNib() {

@@ -8,6 +8,9 @@
 
 import UIKit
 import MBProgressHUD
+import SDWebImage
+import Alamofire
+import SwiftyJSON
 
 class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var headerImg: UIImageView!
@@ -40,6 +43,8 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
         tableView.sectionFooterHeight = 0.1
         tableView.sectionHeaderHeight = 8
         tableView.contentInset.top = 64 - 28
+        
+        sexBtn.titleLabel?.textAlignment = .center
     }
     
     func ac_back() {
@@ -101,7 +106,6 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
         }
     }
     
-    
     //MARK: 图片
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         //获取选择的原图
@@ -109,9 +113,39 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
         
         self.headerImg.image = image
         
+        //上传路劲 refund
         if let data = UIImageJPEGRepresentation(image, 0.1) {
             let hud = MBProgressHUD.show(text: "上传中...", view: self.view, autoHide: false)
             hud.mode = .annularDeterminate
+            let header = NetworkManager.getAllparams(params: nil) as! [String:String]
+            let url = try! (NetworkManager.BASESERVER + "/uploadedFile/fileupaload?SaveFolder=refund").asURL()
+//            let url = try! "http://192.168.1.14:8080/tjgy/uploadedFile/fileupaload?SaveFolder=refund".asURL()
+            
+            Alamofire.upload(multipartFormData: { (multipartFormData) in
+                multipartFormData.append(data, withName: "file", fileName: "img.jpg", mimeType: "image/jpeg")
+            }, to: url, method: .post, headers: header, encodingCompletion: { (encodingResult) in
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    upload.responseString(completionHandler: { (resp) in
+                        hud.hide(animated: true)
+                        let j = JSON(parseJSON: resp.result.value ?? "")
+                        if j["success"].boolValue {
+                            let dic = j["files"][0]
+                            if let p = PersonMdel.readData() {
+                                p.fHeadImgUrl = dic["f_SavePath"].stringValue
+                                p.update {
+                                    self.headerImg.sd_setImage(with: URL.encodeUrl(string: dic["f_SavePath"].stringValue), placeholderImage: #imageLiteral(resourceName: "placehoder"))
+                                    }
+                            } else {
+                                MBProgressHUD.show(errorText: "上传失败")
+                            }
+                        }
+                    })
+                case .failure(let encodingError):
+                    print(encodingError)
+                }
+            })
+
         }
         
         //图片控制器退出
@@ -124,11 +158,20 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
     //MARK: 重写
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popoverSexVC" {
-            let vc = segue.destination
-            
+            let vc = segue.destination as! SexPopoverVC
+            vc.topVC = self
             vc.modalPresentationStyle = .popover
             vc.popoverPresentationController?.delegate = self
             vc.preferredContentSize = CGSize(width: 100, height: 132)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let p = PersonMdel.readData() {
+            self.headerImg.sd_setImage(with: URL.encodeUrl(string: p.fHeadImgUrl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
+            self.nameLabel.text = p.fNickname
+            let sexStr = p.sexString().characters.count >= 2 ? p.sexString() : " " + p.sexString()
+            self.sexBtn.setTitle(sexStr, for: .normal)
         }
     }
     

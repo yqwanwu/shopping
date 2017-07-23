@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MineVC: BaseViewController {
     let k_toReceiving = "toReceiving"
@@ -36,8 +37,8 @@ class MineVC: BaseViewController {
         super.viewDidLoad()
         
         setupUI()
-        
         setupTableView()
+        self.tableView.bounces = false
     }
     
     func setupTableView() {
@@ -167,6 +168,12 @@ class MineVC: BaseViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        if let person = PersonMdel.readData() {
+            headImg.sd_setImage(with: URL.encodeUrl(string: person.fHeadImgUrl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
+            self.nameLabel.text = person.fNickname
+            self.phoneLabel.text = person.fPhone
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {

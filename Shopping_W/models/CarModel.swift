@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 typealias BLANK_CLOSURE = () -> Void
 
@@ -47,4 +48,34 @@ class CarModel: CustomTableViewCellItem {
         }
     }
     var selectedAction: BLANK_CLOSURE?
+    
+    
+    static func getList() -> BaseModel<CarModel> {
+        return NetworkManager.requestListModel(params: ["method":"apishopcartlist"])
+    }
+    
+    /*
+     method	string	apiupdateshopcartcount	无
+     fId	int	自行获取	购物车ID
+     fCout	int	自行获取	商品数量
+     */
+    func updateCount() {
+        NetworkManager.requestModel(params: ["method":"apiupdateshopcartcount", "fId":self.F_ID, "fCout":self.F_Count], success: { (bm: BaseModel<CodeModel>) in
+            bm.whenSuccess {
+                
+            }
+        }) { (err) in
+            
+        }
+    }
+    
+    func delete(complete: BLANK_CLOSURE?) {
+        NetworkManager.requestModel(params: ["method":"apidelshopcart", "fId":self.F_ID], success: { (bm: BaseModel<CodeModel>) in
+            bm.whenSuccess {
+                complete?()
+            }
+        }) { (err) in
+            MBProgressHUD.show(errorText: "请求失败")
+        }
+    }
 }

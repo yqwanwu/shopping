@@ -29,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UMSocialManager.default().setPlaform(.sina, appKey: CustomValue.sinaAppId, appSecret: CustomValue.sinaAppSecret, redirectURL: redirectUrl)
         UMSocialManager.default().removePlatformProvider(withPlatformTypes: [UMSocialPlatformType.qzone.rawValue, UMSocialPlatformType.wechatFavorite.rawValue])
         
-        
         return true
     }
 
