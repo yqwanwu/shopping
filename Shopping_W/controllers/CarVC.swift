@@ -84,8 +84,37 @@ class CarVC: UIViewController, UITableViewDelegate {
     }
     
     @IBAction func ac_submit(_ sender: UIButton) {
-        let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: OrderVC.self) as! OrderVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        /*
+         method	string	apiCreateOrder	无
+         cartIDs	string	前台获取	购物车ID用','串联
+         isUseIntegral	string	前台获取	是否使用积分，0否1是
+         useIntegral	string	前台获取	使用积分的数量(如要使用积分,必须全部使用积分)
+         address	string	前台获取	收货地址
+         addressname	string	前台获取	收货人
+         phone	string	前台获取	收货电话
+ */
+        let selectedArr = self.tableVIew.dataArray[0]
+            .filter({ (item) -> Bool in
+                return (item as! CarModel).isSelected
+            })
+        if selectedArr.isEmpty {
+            return
+        }
+        var cartIds = selectedArr.reduce("") { (result, item) -> String in
+            return result + "\((item as! CarModel).F_ID),"
+        }
+        cartIds = cartIds.substring(to: cartIds.index(cartIds.endIndex, offsetBy: -1))
+        let params = ["method":"apiCreateOrder", "cartIDs":cartIds, "isUseIntegral":"0", "useIntegral":"0", "address":"qeqwewqewq", "addressname":"qwewqeq", "phone":"12311111111"]
+        NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+            bm.whenNoData {
+                
+            }
+        }) { (err) in
+            
+        }
+        
+//        let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: OrderVC.self) as! OrderVC
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     

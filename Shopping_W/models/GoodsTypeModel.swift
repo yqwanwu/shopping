@@ -16,6 +16,8 @@ class GoodsTypeModel: NSObject, ParseModelProtocol {
     var fWeight = 0.0
     var fExparams = ""
 
+    var isSelected = false
+    
     override required init() {
         super.init()
     }

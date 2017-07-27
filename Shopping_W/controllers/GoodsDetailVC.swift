@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import SnapKit
 
 class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var scrollBk: UIScrollView!
@@ -117,7 +118,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     func requestData() {
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        GoodsDetailModel.requestData(fGoodsid: goodsId).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
+        //TODO 待修改
+        GoodsDetailModel.requestData(fGoodsid: 125/*goodsId*/).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
             MBProgressHUD.hideHUD(forView: self.view)
             if let m = bm.list?.first {
                 self.setupUI(model: m)
@@ -180,33 +182,50 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     }
     
     func setupTypeView(list: [GoodsTypeModel]?) {
+        let layout = LeftAlignLayout()
+        layout.minimumLineSpacing = 5
+        let itemView = GoodsTypeView(frame: CGRect.zero, collectionViewLayout: layout)
+        
+        itemView.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        
+        itemView.types = list ?? [GoodsTypeModel]()
+        
+        layout.setWidthFotItem { (idx) -> CGSize in
+            return itemView.getSize(idx: idx)
+        }
+        
+        typeBk.addSubview(itemView)
+        itemView.snp.makeConstraints { (make) in
+            make.top.left.right.bottom.equalTo(typeBk)
+        }
+        
         if (list?.count) ?? 0 <= 0 {
             typeBkFirstItem.isHidden = true
             return
         }
-        var currentView: UIView = typeBkFirstItem
-        for i in 0..<list!.count {
-            let goodsType = list![i]
-            let currentBtn = UIButton(type: .system)
-            
-            currentBtn.setTitle("\(i)个", for: .normal)
-            currentBtn.setTitleColor(UIColor.hexStringToColor(hexString: "fdc249"), for: .normal)
-            currentBtn.setTitleColor(CustomValue.common_red, for: .highlighted)
-            currentBtn.layer.cornerRadius = 4
-            currentBtn.layer.borderColor = UIColor.hexStringToColor(hexString: "fdc249").cgColor
-            currentBtn.layer.borderWidth = 1
-            
-            typeBk.addSubview(currentBtn)
-            
-            currentBtn.snp.makeConstraints({ (make) in
-                make.centerY.equalTo(currentView)
-                make.width.equalTo(50)
-                make.height.equalTo(25)
-                make.left.equalTo(currentView.snp.right).offset(20)
-            })
-            
-            currentView = currentBtn
-        }
+//        var currentView: UIView = typeBkFirstItem
+//        for i in 0..<list!.count {
+//            let goodsType = list![i]
+//            let currentBtn = UIButton(type: .system)
+//            
+//            currentBtn.setTitle("\(i)个", for: .normal)
+//            currentBtn.setTitleColor(UIColor.hexStringToColor(hexString: "fdc249"), for: .normal)
+//            currentBtn.setTitleColor(CustomValue.common_red, for: .highlighted)
+//            currentBtn.layer.cornerRadius = 4
+//            currentBtn.layer.borderColor = UIColor.hexStringToColor(hexString: "fdc249").cgColor
+//            currentBtn.layer.borderWidth = 1
+//            
+//            typeBk.addSubview(currentBtn)
+//            
+//            currentBtn.snp.makeConstraints({ (make) in
+//                make.centerY.equalTo(currentView)
+//                make.width.equalTo(50)
+//                make.height.equalTo(25)
+//                make.left.equalTo(currentView.snp.right).offset(20)
+//            })
+//            
+//            currentView = currentBtn
+//        }
     }
     
     
@@ -237,6 +256,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     }
     
     
+    
     //重写
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -253,6 +273,9 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
                 vc.preferredContentSize = CGSize(width: 140, height: 100)
                 vc.parentVC = self
             }
+        } else if segue.identifier == "toEvaluateVC" {
+            let vc = segue.destination as! EvaluateVC
+            vc.goodsId = self.goodsId
         }
     }
 

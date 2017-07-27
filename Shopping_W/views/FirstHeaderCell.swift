@@ -27,6 +27,32 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         let top: CGFloat = CGFloat(200 - 70 * 2) / 3
         let left = (UIScreen.main.bounds.width - 80.0 * 4) / 5
         itemCollectionView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
+        
+        requesIndexLabel()
+    }
+    
+    func requesIndexLabel() {
+        NetworkManager.requestListModel(params: ["method":"apiindexlabels"]).setSuccessAction { (bm: BaseModel<FirstItem>) in
+            bm.whenSuccess {
+                var arr = [FirstItem]()
+                var list = bm.list!
+                var i = 0
+                for item in FirstItem.defaultDatas {
+                    arr.append(item)
+                    if list.count > 0 {
+                        arr.append(list[0])
+                        list.remove(at: 0)
+                    }
+                    i += 1
+                }
+                if list.count > 0 {
+                    arr.append(contentsOf: list)
+                }
+                
+                FirstItem.defaultDatas = arr
+                self.itemCollectionView.reloadData()
+            }
+        }
     }
     
     func requestADs() {
@@ -66,7 +92,7 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FirstItemCollectionViewCell
             cell.imgView.image = UIImage(named: FirstItem.defaultDatas[indexPath.row].imgName)
-            cell.titleLabel.text = FirstItem.defaultDatas[indexPath.row].title
+            cell.titleLabel.text = FirstItem.defaultDatas[indexPath.row].fLabelname
             return cell
         }
         
@@ -89,24 +115,24 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         } else {
             let data = FirstItem.defaultDatas[indexPath.row]
             
-            if data.title == "全部分类" {
+            if data.fLabelname == "全部分类" {
                 topVC.tabBarController?.selectedIndex = 1
             } else {
                 var vc: UIViewController!
-                if data.title == "秒杀" {
+                if data.fLabelname == "秒杀" {
                     vc = SecKillVC()
                 } else {
                     vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self)
                     let listVC = vc as! GoodsListVC
-                    let t = FirstItem.defaultDatas[indexPath.row].title
+                    let t = FirstItem.defaultDatas[indexPath.row].fLabelname
                     if t == "促销" {
                         listVC.type = .promotions
                     } else if t == "团购" {
                         listVC.type = .group
                     } else {
-                        listVC.tags = data.title
+                        listVC.tags = data.fLabelname
                     }
-                    vc.title = data.title
+                    vc.title = data.fLabelname
                 }
                 
                 topVC.navigationController?.pushViewController(vc, animated: true)

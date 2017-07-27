@@ -35,6 +35,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
+        AlipaySDK.defaultService().processAuthResult(url) { (dic) in
+            if let result = dic?["result"] as? String {
+                var authCode: String?
+                if Tools.stringIsNotBlank(text: result) {
+                    let arr = result.components(separatedBy: "&")
+                    for s in arr {
+                        if let str = s as? String {
+                            if str.characters.count > 10 && str.hasPrefix("auth_code=") {
+                                authCode = str.substring(from: str.index(str.startIndex, offsetBy: 10))
+                            }
+                        }
+                    }
+                }
+                
+                print(authCode)
+            }
+        }
+        
         let result = UMSocialManager.default().handleOpen(url)
         if !result {
             //调用其他 SDK

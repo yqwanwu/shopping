@@ -44,8 +44,17 @@ class PayWayVC: BaseViewController, UITableViewDelegate {
          fOrderid	string	前台获取	订单ID用','串联
          fType	string	前台获取	0订单 1充值
          fAmount	string	前台获取	付款金额
+         fPaytype	string	前台获取	1银行卡 2支付宝 3微信
+         isUseIntegral	string	前台获取	是否使用积分0否1是
+         useIntegral	string	前台获取	使用积分数量
+         isUseUserAmount	string	前台获取	是否使用余额0否1是
+         useUserAmount	string	前台获取	使用余额数量
  */
-        NetworkManager.JsonPostRequest(params: ["method":"apiPayforalipay", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount], success: { (json) in
+//        let params = ["method":"apiPayforalipay", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+        
+        let params = ["method":"apiPayforAPP", "fOrderid":"3725114078400241", "fType":"0", "fAmount":0.01, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+        
+        NetworkManager.JsonPostRequest(params: params, success: { (json) in
             if json["code"].stringValue == "0" {
                 let str = json["message"].stringValue
                 AlipaySDK.defaultService().payOrder(str, fromScheme: "tjgy_ios") { (dic) in

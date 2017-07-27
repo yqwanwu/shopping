@@ -8,6 +8,13 @@
 
 import UIKit
 
+class PwdQuestion: CustomTableViewCellItem {
+    var fQuestionid = 0 //问题ID
+    var fQuestioncontent = "" //问题名称
+    var fOrder = 0
+    var fState = 0
+}
+
 class ForgetPwdVC: BaseViewController {
     @IBOutlet weak var phoneView: UIView!
     @IBOutlet weak var saveBtn: UIButton!
@@ -41,6 +48,26 @@ class ForgetPwdVC: BaseViewController {
         }
         
         saveBtn.layer.cornerRadius = CustomValue.btnCornerRadius
+        requestData()
+    }
+    
+    func requestData() {
+        NetworkManager.requestListModel(params: ["method":"apiquestions"]).setSuccessAction { (bm: BaseModel<PwdQuestion>) in
+            bm.whenSuccess {
+                var arr = [PwdQuestion]()
+                for model in bm.list! {
+                    let titleModel = PwdQuestion()
+                    titleModel.build(text: model.fQuestioncontent)
+                    model.build(text: model.fQuestioncontent).build(text: "")
+                    arr.append(titleModel)
+                    arr.append(model)
+                }
+                let qarr = arr.map { (c) -> PwdQuestion in
+                    return c.build(cellClass: PwdQuestionTableViewCell.self).build(heightForRow: 50).build(isFromStoryBord: true)
+                }
+                self.questionView.dataArray = [qarr]
+            }
+        }
     }
     
     func setupUI() {
@@ -54,18 +81,18 @@ class ForgetPwdVC: BaseViewController {
         segment.layer.borderColor = UIColor.hexStringToColor(hexString: "9d9d9d").cgColor
         segment.layer.borderWidth = 1
         
-        let c = CustomTableViewCellItem().build(text: "密保问题1: 你最喜欢的电影名称")
-        let c1 = CustomTableViewCellItem().build(text: "密保问题1:").build(detailText: "")
-        let c2 = CustomTableViewCellItem().build(text: "密保问题2: 你爸爸的姓名")
-        let c3 = CustomTableViewCellItem().build(text: "密保问题2:").build(detailText: "")
-        let c4 = CustomTableViewCellItem().build(text: "密保问题3: 你爸爸的手机号")
-        let c5 = CustomTableViewCellItem().build(text: "密保问题3:").build(detailText: "")
-        
-        let data = [c, c1, c2, c3, c4, c5].map { (c) -> CustomTableViewCellItem in
-            return c.build(cellClass: PwdQuestionTableViewCell.self).build(heightForRow: 50).build(isFromStoryBord: true)
-        }
-        
-        questionView.dataArray = [data]
+//        let c = CustomTableViewCellItem().build(text: "密保问题1: 你最喜欢的电影名称")
+//        let c1 = CustomTableViewCellItem().build(text: "密保问题1:").build(detailText: "")
+//        let c2 = CustomTableViewCellItem().build(text: "密保问题2: 你爸爸的姓名")
+//        let c3 = CustomTableViewCellItem().build(text: "密保问题2:").build(detailText: "")
+//        let c4 = CustomTableViewCellItem().build(text: "密保问题3: 你爸爸的手机号")
+//        let c5 = CustomTableViewCellItem().build(text: "密保问题3:").build(detailText: "")
+//        
+//        let data = [c, c1, c2, c3, c4, c5].map { (c) -> CustomTableViewCellItem in
+//            return c.build(cellClass: PwdQuestionTableViewCell.self).build(heightForRow: 50).build(isFromStoryBord: true)
+//        }
+//        
+//        questionView.dataArray = [data]
         
     }
 

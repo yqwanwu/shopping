@@ -20,6 +20,7 @@ class TextVC: BaseViewController, UITextViewDelegate {
         super.viewDidLoad()
 
         textView.placehoderLabel?.text = "请输入建议"
+        btn.layer.cornerRadius = CustomValue.btnCornerRadius
     }
 
     @IBAction func ac_submit(_ sender: UIButton) {

@@ -65,7 +65,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             self.requestGoods()
         }).beginRefresh()
     }
-    
+
     //下方商品
     func requestGoods() {
         let params = ["method":"apigoodslist", "currentPage":"1", "pageSize":"20"] as [String:Any]

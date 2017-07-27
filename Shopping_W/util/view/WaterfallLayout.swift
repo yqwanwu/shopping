@@ -31,6 +31,15 @@ class WaterfallLayout: UICollectionViewFlowLayout {
     
     override func prepare() {
         //        super.prepare()
+        attrArr = [UICollectionViewLayoutAttributes]()
+        columnHeights = [CGFloat]()
+        widths = [CGFloat]()
+        
+        column = 2
+        supplementaryViewOfKind = ""
+        maxY = 0
+        ys = [CGFloat]()
+        
         guard let collectionView = self.collectionView else { return }
         
         for section in 0..<collectionView.numberOfSections {
@@ -131,6 +140,13 @@ class LeftAlignLayout: UICollectionViewFlowLayout {
     }
     
     override func prepare() {
+        
+        attrArr = [UICollectionViewLayoutAttributes]()
+        columnHeights = [CGFloat]()
+        widths = [CGFloat]()
+        supplementaryViewOfKind = ""
+        
+        var maxY: CGFloat = 0.0
         //        super.prepare()
         guard let collectionView = self.collectionView else { return }
         

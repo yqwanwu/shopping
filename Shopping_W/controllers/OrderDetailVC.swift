@@ -23,6 +23,8 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
     var showPayBtn = false
     let totalPriceLabel = UILabel()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,7 +38,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
             setupPayBack()
         }
     }
-    
+        
     func setupPayBack() {
         let bk = UIView(frame: CGRect(x: 0, y: tableView.frame.maxY + 1, width: self.view.frame.width, height: 50))
         bk.backgroundColor = UIColor.white

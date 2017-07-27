@@ -48,5 +48,9 @@ class RefreshTableView: CustomTableView {
     func beginHeaderRefresh() {
         pullTORefreshControl.header?.beginRefresh()
     }
+    
+    func noMoreData() {
+        self.pullTORefreshControl.footer?.state = .noMoreData
+    }
 
 }
