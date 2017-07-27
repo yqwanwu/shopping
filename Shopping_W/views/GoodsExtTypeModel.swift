@@ -58,8 +58,8 @@ class GoodsExtTypeModel: NSObject {
     
     override var hash: Int {
         var result = name.hash;
-        result = 31 * result + value.hash
-        result = 31 * result + (isshow ? 1 : 0);
+        result = 31 * result >> 8 + value.hash
+        result = 31 * result >> 8 + (isshow ? 1 : 0);
         return result;
         
     }

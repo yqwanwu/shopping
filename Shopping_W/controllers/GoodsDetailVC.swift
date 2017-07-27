@@ -64,6 +64,9 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     var detailModel = GoodsDetailModel()
     var goodsId: Int = 0
     var evaluationList = [EvaluationModel]()
+    
+    @IBOutlet weak var typeHeight: NSLayoutConstraint!
+    var itemView: GoodsTypeView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +87,10 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         tableView.rowHeight = UITableViewAutomaticDimension
         
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        countBtn.changeAction = { [unowned self] _ in
+            self.updateTotalPrice()
+        }
         
         requestData()
         requestEvaluations()
@@ -118,8 +125,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     func requestData() {
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        //TODO 待修改
-        GoodsDetailModel.requestData(fGoodsid: 125/*goodsId*/).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
+        
+        GoodsDetailModel.requestData(fGoodsid: 125).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
             MBProgressHUD.hideHUD(forView: self.view)
             if let m = bm.list?.first {
                 self.setupUI(model: m)
@@ -184,16 +191,24 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     func setupTypeView(list: [GoodsTypeModel]?) {
         let layout = LeftAlignLayout()
         layout.minimumLineSpacing = 5
-        let itemView = GoodsTypeView(frame: CGRect.zero, collectionViewLayout: layout)
+        itemView = GoodsTypeView(frame: CGRect.zero, collectionViewLayout: layout)
         
         itemView.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         
         itemView.types = list ?? [GoodsTypeModel]()
         
-        layout.setWidthFotItem { (idx) -> CGSize in
-            return itemView.getSize(idx: idx)
+        layout.setWidthFotItem { [unowned self] (idx) -> CGSize in
+            return self.itemView.getSize(idx: idx)
+        }
+        layout.caculateComplete = { [unowned self] _ in
+            self.typeHeight.constant = 78 + layout.maxY + 8
         }
         
+        itemView.clickAction = { [unowned self] _ in
+            self.uodatePriceLabel()
+        }
+        
+        self.uodatePriceLabel()
         typeBk.addSubview(itemView)
         itemView.snp.makeConstraints { (make) in
             make.top.left.right.bottom.equalTo(typeBk)
@@ -227,7 +242,42 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
 //            currentView = currentBtn
 //        }
     }
+    var minPrice = 0.0
+    var maxPrice = 0.0
     
+    func uodatePriceLabel() {
+        let models = self.itemView.getConformityModels()
+        if models.isEmpty {
+            self.promotionsLabel.text = 0.0.moneyValue()
+            return
+        }
+        var min = models[0].fSalesprice
+        var max = min
+        for m in models {
+            min = m.fSalesprice < min ? m.fSalesprice : min
+            max = m.fSalesprice > max ? m.fSalesprice : max
+        }
+
+        if min < max {
+            self.perPriceLabel.text = "\(min.moneyValue()) - \(max.moneyValue())"
+        } else {
+            self.perPriceLabel.text = min.moneyValue()
+        }
+        maxPrice = max
+        minPrice = min
+        updateTotalPrice()
+    }
+    
+    func updateTotalPrice() {
+        let count = Double(self.countBtn.numberText.text ?? "") ?? 1.0
+        let min = minPrice * count
+        let max = maxPrice * count
+        if min < max {
+            self.totalPriceLabel.text = "\(min.moneyValue()) - \(max.moneyValue())"
+        } else {
+            self.totalPriceLabel.text = min.moneyValue()
+        }
+    }
     
     //MARK: 底部点击事件
     
@@ -239,8 +289,18 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     }
     
     @IBAction func ac_add(_ sender: UIButton) {
-        let fgid = (detailModel.exList?.first?.fGeid) ?? 0
-        let params = ["method":"apiaddtoshopcart", "fGoodsid":self.goodsId, "fCount":1, "fGeid":fgid, "fPromotionid":""] as [String : Any]
+        var fgid = 0
+        let types = itemView.getConformityModels()
+        if types.count > 1 {
+            MBProgressHUD.show(warningText: "请先选择商品类型")
+            return
+        } else {
+            fgid = types.isEmpty ? (self.detailModel.exList?.first?.fGeid) ?? 0 : types[0].fGeid
+        }
+        
+        let count = Int(countBtn.numberText.text ?? "") ?? 1
+        
+        let params = ["method":"apiaddtoshopcart", "fGoodsid":self.goodsId, "fCount":count, "fGeid":fgid, "fPromotionid":""] as [String : Any]
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             bm.whenSuccess {
                 MBProgressHUD.show(successText: "添加成功")

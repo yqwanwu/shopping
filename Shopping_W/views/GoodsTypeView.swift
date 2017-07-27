@@ -19,7 +19,6 @@ class GoodsTypeView: UICollectionView, UICollectionViewDelegate, UICollectionVie
     var types = [GoodsTypeModel]() {
         didSet {
             if types.count > 0 {
-                types[0].isSelected = true
                 setupArr()
             }
         }
@@ -28,6 +27,8 @@ class GoodsTypeView: UICollectionView, UICollectionViewDelegate, UICollectionVie
     private var selectedModels = [GoodsExtTypeModel]()
     
     private var setArr = [[GoodsExtTypeModel]]()
+    
+    var clickAction: BLANK_CLOSURE?
     
     private func setupArr()  {
         var arr = [[GoodsExtTypeModel]]()
@@ -162,8 +163,9 @@ class GoodsTypeView: UICollectionView, UICollectionViewDelegate, UICollectionVie
         }
         
         self.resetSate()
-        
         self.reloadData()
+        
+        self.clickAction?()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -172,6 +174,12 @@ class GoodsTypeView: UICollectionView, UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath)
+    }
+    
+    ///返回符合条件的model
+    func getConformityModels() -> [GoodsTypeModel] {
+        let models = types.filter({ $0.isSelected })
+        return models.isEmpty ? self.types : models
     }
     
     func resetSate() {
@@ -214,16 +222,17 @@ class GoodsTypeView: UICollectionView, UICollectionViewDelegate, UICollectionVie
                         item.state = .enable
                     }
                 } else {
-                    if selectedArr.count < setArr.count {
-                        for sa in selectedArr {
-                            if items.contains(sa) {
-                                item.state = .enable
-                            } else {
-                                item.state = .disable
-                            }
+//                    if selectedArr.count < setArr.count {
+//                        //下面的for 循环原来是写在这里的，，，，
+//                    } else {
+//                        item.state = .disable
+//                    }
+                    for sa in selectedArr {
+                        if items.contains(sa) {
+                            item.state = .enable
+                        } else {
+                            item.state = .disable
                         }
-                    } else {
-                        item.state = .disable
                     }
                 }
             }

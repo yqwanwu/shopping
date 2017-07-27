@@ -12,7 +12,7 @@ class GoodsTypeModel: NSObject, ParseModelProtocol {
     
     var fNo = ""
     var fGeid = 1
-    var fSalesprice: NSNumber?
+    var fSalesprice = 0.0
     var fWeight = 0.0
     var fExparams = ""
 

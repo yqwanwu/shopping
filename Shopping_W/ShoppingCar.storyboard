@@ -702,6 +702,7 @@
                         <outlet property="totalPriceLabel" destination="Wts-O9-mCW" id="e0l-tV-KQt"/>
                         <outlet property="typeBk" destination="wVe-8a-mfd" id="W9L-dl-rw5"/>
                         <outlet property="typeBkFirstItem" destination="F0g-n8-4da" id="dqH-iv-zcJ"/>
+                        <outlet property="typeHeight" destination="5P7-TY-Ps3" id="aFn-aK-BML"/>
                         <outlet property="typeLabel" destination="kBa-6d-bfX" id="3wI-F2-bKR"/>
                     </connections>
                 </viewController>
