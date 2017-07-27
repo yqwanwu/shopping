@@ -9,8 +9,9 @@
 import UIKit
 import MBProgressHUD
 import SnapKit
+import WebKit
 
-class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIPopoverPresentationControllerDelegate {
+class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIPopoverPresentationControllerDelegate, WKUIDelegate, WKNavigationDelegate {
     @IBOutlet weak var scrollBk: UIScrollView!
     @IBOutlet weak var carouselView: CarouselCollectionView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -19,7 +20,9 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     @IBOutlet weak var perPriceLabel: UILabel!
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var typeBk: UIView!
+    @IBOutlet weak var evaluateBk: UIView!
     
+    @IBOutlet weak var evaluatePeopleCountLabel: UILabel!
     //标记而已
     @IBOutlet weak var typeBkFirstItem: UILabel!
     
@@ -59,11 +62,16 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     var type = GoodsListVC.ListType.normal
     var currentPage = 1
-    @IBOutlet weak var tableView: CustomTableView!
     
     var detailModel = GoodsDetailModel()
     var goodsId: Int = 0
-    var evaluationList = [EvaluationModel]()
+    
+    lazy var webView: WKWebView = {
+        let w = WKWebView(frame: CGRect.zero)
+        w.uiDelegate = self
+        w.navigationDelegate = self
+        return w
+    } ()
     
     @IBOutlet weak var typeHeight: NSLayoutConstraint!
     var itemView: GoodsTypeView!
@@ -83,9 +91,6 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         serverbtn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
         serverbtn.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         
-        tableView.estimatedRowHeight = 80
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
         self.automaticallyAdjustsScrollViewInsets = false
         
         countBtn.changeAction = { [unowned self] _ in
@@ -93,7 +98,13 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         }
         
         requestData()
-        requestEvaluations()
+        
+        self.scrollBk.addSubview(webView)
+        webView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.evaluateBk.snp.bottom).offset(8)
+            make.left.right.equalTo(self.view)
+            make.height.equalTo(0)
+        }
     }
     
     func setupUI(model: GoodsDetailModel) {
@@ -106,6 +117,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         starView.score = CGFloat(model.fFivestarperc) / 20.0
         starView.isTapGestureEnable = false
         starView.isPanGestureEnable = false
+        
+        evaluateCountLabel.text = "\(model.fFivestarperc)的用户选择了好评"
         
         switch detailModel.fPromotiontype {
         case 1:
@@ -121,12 +134,13 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         setupCustomBk()
         
         setupTypeView(list: model.exList)
+        self.webView.loadHTMLString(model.fContentapp, baseURL: URL(string: NetworkManager.BASESERVER))
     }
     
     func requestData() {
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
-        GoodsDetailModel.requestData(fGoodsid: 125).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
+        GoodsDetailModel.requestData(fGoodsid: goodsId).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
             MBProgressHUD.hideHUD(forView: self.view)
             if let m = bm.list?.first {
                 self.setupUI(model: m)
@@ -134,19 +148,13 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         }.seterrorAction { (err) in
             MBProgressHUD.hideHUD(forView: self.view)
         }
-    }
-    
-    //请求评价
-    func requestEvaluations() {
+        
+        
         let params = ["method":"apievaluations", "fGoodsid":goodsId, "fStartext":"", "currentPage":currentPage, "pageSize":CustomValue.pageSize] as [String : Any]
         NetworkManager.requestPageInfoModel(params: params).setSuccessAction { (bm: BaseModel<EvaluationModel>) in
-            self.evaluationList = bm.pageInfo?.list ?? [EvaluationModel]()
-            .map({ (model) -> EvaluationModel in
-                return model.build(cellClass: EvaluateCell.self)
-            })
-            self.tableView.dataArray = [self.evaluationList]
-            
-            self.tableView.reloadData()
+            bm.whenSuccess {
+                self.evaluatePeopleCountLabel.text = "评价(\(bm.pageInfo!.total))"
+            }
         }
     }
     
@@ -251,11 +259,15 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             self.promotionsLabel.text = 0.0.moneyValue()
             return
         }
+        
         var min = models[0].fSalesprice
         var max = min
+        var maxCount = models[0].fStock
+        
         for m in models {
             min = m.fSalesprice < min ? m.fSalesprice : min
             max = m.fSalesprice > max ? m.fSalesprice : max
+            maxCount = m.fStock > maxCount ? m.fStock : maxCount
         }
 
         if min < max {
@@ -266,6 +278,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         maxPrice = max
         minPrice = min
         updateTotalPrice()
+        self.countBtn.maxCount = maxCount
     }
     
     func updateTotalPrice() {
@@ -304,6 +317,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             bm.whenSuccess {
                 MBProgressHUD.show(successText: "添加成功")
+                CarVC.needsReload = true
             }
         }) { (err) in
             
@@ -321,7 +335,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.scrollBk.contentSize.height = tableView.frame.maxY
+//        self.scrollBk.contentSize.height = tableView.frame.maxY
         self.tabBarController?.tabBar.isHidden = true
     }
     
@@ -339,8 +353,23 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         }
     }
 
-    
+}
+
+extension GoodsDetailVC {
     //MARK: 代理
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.evaluateJavaScript("document.body.scrollHeight") { (a, err) in
+            if let height = a as? CGFloat {
+                webView.snp.updateConstraints { (make) in
+                    make.height.equalTo(height)
+                }
+                self.scrollBk.contentSize.height = self.evaluateBk.frame.maxY + height
+            }
+        }
+    }
+    
+    
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
@@ -364,7 +393,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             //MARK: 必须用 realCurrentIndexPath才是准确的
             print(carouselView.realCurrentIndexPath)
         }
-        
     }
+    
     
 }

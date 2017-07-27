@@ -15,6 +15,7 @@ class GoodsTypeModel: NSObject, ParseModelProtocol {
     var fSalesprice = 0.0
     var fWeight = 0.0
     var fExparams = ""
+    var fStock = 0
 
     var isSelected = false
     

@@ -13,6 +13,14 @@ import SnapKit
 class CalculateBtn: UIView {
     
     let fontSize: CGFloat = 14.0
+    
+    var maxCount = Int.max {
+        didSet {
+            if maxCount != Int.max {
+                checkText()
+            }
+        }
+    }
 
     lazy var subtractBtn: UIButton = {
         let btn = UIButton(type: .system)
@@ -69,11 +77,15 @@ class CalculateBtn: UIView {
         var number = Int(numberText.text ?? "1") ?? 1
         if number < 1 {
             number = 1
+        } else if number >= maxCount {
+            number = maxCount
         }
         subtractBtn.isEnabled = number != 1
         self.numberText.text = "\(number)"
         
         changeAction?()
+        
+        addBtn.isEnabled = number < maxCount
     }
     
     override func awakeFromNib() {
