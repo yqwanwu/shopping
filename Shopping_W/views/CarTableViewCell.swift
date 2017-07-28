@@ -21,12 +21,13 @@ class CarTableViewCell: CustomTableViewCell {
     override var model: CustomTableViewCellItem? {
         didSet {
             if let m = model as? CarModel {
-                priceLabel.text = m.F_Price.moneyValue()
+                priceLabel.text = m.F_SalesPrice.moneyValue()
                 countBtn.numberText.text = "\(m.F_Count)"
                 numberLabel.text = ""
                 numberNameLabel.text = m.F_ExString
                 titleLabel.text = m.F_GoodsName
                 goodsimg.sd_setImage(with: URL.encodeUrl(string: m.F_GoodImg))
+                chooseBtn.isSelected = m.isSelected
             }
         }
     }

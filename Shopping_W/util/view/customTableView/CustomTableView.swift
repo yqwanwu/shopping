@@ -8,6 +8,7 @@
 
 import UIKit
 import ObjectMapper
+import RealmSwift
 
 class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
     ///必须卸载这防止提前被释放
@@ -236,6 +237,18 @@ class CustomTableViewCellItem: NSObject, ParseModelProtocol {
     var cellAction: cellSelectedAction = {_ in }
     ///默认是从xib加载，storybord中设计的cell，就只需要注册class，不用注册nib。
     var isFromStoryBord = false
+    
+    static func parseSameNSObject<T: CustomTableViewCellItem>(obj: T) -> T {
+        let c = T()
+        let m = Mirror(reflecting: c)
+        for child in m.children {
+            let name = child.label ?? ""
+            if let v = obj.value(forKey: name) {
+                c.setValue(v, forKey: name)
+            }
+        }
+        return c
+    }
     
     var customValue: [String:Any]?
     

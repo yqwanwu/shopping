@@ -69,6 +69,9 @@ class LoginVC: BaseViewController {
                 bm.t!.saveData()
                 successAction()
                 NetworkManager.sessionId = bm.sessionId
+                
+                //登陆后需要请求的数据
+                AddressModel.requestData()
             }
         }) { (err) in
             MBProgressHUD.hideHUD()

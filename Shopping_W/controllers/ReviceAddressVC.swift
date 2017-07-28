@@ -13,6 +13,9 @@ import MBProgressHUD
 class ReviceAddressVC: BaseViewController, UITableViewDelegate {
     @IBOutlet weak var tableView: CustomTableView!
     let addVC = Tools.getClassFromStorybord(sbName: .mine, clazz: AddressUpdateVC.self) as! AddressUpdateVC
+    
+    var selectedAction: ((_ model: AddressModel) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +35,7 @@ class ReviceAddressVC: BaseViewController, UITableViewDelegate {
         
         self.addChildViewController(addVC)
         addVC.topVC = self
-        requestData()
+        
     }
     
     func requestData() {
@@ -46,10 +49,17 @@ class ReviceAddressVC: BaseViewController, UITableViewDelegate {
                         self.addVC.model = model
                         self.view.addSubview(self.addVC.view)
                     }
+                    if model.fType == 1 {
+                        AddressModel.defaultAddress = model
+                    }
                     return model
                 })
                 self.tableView.dataArray = [arr]
                 self.tableView.reloadData()
+                
+                if AddressModel.defaultAddress == nil {
+                    AddressModel.defaultAddress = arr.first
+                }
                 
                 if arr.count < 1 {
                     self.ac_add()
@@ -63,6 +73,12 @@ class ReviceAddressVC: BaseViewController, UITableViewDelegate {
     func ac_add() {
         addVC.model = nil
         view.addSubview(addVC.view)
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        requestData()
     }
     
     //MARK: 代理
@@ -83,6 +99,11 @@ class ReviceAddressVC: BaseViewController, UITableViewDelegate {
         }
         
         return [ac]
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = self.tableView.dataArray[indexPath.section][indexPath.row] as! AddressModel
+        self.selectedAction?(model)
     }
     
 

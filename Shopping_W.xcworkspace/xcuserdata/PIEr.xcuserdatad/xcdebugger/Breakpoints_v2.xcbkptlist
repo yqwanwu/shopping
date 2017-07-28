@@ -68,7 +68,7 @@
                   moduleName = "Shopping_W"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxapp/Desktop/Shopping_W/Shopping_W/controllers/PayWayVC.swift"
-                  timestampString = "522837080.98843"
+                  timestampString = "522920988.254186"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "57"
@@ -83,108 +83,12 @@
                   moduleName = "Shopping_W"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxapp/Desktop/Shopping_W/Shopping_W/controllers/PayWayVC.swift"
-                  timestampString = "522837080.990108"
+                  timestampString = "522920988.255694"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "58"
                   endingLineNumber = "58"
                   offsetFromSymbolStart = "120">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Shopping_W/AppDelegate.swift"
-            timestampString = "522644798.507486"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "application(_:open:sourceApplication:annotation:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Shopping_W.AppDelegate.(application (__ObjC.UIApplication, open : Foundation.URL, sourceApplication : Swift.Optional&lt;Swift.String&gt;, annotation : Any) -&gt; Swift.Bool).(closure #1)"
-                  moduleName = "Shopping_W"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxapp/Desktop/Shopping_W/Shopping_W/AppDelegate.swift"
-                  timestampString = "522837080.993966"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "28">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Shopping_W.AppDelegate.(application (__ObjC.UIApplication, open : Foundation.URL, sourceApplication : Swift.Optional&lt;Swift.String&gt;, annotation : Any) -&gt; Swift.Bool).(closure #1)"
-                  moduleName = "Shopping_W"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxapp/Desktop/Shopping_W/Shopping_W/AppDelegate.swift"
-                  timestampString = "522837080.995588"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "424">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Shopping_W/AppDelegate.swift"
-            timestampString = "522644807.585749"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "application(_:open:sourceApplication:annotation:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Shopping_W.AppDelegate.application (__ObjC.UIApplication, open : Foundation.URL, sourceApplication : Swift.Optional&lt;Swift.String&gt;, annotation : Any) -&gt; Swift.Bool"
-                  moduleName = "Shopping_W"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxapp/Desktop/Shopping_W/Shopping_W/AppDelegate.swift"
-                  timestampString = "522837080.999062"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "72">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Shopping_W.AppDelegate.(application (__ObjC.UIApplication, open : Foundation.URL, sourceApplication : Swift.Optional&lt;Swift.String&gt;, annotation : Any) -&gt; Swift.Bool).(closure #1)"
-                  moduleName = "Shopping_W"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxapp/Desktop/Shopping_W/Shopping_W/AppDelegate.swift"
-                  timestampString = "522837081.00054"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "28">
                </Location>
             </Locations>
          </BreakpointContent>

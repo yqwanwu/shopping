@@ -17,6 +17,9 @@ class CustomTabBarVC: BaseTabBarController {
         CustomTabBarVC.instance = self
         CustomTabBarItem.selectedTitleColor = UIColor.red
         CustomTabBarItem.normalTitleColor = UIColor.black
+        
+        //做一些通用数据的请求。。还有些放在首页里的
+        
     }
     
     func selectToFirst(index: Int) {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OrderDetailVC: BaseViewController, UITableViewDataSource {
+class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     lazy var tableView: CustomTableView = {
         let t = CustomTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height - 64), style: .grouped)
@@ -23,13 +23,13 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
     var showPayBtn = false
     let totalPriceLabel = UILabel()
     
-    
+    var carModels: [CarModel]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "订单详情"
-        
+        self.tableView.delegate = self
         self.view.addSubview(tableView)
         setupData()
         
@@ -40,7 +40,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
     }
         
     func setupPayBack() {
-        let bk = UIView(frame: CGRect(x: 0, y: tableView.frame.maxY + 1, width: self.view.frame.width, height: 50))
+        let bk = UIView(frame: CGRect(x: 0, y: self.view.frame.height - 50, width: self.view.frame.width, height: 50))
         bk.backgroundColor = UIColor.white
         view.addSubview(bk)
         
@@ -88,8 +88,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
     }
     
     func setupData() {
-        let addr = CustomTableViewCellItem().build(cellClass: Address_reciveCell.self)
-        let goods = CustomTableViewCellItem().build(cellClass: OrerListCell.self).build(heightForRow: 118)
+        let addr = AddressModel().build(cellClass: Address_reciveCell.self).build(isFromStoryBord: false)
         //积分
         let integral = CustomTableViewCellItem().build(heightForRow: 50).build(cellClass: RightTitleCell.self).build(text: "使用积分抵扣")
         let total = CustomTableViewCellItem().build(text: "总价").build(detailText: "¥1232").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
@@ -97,10 +96,35 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
         let freight = CustomTableViewCellItem().build(text: "运费").build(detailText: "¥1232").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
         
         let discount = CustomTableViewCellItem().build(text: "优惠及折扣").build(detailText: "¥1232").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
+
     
-        tableView.dataArray = [[addr], [goods], [integral], [total, freight], [discount]]
+        if let models = carModels {
+            let arr = models.map({ (model) -> CarModel in
+                let carModel = CarModel()
+                carModel.build(cellClass: OrerListCell.self).build(heightForRow: 118)
+                //模型是从上个tableView传过来的，所以不要影响原来的数据
+                carModel.F_ID = model.F_ID
+                carModel.F_Count = model.F_Count
+                carModel.F_SalesPrice = model.F_SalesPrice
+                carModel.F_GoodsName = model.F_GoodsName
+                carModel.F_GoodImg = model.F_GoodImg
+                carModel.F_ExString = model.F_ExString
+                return carModel
+            })
+            
+            if let ad = AddressModel.defaultAddress {
+                ad.build(cellClass: Address_reciveCell.self).build(isFromStoryBord: false)
+                tableView.dataArray = [[ad], arr, [integral], [total, freight], [discount]]
+            } else {
+                tableView.dataArray = [[addr], arr, [integral], [total, freight], [discount]]
+            }
+        }
     }
     
+    
+    deinit {
+        print("dasdasd")
+    }
     
     
     //MARK: 代理
@@ -135,6 +159,20 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ReviceAddressVC.self) as! ReviceAddressVC
+            vc.selectedAction = { [unowned self] model in
+                self.tableView.dataArray[0][0] = model
+                model.build(cellClass: Address_reciveCell.self)
+                vc.navigationController?.popViewController(animated: true)
+                model.isFromStoryBord = false
+                self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

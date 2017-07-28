@@ -91,6 +91,12 @@ class OrerListCell: CustomTableViewCell {
                 default:
                     break
                 }
+            } else if let m = model as? CarModel {
+                self.imgView.sd_setImage(with: URL.encodeUrl(string: m.F_GoodImg))
+                self.titleLabel.text = m.F_GoodsName
+                self.priceLabel.text = m.F_SalesPrice.moneyValue()
+                self.countLabel.text = "\(m.F_ExString)  x\(m.F_Count)"
+                
             }
         }
     }

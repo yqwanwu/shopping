@@ -44,9 +44,10 @@ class AddressUpdateVC: UIViewController {
         
         addressBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         
-        setupPicker()
+        mailTF.keyboardType = .numberPad
     }
     
+    var pickerSeted = false
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let m = model {
@@ -61,7 +62,14 @@ class AddressUpdateVC: UIViewController {
             addressPicker.setup(data: [j["province"].stringValue, j["city"].stringValue, j["area"].stringValue])
         } else {
             self.saveBtn.setTitle("保存", for: .normal)
+            self.title = "添加地址"
         }
+        
+        if !pickerSeted {
+            setupPicker()
+            pickerSeted = true
+        }
+        
     }
     
     func setupPicker() {

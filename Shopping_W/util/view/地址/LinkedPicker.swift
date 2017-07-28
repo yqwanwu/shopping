@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import MBProgressHUD
 
 class LinkedPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -19,17 +20,45 @@ class LinkedPicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        if allProvince.count < 1 {
+            MBProgressHUD.show()
+            RegionModel.requestData(compalete: {
+                MBProgressHUD.hideHUD()
+                self.allProvince = RegionModel.findAllProvince()
+                if self.allProvince.count < 1 {
+                    MBProgressHUD.show(errorText: "请求失败")
+                } else {
+                    self.setupUI()
+                }
+            })
+        } else {
+            setupUI()
+        }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupUI()
+        if allProvince.count < 1 {
+            MBProgressHUD.show()
+            RegionModel.requestData(compalete: {
+                MBProgressHUD.hideHUD()
+                self.allProvince = RegionModel.findAllProvince()
+                if self.allProvince.count < 1 {
+                    MBProgressHUD.show(errorText: "请求失败")
+                } else {
+                    self.setupUI()
+                }
+            })
+        } else {
+            setupUI()
+        }
     }
     
     func setupUI() {
         self.delegate = self
         self.dataSource = self
+        self.isMultipleTouchEnabled = false
         
         itemsArr.append(allProvince)
         let provinceModel = itemsArr[0][0]
@@ -150,7 +179,10 @@ extension LinkedPicker {
             
             let provinceModel = itemsArr[0][provinceIdx]
             itemsArr[1] = RegionModel.findCity(provinceId: provinceModel.fRegionid)
-            let cityModel = itemsArr[1][cityIdx]
+            if itemsArr[1].count < 1 {
+                return
+            }
+            let cityModel = itemsArr[1][itemsArr[1].count > cityIdx ? cityIdx : 0]
             itemsArr[2] = RegionModel.findArea(cityId: cityModel.fRegionid)
             
             for i in component + 1..<itemsArr.count {

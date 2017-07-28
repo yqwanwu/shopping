@@ -34,7 +34,7 @@ class RegionModel: Object, ParseModelProtocol {
         return "fRegionid"
     }
     
-    static func requestData() {
+    static func requestData(compalete: BLANK_CLOSURE? = nil) {
         let params = ["method":"apiregionlist", "fIshot":"0", "fType":"1,2,3"] as [String:Any]
         NetworkManager.requestListModel(params: params).setSuccessAction { (bm: BaseModel<RegionModel>) in
             let realm = try! Realm()
@@ -46,6 +46,8 @@ class RegionModel: Object, ParseModelProtocol {
                     realm.add(obj)
                 }
             }
+            
+            compalete?()
         }
     }
     
@@ -53,7 +55,7 @@ class RegionModel: Object, ParseModelProtocol {
     static func findAllProvince() -> Results<RegionModel> {
         let realm = try! Realm()
         
-        return realm.objects(self).filter("fParentid = 0")
+        return realm.objects(self).filter("fType = 1")
     }
     
     ///根据省找到 市
