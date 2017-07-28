@@ -101,19 +101,7 @@ class CarVC: UIViewController, UITableViewDelegate {
         if selectedArr.isEmpty {
             return
         }
-//        var cartIds = selectedArr.reduce("") { (result, item) -> String in
-//            return result + "\((item as! CarModel).F_ID),"
-//        }
-//        cartIds = cartIds.substring(to: cartIds.index(cartIds.endIndex, offsetBy: -1))
-//        let params = ["method":"apiCreateOrder", "cartIDs":cartIds, "isUseIntegral":"0", "useIntegral":"0", "address":"qeqwewqewq", "addressname":"qwewqeq", "phone":"12311111111"]
-//        NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
-//            bm.whenNoData {
-//                
-//            }
-//        }) { (err) in
-//            
-//        }
-        
+
         let vc = OrderDetailVC()
         vc.showPayBtn = true
         vc.carModels = (selectedArr as! [CarModel])

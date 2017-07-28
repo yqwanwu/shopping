@@ -40,12 +40,21 @@ class CarTableViewCell: CustomTableViewCell {
         goodsimg.layer.cornerRadius = 10
         
         countBtn.changeAction = { [unowned self] _ in
-            if let m = self.model as? CarModel {
-                m.F_Count = Int(self.countBtn.numberText.text ?? "") ?? 1
-                m.updateCount()
+            if let _ = self.model as? CarModel {
+                self.changeCount()
             }
         }
+        
+        countBtn.numberText.addTarget(self, action: #selector(CarTableViewCell.changeCount), for: .editingDidEnd)
     }
+    
+    func changeCount() {
+        if let m = self.model as? CarModel {
+            m.F_Count = Int(self.countBtn.numberText.text ?? "") ?? 1
+            m.updateCount()
+        }
+    }
+    
     @IBAction func ac_select(_ sender: UIButton) {
         if let m = model as? CarModel {
             m.selectedAction?()

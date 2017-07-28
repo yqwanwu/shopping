@@ -22,6 +22,8 @@ class BalanceVC: BaseViewController, UITableViewDelegate {
     }
     
     var type = VCType.balance
+    
+    weak var topVC: UIViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()

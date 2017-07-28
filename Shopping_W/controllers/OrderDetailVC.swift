@@ -24,6 +24,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
     let totalPriceLabel = UILabel()
     
     var carModels: [CarModel]?
+    var integral = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +32,58 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
         self.title = "订单详情"
         self.tableView.delegate = self
         self.view.addSubview(tableView)
-        setupData()
+        
         
         if showPayBtn {
             tableView.frame.size.height -= 51
             setupPayBack()
         }
+        
+        self.setupData()
+        requestData()
+    }
+    
+    func requestData() {
+        if carModels == nil {
+            return
+        }
+        var ids = carModels!.reduce("", { (r, m) -> String in
+            return r + "\(m.F_ID),"
+        })
+        ids = ids.substring(to: ids.index(ids.endIndex, offsetBy: -1))
+        NetworkManager.requestTModel(params: ["method":"apiPreCreateOrder", "cartIDs":ids]).setSuccessAction { (bm: BaseModel<PreCreateOrder>) in
+            bm.whenSuccess {
+                let model = bm.t!
+                let total = CustomTableViewCellItem().build(text: "总价").build(detailText: "¥\(model.payAmount.moneyValue())").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
+                //运费
+                let freight = CustomTableViewCellItem().build(text: "运费").build(detailText: "¥\(model.payFreight.moneyValue())").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
+                
+                let discount = CustomTableViewCellItem().build(text: "优惠及折扣").build(detailText: "¥\(model.deDuction.moneyValue())").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
+                
+                self.totalPriceLabel.text = "¥\(model.payAmount.moneyValue())"
+                
+                self.tableView.dataArray[3][0] = total
+                self.tableView.dataArray[3][1] = freight
+                self.tableView.dataArray[4][0] = discount
+                self.tableView.reloadRows(at: [IndexPath(row: 0, section: 3), IndexPath(row: 1, section: 3), IndexPath(row: 0, section: 4)], with: .automatic)
+            }
+        }
+    }
+    
+    
+    func createOrder() {
+        //        var cartIds = selectedArr.reduce("") { (result, item) -> String in
+        //            return result + "\((item as! CarModel).F_ID),"
+        //        }
+        //        cartIds = cartIds.substring(to: cartIds.index(cartIds.endIndex, offsetBy: -1))
+        //        let params = ["method":"apiCreateOrder", "cartIDs":cartIds, "isUseIntegral":"0", "useIntegral":"0", "address":"qeqwewqewq", "addressname":"qwewqeq", "phone":"12311111111"]
+        //        NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+        //            bm.whenNoData {
+        //
+        //            }
+        //        }) { (err) in
+        //            
+        //        }
     }
         
     func setupPayBack() {
@@ -56,7 +103,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             make.width.height.greaterThanOrEqualTo(20)
         }
         
-        totalPriceLabel.text = "¥1232"
+        
         totalPriceLabel.font = UIFont.systemFont(ofSize: 15)
         totalPriceLabel.textColor = CustomValue.common_red
         bk.addSubview(totalPriceLabel)
@@ -90,12 +137,12 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
     func setupData() {
         let addr = AddressModel().build(cellClass: Address_reciveCell.self).build(isFromStoryBord: false)
         //积分
-        let integral = CustomTableViewCellItem().build(heightForRow: 50).build(cellClass: RightTitleCell.self).build(text: "使用积分抵扣")
-        let total = CustomTableViewCellItem().build(text: "总价").build(detailText: "¥1232").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
+        let integral = CustomTableViewCellItem().build(heightForRow: 50).build(cellClass: RightTitleCell.self).build(text: "使用积分抵扣").build(accessoryType: .disclosureIndicator)
+        let total = CustomTableViewCellItem().build(text: "总价").build(detailText: "¥0").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
         //运费
-        let freight = CustomTableViewCellItem().build(text: "运费").build(detailText: "¥1232").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
+        let freight = CustomTableViewCellItem().build(text: "运费").build(detailText: "¥0").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
         
-        let discount = CustomTableViewCellItem().build(text: "优惠及折扣").build(detailText: "¥1232").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
+        let discount = CustomTableViewCellItem().build(text: "优惠及折扣").build(detailText: "¥0").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
 
     
         if let models = carModels {
@@ -145,9 +192,9 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             cell.leftLabel.font = UIFont.boldSystemFont(ofSize: 15)
             let htmlStr = CustomValue.htmlHeader + "<p style='float: right;'>" +
                 "<span style='color: black'>积分</span>" +
-                "<span style='color: red'>50 </span>" +
+                "<span style='color: red'>\(integral) </span>" +
                 "<span style='color: black'>抵扣</span>" +
-                "<span style='color: red'>¥5</span>" +
+                "<span style='color: red'>¥\((Double(integral) / 10).moneyValue())</span>" +
                 "</p>" + CustomValue.htmlFooter
             let htmlData = htmlStr.data(using: .utf8)
             
@@ -170,6 +217,13 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 vc.navigationController?.popViewController(animated: true)
                 model.isFromStoryBord = false
                 self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else if indexPath.section == 2 {
+            let vc = UseIntegralVCViewController()
+            vc.submitAction = { [unowned self] num in
+                self.integral = num
+                self.tableView.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .automatic)
             }
             self.navigationController?.pushViewController(vc, animated: true)
         }

@@ -223,6 +223,9 @@
 		96DE99911ECB2FC90011290E /* String+QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE998A1ECB2FC90011290E /* String+QRCode.swift */; };
 		96DE99921ECB2FC90011290E /* UIImage+QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DE998B1ECB2FC90011290E /* UIImage+QRCode.swift */; };
 		96DE99931ECB2FCA0011290E /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DE998E1ECB2FC90011290E /* XMLDictionary.m */; };
+		96F761E91F2B2765003CF970 /* UseIntegralVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F761E71F2B2765003CF970 /* UseIntegralVCViewController.swift */; };
+		96F761EA1F2B2765003CF970 /* UseIntegralVCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96F761E81F2B2765003CF970 /* UseIntegralVCViewController.xib */; };
+		96F761EC1F2B30A5003CF970 /* PreCreateOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F761EB1F2B30A5003CF970 /* PreCreateOrder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -546,6 +549,9 @@
 		96DE998B1ECB2FC90011290E /* UIImage+QRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+QRCode.swift"; sourceTree = "<group>"; };
 		96DE998D1ECB2FC90011290E /* XMLDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLDictionary.h; sourceTree = "<group>"; };
 		96DE998E1ECB2FC90011290E /* XMLDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLDictionary.m; sourceTree = "<group>"; };
+		96F761E71F2B2765003CF970 /* UseIntegralVCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UseIntegralVCViewController.swift; sourceTree = "<group>"; };
+		96F761E81F2B2765003CF970 /* UseIntegralVCViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UseIntegralVCViewController.xib; sourceTree = "<group>"; };
+		96F761EB1F2B30A5003CF970 /* PreCreateOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreCreateOrder.swift; sourceTree = "<group>"; };
 		AA09698EDA65950B9CAF9E66 /* Pods-Shopping_W.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopping_W.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shopping_W/Pods-Shopping_W.release.xcconfig"; sourceTree = "<group>"; };
 		DA01B7970DC670F35FAA7E35 /* Pods_Shopping_W.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopping_W.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -605,6 +611,8 @@
 				967187C81EDEA29700DDD61B /* SettingsVC.swift */,
 				967187D01EDEA92000DDD61B /* CustomerServicesVC.swift */,
 				967187DA1EDFFB3300DDD61B /* BalanceVC.swift */,
+				96F761E71F2B2765003CF970 /* UseIntegralVCViewController.swift */,
+				96F761E81F2B2765003CF970 /* UseIntegralVCViewController.xib */,
 				967187E21EE0F4F000DDD61B /* WithdrawVC.swift */,
 				967187E41EE0FDE000DDD61B /* RewardVC.swift */,
 				96DA5ABE1EE6880100E9CF8F /* MyEvaluateVC.swift */,
@@ -1192,6 +1200,7 @@
 				9643A8361F10C6EE009A5AC0 /* AddressModel.swift */,
 				960622FF1F1EF1BF0057FE70 /* RegionModel.swift */,
 				9643A8381F10C7DA009A5AC0 /* MyIntegralModel.swift */,
+				96F761EB1F2B30A5003CF970 /* PreCreateOrder.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -1560,6 +1569,7 @@
 				967187D51EDEB71800DDD61B /* GoodsCommonTableViewCell.xib in Resources */,
 				9674E2B81EE63E6C0004D9EE /* EvaluateCell.xib in Resources */,
 				96DE996B1ECB2D0E0011290E /* Assets.xcassets in Resources */,
+				96F761EA1F2B2765003CF970 /* UseIntegralVCViewController.xib in Resources */,
 				96DA5AC31EE68EAD00E9CF8F /* AlertVC.xib in Resources */,
 				967187C61EDE668500DDD61B /* address.txt in Resources */,
 				965B9D731ECC8B72002016C2 /* Category.storyboard in Resources */,
@@ -1734,6 +1744,7 @@
 				96902F311ECB334700B219D7 /* CustomTabBar.swift in Sources */,
 				968D036E1EEA971100DE32F9 /* MD5DataSigner.m in Sources */,
 				96610A631ED5696400C117D6 /* LoginVC.swift in Sources */,
+				96F761E91F2B2765003CF970 /* UseIntegralVCViewController.swift in Sources */,
 				96610A7F1ED95FEC00C117D6 /* ReviceAddressVC.swift in Sources */,
 				965B9D7A1ECC93F1002016C2 /* OrderVC.swift in Sources */,
 				96902F1C1ECB32F200B219D7 /* ShadowView.swift in Sources */,
@@ -1782,6 +1793,7 @@
 				96A9726B1ED275D30007C324 /* CarTableViewCell.swift in Sources */,
 				96610A3D1ED3CEBA00C117D6 /* FirstItemCollectionViewCell.swift in Sources */,
 				96610A5A1ED5618900C117D6 /* StarMarkView.swift in Sources */,
+				96F761EC1F2B30A5003CF970 /* PreCreateOrder.swift in Sources */,
 				96902F301ECB334700B219D7 /* ContentScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
