@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -69,22 +70,6 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             }
         }
     }
-    
-    
-    func createOrder() {
-        //        var cartIds = selectedArr.reduce("") { (result, item) -> String in
-        //            return result + "\((item as! CarModel).F_ID),"
-        //        }
-        //        cartIds = cartIds.substring(to: cartIds.index(cartIds.endIndex, offsetBy: -1))
-        //        let params = ["method":"apiCreateOrder", "cartIDs":cartIds, "isUseIntegral":"0", "useIntegral":"0", "address":"qeqwewqewq", "addressname":"qwewqeq", "phone":"12311111111"]
-        //        NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
-        //            bm.whenNoData {
-        //
-        //            }
-        //        }) { (err) in
-        //            
-        //        }
-    }
         
     func setupPayBack() {
         let bk = UIView(frame: CGRect(x: 0, y: self.view.frame.height - 50, width: self.view.frame.width, height: 50))
@@ -130,8 +115,29 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func ac_pay() {
-        let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: PayWayVC.self) as! PayWayVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        MBProgressHUD.show()
+        let addressModel = self.tableView.dataArray[0][0] as! AddressModel
+        if addressModel.fAddressid == 0 {
+            MBProgressHUD.show(errorText: "请先选择收货地址")
+        }
+        
+        var cartIds = carModels!.reduce("", { (r, m) -> String in
+            return r + "\(m.F_ID),"
+        })
+        cartIds = cartIds.substring(to: cartIds.index(cartIds.endIndex, offsetBy: -1))
+        let isUseIntegral = self.integral == 0 ? 0 : 1
+        
+        let params = ["method":"apiCreateOrder", "isUseIntegral":isUseIntegral, "useIntegral":self.integral, "address":addressModel.fAddress, "addressname":addressModel.fName, "phone":addressModel.fPhone, "addressID":addressModel.fAddressid] as [String : Any]
+        NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+            MBProgressHUD.hideHUD()
+            bm.whenSuccess {
+                let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: PayWayVC.self) as! PayWayVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }) { (err) in
+            MBProgressHUD.hideHUD()
+        }
+        
     }
     
     func setupData() {

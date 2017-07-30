@@ -29,5 +29,9 @@ class MyEvaluateListVC: BaseViewController {
         
         tableView.dataArray = [[c, c, c, c]]
     }
+    
+    func rquestData() {
+//        let
+    }
 
 }

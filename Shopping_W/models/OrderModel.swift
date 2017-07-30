@@ -33,4 +33,21 @@ class OrderModel: CustomTableViewCellItem {
     var fCreatetime = 0//账单建立时间
     var fIntegral = 0//可用积分
     var fMintegral = 0.0//多倍积分倍数
+    var fType = -1
+    var OrderEx = OrderEXModel()
+}
+
+class OrderEXModel: NSObject, ParseModelProtocol {
+    override required init() {
+        super.init()
+    }
+    
+    var fCount =  0 //购买数量
+    var fPeid = 0 //促销明细ID
+    var fGoodsid = 0 //商品ID
+    var fOeid =  0  //订单明细ID
+    var fSpecifications =  ""//商品类型
+    var fGoodsname = ""//商品名称
+    var fUrl = ""
+    
 }

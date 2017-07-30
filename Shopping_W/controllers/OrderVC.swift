@@ -9,6 +9,11 @@
 import UIKit
 import MBProgressHUD
 
+class OrderTableView: RefreshTableView {
+    var currentPage = 1
+    
+}
+
 class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var headerView: TabView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -23,11 +28,11 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     
-    lazy var tableViewList: [RefreshTableView] = {
-        var arr = [RefreshTableView]()
+    lazy var tableViewList: [OrderTableView] = {
+        var arr = [OrderTableView]()
         
         for title in self.titles {
-            let tableView = RefreshTableView(frame: CGRect.zero, style: .grouped)
+            let tableView = OrderTableView(frame: CGRect.zero, style: .grouped)
             arr.append(tableView)
         }
         return arr
@@ -36,6 +41,8 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     var loadedIndex: Int = 0
     
     var needChange = true
+    //刷新全部
+    static var needUpdate = false
     
     var selectedIndex = 0 {
         didSet {
@@ -100,37 +107,20 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         for tableView in tableViewList {
             self.scrollView.addSubview(tableView)
             
-            tableView.addHeaderAction {
-                print("sdadsadas")
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3, execute: { 
-                    tableView.endHeaderRefresh()
-                })
+            let index = i
+            tableView.addHeaderAction { [unowned self] _ in
+                tableView.currentPage = 1
+                self.loadData(index: index, byPull: true)
             }
             
             tableView.autoLoadWhenIsBottom = false
             
-            tableView.addFooterAction {
-                print("aaaaaaaaa")
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3, execute: {
-                    tableView.endFooterRefresh()
-                })
+            tableView.addFooterAction { [unowned self] _ in
+                tableView.currentPage += 1
+                self.loadData(index: index, byPull: true)
             }
             
             tableView.dataSource = self
-            
-            //MARK: 假数据
-//            let c = OrderModel().build(cellClass: OrerListCell.self).build(heightForRow: 118)
-//            c.type = OrderType(rawValue: i)!
-//            
-//            c.setupCellAction({ [unowned self] (idx) in
-//                let vc = OrderDetailVC()
-//                if let data = tableView.dataArray[idx.section][idx.row] as? OrderModel {
-//                    vc.showPayBtn = data.type == .pay
-//                }
-//                self.navigationController?.pushViewController(vc, animated: true)
-//            })
-//            
-//            tableView.dataArray = [[c, c, c, c]]
             
             i += 1
         }
@@ -140,20 +130,54 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         loadedIndex = loadedIndex | (1 << selectedIndex)
     }
     
-    func loadData(index: Int? = nil) {
+    func loadData(index: Int? = nil, byPull: Bool = false) {
         let si = index ?? selectedIndex
-        if loadedIndex & (1 << si) == 0 {//没有请求过
-            tableViewList[si].beginHeaderRefresh()
+        if loadedIndex & (1 << si) == 0 || byPull {//没有请求过 或者 拉动刷新控件
+//            tableViewList[si].beginHeaderRefresh()
             loadedIndex = loadedIndex | (1 << si)
 //            method	string	apiorders	无
 //            fState	string	订单状态	0待付款 1已付款 2待发货 3已发货 4完成 5关闭,多个用逗号分割
-            NetworkManager.requestPageInfoModel(params: ["method":"apiorders", "fState":"0", "currentPage":1, "pageSize":CustomValue.pageSize]).setSuccessAction(action: { (bm: BaseModel<OrderModel>) in
-                
+            var state = "0"
+            switch si {
+            case 0:
+                state = "0,1,2,3,4"
+            case 2:
+                state = "1,2"
+            case 3:
+                state = "3"
+            case 4:
+                state = "4"
+            default:
+                break
+            }
+            
+            let tableView = tableViewList[si]
+            NetworkManager.requestPageInfoModel(params: ["method":"apiorders", "fState":state, "currentPage":tableView.currentPage, "pageSize":CustomValue.pageSize]).setSuccessAction(action: { (bm: BaseModel<OrderModel>) in
+                tableView.endFooterRefresh()
+                tableView.endHeaderRefresh()
                 bm.whenSuccess {
-                    let tableView = self.tableViewList[1]
+                    if !bm.pageInfo!.hasNextPage {
+                        tableView.noMoreData()
+                    }
                     let arr = bm.pageInfo!.list!.map({ (c) -> OrderModel in
+                        
+                        var type = OrderType.pay
+                        // 0待付款 1已付款 2待发货 3已发货 4完成 5关闭 send, recive, evaluate, alreadyEvaluate, myEvaluate, myCollection, cookies, /*换货*/returned, /*换货中*/returning
+                        switch c.fState {
+                        case 0:
+                            type = .pay
+                        case 1, 2:
+                            type = .send
+                        case 3:
+                            type = .recive
+                        case 4:
+                            type = .evaluate
+                        default:
+                            break
+                        }
+                        
                         c.build(cellClass: OrerListCell.self).build(heightForRow: 118)
-                        c.type = OrderType(rawValue: 1)!
+                        c.type = type
                         
                         c.setupCellAction({ [unowned self] (idx) in
                             let vc = OrderDetailVC()
@@ -164,7 +188,14 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                         })
                         return c
                     })
-                    tableView.dataArray = [arr]
+                    if tableView.currentPage == 1 {
+                        tableView.dataArray = [arr]
+                    } else {
+                        var oldArr = tableView.dataArray[0] as! [OrderModel]
+                        oldArr.append(contentsOf: arr)
+                        tableView.dataArray = [oldArr]
+                    }
+                    
                     tableView.reloadData()
                 }
                 
@@ -180,6 +211,11 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     //MARK: 重写
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if OrderVC.needUpdate {
+            self.loadedIndex = 0
+            self.loadData()
+        }
+        OrderVC.needUpdate = false
     }
     
     override func viewDidLayoutSubviews() {
@@ -218,7 +254,10 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         cell.reciveAction = { [unowned self] _ in
             if let model = data as? OrderModel {
                 if model.type == .evaluate {
-                    self.performSegue(withIdentifier: self.k_toEvaluateVC, sender: self)
+//                    self.performSegue(withIdentifier: self.k_toEvaluateVC, sender: self)
+                    let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: MyEvaluateVC.self) as! MyEvaluateVC
+                    vc.orderModel = model
+                    self.navigationController?.pushViewController(vc, animated: true)
                 } else if model.type == OrderType.recive {
                     let alert = AlertVC()
                     self.present(alert, animated: true, completion: nil)
@@ -234,6 +273,11 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return -1

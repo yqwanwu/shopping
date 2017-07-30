@@ -40,7 +40,7 @@ class PayWayVC: BaseViewController, UITableViewDelegate {
     
     @IBAction func ac_ok(_ sender: Any) {
         /*
-         method	string	apiPayforalipay	无
+         method	string	apiPayforAPP	无
          fOrderid	string	前台获取	订单ID用','串联
          fType	string	前台获取	0订单 1充值
          fAmount	string	前台获取	付款金额
@@ -48,11 +48,11 @@ class PayWayVC: BaseViewController, UITableViewDelegate {
          isUseIntegral	string	前台获取	是否使用积分0否1是
          useIntegral	string	前台获取	使用积分数量
          isUseUserAmount	string	前台获取	是否使用余额0否1是
-         useUserAmount	string	前台获取	使用余额数量
+         useUserAmount	string	前台获取	使用余额
  */
-//        let params = ["method":"apiPayforalipay", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+        let params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
         
-        let params = ["method":"apiPayforAPP", "fOrderid":"3725114078400241", "fType":"0", "fAmount":0.01, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+//        let params = ["method":"apiPayforAPP", "fOrderid":"3725114078400241", "fType":"0", "fAmount":0.01, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
         
         NetworkManager.JsonPostRequest(params: params, success: { (json) in
             if json["code"].stringValue == "0" {

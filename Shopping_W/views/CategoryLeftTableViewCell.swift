@@ -16,18 +16,13 @@ class CategoryLeftTableViewCell: CustomTableViewCell {
     static let textColor = UIColor.hexStringToColor(hexString: "888888")
     static let bkColor = UIColor.hexStringToColor(hexString: "efefef")
     
-    override var isSelected: Bool {
-        didSet {
-            self.redVIew.isHidden = !isSelected
-            self.titleLabel.textColor = isSelected ? CustomValue.common_red : CategoryLeftTableViewCell.textColor
-            self.contentView.backgroundColor = isSelected ? CategoryVC.bkColor : CategoryLeftTableViewCell.bkColor
-        }
-    }
-    
     override var model: CustomTableViewCellItem? {
         didSet {
             if let m = model as? CategoryModel {
                 self.titleLabel.text = m.fCategoryname
+                self.redVIew.isHidden = !m.isSelected
+                self.titleLabel.textColor = m.isSelected ? CustomValue.common_red : CategoryLeftTableViewCell.textColor
+                self.contentView.backgroundColor = m.isSelected ? CategoryVC.bkColor : CategoryLeftTableViewCell.bkColor
             }
         }
     }

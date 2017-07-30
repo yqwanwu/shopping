@@ -32,5 +32,7 @@ class CategoryModel: CustomTableViewCellItem {
     var fChangedays = 0
     var fRecoReward = 0
     
+    var isSelected = false
+    
 //    func requestData
 }

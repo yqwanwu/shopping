@@ -91,6 +91,11 @@ class OrerListCell: CustomTableViewCell {
                 default:
                     break
                 }
+                let ex = m.OrderEx
+                self.imgView.sd_setImage(with: URL.encodeUrl(string: ex.fUrl))
+                self.titleLabel.text = ex.fGoodsname
+                self.priceLabel.text = m.fSaleamount.moneyValue()
+                self.countLabel.text = "\(ex.fSpecifications)  x\(ex.fCount)"
             } else if let m = model as? CarModel {
                 self.imgView.sd_setImage(with: URL.encodeUrl(string: m.F_GoodImg))
                 self.titleLabel.text = m.F_GoodsName

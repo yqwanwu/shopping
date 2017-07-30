@@ -157,7 +157,7 @@ class ModelParser: NSObject {
 //                                    typeStr = header + "." + typeStr
 //                                }
                                 
-                                if let clazz = NSClassFromString(typeStr), let v = val as? NSDictionary {
+                                if let clazz = NSClassFromString(typeStr) ?? NSClassFromString(header + "." + typeStr), let v = val as? NSDictionary {
                                     let obj = clazz.alloc()
                                     let _ = parse(dic: v , model: obj as! NSObject, originalModel: originalModel)
                                     modelObj.setValue(obj, forKey: child.label!)

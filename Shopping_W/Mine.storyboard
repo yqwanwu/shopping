@@ -170,7 +170,7 @@
         <!--评价-->
         <scene sceneID="FG6-UL-5xT">
             <objects>
-                <viewController title="评价" id="5Ee-gg-qmc" customClass="MyEvaluateVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyEvaluateVC" title="评价" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5Ee-gg-qmc" customClass="MyEvaluateVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9v6-hY-oMT"/>
                         <viewControllerLayoutGuide type="bottom" id="0f9-NL-ddo"/>

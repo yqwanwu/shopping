@@ -98,7 +98,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         }
         
         requestData()
-        
+        self.typeHeight.constant = 76
         self.scrollBk.addSubview(webView)
         webView.snp.makeConstraints { (make) in
             make.top.equalTo(self.evaluateBk.snp.bottom).offset(8)
@@ -119,6 +119,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         starView.isPanGestureEnable = false
         
         evaluateCountLabel.text = "\(model.fFivestarperc)的用户选择了好评"
+        
+        self.title = model.fGoodsname
         
         switch detailModel.fPromotiontype {
         case 1:
@@ -201,7 +203,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         layout.minimumLineSpacing = 5
         itemView = GoodsTypeView(frame: CGRect.zero, collectionViewLayout: layout)
         
-        itemView.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        itemView.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 8, right: 8)
         
         itemView.types = list ?? [GoodsTypeModel]()
         
@@ -209,7 +211,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             return self.itemView.getSize(idx: idx)
         }
         layout.caculateComplete = { [unowned self] _ in
-            self.typeHeight.constant = 78 + layout.maxY + 8
+            self.typeHeight.constant = 76 + layout.maxY
         }
         
         itemView.clickAction = { [unowned self] _ in

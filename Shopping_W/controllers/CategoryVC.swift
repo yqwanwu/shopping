@@ -14,7 +14,6 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     @IBOutlet weak var searchBtn: UIButton!
     @IBOutlet weak var tableView: CustomTableView!
     @IBOutlet weak var collectionView: UICollectionView!
-    var currentTableCell: UITableViewCell?
     let cellWidth: CGFloat = 80
     
     var goodsList = [GoodsModel]()
@@ -29,6 +28,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         return p
     } ()
     
+    var selectedModel = CategoryModel()
     static let bkColor = UIColor.hexStringToColor(hexString: "f9f9f9")
     
     override func viewDidLoad() {
@@ -61,14 +61,14 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
                     return model.build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 70)
                 })
                 self.tableView.dataArray = [arr]
-                
+                self.selectedModel = arr[0]
+                self.selectedModel.isSelected = true
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                     if arr.count > 0 {
                         self.CurrentCategoryId = arr[0].fCategoryid
                         self.requestGoodsData()
                     }
-                    self.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.top)
                 }
             }
         }) { (err) in
@@ -84,6 +84,9 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         let params = ["method":"apigoodslist", "fCategoryid":CurrentCategoryId, "currentPage":currentPage, "pageSize":20] as [String : Any]
         NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<GoodsModel>) in
             self.refreshContrl.endRefresh()
+            if !bm.pageInfo!.hasNextPage {
+                self.refreshContrl.footer?.state = .noMoreData
+            }
             bm.whenSuccess {
                 self.goodsList.append(contentsOf: (bm.pageInfo?.list)!)
                 self.collectionView.reloadData()
@@ -96,10 +99,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     //MARK: 重写
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if currentTableCell == nil {
-            currentTableCell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
-            currentTableCell?.isSelected = true
-        }
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -115,19 +115,21 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     
     //MARK: 代理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = self.tableView.cellForRow(at: indexPath) as! CategoryLeftTableViewCell
-        
-        if cell.isSelected {
+        let data = self.tableView.dataArray[indexPath.section][indexPath.row] as! CategoryModel
+        if data == selectedModel {
             return
         }
-        currentTableCell?.isSelected = false
-        cell.isSelected = true
-        let data = self.tableView.dataArray[indexPath.section][indexPath.row] as! CategoryModel
+        data.isSelected = true
+        selectedModel.isSelected = false
+        selectedModel = data
+        tableView.reloadData()
         
         goodsList.removeAll()
-        self.collectionView.reloadData()
-        self.currentPage = 1
         self.CurrentCategoryId = data.fCategoryid
+        self.collectionView.reloadData()
+        self.requestGoodsData()
+        self.currentPage = 1
+        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
