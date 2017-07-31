@@ -31,6 +31,7 @@ class FirstGoodsCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         tagBtn.layer.cornerRadius = CustomValue.btnCornerRadius
+        tagBtn.titleLabel?.lineBreakMode = .byTruncatingTail
     }
 
 }

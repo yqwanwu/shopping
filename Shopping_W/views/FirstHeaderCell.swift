@@ -34,22 +34,17 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     func requesIndexLabel() {
         NetworkManager.requestListModel(params: ["method":"apiindexlabels"]).setSuccessAction { (bm: BaseModel<FirstItem>) in
             bm.whenSuccess {
-                var arr = [FirstItem]()
-                var list = bm.list!
-                var i = 0
-                for item in FirstItem.defaultDatas {
-                    arr.append(item)
-                    if list.count > 0 {
-                        arr.append(list[0])
-                        list.remove(at: 0)
-                    }
-                    i += 1
+                let list = bm.list!
+                if !list.isEmpty {
+                    FirstItem.defaultDatas.insert(list, at: 0)
+                } else {
+                    var arr = [FirstItem]()
+                    arr.append(FirstItem(title: "健康中国", imgName: "健康"))
+                    arr.append(FirstItem(title: "特色中国", imgName: "特色中国"))
+                    arr.append(FirstItem(title: "清真专区", imgName: "清真专区"))
+                    arr.append(FirstItem(title: "绿色中国", imgName: "绿色专区"))
+                    FirstItem.defaultDatas.insert(arr, at: 0)
                 }
-                if list.count > 0 {
-                    arr.append(contentsOf: list)
-                }
-                
-                FirstItem.defaultDatas = arr
                 self.itemCollectionView.reloadData()
             }
         }
@@ -75,11 +70,18 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         return .none
     }
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if collectionView == carouselView {
+            return 1
+        }
+        return FirstItem.defaultDatas.count
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == carouselView {
             return topAdsData.count
         }
-        return FirstItem.defaultDatas.count
+        return FirstItem.defaultDatas[section].count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -91,8 +93,8 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FirstItemCollectionViewCell
-            cell.imgView.image = UIImage(named: FirstItem.defaultDatas[indexPath.row].imgName)
-            cell.titleLabel.text = FirstItem.defaultDatas[indexPath.row].fLabelname
+            cell.imgView.image = UIImage(named: FirstItem.defaultDatas[indexPath.section][indexPath.row].imgName)
+            cell.titleLabel.text = FirstItem.defaultDatas[indexPath.section][indexPath.row].fLabelname
             return cell
         }
         
@@ -113,7 +115,7 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             web.url = data.fLink
             topVC.navigationController?.pushViewController(web, animated: true)
         } else {
-            let data = FirstItem.defaultDatas[indexPath.row]
+            let data = FirstItem.defaultDatas[indexPath.section][indexPath.row]
             
             if data.fLabelname == "全部分类" {
                 topVC.tabBarController?.selectedIndex = 1
@@ -124,7 +126,7 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 } else {
                     vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self)
                     let listVC = vc as! GoodsListVC
-                    let t = FirstItem.defaultDatas[indexPath.row].fLabelname
+                    let t = FirstItem.defaultDatas[indexPath.section][indexPath.row].fLabelname
                     if t == "促销" {
                         listVC.type = .promotions
                     } else if t == "团购" {

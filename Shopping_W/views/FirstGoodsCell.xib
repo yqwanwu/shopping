@@ -58,7 +58,8 @@
                             <constraint firstAttribute="height" constant="30" id="VSP-tx-FRQ"/>
                             <constraint firstAttribute="width" constant="57" id="ZQh-wQ-mWS"/>
                         </constraints>
-                        <state key="normal" title="团购价">
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" title="团购价哦">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>

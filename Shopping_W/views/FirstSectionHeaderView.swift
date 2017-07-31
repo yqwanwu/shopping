@@ -9,10 +9,28 @@
 import UIKit
 
 class FirstSectionHeaderView: UICollectionReusableView {
+    @IBOutlet weak var hourLabel: UILabel!
+    @IBOutlet weak var minuteLabel: UILabel!
+    @IBOutlet weak var secondLabel: UILabel!
+    
+    var timer: Timer!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        let arr = [hourLabel, minuteLabel, secondLabel]
+        
+        for l in arr {
+            l?.layer.cornerRadius = 4
+            l?.clipsToBounds = true
+        }
+        
+        timer = Timer.scheduledTimer(1, action: { (t) in
+            
+        }, userInfo: nil, repeats: true)
+    }
+    
+    deinit {
+        self.timer.invalidate()
     }
     
 }
