@@ -27,7 +27,7 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         let top: CGFloat = CGFloat(200 - 70 * 2) / 3
         let left = (UIScreen.main.bounds.width - 80.0 * 4) / 5
         itemCollectionView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
-        
+        itemCollectionView.register(BLankHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
         requesIndexLabel()
     }
     
@@ -98,6 +98,17 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             return cell
         }
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if collectionView != carouselView && section > 0 {
+            return CGSize(width: self.frame.width, height: 20)
+        }
+        return CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

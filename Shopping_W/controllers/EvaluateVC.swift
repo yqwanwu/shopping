@@ -20,8 +20,6 @@ class EvaluateVC: BaseViewController {
         
         tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableViewAutomaticDimension
-        let c = CustomTableViewCellItem().build(cellClass: EvaluateCell.self)
-        tableView.dataArray = [[c, c, c]]
         
         tableView.addFooterAction { [unowned self] _ in
             self.currentPage += 1
@@ -49,7 +47,7 @@ class EvaluateVC: BaseViewController {
             self.tableView.endHeaderRefresh()
             self.tableView.endFooterRefresh()
             bm.whenSuccess {
-                var arr = self.tableView.dataArray[0] as! [EvaluationModel]
+                
                 let list = bm.pageInfo!.list!.map({ (model) -> EvaluationModel in
                     model.build(cellClass: EvaluateCell.self)
                     return model
@@ -61,8 +59,12 @@ class EvaluateVC: BaseViewController {
                 if self.currentPage == 1 {
                     self.tableView.dataArray = [list]
                 } else {
-                    arr.append(contentsOf: list)
-                    self.tableView.dataArray = [arr]
+                    if let arr = self.tableView.dataArray.first as? [EvaluationModel] {
+                        var newArr = arr
+                        newArr.append(contentsOf: list)
+                        self.tableView.dataArray = [newArr]
+                    }
+                    
                 }
                 self.tableView.reloadData()
             }

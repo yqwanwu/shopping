@@ -12,11 +12,11 @@ import UIKit
  *   商品评价
  */
 class EvaluationModel: CustomTableViewCellItem {
-    var fEvaluationtime = "" //评价时间
+    var fEvaluationtime = 0.0 //评价时间
     var fNickname = "" //用户昵称
     var fOrderid = 0 //订单ID
     var fStar = 0//评价等级
-    var fOrdertime = ""//订单时间
+    var fOrdertime = 0.0//订单时间
     var fHeadimgurl = ""//头像地址，相对
     var fGoodsid = 1//商品ID
     var fEvaluationid = 4//评价ID

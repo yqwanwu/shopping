@@ -21,7 +21,7 @@ class SecKillVC: BaseViewController {
         return t
     } ()
     
-    var currentPage = 1
+    var datas = [SecKillModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,51 +33,46 @@ class SecKillVC: BaseViewController {
         setupTabView()
         
         self.title = "秒杀"
-        
-        self.tableView.addHeaderAction { [unowned self] _ in
-            self.currentPage = 1
-            self.requestData()
-        }
-        self.tableView.addFooterAction { [unowned self] _ in
-            self.currentPage += 1
-            self.requestData()
-        }
-        self.tableView.beginHeaderRefresh()
+        requestData()
     }
     
     func requestData() {
-        let params = ["method":"apipromotions", "fTypes":GoodsListVC.ListType.seckill.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":currentPage, "pageSize":20] as [String : Any]
+//        method	string	apipromotionsforms	无
+//        fShopid	number	自行获取	商店ID
+//        fCategoryid	number	自行获取	分类ID
+//        fStates	string	自行获取	0未开始 1 进行中 2待发货 3已发货 4未成团 5已退款,多个用逗号分割
+//        fSalestates	string	自行获取	0未上架 1 已上架 2 自动下架，多个逗号分割
+//        fOrderbys	string	自行录入	排序字段 多个逗号分割 如 fSalesprice desc,fPurchasecount asc
+
         
-        NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
+        let params = ["method":"apipromotionsforms", "fSalestates":"1"] as [String : Any]
+        
+        NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<SecKillModel>) in
             self.tableView.endHeaderRefresh()
             self.tableView.endFooterRefresh()
             bm.whenSuccess {
-                if let list = bm.pageInfo?.list {
-                    var arr = list.map({ (model) -> PromotionModel in
-                        model.build(heightForRow: 118)
-                        model.build(cellClass: GoodsCommonTableViewCell.self)
-                        model.type = .seckill
-                        
-                        model.setupCellAction { [unowned self] (idx) in
+                if let list = bm.list {
+                    self.datas = list
+                    
+                    let arr = list.map({ (model) -> SecKillModel in
+                        let _ = model.exList.map({ (model) -> SecKillExtModel in
+                            model.build(heightForRow: 118)
+                            model.build(cellClass: GoodsCommonTableViewCell.self)
+                            
+                            model.setupCellAction { [unowned self] (idx) in
                             let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
                             vc.type = .seckill
                             
                             self.navigationController?.pushViewController(vc, animated: true)
-                        }
+                            }
+                            return model
+                        })
                         return model
                     })
-                    if self.currentPage > 1  {
-                        if self.tableView.dataArray.count > 0 {
-                            arr.insert(contentsOf: self.tableView.dataArray[0] as! [PromotionModel], at: 0)
-                            self.tableView.dataArray = [arr]
-                        }
-                    }
-                    self.tableView.dataArray = [arr]
+                    self.tableView.dataArray = [arr[self.headerView.selectedIndex].exList]
                     self.tableView.reloadData()
                 }
-                if !(bm.pageInfo?.hasNextPage ?? false) {
-                    self.tableView.pullTORefreshControl.footer?.state = .noMoreData
-                }
+                
             }
         }) { (err) in
             

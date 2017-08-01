@@ -16,9 +16,9 @@ class EvaluateCell: CustomTableViewCell {
     override var model: CustomTableViewCellItem? {
         didSet {
             if let m = model as? EvaluationModel {
-                starView.score = CGFloat(m.fStar) / 20.0
+                starView.score = CGFloat(m.fStar)
                 nameLabel.text = m.fNickname
-                detailLabel.text = m.fStartext
+                detailLabel.text = m.fContent
             }
         }
     }

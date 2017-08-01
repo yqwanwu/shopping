@@ -21,6 +21,8 @@ class GoodsListVC: BaseViewController {
     var currentPage = 1
     
     var type = ListType.normal
+    
+    var fOrderbys = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +46,10 @@ class GoodsListVC: BaseViewController {
     ///促销列表
     func requestPromotions() {
         if type != .normal && type != .level2 {
-            let params = ["method":"apipromotions", "fTypes":type.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":currentPage, "pageSize":20] as [String : Any]
+            var params = ["method":"apipromotions", "fTypes":type.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":currentPage, "pageSize":20] as [String : Any]
+            if fOrderbys != "" {
+                params["fOrderbys"] = fOrderbys
+            }
             
             NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
                 self.tableView.endHeaderRefresh()
@@ -61,7 +66,10 @@ class GoodsListVC: BaseViewController {
                 
             }
         } else {
-            let params = ["method":"apigoodslist", "fTags":tags, "currentPage":currentPage, "pageSize":20] as [String : Any]
+            var params = ["method":"apigoodslist", "fTags":tags, "currentPage":currentPage, "pageSize":20] as [String : Any]
+            if fOrderbys != "" {
+                params["fOrderby"] = fOrderbys
+            }
             NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<GoodsModel>) in
                 self.tableView.endHeaderRefresh()
                 self.tableView.endFooterRefresh()
@@ -129,9 +137,11 @@ class GoodsListVC: BaseViewController {
             arr.append(btn)
             btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             
-            let iv = UIImageView(frame: CGRect(x: self.view.frame.width / CGFloat(titles.count) / 2 + 20, y: 5, width: 24, height: 24))
-            iv.image = #imageLiteral(resourceName: "sort")
+            let iv = UIImageView(frame: CGRect(x: self.view.frame.width / CGFloat(titles.count) / 2 + 20, y: 5, width: 7, height: 14))
+            iv.image = #imageLiteral(resourceName: "nosort")
+            iv.tag = 1024
             btn.addSubview(iv)
+            btn.tag = 0
         }
         
         headerView.showSeparator = true
@@ -142,7 +152,29 @@ class GoodsListVC: BaseViewController {
         headerView.items = arr
         headerView.actions = { [unowned self] index in
             //do someThing
-            
+            var i = 0
+            for btn in self.headerView.items {
+                if let iv = btn.viewWithTag(1024) as? UIImageView {
+                    iv.image = #imageLiteral(resourceName: "nosort")
+                    if index == i {
+                        btn.tag += 1
+                        if self.type != .normal && self.type != .level2 {
+                            iv.image = (btn.tag & 1) == 0 ? #imageLiteral(resourceName: "up") : #imageLiteral(resourceName: "down")
+                            
+                            if index == 0 {
+                                self.fOrderbys = (btn.tag & 1) == 0 ? "fSalescount asc" : "fSalescount desc"
+                            } else {
+                                self.fOrderbys = (btn.tag & 1) == 0 ? "fSalesprice asc" : "fSalesprice desc"
+                            }
+                            
+                            self.tableView.beginHeaderRefresh()
+                        }
+                    } else {
+                        btn.tag = 0
+                    }
+                }
+                i += 1
+            }
         }
     }
 

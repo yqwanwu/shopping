@@ -239,10 +239,10 @@ class GoodsTypeView: UICollectionView, UICollectionViewDelegate, UICollectionVie
         }
     }
     
-    private class BLankHeaderView: UICollectionReusableView {
-        
-    }
 }
 
+class BLankHeaderView: UICollectionReusableView {
+    
+}
 
 

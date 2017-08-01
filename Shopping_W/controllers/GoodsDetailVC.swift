@@ -59,12 +59,14 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     @IBOutlet weak var evaluateCountLabel: UILabel!
     
+    var timer: Timer?
     
     var type = GoodsListVC.ListType.normal
     var currentPage = 1
     
     var detailModel = GoodsDetailModel()
     var goodsId: Int = 0
+    var promotionid = 0
     
     lazy var webView: WKWebView = {
         let w = WKWebView(frame: CGRect.zero)
@@ -87,7 +89,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         
         carBtn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
         carBtn.titleLabel?.font = UIFont.systemFont(ofSize: 11)
-        carBtn.badgeValue = "21"
+        carBtn.badgeValue = CarModel.getCount() == 0 ? nil : "\(CarModel.getCount())"
+        CarModel.requestList()
         serverbtn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
         serverbtn.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         
@@ -114,15 +117,15 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         self.nameLabel.text = model.fGoodsname
         self.typeLabel.text = model.fTags
         
-        starView.score = CGFloat(model.fFivestarperc) / 20.0
+        starView.score = 5
         starView.isTapGestureEnable = false
         starView.isPanGestureEnable = false
         
-        evaluateCountLabel.text = "\(model.fFivestarperc)的用户选择了好评"
+        evaluateCountLabel.text = "\(model.fFivestarperc)%的用户选择了好评"
         
         self.title = model.fGoodsname
         
-        switch detailModel.fPromotiontype {
+        switch self.type == .normal ? model.fPromotiontype : model.fType {
         case 1:
             self.type = .group
         case 2:
@@ -142,15 +145,30 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     func requestData() {
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
-        GoodsDetailModel.requestData(fGoodsid: goodsId).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
-            MBProgressHUD.hideHUD(forView: self.view)
-            if let m = bm.list?.first {
-                self.setupUI(model: m)
+        if self.type == .normal {
+            GoodsDetailModel.requestData(fGoodsid: goodsId).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
+                MBProgressHUD.hideHUD(forView: self.view)
+                if let m = bm.list?.first {
+                    self.detailModel = m
+                    self.setupUI(model: m)
+                } else {
+                    self.setupUI(model: GoodsDetailModel())
+                    MBProgressHUD.show(errorText: "服务器数据错误")
+                }
+                }.seterrorAction { (err) in
+                    MBProgressHUD.hideHUD(forView: self.view)
             }
-        }.seterrorAction { (err) in
-            MBProgressHUD.hideHUD(forView: self.view)
+        } else {
+            NetworkManager.requestListModel(params: ["method":"apipromotiondetail", "fPromotionid":promotionid]).setSuccessAction { (bm: BaseModel<GoodsDetailModel>) in
+                MBProgressHUD.hideHUD(forView: self.view)
+                if let m = bm.list?.first {
+                    self.detailModel = m
+                    self.setupUI(model: m)
+                }
+                }.seterrorAction { (err) in
+                    MBProgressHUD.hideHUD(forView: self.view)
+            }
         }
-        
         
         let params = ["method":"apievaluations", "fGoodsid":goodsId, "fStartext":"", "currentPage":currentPage, "pageSize":CustomValue.pageSize] as [String : Any]
         NetworkManager.requestPageInfoModel(params: params).setSuccessAction { (bm: BaseModel<EvaluationModel>) in
@@ -169,10 +187,18 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             
         } else if type == .promotions {//促销
             promotionsH = 45
+            setupPromotionMsg()
         } else if type == .seckill { // 秒杀
             seckillH = 70
+            setupTimer()
+            self.seckillNumber.text = "\(detailModel.fPromotioncount)"
         } else if type == .group { // 团购
             groupH = 73
+            
+            self.groupNUmber.text = "总数量\(detailModel.fPromotioncount)"
+            self.groupLaseTime.text = "剩余时间：" + self.getLasttime()
+            self.groupStartTime.text = "开始时间：" + ((self.detailModel.fStarttime.components(separatedBy: " ").first) ?? "")
+            self.groupEndTime.text = "结束时间：" + ((self.detailModel.fEndtime.components(separatedBy: " ").first) ?? "")
         }
         
         if promotionsH == 0 {
@@ -198,12 +224,75 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         }
     }
     
+    func setupPromotionMsg() {
+        //3:满减 4:买赠 5:多倍积分 6:折扣
+        switch detailModel.fType {
+        case 3:
+            self.promotionsLabel.text = "满\(detailModel.fPrice)减\(detailModel.fDeduction)"
+        case 4:
+            self.promotionsLabel.text = "赠送\(detailModel.fFreegoodsname)"
+        case 5:
+            self.promotionsLabel.text = "\(detailModel.fMintegral)倍积分"
+        case 6:
+            self.promotionsLabel.text = "折扣：\(detailModel.fDiscount)"
+        default:
+            break
+        }
+    }
+    
+    var sysTime = FirstSectionHeaderView.commonSysTime
+    func setupTimer() {
+        self.timer = Timer.scheduledTimer(1, action: { [unowned self] (t) in
+            if self.sysTime == 0 {
+                self.sysTime = Date(timeIntervalSinceNow: 0).timeIntervalSince1970
+            }
+            let validDate =  Date(timeIntervalSince1970: self.sysTime)
+            
+            self.sysTime += 1
+            
+            let m = self.detailModel
+            //测试时间用
+//                            m.fStarttime = "2017-08-1 12:12:12"
+            let format = DateFormatter()
+            format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let d = format.date(from: m.fStarttime) ?? Date(timeIntervalSinceNow: 0)
+            let startTime = d.timeIntervalSince1970
+            let currentTime = validDate.timeIntervalSince1970
+            
+            let sub = Int(startTime - currentTime)
+            if sub > 0 {
+                self.seckilltime.text = "\(sub / 3600):\((sub % 3600) / 60):\((sub % 60))"
+            }
+            
+            self.seckillLastTime.text = self.getLasttime()
+            
+            }, userInfo: nil, repeats: true)
+    }
+    
+    func getLasttime() -> String {
+        if self.sysTime == 0 {
+            self.sysTime = Date(timeIntervalSinceNow: 0).timeIntervalSince1970
+        }
+        let validDate =  Date(timeIntervalSince1970: self.sysTime)
+        
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let currentTime = validDate.timeIntervalSince1970
+        
+        let endDate = format.date(from: self.detailModel.fEndtime) ?? Date(timeIntervalSince1970: 0)
+        if endDate.timeIntervalSince1970 - currentTime > 0 {
+            return "剩余时间\(Int(endDate.timeIntervalSince1970 - currentTime) / 3600)小时"
+        } else {
+            return "0"
+        }
+    }
+    
     func setupTypeView(list: [GoodsTypeModel]?) {
         let layout = LeftAlignLayout()
         layout.minimumLineSpacing = 5
         itemView = GoodsTypeView(frame: CGRect.zero, collectionViewLayout: layout)
         
-        itemView.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 8, right: 8)
+        itemView.contentInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         
         itemView.types = list ?? [GoodsTypeModel]()
         
@@ -211,7 +300,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             return self.itemView.getSize(idx: idx)
         }
         layout.caculateComplete = { [unowned self] _ in
-            self.typeHeight.constant = 76 + layout.maxY
+            self.typeHeight.constant = 76 + (layout.maxY > 10 ? layout.maxY + 16 : layout.maxY)
         }
         
         itemView.clickAction = { [unowned self] _ in
@@ -320,6 +409,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             bm.whenSuccess {
                 MBProgressHUD.show(successText: "添加成功")
                 CarVC.needsReload = true
+                self.carBtn.badgeValue = CarModel.getCount() == 0 ? nil : "\(CarModel.getCount())"
             }
         }) { (err) in
             
@@ -355,6 +445,10 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         }
     }
 
+    
+    deinit {
+        self.timer?.invalidate()
+    }
 }
 
 extension GoodsDetailVC {

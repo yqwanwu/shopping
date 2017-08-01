@@ -50,19 +50,41 @@ import UIKit
 
 ///商品详情
 class GoodsDetailModel: NSObject, ParseModelProtocol {
-    var fGoodsid = 0
-    var fShopid = 0
-    var fCategoryid = 0
     
-    var fGoodsname = ""
     var fPromotiontype = 0
-    var fContentapp = ""
     var fCategoryname = ""
     var fShopname = ""
-    var fGoodscode = ""
-    var fTags = ""
     var fParams = ""
-    var fFivestarperc = 0
+    
+    //促销
+    var fstate = 0 // 0未开始 1 进行中 2待发货 3已发货 4未成团 5已退款
+    var fGoodsid = 0 //促销商品ID
+    var fFreegoodid = 0//赠送商品ID
+    var fPurchasecount = 0 //限购数量
+    var fStarttime = ""//活动开始时间
+    var fPromotionid = 0//促销ID
+    var fFivestarperc = 0//五星好评数
+    var fMintegral = 0//多倍积分倍数
+    var fPromotioncount = 0//促销数量
+    var fFreegoodsname = ""//赠送商品名称
+    var fStatename = ""
+    var fPrice = 0.0  //满额
+    var fGoodsname = ""
+    var fsalestate = 0//0未上架 1 已上架 2 自动下架到期和完成后自动下架，手动下架显示未上架
+    var fSalescount = 0//已卖出数量
+    var fDeduction = 0//减额
+    var fContentapp = ""//商品描述
+    var fTypename = ""
+    var fSalestatename = ""
+    var fDiscount = 0.0//折扣
+    var fSummary = ""//摘要
+    var fShopid = 0 //商店ID
+    var fTags = ""
+    var fCategoryid = 244//分类ID
+    var fEndtime = ""//结束时间
+    var fGoodscode = ""//货号
+    var fType = 0// 促销类别 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
+    
     
     var exList: [GoodsTypeModel]?
     var picList: [NSDictionary]?

@@ -209,6 +209,7 @@
 		96C403191EE79E51003A2318 /* CookiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C403181EE79E51003A2318 /* CookiesVC.swift */; };
 		96C4031B1EE7A864003A2318 /* ReturnedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C4031A1EE7A864003A2318 /* ReturnedVC.swift */; };
 		96C4031D1EE7D080003A2318 /* ReturnedDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C4031C1EE7D080003A2318 /* ReturnedDetailVC.swift */; };
+		96CCF7731F2F2716005F1AE9 /* SecKillModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CCF7721F2F2716005F1AE9 /* SecKillModel.swift */; };
 		96D5F6EB1F28936E00230C6A /* GoodsExtTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D5F6EA1F28936E00230C6A /* GoodsExtTypeModel.swift */; };
 		96DA5ABF1EE6880100E9CF8F /* MyEvaluateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DA5ABE1EE6880100E9CF8F /* MyEvaluateVC.swift */; };
 		96DA5AC21EE68EAD00E9CF8F /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DA5AC01EE68EAD00E9CF8F /* AlertVC.swift */; };
@@ -529,6 +530,7 @@
 		96C403181EE79E51003A2318 /* CookiesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CookiesVC.swift; sourceTree = "<group>"; };
 		96C4031A1EE7A864003A2318 /* ReturnedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReturnedVC.swift; sourceTree = "<group>"; };
 		96C4031C1EE7D080003A2318 /* ReturnedDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReturnedDetailVC.swift; sourceTree = "<group>"; };
+		96CCF7721F2F2716005F1AE9 /* SecKillModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecKillModel.swift; sourceTree = "<group>"; };
 		96D5F6EA1F28936E00230C6A /* GoodsExtTypeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsExtTypeModel.swift; sourceTree = "<group>"; };
 		96DA5ABE1EE6880100E9CF8F /* MyEvaluateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyEvaluateVC.swift; sourceTree = "<group>"; };
 		96DA5AC01EE68EAD00E9CF8F /* AlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
@@ -1179,6 +1181,7 @@
 				9643A82C1F10AA12009A5AC0 /* GoodsDetailModel.swift */,
 				9643A8301F10BE86009A5AC0 /* GoodsTypeModel.swift */,
 				9643A8341F10C5C3009A5AC0 /* BannerModel.swift */,
+				96CCF7721F2F2716005F1AE9 /* SecKillModel.swift */,
 			);
 			name = first;
 			sourceTree = "<group>";
@@ -1695,6 +1698,7 @@
 				96C3C7AC1F246BA900D05F42 /* TextVC.swift in Sources */,
 				968D036B1EEA971100DE32F9 /* base64.m in Sources */,
 				96902F2D1ECB334700B219D7 /* BaseTabBarController.swift in Sources */,
+				96CCF7731F2F2716005F1AE9 /* SecKillModel.swift in Sources */,
 				967187E71EE0FE1200DDD61B /* RewardTableViewCell.swift in Sources */,
 				968DFE521EE7E5F100DE32F9 /* WaitVC.swift in Sources */,
 				9674E2A41EE4F64D0004D9EE /* OrerListCell.swift in Sources */,

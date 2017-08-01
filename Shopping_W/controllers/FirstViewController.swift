@@ -21,6 +21,8 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
        return PullToRefreshControl(scrollView: self.collectionView).addDefaultHeader()
     } ()
     
+    var secKillList = [PromotionModel]()
+    
     //广告数据
     var topAdsData = [BannerModel]()
     //商品数据
@@ -63,7 +65,12 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         //添加刷新控件
         refreshContrl.header?.addAction(with: .refreshing, action: { [unowned self] _ in
             self.requestGoods()
+            self.requestSecKill()
         }).beginRefresh()
+        
+        
+        //MARK:一些初始化数据
+        CarModel.requestList()
     }
 
     //下方商品
@@ -76,6 +83,20 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
                 self.collectionView.reloadData()
         }.seterrorAction { (err) in
             self.refreshContrl.endRefresh()
+        }
+    }
+    
+    ///请求秒杀
+    func requestSecKill() {
+        let params = ["method":"apipromotions", "fTypes":GoodsListVC.ListType.seckill.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":1, "pageSize":4] as [String : Any]
+        
+        NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
+            bm.whenSuccess {
+                self.secKillList = bm.pageInfo!.list!
+                self.collectionView.reloadData()
+            }
+        }) { (err) in
+            
         }
     }
     
@@ -100,13 +121,15 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return 1
+        } else if section == 1 {
+            return self.secKillList.count
         } else {
             return self.goodsList.count
         }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -120,7 +143,14 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
                 cell.requestADs()
             }
             commonCell = cell
-        } else {
+        } else if indexPath.section == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FirstGoodsCell.getNameString(), for: indexPath) as! FirstGoodsCell
+            
+            let model = secKillList[indexPath.row]
+            cell.promotionModel = model
+            
+            commonCell = cell
+        } else if indexPath.section == 2 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FirstGoodsCell.getNameString(), for: indexPath) as! FirstGoodsCell
             
             let model = goodsList[indexPath.row]
@@ -144,21 +174,60 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: FirstSectionHeaderView.getNameString(), for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: FirstSectionHeaderView.getNameString(), for: indexPath) as! FirstSectionHeaderView
+        if indexPath.section == 2 {
+            header.titleLabel.text = "团购"
+            for label in header.subviews {
+                if label is UILabel {
+                    label.isHidden = true
+                }
+            }
+            header.titleLabel.isHidden = false
+        } else {
+            header.titleLabel.text = "秒杀"
+            if let p = self.secKillList.first {
+                header.model = p
+            }
+            for label in header.subviews {
+                label.isHidden = false
+            }
+        }
+        return header
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 1 {
+            return secKillList.isEmpty ? CGSize.zero : CGSize(width: self.view.frame.width, height: 50)
+        } else if section == 2 {
             return CGSize(width: self.view.frame.width, height: 50)
         }
         return CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section >= 1 {
+        if indexPath.section == 1 {
+            let goods = secKillList[indexPath.row]
+            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+            vc.promotionid = goods.fPromotionid
+            // 0:无 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
+            switch goods.fType {
+            case 0:
+                vc.type = .normal
+            case 1:
+                vc.type = .group
+            case 2:
+                vc.type = .seckill
+            case 3, 4, 5, 6:
+                vc.type = .promotions
+            default:
+                break
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else if indexPath.section == 2 {
             let goods = goodsList[indexPath.row]
             let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
             vc.goodsId = goods.fGoodsid
+            
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

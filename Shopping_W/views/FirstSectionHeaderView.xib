@@ -18,9 +18,9 @@
                     <rect key="frame" x="20" y="15" width="35" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="4I4-Zs-rTt"/>
-                        <constraint firstAttribute="width" constant="35" id="QB7-lN-UCn"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="35" id="QB7-lN-UCn"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -29,7 +29,7 @@
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="WjY-SZ-hiC"/>
-                        <constraint firstAttribute="width" constant="28" id="fh9-Yp-de7"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="28" id="fh9-Yp-de7"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -78,35 +78,46 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6SQ-90-tX7">
-                    <rect key="frame" x="55" y="49" width="341" height="1"/>
+                    <rect key="frame" x="0.0" y="47" width="396" height="1"/>
                     <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="deviceRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="ijW-iC-5fA"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CHx-CU-ZTG">
+                    <rect key="frame" x="0.0" y="0.0" width="396" height="1"/>
+                    <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="deviceRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="np2-Cp-W91"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="6SQ-90-tX7" secondAttribute="bottom" id="0ZD-a9-lMH"/>
+                <constraint firstAttribute="bottom" secondItem="6SQ-90-tX7" secondAttribute="bottom" constant="2" id="0ZD-a9-lMH"/>
                 <constraint firstItem="bJH-MZ-rPJ" firstAttribute="leading" secondItem="X4J-rb-w1a" secondAttribute="trailing" constant="6" id="2ty-q2-srC"/>
+                <constraint firstItem="CHx-CU-ZTG" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="7Uh-UN-cBp"/>
                 <constraint firstItem="bJH-MZ-rPJ" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="9b3-dt-FlW"/>
                 <constraint firstItem="Xld-2i-7N5" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="ASQ-du-7IJ"/>
                 <constraint firstItem="X4J-rb-w1a" firstAttribute="leading" secondItem="LEQ-K2-jJs" secondAttribute="trailing" constant="8" id="CUD-vx-yjM"/>
                 <constraint firstItem="Cgj-IJ-692" firstAttribute="leading" secondItem="Xld-2i-7N5" secondAttribute="trailing" constant="6" id="Dor-3W-aew"/>
+                <constraint firstItem="CHx-CU-ZTG" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="EYn-Gl-mif"/>
                 <constraint firstItem="Cgj-IJ-692" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="Jxu-cw-bbB"/>
                 <constraint firstItem="X4J-rb-w1a" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="Rn1-PR-CsG"/>
                 <constraint firstItem="Xld-2i-7N5" firstAttribute="leading" secondItem="Rii-tQ-zOs" secondAttribute="trailing" constant="6" id="VuT-Yw-IgK"/>
                 <constraint firstItem="Rii-tQ-zOs" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="ary-Qd-vc9"/>
                 <constraint firstItem="Rii-tQ-zOs" firstAttribute="leading" secondItem="bJH-MZ-rPJ" secondAttribute="trailing" constant="6" id="bzu-Jz-Po6"/>
+                <constraint firstItem="6SQ-90-tX7" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="cqU-g1-0Ks"/>
+                <constraint firstAttribute="trailing" secondItem="CHx-CU-ZTG" secondAttribute="trailing" id="fn2-Sb-h6n"/>
                 <constraint firstItem="LEQ-K2-jJs" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="hD3-gl-paS"/>
                 <constraint firstAttribute="trailing" secondItem="6SQ-90-tX7" secondAttribute="trailing" id="oe2-6r-aaO"/>
-                <constraint firstItem="6SQ-90-tX7" firstAttribute="leading" secondItem="LEQ-K2-jJs" secondAttribute="trailing" id="rPM-Wf-9LE"/>
                 <constraint firstItem="LEQ-K2-jJs" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="20" id="rkh-Nx-cld"/>
             </constraints>
             <connections>
                 <outlet property="hourLabel" destination="X4J-rb-w1a" id="qGc-JT-3Nw"/>
                 <outlet property="minuteLabel" destination="Rii-tQ-zOs" id="9fW-Q9-50d"/>
                 <outlet property="secondLabel" destination="Cgj-IJ-692" id="Vyj-UY-8tC"/>
+                <outlet property="titleLabel" destination="LEQ-K2-jJs" id="o1T-35-WZn"/>
             </connections>
             <point key="canvasLocation" x="-77" y="79"/>
         </collectionReusableView>

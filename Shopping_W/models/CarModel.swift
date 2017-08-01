@@ -49,9 +49,29 @@ class CarModel: CustomTableViewCellItem {
     }
     var selectedAction: BLANK_CLOSURE?
     
+    static var items = [CarModel]()
     
-    static func getList() -> BaseModel<CarModel> {
-        return NetworkManager.requestListModel(params: ["method":"apishopcartlist"])
+    static func requestList() {
+        NetworkManager.requestListModel(params: ["method":"apishopcartlist"]).setSuccessAction { (bm: BaseModel<CarModel>) in
+            if let list = bm.list {
+                CarModel.items = list
+            }
+        }
+    }
+    
+    ///传入id判断原来是否已有，不传就直接去items的数量
+    static func getCount(carId: Int? = nil) -> Int {
+        if let id = carId {
+            for item in items {
+                if item.F_ID == id {
+                    return items.count
+                }
+            }
+            
+            return items.count + 1
+        } else {
+            return items.count
+        }
     }
     
     /*

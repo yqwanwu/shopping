@@ -31,7 +31,7 @@ class CarVC: UIViewController, UITableViewDelegate {
     }
     
     func requestData() {
-        CarModel.getList().setSuccessAction { (bm) in
+        NetworkManager.requestListModel(params: ["method":"apishopcartlist"]).setSuccessAction { (bm: BaseModel<CarModel>) in
             self.tableVIew.endHeaderRefresh()
             bm.whenSuccess {
                 let arr = bm.list!.map({ (model) -> CarModel in
@@ -47,17 +47,20 @@ class CarVC: UIViewController, UITableViewDelegate {
                 
                 for item in arr {
                     item.selectedAction = { [unowned self] _ in
-                        for model in arr {
-                            if !model.isSelected {
-                                self.selectAllBtn.isSelected = false
-                                return
+                        if !self.updateByAllBtn {
+                            for model in arr {
+                                if !model.isSelected {
+                                    self.selectAllBtn.isSelected = false
+                                    return
+                                }
                             }
+                            let notSelected = arr.filter({ !$0.isSelected })
+                            self.selectAllBtn.isSelected = arr.count > 0 && notSelected.count < 1
                         }
-                        self.selectAllBtn.isSelected = arr.count > 0
                     }
                 }
                 
-                
+                CarModel.items = arr
                 self.tableVIew.dataArray = [arr]
                 self.tableVIew.reloadData()
             }
@@ -81,16 +84,19 @@ class CarVC: UIViewController, UITableViewDelegate {
         }
     }
     
+    private var updateByAllBtn = false
     @IBAction func ac_selectAll(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if self.tableVIew.dataArray.count < 1 {
             return
         }
+        updateByAllBtn = true
         for item in self.tableVIew.dataArray[0] {
             let model = item as! CarModel
             model.isSelected = sender.isSelected
         }
         self.tableVIew.reloadData()
+        updateByAllBtn = false
     }
     
     @IBAction func ac_submit(_ sender: UIButton) {
