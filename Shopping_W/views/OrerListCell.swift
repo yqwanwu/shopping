@@ -102,7 +102,38 @@ class OrerListCell: CustomTableViewCell {
                 self.priceLabel.text = m.F_SalesPrice.moneyValue()
                 self.countLabel.text = "\(m.F_ExString)  x\(m.F_Count)"
                 
+            } else if let m = model as? ReturnedModel {
+                //退货状态 null 显示申请换货按钮  0待审核 1待回寄 2待发货\待退款 3待收货 4完成
+                
+                reciveWidth.constant = 100
+                customLabel.isHidden = true
+                logisticsBtn.isHidden = true
+                reciveBtn.isHidden = false
+                switch m.fState {
+                case -1:
+                    reciveBtn.setTitle("申请退换货", for: .normal)
+                case 0:
+                    reciveBtn.setTitle("待审核", for: .normal)
+                case 1:
+                    reciveBtn.setTitle("待回寄", for: .normal)
+                case 2:
+                    reciveBtn.setTitle("待退款", for: .normal)
+                case 3:
+                    reciveBtn.setTitle("待收货", for: .normal)
+                case 4:
+                    reciveBtn.setTitle("完成", for: .normal)
+                default:
+                    customLabel.isHidden = false
+                    reciveBtn.isHidden = true
+                    break
+                }
+                
+                self.imgView.sd_setImage(with: URL.encodeUrl(string: m.fUrl))
+                self.titleLabel.text = m.fGoodsname
+                self.priceLabel.text = m.fSaleamount.moneyValue()
+                self.countLabel.text = "\(m.F_Specifications)  x\(m.fCount)"
             }
+            
         }
     }
 

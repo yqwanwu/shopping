@@ -10,12 +10,14 @@ import UIKit
 
 class ReturnedVC: BaseViewController, UITableViewDataSource {
 
-    lazy var tableView: CustomTableView = {
-        let t = CustomTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height), style: .plain)
+    lazy var tableView: RefreshTableView = {
+        let t = RefreshTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height), style: .plain)
         t.sectionHeaderHeight = 8
         t.dataSource = self
         return t
     } ()
+    
+    var currentPage = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +25,43 @@ class ReturnedVC: BaseViewController, UITableViewDataSource {
         self.title = "申请退单"
         
         self.view.addSubview(tableView)
+        requestData()
         
-        let c = OrderModel().build(cellClass: OrerListCell.self).build(heightForRow: 118)
-        c.type = .returned
+        self.tableView.addHeaderAction { [unowned self] _ in
+            self.currentPage = 1
+            self.requestData()
+        }
         
-        let c1 = OrderModel().build(cellClass: OrerListCell.self).build(heightForRow: 118)
-        c1.type = .returning
-        
-        tableView.dataArray = [[c, c, c, c1]]
+        self.tableView.addFooterAction { [unowned self] _ in
+            self.currentPage += 1
+            self.requestData()
+        }
+    }
+    
+    func requestData() {
+        NetworkManager.requestPageInfoModel(params: ["method":"apirefundlist"]).setSuccessAction { (bm: BaseModel<ReturnedModel>) in
+            bm.whenSuccess {
+                self.tableView.endFooterRefresh()
+                self.tableView.endHeaderRefresh()
+                let arr = bm.pageInfo!.list!.map({ (model) -> ReturnedModel in
+                    model.build(cellClass: OrerListCell.self).build(heightForRow: 118)
+                    return model
+                })
+                
+                if !bm.pageInfo!.hasNextPage {
+                    self.tableView.noMoreData()
+                }
+                
+                if self.currentPage == 1 {
+                    self.tableView.dataArray = [arr]
+                } else {
+                    var list = self.tableView.dataArray[0] as! [ReturnedModel]
+                    list.append(contentsOf: arr)
+                    self.tableView.dataArray = [list]
+                }
+                self.tableView.reloadData()
+            }
+        }
     }
     
     //MARK: 代理

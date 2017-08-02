@@ -409,7 +409,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             bm.whenSuccess {
                 MBProgressHUD.show(successText: "添加成功")
                 CarVC.needsReload = true
-                self.carBtn.badgeValue = CarModel.getCount() == 0 ? nil : "\(CarModel.getCount())"
+                self.carBtn.badgeValue = CarModel.getCount() == 0 ? nil : "\(CarModel.getCount(carId: Int(bm.ai) ?? 0))"
             }
         }) { (err) in
             

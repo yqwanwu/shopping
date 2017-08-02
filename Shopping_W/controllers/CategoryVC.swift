@@ -165,10 +165,12 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self) as! GoodsListVC
-        vc.type = .level2
+//        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self) as! GoodsListVC
+//        vc.type = .level2
+        let goods = goodsList[indexPath.section].list[indexPath.row]
+        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+        vc.goodsId = goods.fCategoryid
         self.navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     private class CollectionTitleHeader: UICollectionReusableView {
