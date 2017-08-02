@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import SnapKit
 
 class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     @IBOutlet weak var titleBack: UIView!
@@ -16,11 +17,11 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     @IBOutlet weak var collectionView: UICollectionView!
     let cellWidth: CGFloat = 80
     
-    var goodsList = [GoodsModel]()
+    var goodsList = [CategoryModel]()
+    var allList = [CategoryModel]()
     
     var currentPage = 1
-    var CurrentCategoryId = 0
-    
+
     lazy var refreshContrl: PullToRefreshControl = {
         let p = PullToRefreshControl(scrollView: self.collectionView)
         p.addDefaultHeader().addDefaultFooter()
@@ -39,25 +40,27 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         titleBack.bounds.size.width = self.view.frame.width - 40
         searchBtn.layer.cornerRadius = 6
 
+        collectionView.register(CollectionTitleHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
         requestCategoryData()
         
-        refreshContrl.header?.addAction(with: .refreshing, action: {
-            self.currentPage = 1
-            self.requestGoodsData()
-        })
-        refreshContrl.footer?.addAction(with: .refreshing, action: {
-            self.currentPage += 1
-            self.requestGoodsData()
-        })
+//        refreshContrl.header?.addAction(with: .refreshing, action: {
+//            self.currentPage = 1
+//            self.requestGoodsData()
+//        })
+//        refreshContrl.footer?.addAction(with: .refreshing, action: {
+//            self.currentPage += 1
+//            
+//        })
     }
     
     ///请求左边的数据
     func requestCategoryData() {
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        NetworkManager.requestListModel(params: ["method":"apicategorylist"], success: { (bm: BaseModel<CategoryModel>) in
+        NetworkManager.requestListModel(params: ["method":"apicategorylist", "fPid":"0"], success: { (bm: BaseModel<CategoryModel>) in
             MBProgressHUD.hideHUD(forView: self.view)
             bm.whenSuccess {
-                let arr = bm.list!.map({ (model) -> CategoryModel in
+                self.allList = bm.list!
+                let arr = bm.list!.filter({ $0.fPid == 0 }).map({ (model) -> CategoryModel in
                     return model.build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 70)
                 })
                 self.tableView.dataArray = [arr]
@@ -66,8 +69,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                     if arr.count > 0 {
-                        self.CurrentCategoryId = arr[0].fCategoryid
-                        self.requestGoodsData()
+                        self.getGoods()
                     }
                 }
             }
@@ -75,27 +77,19 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
             MBProgressHUD.hideHUD(forView: self.view)
         }
     }
-
-    ///请求商品信息
-    func requestGoodsData() {
-        if self.currentPage == 1 {
-            goodsList.removeAll()
-        }
-        let params = ["method":"apigoodslist", "fCategoryid":CurrentCategoryId, "currentPage":currentPage, "pageSize":20] as [String : Any]
-        NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<GoodsModel>) in
-            self.refreshContrl.endRefresh()
-            if !bm.pageInfo!.hasNextPage {
-                self.refreshContrl.footer?.state = .noMoreData
-            }
-            bm.whenSuccess {
-                self.goodsList.append(contentsOf: (bm.pageInfo?.list)!)
-                self.collectionView.reloadData()
-            }
-        }) { (err) in
-            self.refreshContrl.endRefresh()
-        }
-    }
     
+    func getGoods() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        let id = self.selectedModel.fCategoryid
+        self.goodsList = self.allList.filter({ $0.fPid == id })
+        for item in self.goodsList {
+            item.list = self.allList.filter({ $0.fPid == item.fCategoryid })
+        }
+        self.collectionView.reloadData()
+        MBProgressHUD.hideHUD(forView: self.view)
+    }
+
+
     //MARK: 重写
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -121,13 +115,13 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         }
         data.isSelected = true
         selectedModel.isSelected = false
-        selectedModel = data
         tableView.reloadData()
         
         goodsList.removeAll()
-        self.CurrentCategoryId = data.fCategoryid
-        self.collectionView.reloadData()
-        self.requestGoodsData()
+        self.selectedModel = data
+        self.getGoods()
+//        self.collectionView.reloadData()
+//        self.requestGoodsData()
         self.currentPage = 1
         
     }
@@ -136,21 +130,33 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         if let cell = self.tableView.cellForRow(at: indexPath) as? CategoryLeftTableViewCell {
             cell.isSelected = false
         }
+        
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return goodsList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return goodsList.count
+        return goodsList[section].list.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath) as! CollectionTitleHeader
+        
+        header.label.text = self.goodsList[indexPath.section].fCategoryname
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 40)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryGoodsCollectionViewCell.getNameString(), for: indexPath) as! CategoryGoodsCollectionViewCell
-        let goods = goodsList[indexPath.row]
-        cell.imgView.sd_setImage(with: URL.encodeUrl(string: goods.fUrl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
-        cell.titleLabel.text = goods.fGoodsname
+        let goods = goodsList[indexPath.section].list[indexPath.row]
+        cell.imgView.sd_setImage(with: URL.encodeUrl(string: goods.fPic), placeholderImage: #imageLiteral(resourceName: "placehoder"))
+        cell.titleLabel.text = goods.fCategoryname
         return cell
     }
     
@@ -165,4 +171,18 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         
     }
     
+    private class CollectionTitleHeader: UICollectionReusableView {
+        var label = UILabel()
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.addSubview(label)
+            label.snp.makeConstraints { (make) in
+                make.top.left.bottom.right.equalTo(self)
+            }
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
 }

@@ -10,18 +10,6 @@ import UIKit
 
 class CategoryModel: CustomTableViewCellItem {
     
-    /**
-     "fCategoryid": 4,
-     "fCategoryname": "鲜花 ",
-     "fOrder": 4,
-     "fIsdel": false,
-     "fParams": "[{\"name\":\"品牌\"}]",
-     "fPid": 0,
-     "fReturndays": 2,
-     "fChangedays": 6,
-     "fRecoReward": null
-    */
-    
     var fCategoryid = 0
     var fCategoryname = ""
     var fOrder = 0
@@ -33,6 +21,10 @@ class CategoryModel: CustomTableViewCellItem {
     var fRecoReward = 0
     
     var isSelected = false
+    
+    var fPic = ""
+    
+    var list = [CategoryModel]()
     
 //    func requestData
 }
