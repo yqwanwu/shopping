@@ -27,7 +27,6 @@ class ReturnedVC: BaseViewController, UITableViewDataSource {
         self.title = "申请退单"
         
         self.view.addSubview(tableView)
-        requestData()
         
         self.tableView.addHeaderAction { [unowned self] _ in
             self.currentPage = 1
@@ -38,6 +37,8 @@ class ReturnedVC: BaseViewController, UITableViewDataSource {
             self.currentPage += 1
             self.requestData()
         }
+        
+        self.tableView.beginHeaderRefresh()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,7 +50,7 @@ class ReturnedVC: BaseViewController, UITableViewDataSource {
     }
     
     func requestData() {
-        NetworkManager.requestPageInfoModel(params: ["method":"apirefundlist"]).setSuccessAction { (bm: BaseModel<ReturnedModel>) in
+        NetworkManager.requestPageInfoModel(params: ["method":"apirefundlist", "currentPage":currentPage, "pageSize":CustomValue.pageSize]).setSuccessAction { (bm: BaseModel<ReturnedModel>) in
             bm.whenSuccess {
                 self.tableView.endFooterRefresh()
                 self.tableView.endHeaderRefresh()
