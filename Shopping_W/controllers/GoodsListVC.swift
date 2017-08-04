@@ -23,6 +23,7 @@ class GoodsListVC: BaseViewController {
     var type = ListType.normal
     
     var fOrderbys = ""
+    var categoryId = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,9 @@ class GoodsListVC: BaseViewController {
             }
         } else {
             var params = ["method":"apigoodslist", "fTags":tags, "currentPage":currentPage, "pageSize":20] as [String : Any]
+            if self.type == .level2 {
+                params["fCategoryid"] = categoryId
+            }
             if fOrderbys != "" {
                 params["fOrderby"] = fOrderbys
             }
@@ -107,10 +111,19 @@ class GoodsListVC: BaseViewController {
                 let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
                 vc.type = self.type
                 if let m = model as? GoodsModel {
+                    if self.type == .level2 {
+                        vc.type = .normal
+                    }
                     vc.goodsId = m.fGoodsid
+                } else if let model = model as? PromotionModel {
+                    vc.promotionid = model.fPromotionid
                 }
+                
+                
+                
                 self.navigationController?.pushViewController(vc, animated: true)
             }
+            
             return model
         })
         if self.currentPage > 1  {
@@ -158,17 +171,21 @@ class GoodsListVC: BaseViewController {
                     iv.image = #imageLiteral(resourceName: "nosort")
                     if index == i {
                         btn.tag += 1
+                        iv.image = (btn.tag & 1) == 0 ? #imageLiteral(resourceName: "up") : #imageLiteral(resourceName: "down")
                         if self.type != .normal && self.type != .level2 {
-                            iv.image = (btn.tag & 1) == 0 ? #imageLiteral(resourceName: "up") : #imageLiteral(resourceName: "down")
-                            
                             if index == 0 {
                                 self.fOrderbys = (btn.tag & 1) == 0 ? "fSalescount asc" : "fSalescount desc"
                             } else {
                                 self.fOrderbys = (btn.tag & 1) == 0 ? "fSalesprice asc" : "fSalesprice desc"
                             }
-                            
-                            self.tableView.beginHeaderRefresh()
+                        } else {
+                            if index == 0 {
+//                                self.fOrderbys = (btn.tag & 1) == 0 ? "fSalescount asc" : "fSalescount desc"
+                            } else {
+                                self.fOrderbys = (btn.tag & 1) == 0 ? "fSalesprice asc" : "fSalesprice desc"
+                            }
                         }
+                        self.tableView.beginHeaderRefresh()
                     } else {
                         btn.tag = 0
                     }

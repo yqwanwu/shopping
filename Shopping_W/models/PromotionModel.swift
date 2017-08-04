@@ -57,15 +57,15 @@ class PromotionModel: CustomTableViewCellItem {
     var fFreegoodname = ""
     var fFreegoodId = -1
     var fSalescount = -1
-    var fSalesprice: NSNumber?
+    var fSalesprice = 0.0
     var fStatename = ""
     var fSalestate = 0
     
-    var fPrice: NSNumber?
+    var fPrice = 0.0
     var fGoodsname = ""
-    var fDeduction: NSNumber?
+    var fDeduction = 0.0
     var fTypename = ""
-    var fPromotionprice: NSNumber?
+    var fPromotionprice = 0.0
     var fShopname = ""
     var fSalestatename = ""
     var fDiscount = 0.0
@@ -74,4 +74,17 @@ class PromotionModel: CustomTableViewCellItem {
     var fCategoryid = 0
     var fEndtime = ""
     var fType = 0
+    
+    func geyEnumType() -> GoodsListVC.ListType {
+        switch self.fType {
+        case 1:
+            return GoodsListVC.ListType.group
+        case 2:
+            return GoodsListVC.ListType.seckill
+        case 3, 4 ,5, 6:
+            return GoodsListVC.ListType.promotions
+        default:
+            return GoodsListVC.ListType.normal
+        }
+    }
 }

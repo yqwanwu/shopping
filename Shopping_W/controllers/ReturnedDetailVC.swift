@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import Alamofire
 import MBProgressHUD
+import SwiftyJSON
 
 class ReturnedDetailVC: BaseViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet var topBtnArr: [UIButton]!
@@ -15,6 +17,9 @@ class ReturnedDetailVC: BaseViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var uploadBtn: UIButton!
     @IBOutlet weak var submitBtn: UIButton!
+    
+    var returnedModel: ReturnedModel!
+    var fImgs = ""
     
     let waitVC: WaitVC = {
         let w = Tools.getClassFromStorybord(sbName: .mine, clazz: WaitVC.self) as! WaitVC
@@ -74,7 +79,35 @@ class ReturnedDetailVC: BaseViewController, UIImagePickerControllerDelegate, UIN
     }
 
     @IBAction func ac_submit(_ sender: UIButton) {
-        self.view.addSubview(waitVC.view)
+        if !Tools.stringIsNotBlank(text: self.reasonText.text) {
+            MBProgressHUD.show(errorText: "请先填写退货理由")
+            return
+        }
+        if self.fImgs == "" {
+            MBProgressHUD.show(errorText: "请先上传照片")
+            return
+        }
+//        method	string	apiaddrefund	无
+//        fType	int	自行获取	0退货 1换货
+//        fOrderid	int	自行获取	订单id
+//        fOrderexid	int	自行获取	订单明细ID
+//        fReason	string	自行获取	退换货理由
+//        fImgs	String	自行获取	图片地址（相对），用JSON数组存储
+        let tag = self.topBtnArr.filter({ $0.isSelected }).first!.tag
+        let params = ["method":"apiaddrefund", "fType":tag, "fOrderid":returnedModel.fOrderid, "fOrderexid":returnedModel.fOeid, "fReason":self.reasonText.text!, "fImgs":fImgs] as [String : Any]
+        
+        MBProgressHUD.show()
+        NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+            MBProgressHUD.hideHUD()
+            if bm.isSuccess {
+                ReturnedVC.needReload = true
+                self.view.addSubview(self.waitVC.view)
+            } else {
+                MBProgressHUD.show(errorText: bm.message)
+            }
+        }) { (err) in
+            MBProgressHUD.hideHUD()
+        }
     }
     
     //MARK: 代理
@@ -86,9 +119,33 @@ class ReturnedDetailVC: BaseViewController, UIImagePickerControllerDelegate, UIN
         self.photoView.image = image
         self.photoView.contentMode = .scaleAspectFill
         
+        //上传路劲 refund
         if let data = UIImageJPEGRepresentation(image, 0.1) {
             let hud = MBProgressHUD.show(text: "上传中...", view: self.view, autoHide: false)
             hud.mode = .annularDeterminate
+            let header = NetworkManager.getAllparams(params: nil) as! [String:String]
+            let url = try! (NetworkManager.BASESERVER + "/uploadedFile/fileupaload?SaveFolder=refund").asURL()
+
+            Alamofire.upload(multipartFormData: { (multipartFormData) in
+                multipartFormData.append(data, withName: "file", fileName: "img.jpg", mimeType: "image/jpeg")
+            }, to: url, method: .post, headers: header, encodingCompletion: { (encodingResult) in
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    upload.responseString(completionHandler: { (resp) in
+                        hud.hide(animated: true)
+                        let j = JSON(parseJSON: resp.result.value ?? "")
+                        if j["success"].boolValue {
+                            self.fImgs = j["files"].rawString() ?? ""
+                            let dic = j["files"][0]
+                             self.photoView.sd_setImage(with: URL.encodeUrl(string: dic["f_SavePath"].stringValue), placeholderImage: #imageLiteral(resourceName: "placehoder"))
+                            self.photoView.contentMode = .scaleAspectFit
+                        }
+                    })
+                case .failure(let encodingError):
+                    print(encodingError)
+                }
+            })
+            
         }
         
         //图片控制器退出

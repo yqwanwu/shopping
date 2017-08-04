@@ -20,7 +20,7 @@ class FirstGoodsCell: UICollectionViewCell {
             if let m = model {
                 titleLabel.text = m.fGoodsname
                 specsLabel.text = m.fNo
-                priceLabel.text = "¥\(m.fSalesprice.doubleValue.moneyValue())"
+                priceLabel.text = "¥\(m.fSalesprice.moneyValue())"
                 tagBtn.setTitle(m.fTags, for: .normal)
                 ImgView.sd_setImage(with: URL.encodeUrl(string: m.fUrl))
             }
@@ -32,7 +32,7 @@ class FirstGoodsCell: UICollectionViewCell {
             if let m = promotionModel {
                 titleLabel.text = m.fGoodsname
                 specsLabel.text = m.fNo
-                priceLabel.text = "¥\((m.fSalesprice?.doubleValue ?? 0.0).moneyValue())"
+                priceLabel.text = "¥\(m.fSalesprice.moneyValue())"
                 tagBtn.setTitle("秒杀", for: .normal)
                 ImgView.sd_setImage(with: URL.encodeUrl(string: m.fUrl))
             }

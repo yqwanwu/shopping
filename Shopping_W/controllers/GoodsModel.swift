@@ -33,7 +33,7 @@ class GoodsModel: CustomTableViewCellItem {
     var fNo = ""
     var fCategoryname = ""
     var fGoodsid = 0
-    var fSalesprice = NSNumber(value: 0.0)
+    var fSalesprice = 0.0
     var fShopid = 0
     var fStock = 0
     ///标签

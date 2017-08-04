@@ -1717,7 +1717,7 @@
                                                     <action selector="ac_return:" destination="Eoi-Vu-oNR" eventType="touchUpInside" id="WOE-Zn-E19"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cy-m4-28K">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cy-m4-28K">
                                                 <rect key="frame" x="179" y="14" width="69" height="22"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="69" id="bAD-nX-e2a"/>

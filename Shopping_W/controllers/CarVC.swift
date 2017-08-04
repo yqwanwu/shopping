@@ -40,6 +40,20 @@ class CarVC: UIViewController, UITableViewDelegate {
                         .build(heightForRow: 137)
                     model.setupCellAction { [unowned self] (idx) in
                         let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+                        switch model.F_Type {
+                        case 0:
+                            vc.type = .normal
+                        case 1:
+                            vc.type = .group
+                        case 2:
+                            vc.type = .seckill
+                        case 3, 4, 5, 6:
+                            vc.type = .promotions
+                        default:
+                            break
+                        }
+                        vc.promotionid = model.F_PromotionID
+                        vc.goodsId = model.F_GoodsID
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                     return model
@@ -81,6 +95,10 @@ class CarVC: UIViewController, UITableViewDelegate {
         
         if CarVC.needsReload {
             self.requestData()
+        }
+        
+        if let nav = self.tabBarController?.viewControllers?.first as? UINavigationController {
+            nav.popToRootViewController(animated: true)
         }
     }
     

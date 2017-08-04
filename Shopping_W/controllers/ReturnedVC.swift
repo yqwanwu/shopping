@@ -17,6 +17,8 @@ class ReturnedVC: BaseViewController, UITableViewDataSource {
         return t
     } ()
     
+    static var needReload = false
+    
     var currentPage = 1
     
     override func viewDidLoad() {
@@ -35,6 +37,14 @@ class ReturnedVC: BaseViewController, UITableViewDataSource {
         self.tableView.addFooterAction { [unowned self] _ in
             self.currentPage += 1
             self.requestData()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if ReturnedVC.needReload {
+            ReturnedVC.needReload = false
+            self.tableView.beginHeaderRefresh()
         }
     }
     
@@ -67,10 +77,15 @@ class ReturnedVC: BaseViewController, UITableViewDataSource {
     //MARK: 代理
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.createDefaultCell(indexPath: indexPath) as! OrerListCell
-        cell.reciveAction = { [unowned self] _ in
-            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ReturnedDetailVC.self) as! ReturnedDetailVC
-            self.navigationController?.pushViewController(vc, animated: true)
+        let model = self.tableView.dataArray[indexPath.section][indexPath.row] as! ReturnedModel
+        if model.fState < 0 {
+            cell.reciveAction = { [unowned self] _ in
+                let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ReturnedDetailVC.self) as! ReturnedDetailVC
+                vc.returnedModel = model
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
+        
         return cell
     }
     

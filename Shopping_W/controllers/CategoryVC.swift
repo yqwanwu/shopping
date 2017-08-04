@@ -165,12 +165,29 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self) as! GoodsListVC
-//        vc.type = .level2
         let goods = goodsList[indexPath.section].list[indexPath.row]
-        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
-        vc.goodsId = goods.fCategoryid
+        let id = goods.fCategoryid
+        
+        MBProgressHUD.show()
+        let list = self.allList.filter({ $0.fPid == id })
+        MBProgressHUD.hideHUD()
+        
+//        if list.isEmpty {
+//            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+//            vc.goodsId = goods.fCategoryid
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        } else {
+//            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self) as! GoodsListVC
+//            vc.type = .level2
+//            vc.categoryId = goods.fCategoryid
+//        self.navigationController?.pushViewController(vc, animated: true)
+//        }
+        
+        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self) as! GoodsListVC
+        vc.type = .level2
+        vc.categoryId = goods.fCategoryid
         self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     private class CollectionTitleHeader: UICollectionReusableView {
