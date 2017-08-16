@@ -180,7 +180,7 @@ class GoodsListVC: BaseViewController {
                             }
                         } else {
                             if index == 0 {
-//                                self.fOrderbys = (btn.tag & 1) == 0 ? "fSalescount asc" : "fSalescount desc"
+                                self.fOrderbys = (btn.tag & 1) == 0 ? "fSalescount asc" : "fSalescount desc"
                             } else {
                                 self.fOrderbys = (btn.tag & 1) == 0 ? "fSalesprice asc" : "fSalesprice desc"
                             }

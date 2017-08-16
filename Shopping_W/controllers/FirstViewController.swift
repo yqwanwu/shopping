@@ -75,7 +75,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
 
     //下方商品
     func requestGoods() {
-        let params = ["method":"apigoodslist", "currentPage":"1", "pageSize":"20"] as [String:Any]
+        let params = ["method":"apigoodslist", "currentPage":"1", "pageSize":"16"] as [String:Any]
         NetworkManager.requestPageInfoModel(params: params)
             .setSuccessAction { (bm: BaseModel<GoodsModel>) in
                 self.refreshContrl.endRefresh()

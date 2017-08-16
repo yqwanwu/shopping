@@ -47,7 +47,7 @@ class SecKillVC: BaseViewController {
         
         let params = ["method":"apipromotionsforms", "fSalestates":"1"] as [String : Any]
         
-        NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<SecKillModel>) in
+        NetworkManager.requestListModel(params: params, success: { (bm: BaseModel<SecKillModel>) in
             self.tableView.endHeaderRefresh()
             self.tableView.endFooterRefresh()
             bm.whenSuccess {

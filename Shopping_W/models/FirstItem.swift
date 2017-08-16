@@ -13,6 +13,7 @@ class FirstItem: CustomTableViewCellItem {
     
     var fLabelid = 0
     var fLabelname = ""
+    var fLabelimg = ""
 
     
     var type = GoodsListVC.ListType.normal

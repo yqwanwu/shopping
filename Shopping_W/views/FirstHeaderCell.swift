@@ -93,7 +93,13 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FirstItemCollectionViewCell
-            cell.imgView.image = UIImage(named: FirstItem.defaultDatas[indexPath.section][indexPath.row].imgName)
+            let  item = FirstItem.defaultDatas[indexPath.section][indexPath.row]
+            if item.fLabelimg != "" {
+                cell.imgView.sd_setImage(with: URL.encodeUrl(string: item.fLabelimg))
+            } else {
+                cell.imgView.image = UIImage(named: item.imgName)
+            }
+            
             cell.titleLabel.text = FirstItem.defaultDatas[indexPath.section][indexPath.row].fLabelname
             return cell
         }

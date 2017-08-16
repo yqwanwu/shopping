@@ -14,8 +14,8 @@ import ObjectMapper
 
 class NetworkManager: NSObject {
     
-    static let SERBERURL = "http://111.161.41.28:8088/tjgy/api"
-    static let BASESERVER = "http://111.161.41.28:8088/tjgy"
+    static let SERBERURL = "http://111.161.41.28:8088/czw/api"
+    static let BASESERVER = "http://111.161.41.28:8088/czw"
     
     static let REQUEST_ERROR = "请求失败"
     
