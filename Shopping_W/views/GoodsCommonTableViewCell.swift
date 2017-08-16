@@ -57,7 +57,14 @@ class GoodsCommonTableViewCell: CustomTableViewCell {
                         commonLabel.isHidden = true
                     }
                 }
-            } 
+            } else if let m = model as? SecKillExtModel {
+                commonLabel.isHidden = true
+                nameLabel.text = m.fGoodsname
+                let desc = Tools.stringIsNotBlank(text: m.fSummary) ? m.fSummary : ""
+                descLabel.text = desc
+                imgView.sd_setImage(with: URL.encodeUrl(string: m.fPicurl))
+                currentPriceLabel.text = m.fSaleprice.moneyValue()
+            }
         }
     }
 

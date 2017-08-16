@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class SecKillVC: BaseViewController {
     
@@ -44,16 +45,14 @@ class SecKillVC: BaseViewController {
 //        fSalestates	string	自行获取	0未上架 1 已上架 2 自动下架，多个逗号分割
 //        fOrderbys	string	自行录入	排序字段 多个逗号分割 如 fSalesprice desc,fPurchasecount asc
 
-        
-        let params = ["method":"apipromotionsforms", "fSalestates":"1"] as [String : Any]
-        
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        let params = ["method":"apipromotionsforms"] as [String : Any]
         NetworkManager.requestListModel(params: params, success: { (bm: BaseModel<SecKillModel>) in
+            MBProgressHUD.hideHUD(forView: self.view)
             self.tableView.endHeaderRefresh()
             self.tableView.endFooterRefresh()
             bm.whenSuccess {
                 if let list = bm.list {
-                    self.datas = list
-                    
                     let arr = list.map({ (model) -> SecKillModel in
                         let _ = model.exList.map({ (model) -> SecKillExtModel in
                             model.build(heightForRow: 118)
@@ -62,46 +61,54 @@ class SecKillVC: BaseViewController {
                             model.setupCellAction { [unowned self] (idx) in
                             let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
                             vc.type = .seckill
-                            
+                            vc.promotionid = model.fPromotionid
                             self.navigationController?.pushViewController(vc, animated: true)
                             }
                             return model
                         })
                         return model
                     })
-                    self.tableView.dataArray = [arr[self.headerView.selectedIndex].exList]
+                    
+                    self.datas = arr
+                    
+                    self.tableView.dataArray = [arr[0].exList]
                     self.tableView.reloadData()
+                    
+                    //设置header
+                    var btnArr = [UIButton]()
+                    for m in arr {
+                        let btn = SecKillBtn(type: .custom)
+                        btn.setTitle(m.fDate, for: .normal)
+                        btn.topLabel.text = m.fTime
+                        btnArr.append(btn)
+                        
+                        btn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
+                    }
+                    self.headerView.items = btnArr
+                    self.headerView.layoutSubviews()
+                    self.headerView.selectedIndex = 0
                 }
                 
             }
         }) { (err) in
-            
+            MBProgressHUD.hideHUD(forView: self.view)
         }
     }
 
     
     func setupTabView() {
-        var arr = [UIButton]()
-        let titles = ["请购中asdasd", "即将开始", "即将开始", "即将开始", "即将开始", "即将开始", "即将开始"]
-        for title in titles {
-            let btn = SecKillBtn(type: .custom)
-            btn.setTitle(title, for: .normal)
-            btn.topLabel.text = "测试下下"
-            arr.append(btn)
-            
-            btn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
-        }
-        
         headerView.margin = 20
         
         headerView.showSeparator = true
         //隐藏下面的横线
         headerView.bottomView.isHidden = true
         headerView.backgroundColor = UIColor.white
-        headerView.items = arr
+        
+        self.headerView.items = [UIButton]()
+        
         headerView.actions = { [unowned self] index in
-            //do someThing
-            
+            self.tableView.dataArray = [self.datas[self.headerView.selectedIndex].exList]
+            self.tableView.reloadData()
         }
         
         //添加 半透明遮罩

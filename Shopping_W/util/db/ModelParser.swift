@@ -162,6 +162,7 @@ class ModelParser: NSObject {
                                     let _ = parse(dic: v , model: obj as! NSObject, originalModel: originalModel)
                                     modelObj.setValue(obj, forKey: child.label!)
                                 } else {
+//                                    print("\(val)  \(child.label)")
                                     modelObj.setValue(val, forKey: child.label!)
                                 }
                             }

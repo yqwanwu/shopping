@@ -9,20 +9,20 @@
 import UIKit
 
 class SecKillModel: CustomTableViewCellItem {
-
+    var fStarttime = 0.0
+    var fEndtime = 0.0
     var fTime = ""
     var fDate = ""
     var exList = [SecKillExtModel]()
-    
 }
 
 
 class SecKillExtModel: CustomTableViewCellItem {
-    var fEndtime: NSNumber?
+    var fEndtime = 0.0
     var fPromotioncount = 0
     var fPurchasecount = 0
     var fSaleprice = 0.0
-    var fOrder = ""
+    var fOrder = 0
     var fPromotionprice = 0.0
     var fSummary = ""
     var fGoodsname = ""
@@ -31,5 +31,7 @@ class SecKillExtModel: CustomTableViewCellItem {
     var fPromotionid = 0
     var fSalestate = 0
     var fPicurl = ""
+    
+    var type = GoodsListVC.ListType.seckill
 }
 
