@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import SwiftyJSON
 
 class MineVC: BaseViewController {
     let k_toReceiving = "toReceiving"
@@ -108,9 +109,14 @@ class MineVC: BaseViewController {
             if i != 0 {
                 let line = UIView(frame: CGRect(x: CGFloat(i) * btnW, y: 15, width: 1, height: 0))
                 line.backgroundColor = UIColor.hexStringToColor(hexString: "f4f4f4")
-                reciveBk.addSubview(line)
+                reciveBk.insertSubview(line, at: 0)
                 lines.append(line)
             }
+            
+            let badgeView = BadgeView.create()
+            badgeView.center = CGPoint(x: img.frame.maxX, y: img.frame.minY)
+            badgeView.tag = 1025
+            btn.addSubview(badgeView)
         }
         
         reciveBtns[0].tag = 1024
@@ -147,6 +153,35 @@ class MineVC: BaseViewController {
         self.navigationController?.pushViewController(SettingsVC(), animated: true)
     }
     
+    func requestCount() {
+        NetworkManager.JsonPostRequest(params: ["method":"apimyuserinfostate"], success: { (j) in
+            if !j["list"].arrayValue.isEmpty {
+                self.balanceLabel.text = "\(j["list"].arrayValue.first!["fAmount"].intValue)"
+                self.msgLabel.text = "\(j["list"].arrayValue.first!["fMessaagecount"].intValue)"
+                self.integralLabel.text = "\(j["list"].arrayValue.first!["fIntegral"].intValue)"
+            }
+        }) { (err) in
+            
+        }
+        
+        NetworkManager.JsonPostRequest(params: ["method":"apimyorderstates"], success: { (j) in
+
+            if !j["list"].arrayValue.isEmpty {
+                (self.reciveBtns[0].viewWithTag(1025) as! BadgeView).badgeValue = self.getCountStr(j: j, name: "fPendingpay")
+                (self.reciveBtns[1].viewWithTag(1025) as! BadgeView).badgeValue = self.getCountStr(j: j, name: "fPendingreceive")
+                (self.reciveBtns[2].viewWithTag(1025) as! BadgeView).badgeValue = self.getCountStr(j: j, name: "fPendingappraisal")
+                (self.reciveBtns[3].viewWithTag(1025) as! BadgeView).badgeValue = self.getCountStr(j: j, name: "fReturncount")
+            }
+        }) { (err) in
+            
+        }
+    }
+    
+    func getCountStr(j: JSON, name: String) -> String? {
+        let n = j["list"].arrayValue.first![name].intValue
+        return n == 0 ? nil : "\(n)"
+    }
+    
     //MARK: 重写
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -174,6 +209,8 @@ class MineVC: BaseViewController {
             self.nameLabel.text = person.fNickname
             self.phoneLabel.text = person.fPhone
         }
+        
+        requestCount()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

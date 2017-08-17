@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class PwdQuestion: CustomTableViewCellItem {
     var fQuestionid = 0 //问题ID
@@ -113,7 +114,25 @@ class ForgetPwdVC: BaseViewController {
     }
 
     @IBAction func ac_save(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        self.navigationController?.popViewController(animated: true)
+        var params = ["method":"apiSecurityEntry", "":""]
+        if segment.selectedIndex == 0 {
+            if !self.pwdPhoneView.phoneText.check() || !self.pwdPhoneView.codeText.check() || !self.pwdPhoneView.pwdText.check() {
+                return
+            }
+            
+            params["fActiontype"] = "u"
+            params["smsCode"] = self.pwdPhoneView.codeText.text
+            NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+                MBProgressHUD.hideHUD(forView: self.view)
+                bm.whenSuccess {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }, failture: { (err) in
+                MBProgressHUD.hideHUD(forView: self.view)
+            })
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,7 +148,7 @@ class ForgetPwdVC: BaseViewController {
         let p = touches.first?.location(in: self.view) ?? CGPoint.zero
         
         if !bkVIew.frame.contains(p) {
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
         }
     }
 }

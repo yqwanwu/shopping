@@ -38,6 +38,11 @@ class CarVC: UIViewController, UITableViewDelegate {
                     model.build(cellClass: CarTableViewCell.self)
                         .build(isFromStoryBord: true)
                         .build(heightForRow: 137)
+                    
+                    model.countAction = { _ in
+                        self.updateAllPrice()
+                    }
+                    
                     model.setupCellAction { [unowned self] (idx) in
                         let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
                         switch model.F_Type {
@@ -70,6 +75,7 @@ class CarVC: UIViewController, UITableViewDelegate {
                             }
                             let notSelected = arr.filter({ !$0.isSelected })
                             self.selectAllBtn.isSelected = arr.count > 0 && notSelected.count < 1
+                            self.updateAllPrice()
                         }
                     }
                 }
@@ -77,6 +83,7 @@ class CarVC: UIViewController, UITableViewDelegate {
                 CarModel.items = arr
                 self.tableVIew.dataArray = [arr]
                 self.tableVIew.reloadData()
+                self.updateAllPrice()
             }
         }.seterrorAction { (err) in
             self.tableVIew.endHeaderRefresh()
@@ -92,6 +99,11 @@ class CarVC: UIViewController, UITableViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if self.tableVIew.dataArray.count > 0 {
+            let arr = self.tableVIew.dataArray[0] as! [CarModel]
+            let notSelected = arr.filter({ !$0.isSelected })
+            self.selectAllBtn.isSelected = arr.count > 0 && notSelected.count < 1
+        }
         
         if CarVC.needsReload {
             self.requestData()
@@ -100,6 +112,21 @@ class CarVC: UIViewController, UITableViewDelegate {
         if let nav = self.tabBarController?.viewControllers?.first as? UINavigationController {
             nav.popToRootViewController(animated: true)
         }
+        self.updateAllPrice()
+    }
+    
+    func updateAllPrice() {
+        if self.tableVIew.dataArray.count < 1 {
+            return
+        }
+        var price = 0.0
+        let arr = self.tableVIew.dataArray[0] as! [CarModel]
+        for model in arr {
+            if model.isSelected {
+                price += Double(model.F_Count) * model.F_SalesPrice
+            }
+        }
+        self.allPriceLabel.text = "¥" + price.moneyValue()
     }
     
     private var updateByAllBtn = false
@@ -115,6 +142,7 @@ class CarVC: UIViewController, UITableViewDelegate {
         }
         self.tableVIew.reloadData()
         updateByAllBtn = false
+        self.updateAllPrice()
     }
     
     @IBAction func ac_submit(_ sender: UIButton) {

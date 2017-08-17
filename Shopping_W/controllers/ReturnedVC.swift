@@ -11,7 +11,7 @@ import UIKit
 class ReturnedVC: BaseViewController, UITableViewDataSource {
 
     lazy var tableView: RefreshTableView = {
-        let t = RefreshTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height), style: .plain)
+        let t = RefreshTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height - 64), style: .plain)
         t.sectionHeaderHeight = 8
         t.dataSource = self
         return t

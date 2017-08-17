@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class ModifyPwdVC: BaseViewController {
     @IBOutlet weak var bvView: UIView!
@@ -19,10 +20,31 @@ class ModifyPwdVC: BaseViewController {
         
         bvView.layer.cornerRadius = 4
         self.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        
+        pwd1.setCheck({Tools.stringIsNotBlank(text: $0.text)})
+        pwd2.setCheck({Tools.stringIsNotBlank(text: $0.text)})
     }
     
     @IBAction func ac_save(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        if !pwd1.check() || !pwd2.check() {
+            return
+        }
+        
+        if pwd1.text != pwd2.text {
+            MBProgressHUD.show(errorText: "两次密码输入不一致")
+            return
+        }
+        
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        let params = ["method":"apieditmyinofbysms", "fActiontype":"u", "fUserpass":self.pwd1.text!.MD5.uppercased()]
+        NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+            MBProgressHUD.hide(for: self.view, animated: true)
+            bm.whenSuccess {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }) { (err) in
+            MBProgressHUD.hide(for: self.view, animated: true)
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

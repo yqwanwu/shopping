@@ -31,6 +31,9 @@ class PwdPhoneView: UIView {
             let c = (tf.text ?? "").characters.count
             return c < 15 && c > 5
         }
+        codeText.setCheck { (tf) -> Bool in
+            return Tools.stringIsNotBlank(text: tf.text)
+        }
     }
     
 }
