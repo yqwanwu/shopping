@@ -15,6 +15,11 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     
     var topAdsData = [BannerModel]()
     weak var topVC: FirstViewController!
+    var itemW: CGFloat {
+        get {
+            return UIScreen.main.bounds.width > 320 ? 80.0 : 60
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,8 +29,11 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         carouselView.dataSource = self
         itemCollectionView.delegate = self
         itemCollectionView.dataSource = self
+        let nib = UINib(nibName: "FirstItemCollectionViewCell", bundle: Bundle.main)
+        itemCollectionView.register(nib, forCellWithReuseIdentifier: "cell1")
+        itemCollectionView.register(FirstItemCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         let top: CGFloat = CGFloat(200 - 70 * 2) / 3
-        let left = (UIScreen.main.bounds.width - 80.0 * 4) / 5
+        let left = (UIScreen.main.bounds.width - itemW * 4) / 5
         itemCollectionView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
         itemCollectionView.register(BLankHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
         requesIndexLabel()
@@ -49,6 +57,8 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             }
         }
     }
+    
+    
     
     func requestADs() {
         NetworkManager.requestListModel(params: ["method":"apibannerlist"])
@@ -92,18 +102,27 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             cell.imageView.sd_setImage(with: URL.encodeUrl(string: data.fPicurl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! FirstItemCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell1", for: indexPath) as! FirstItemCollectionViewCell
             let  item = FirstItem.defaultDatas[indexPath.section][indexPath.row]
             if item.fLabelimg != "" {
-                cell.imgView.sd_setImage(with: URL.encodeUrl(string: item.fLabelimg))
+                cell.imgView1.sd_setImage(with: URL.encodeUrl(string: item.fLabelimg))
             } else {
-                cell.imgView.image = UIImage(named: item.imgName)
+                cell.imgView1.image = UIImage(named: item.imgName)
             }
             
-            cell.titleLabel.text = FirstItem.defaultDatas[indexPath.section][indexPath.row].fLabelname
+            cell.titleLabel1.text = FirstItem.defaultDatas[indexPath.section][indexPath.row].fLabelname
             return cell
         }
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == carouselView {// 375 152
+            let w = UIScreen.main.bounds.width
+            return CGSize(width: w, height: w * 152.0 / 375.0)
+        }
+        
+        return CGSize(width: itemW, height: 70)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -111,6 +130,7 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+
         if collectionView != carouselView && section > 0 {
             return CGSize(width: self.frame.width, height: 20)
         }
@@ -121,7 +141,7 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         if collectionView == carouselView {
             return 0
         }
-        return (UIScreen.main.bounds.width - 80.0 * 4) / 5
+        return (UIScreen.main.bounds.width - itemW * 4) / 5
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

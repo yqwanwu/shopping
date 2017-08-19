@@ -14,6 +14,8 @@ class ModifyPwdVC: BaseViewController {
     @IBOutlet weak var pwd1: CheckTextFiled!
     @IBOutlet weak var pwd2: CheckTextFiled!
     @IBOutlet weak var titleLabel: UILabel!
+    
+    var isUpdateUserPwd = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,10 @@ class ModifyPwdVC: BaseViewController {
         
         pwd1.setCheck({Tools.stringIsNotBlank(text: $0.text)})
         pwd2.setCheck({Tools.stringIsNotBlank(text: $0.text)})
+        
+        if !isUpdateUserPwd {
+            self.titleLabel.text = "请修改支付密码"
+        }
     }
     
     @IBAction func ac_save(_ sender: UIButton) {
@@ -36,7 +42,8 @@ class ModifyPwdVC: BaseViewController {
         }
         
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        let params = ["method":"apieditmyinofbysms", "fActiontype":"u", "fUserpass":self.pwd1.text!.MD5.uppercased()]
+        var params = ["method":"apieditmyinofbysms", "fUserpass":self.pwd1.text!.MD5.uppercased()]
+        params["fActiontype"] = isUpdateUserPwd ? "u" : "p"
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             MBProgressHUD.hide(for: self.view, animated: true)
             bm.whenSuccess {

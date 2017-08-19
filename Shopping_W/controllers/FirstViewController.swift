@@ -155,7 +155,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             
             let model = goodsList[indexPath.row]
             cell.model = model
-            
+            cell.tagBtn.setTitle("团购", for: .normal)
             commonCell = cell
         }
         

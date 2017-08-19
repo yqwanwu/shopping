@@ -91,6 +91,7 @@ class CarModel: CustomTableViewCellItem {
     
     func delete(complete: BLANK_CLOSURE?) {
         NetworkManager.requestModel(params: ["method":"apidelshopcart", "fId":self.F_ID], success: { (bm: BaseModel<CodeModel>) in
+            CarModel.items = CarModel.items.filter({ $0.F_ID != self.F_ID })
             bm.whenSuccess {
                 complete?()
             }
