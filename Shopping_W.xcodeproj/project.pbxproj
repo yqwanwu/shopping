@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		141B88131F4812770048E230 /* FirstItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B88111F4812770048E230 /* FirstItemCollectionViewCell.swift */; };
 		141B88141F4812770048E230 /* FirstItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141B88121F4812770048E230 /* FirstItemCollectionViewCell.xib */; };
+		141DCCCB1F4827E100C88EDC /* QuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141DCCCA1F4827E100C88EDC /* QuestionVC.swift */; };
 		6A1F391A8A34CEFB964A8FF0 /* Pods_Shopping_W.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA01B7970DC670F35FAA7E35 /* Pods_Shopping_W.framework */; };
 		960622FE1F1C98440057FE70 /* BaseWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960622FD1F1C98430057FE70 /* BaseWebViewController.swift */; };
 		960623001F1EF1BF0057FE70 /* RegionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960622FF1F1EF1BF0057FE70 /* RegionModel.swift */; };
@@ -234,6 +235,7 @@
 /* Begin PBXFileReference section */
 		141B88111F4812770048E230 /* FirstItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		141B88121F4812770048E230 /* FirstItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstItemCollectionViewCell.xib; sourceTree = "<group>"; };
+		141DCCCA1F4827E100C88EDC /* QuestionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionVC.swift; sourceTree = "<group>"; };
 		1E59D34583AA3C9FCFB04633 /* Pods-Shopping_W.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopping_W.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shopping_W/Pods-Shopping_W.debug.xcconfig"; sourceTree = "<group>"; };
 		960622FD1F1C98430057FE70 /* BaseWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseWebViewController.swift; sourceTree = "<group>"; };
 		960622FF1F1EF1BF0057FE70 /* RegionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionModel.swift; sourceTree = "<group>"; };
@@ -648,6 +650,7 @@
 				96610A621ED5696400C117D6 /* LoginVC.swift */,
 				96610A681ED667F100C117D6 /* RegisterVC.swift */,
 				96610A6C1ED67AB400C117D6 /* ForgetPwdVC.swift */,
+				141DCCCA1F4827E100C88EDC /* QuestionVC.swift */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -1746,6 +1749,7 @@
 				96610A6F1ED686F000C117D6 /* PwdPhoneView.swift in Sources */,
 				9643A8311F10BE86009A5AC0 /* GoodsTypeModel.swift in Sources */,
 				96B166EF1F0F58D00078C65C /* GoodsModel.swift in Sources */,
+				141DCCCB1F4827E100C88EDC /* QuestionVC.swift in Sources */,
 				96DE99931ECB2FCA0011290E /* XMLDictionary.m in Sources */,
 				96902F131ECB32C800B219D7 /* CustomTableView.swift in Sources */,
 				9674E2B71EE63E6C0004D9EE /* EvaluateCell.swift in Sources */,

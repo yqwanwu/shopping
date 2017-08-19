@@ -14,6 +14,8 @@ class PwdQuestion: CustomTableViewCellItem {
     var fQuestioncontent = "" //问题名称
     var fOrder = 0
     var fState = 0
+    
+    var answer = ""
 }
 
 class ForgetPwdVC: BaseViewController {
@@ -30,6 +32,9 @@ class ForgetPwdVC: BaseViewController {
     
     var isModify = false
     var selectPhone = true
+    
+    var quetions = [PwdQuestion]()
+    var selectedQuestions = [PwdQuestion(), PwdQuestion(), PwdQuestion()]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,20 +58,25 @@ class ForgetPwdVC: BaseViewController {
     }
     
     func requestData() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         NetworkManager.requestListModel(params: ["method":"apiquestions"]).setSuccessAction { (bm: BaseModel<PwdQuestion>) in
+            MBProgressHUD.hideHUD(forView: self.view)
             bm.whenSuccess {
-                var arr = [PwdQuestion]()
-                for model in bm.list! {
-                    let titleModel = PwdQuestion()
-                    titleModel.build(text: model.fQuestioncontent)
-                    model.build(text: model.fQuestioncontent).build(text: "")
-                    arr.append(titleModel)
-                    arr.append(model)
-                }
-                let qarr = arr.map { (c) -> PwdQuestion in
-                    return c.build(cellClass: PwdQuestionTableViewCell.self).build(heightForRow: 50).build(isFromStoryBord: true)
-                }
-                self.questionView.dataArray = [qarr]
+                self.quetions = bm.list!
+               
+//                var arr = [PwdQuestion]()
+//                for model in bm.list! {
+//                    let titleModel = PwdQuestion()
+//                    titleModel.build(text: model.fQuestioncontent)
+//                    model.build(text: model.fQuestioncontent).build(detailText: "")
+//                    arr.append(titleModel)
+//                    arr.append(model)
+//                }
+//                let qarr = arr.map { (c) -> PwdQuestion in
+//                    return c.build(cellClass: PwdQuestionTableViewCell.self).build(heightForRow: 50).build(isFromStoryBord: true)
+//                }
+//                self.questionView.dataArray = [qarr]
+//                self.questionView.reloadData()
             }
         }
     }
@@ -82,18 +92,44 @@ class ForgetPwdVC: BaseViewController {
         segment.layer.borderColor = UIColor.hexStringToColor(hexString: "9d9d9d").cgColor
         segment.layer.borderWidth = 1
         
-//        let c = CustomTableViewCellItem().build(text: "密保问题1: 你最喜欢的电影名称")
-//        let c1 = CustomTableViewCellItem().build(text: "密保问题1:").build(detailText: "")
-//        let c2 = CustomTableViewCellItem().build(text: "密保问题2: 你爸爸的姓名")
-//        let c3 = CustomTableViewCellItem().build(text: "密保问题2:").build(detailText: "")
-//        let c4 = CustomTableViewCellItem().build(text: "密保问题3: 你爸爸的手机号")
-//        let c5 = CustomTableViewCellItem().build(text: "密保问题3:").build(detailText: "")
-//        
-//        let data = [c, c1, c2, c3, c4, c5].map { (c) -> CustomTableViewCellItem in
-//            return c.build(cellClass: PwdQuestionTableViewCell.self).build(heightForRow: 50).build(isFromStoryBord: true)
-//        }
-//        
-//        questionView.dataArray = [data]
+        let c = PwdQuestion().build(text: "密保问题1: 请选择").build(accessoryType: .disclosureIndicator)
+        let c1 = PwdQuestion().build(text: "密保问题1:").build(detailText: "")
+        let c2 = PwdQuestion().build(text: "密保问题2: 请选择").build(accessoryType: .disclosureIndicator)
+        let c3 = PwdQuestion().build(text: "密保问题2:").build(detailText: "")
+        let c4 = PwdQuestion().build(text: "密保问题3: 请选择").build(accessoryType: .disclosureIndicator)
+        let c5 = PwdQuestion().build(text: "密保问题3:").build(detailText: "")
+        
+        let data = [c, c1, c2, c3, c4, c5].map { (c) -> CustomTableViewCellItem in
+            c.build(cellClass: PwdQuestionTableViewCell.self).build(heightForRow: 50).build(isFromStoryBord: true)
+            if c.detailText == nil {
+                c.setupCellAction({ [unowned self] (idx) in
+                    let vc = QuestionVC()
+                    vc.models = self.quetions.filter({ (q) -> Bool in
+                        if self.selectedQuestions[idx.row / 2] != q {
+                            for m in self.selectedQuestions {
+                                if m.fQuestionid == q.fQuestionid {
+                                    return false
+                                }
+                            }
+                        }
+                        return true
+                    })
+                    if !self.quetions.isEmpty {
+                        vc.selectedAction = { [unowned self] model in
+                            if self.selectedQuestions.count >= 3 {
+                                self.selectedQuestions[idx.row / 2] = model
+                            }
+                            c.text = model.fQuestioncontent
+                            self.questionView.reloadRows(at: [idx], with: .automatic)
+                        }
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                })
+            }
+            return c
+        }
+        
+        questionView.dataArray = [data]
         
     }
 
@@ -113,9 +149,8 @@ class ForgetPwdVC: BaseViewController {
         phoneView.isHidden = true
     }
 
+    //下一步
     @IBAction func ac_save(_ sender: UIButton) {
-        MBProgressHUD.showAdded(to: self.view, animated: true)
-        self.navigationController?.popViewController(animated: true)
         var params = ["method":"apiSecurityEntry", "":""]
         if segment.selectedIndex == 0 {
             if !self.pwdPhoneView.phoneText.check() || !self.pwdPhoneView.codeText.check() || !self.pwdPhoneView.pwdText.check() {
@@ -124,6 +159,7 @@ class ForgetPwdVC: BaseViewController {
             
             params["fActiontype"] = "u"
             params["smsCode"] = self.pwdPhoneView.codeText.text
+            MBProgressHUD.showAdded(to: self.view, animated: true)
             NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
                 MBProgressHUD.hideHUD(forView: self.view)
                 bm.whenSuccess {
@@ -132,6 +168,24 @@ class ForgetPwdVC: BaseViewController {
             }, failture: { (err) in
                 MBProgressHUD.hideHUD(forView: self.view)
             })
+        } else {
+            for m in self.selectedQuestions {
+                if !Tools.stringIsNotBlank(text: m.answer) || m.fQuestionid == 0 {
+                    MBProgressHUD.show(errorText: "请回答所有保密问题")
+                    return
+                }
+
+                MBProgressHUD.showAdded(to: self.view, animated: true)
+                let params = ["method":"apiSecurityEntry", "fActiontype":"q", "fAnswer1":selectedQuestions[0].answer, "fAnswer2":selectedQuestions[1].answer, "fAnswer3":selectedQuestions[2].answer]
+                NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+                    MBProgressHUD.hideHUD(forView: self.view)
+                    bm.whenSuccess {
+                        MBProgressHUD.show(successText: "aaaa")
+                    }
+                }, failture: { (err) in
+                    MBProgressHUD.hideHUD(forView: self.view)
+                })
+            }
         }
     }
     
@@ -145,11 +199,11 @@ class ForgetPwdVC: BaseViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let p = touches.first?.location(in: self.view) ?? CGPoint.zero
+//        let p = touches.first?.location(in: self.view) ?? CGPoint.zero
         
-        if !bkVIew.frame.contains(p) {
-            self.navigationController?.popViewController(animated: true)
-        }
+//        if !bkVIew.frame.contains(p) {
+//            self.navigationController?.popViewController(animated: true)
+//        }
     }
 }
 
