@@ -52,7 +52,7 @@ class PromotionModel: CustomTableViewCellItem {
     var fCategoryname = ""
     var fPromotionid = 0
     var fState = 0
-    var fMintegral = 0
+    var fMintegral = 0.0
     var fPromotioncount = 0
     var fFreegoodname = ""
     var fFreegoodId = -1
@@ -68,7 +68,7 @@ class PromotionModel: CustomTableViewCellItem {
     var fPromotionprice = 0.0
     var fShopname = ""
     var fSalestatename = ""
-    var fDiscount = 0.0
+    var fDiscount = 0
     var fSummary = ""
     var fShopid = 0
     var fCategoryid = 0

@@ -49,7 +49,7 @@ class GoodsListVC: BaseViewController {
         if type != .normal && type != .level2 {
             var params = ["method":"apipromotions", "fTypes":type.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":currentPage, "pageSize":20] as [String : Any]
             if fOrderbys != "" {
-                params["fOrderbys"] = fOrderbys
+                params["fOrderby"] = fOrderbys
             }
             
             NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
@@ -62,6 +62,7 @@ class GoodsListVC: BaseViewController {
                     if !(bm.pageInfo?.hasNextPage ?? false) {
                         self.tableView.pullTORefreshControl.footer?.state = .noMoreData
                     }
+                    self.tableView.reloadData()
                 }
             }) { (err) in
                 
@@ -84,6 +85,7 @@ class GoodsListVC: BaseViewController {
                     if !(bm.pageInfo?.hasNextPage ?? false) {
                         self.tableView.pullTORefreshControl.footer?.state = .noMoreData
                     }
+                    self.tableView.reloadData()
                 }
             }) { (err) in
                 self.tableView.endHeaderRefresh()

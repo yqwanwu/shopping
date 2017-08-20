@@ -9,6 +9,9 @@
 import UIKit
 
 class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    static var banners = [BannerModel]()
+    
     @IBOutlet weak var adImgView: UIImageView!
     @IBOutlet weak var itemCollectionView: UICollectionView!
     @IBOutlet weak var carouselView: CarouselCollectionView!
@@ -58,12 +61,11 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         }
     }
     
-    
-    
-    func requestADs() {
+    func requestADs(complete: BLANK_CLOSURE) {
         NetworkManager.requestListModel(params: ["method":"apibannerlist"])
             .setSuccessAction { (bm: BaseModel<BannerModel>) in
                 self.topAdsData.removeAll()
+                FirstHeaderCell.banners = bm.list!
                 for banner in bm.list! {
                     if banner.fPage == -100 {
                         self.topAdsData.append(banner)

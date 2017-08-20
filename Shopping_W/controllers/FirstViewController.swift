@@ -62,6 +62,8 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         let layout = UICollectionViewFlowLayout()
         collectionView.setCollectionViewLayout(layout, animated: false)
         
+        collectionView.register(UINib(nibName: "FirstADSectionHeader", bundle: Bundle.main), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "FirstADSectionHeader")
+        
         //添加刷新控件
         refreshContrl.header?.addAction(with: .refreshing, action: { [unowned self] _ in
             self.requestGoods()
@@ -140,7 +142,9 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             
             if let cell = cell as? FirstHeaderCell {
                 cell.topVC = self
-                cell.requestADs()
+                cell.requestADs() { [unowned self] _ in
+                    self.collectionView.reloadData()
+                }
             }
             commonCell = cell
         } else if indexPath.section == 1 {
@@ -165,7 +169,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 0 {
             let w = UIScreen.main.bounds.width
-            let h = 200 + 15 + 152 / 375 * w + 11 / 75 * w
+            let h = 200 + 15 + 152 / 375 * w //+ 11 / 75 * w
             return CGSize(width: UIScreen.main.bounds.width, height: h)
         } else {
             let w = UIScreen.main.bounds.width / 2 - 0.5
@@ -174,27 +178,70 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: FirstSectionHeaderView.getNameString(), for: indexPath) as! FirstSectionHeaderView
-        if indexPath.section == 2 {
-            header.titleLabel.text = "团购"
-            for label in header.subviews {
-                if label is UILabel {
-                    label.isHidden = true
+        
+        if kind == UICollectionElementKindSectionHeader {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FirstSectionHeaderView.getNameString(), for: indexPath) as! FirstSectionHeaderView
+            
+            if indexPath.section == 2 {
+                header.titleLabel.text = "团购"
+                for label in header.subviews {
+                    if label is UILabel {
+                        label.isHidden = true
+                    }
+                }
+                header.titleLabel.isHidden = false
+            } else {
+                header.titleLabel.text = "秒杀"
+                if let p = self.secKillList.first {
+                    header.model = p
+                }
+                for label in header.subviews {
+                    label.isHidden = false
                 }
             }
-            header.titleLabel.isHidden = false
+            return header
         } else {
-            header.titleLabel.text = "秒杀"
-            if let p = self.secKillList.first {
-                header.model = p
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "FirstADSectionHeader", for: indexPath) as! FirstADSectionHeader
+            var tag = 0
+//            -100 首页上部 ,-101 首页中部,-102 首页下部,-200团购,-300秒杀,-400促销
+            if indexPath.section == 0 {
+                tag = -101
+            } else if indexPath.section == 2 {
+                tag = -102
             }
-            for label in header.subviews {
-                label.isHidden = false
+            
+            if let data = FirstHeaderCell.banners.filter({$0.fPage == tag}).first {
+                footer.imgView.sd_setImage(with: URL.encodeUrl(string: data.fPicurl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
+                footer.tapAction = { [unowned self] _ in
+                    let web = BaseWebViewController()
+                    web.url = data.fLink
+                    self.navigationController?.pushViewController(web, animated: true)
+                }
             }
+            
+            return footer
         }
-        return header
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        let w = UIScreen.main.bounds.width
+
+        switch section {
+        case 0:
+            if let _ = FirstHeaderCell.banners.filter({$0.fPage == -101}).first {
+                return CGSize(width: w, height: 11 / 75 * w)
+            }
+        case 2:
+            if let _ = FirstHeaderCell.banners.filter({$0.fPage == -102}).first {
+                return CGSize(width: w, height: 11 / 75 * w)
+            }
+        default:
+            return CGSize.zero
+        }
+        return CGSize.zero
+    }
+    
+    //header 高度
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == 1 {
             return secKillList.isEmpty ? CGSize.zero : CGSize(width: self.view.frame.width, height: 50)
@@ -261,3 +308,4 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         manager.stopUpdatingLocation()
     }
 }
+

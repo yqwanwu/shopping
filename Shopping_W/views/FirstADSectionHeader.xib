@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="FirstADSectionHeader" customModule="Shopping_W" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z7J-8r-Yl6">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <gestureRecognizers/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhy-7D-79u">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <connections>
+                        <action selector="ac_click:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="MIN-ZK-0uR"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="xhy-7D-79u" secondAttribute="bottom" id="N3H-hg-JjA"/>
+                <constraint firstAttribute="trailing" secondItem="xhy-7D-79u" secondAttribute="trailing" id="ZzP-BN-1LP"/>
+                <constraint firstAttribute="trailing" secondItem="Z7J-8r-Yl6" secondAttribute="trailing" id="a1b-fA-enO"/>
+                <constraint firstItem="xhy-7D-79u" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="oEf-Lp-TBy"/>
+                <constraint firstItem="xhy-7D-79u" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="p1W-kk-6C1"/>
+                <constraint firstItem="Z7J-8r-Yl6" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="q4e-qd-Tyx"/>
+                <constraint firstAttribute="bottom" secondItem="Z7J-8r-Yl6" secondAttribute="bottom" id="vHg-Vt-Cnb"/>
+                <constraint firstItem="Z7J-8r-Yl6" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="vok-se-lNe"/>
+            </constraints>
+            <connections>
+                <outlet property="imgView" destination="Z7J-8r-Yl6" id="r7Y-Bz-C1h"/>
+            </connections>
+        </collectionReusableView>
+    </objects>
+</document>

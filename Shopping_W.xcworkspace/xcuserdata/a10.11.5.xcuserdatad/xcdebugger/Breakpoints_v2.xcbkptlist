@@ -21,5 +21,53 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shopping_W/controllers/GoodsListVC.swift"
+            timestampString = "524891362.977785"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "requestPromotions()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Shopping_W.GoodsListVC.requestPromotions () -&gt; ()"
+                  moduleName = "Shopping_W"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/GoodsListVC.swift"
+                  timestampString = "524899854.420158"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "2496">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Shopping_W.GoodsListVC.(requestPromotions () -&gt; ()).(closure #3)"
+                  moduleName = "Shopping_W"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/GoodsListVC.swift"
+                  timestampString = "524899854.422891"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

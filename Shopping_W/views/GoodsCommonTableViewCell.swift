@@ -33,13 +33,15 @@ class GoodsCommonTableViewCell: CustomTableViewCell {
                 
             } else if let m = model as? PromotionModel {
                 nameLabel.text = m.fGoodsname
-//                imgView.sd_setImage(with: URL.encodeUrl(string: m.f), placeholderImage: <#T##UIImage?#>)
+                imgView.sd_setImage(with: URL.encodeUrl(string: m.fUrl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
                 descLabel.text = m.fSummary
-                currentPriceLabel.text = m.fPromotionprice.moneyValue()
+                currentPriceLabel.text = m.fSalesprice.moneyValue()
+                
                 if m.type == .promotions {
-                    let attrStr = NSMutableAttributedString(string: "满意100减20", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
-                    oldPriceLabel.attributedText = attrStr
-                    commonLabel.isHidden = true
+//                    let attrStr = NSMutableAttributedString(string: "满意100减20", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+//                    oldPriceLabel.attributedText = attrStr
+//                    commonLabel.isHidden = true
+                    self.dealType()
                 } else {
                     let attrStr = NSMutableAttributedString(string: m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
                     oldPriceLabel.attributedText = attrStr
@@ -52,7 +54,7 @@ class GoodsCommonTableViewCell: CustomTableViewCell {
                             "</p>" + CustomValue.htmlFooter
                         let htmlData = htmlStr.data(using: .utf8)
                         let htmlattr = try! NSAttributedString(data: htmlData!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-                        commonLabel.attributedText = htmlattr
+//                        commonLabel.attributedText = htmlattr
                     } else if m.type == .seckill {
                         commonLabel.isHidden = true
                     }
@@ -68,6 +70,28 @@ class GoodsCommonTableViewCell: CustomTableViewCell {
         }
     }
 
+    func dealType() {
+        if let m = model as? PromotionModel {
+            commonLabel.isHidden = true
+            switch m.fType {
+            case 3:
+                let attrStr = NSMutableAttributedString(string: "满\(Int(m.fPrice))-\(Int(m.fDeduction))", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                oldPriceLabel.attributedText = attrStr
+            case 4:
+                let attrStr = NSMutableAttributedString(string: "赠", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                oldPriceLabel.attributedText = attrStr
+            case 5:
+                let attrStr = NSMutableAttributedString(string: "\(m.fMintegral)倍积分", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                oldPriceLabel.attributedText = attrStr
+            case 6:
+                let attrStr = NSMutableAttributedString(string: "\(m.fDiscount)折扣", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                oldPriceLabel.attributedText = attrStr
+            default:
+                break
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
