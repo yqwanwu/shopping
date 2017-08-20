@@ -61,7 +61,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
             bm.whenSuccess {
                 self.allList = bm.list!
                 let arr = bm.list!.filter({ $0.fPid == 0 }).map({ (model) -> CategoryModel in
-                    return model.build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 70)
+                    return model.build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 45)
                 })
                 self.tableView.dataArray = [arr]
                 self.selectedModel = arr[0]
@@ -145,10 +145,20 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath) as! CollectionTitleHeader
         
         header.label.text = self.goodsList[indexPath.section].fCategoryname
+        header.imgView.isHidden = true
+        if indexPath.section == 0 {
+            header.imgView.sd_setImage(with: URL.encodeUrl(string: self.selectedModel.fPic))
+            header.imgView.isHidden = false
+        }
+        
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0 {
+            return CGSize(width: collectionView.frame.width, height: 120)
+        }
+        
         return CGSize(width: collectionView.frame.width, height: 40)
     }
     
@@ -191,12 +201,22 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     }
     
     private class CollectionTitleHeader: UICollectionReusableView {
+        var imgView = UIImageView()
+        
         var label = UILabel()
         override init(frame: CGRect) {
             super.init(frame: frame)
             self.addSubview(label)
+            self.addSubview(imgView)
+            imgView.contentMode = .scaleAspectFill
+            imgView.layer.masksToBounds = true
             label.snp.makeConstraints { (make) in
-                make.top.left.bottom.right.equalTo(self)
+                make.left.bottom.right.equalTo(self)
+                make.height.equalTo(40)
+            }
+            imgView.snp.makeConstraints { (make) in
+                make.top.left.right.equalTo(self)
+                make.bottom.equalTo(label.snp.top)
             }
         }
         

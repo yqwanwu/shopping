@@ -191,7 +191,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         } else if type == .seckill { // 秒杀
             seckillH = 70
             setupTimer()
-            self.seckillNumber.text = "\(detailModel.fPromotioncount)"
+            self.seckillNumber.text = "总数量：\(detailModel.fPromotioncount)"
+            self.seckillLastTime.text = "剩余数量：\(detailModel.fPromotioncount - detailModel.fSalescount)"
         } else if type == .group { // 团购
             groupH = 73
             
@@ -234,7 +235,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         case 5:
             self.promotionsLabel.text = "\(detailModel.fMintegral)倍积分"
         case 6:
-            self.promotionsLabel.text = "折扣：\(detailModel.fDiscount)"
+            self.promotionsLabel.text = "折扣：\(Int(detailModel.fDiscount))折"
         default:
             break
         }
@@ -242,31 +243,31 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     var sysTime = FirstSectionHeaderView.commonSysTime
     func setupTimer() {
-        self.timer = Timer.scheduledTimer(1, action: { [unowned self] (t) in
-            if self.sysTime == 0 {
-                self.sysTime = Date(timeIntervalSinceNow: 0).timeIntervalSince1970
-            }
-            let validDate =  Date(timeIntervalSince1970: self.sysTime)
-            
-            self.sysTime += 1
-            
-            let m = self.detailModel
-            //测试时间用
-//                            m.fStarttime = "2017-08-1 12:12:12"
-            let format = DateFormatter()
-            format.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            let d = format.date(from: m.fStarttime) ?? Date(timeIntervalSinceNow: 0)
-            let startTime = d.timeIntervalSince1970
-            let currentTime = validDate.timeIntervalSince1970
-            
-            let sub = Int(startTime - currentTime)
-            if sub > 0 {
-                self.seckilltime.text = "\(sub / 3600):\((sub % 3600) / 60):\((sub % 60))"
-            }
-            
-            self.seckillLastTime.text = self.getLasttime()
-            
-            }, userInfo: nil, repeats: true)
+//        self.timer = Timer.scheduledTimer(1, action: { [unowned self] (t) in
+//            if self.sysTime == 0 {
+//                self.sysTime = Date(timeIntervalSinceNow: 0).timeIntervalSince1970
+//            }
+//            let validDate =  Date(timeIntervalSince1970: self.sysTime)
+//            
+//            self.sysTime += 1
+//            
+//            let m = self.detailModel
+//            //测试时间用
+////                            m.fStarttime = "2017-08-1 12:12:12"
+//            let format = DateFormatter()
+//            format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//            let d = format.date(from: m.fStarttime) ?? Date(timeIntervalSinceNow: 0)
+//            let startTime = d.timeIntervalSince1970
+//            let currentTime = validDate.timeIntervalSince1970
+//            
+//            let sub = Int(startTime - currentTime)
+//            if sub > 0 {
+//                self.seckilltime.text = "\(sub / 3600):\((sub % 3600) / 60):\((sub % 60))"
+//            }
+//            
+//            self.seckillLastTime.text = self.getLasttime()
+//            
+//            }, userInfo: nil, repeats: true)
     }
     
     func getLasttime() -> String {

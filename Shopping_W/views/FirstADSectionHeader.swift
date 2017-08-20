@@ -12,7 +12,8 @@ class FirstADSectionHeader: UICollectionReusableView {
     @IBOutlet weak var imgView: UIImageView!
     
     var tapAction: BLANK_CLOSURE?
-
+    weak var topVC: UIViewController?
+    var urlStr = ""
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,6 +21,10 @@ class FirstADSectionHeader: UICollectionReusableView {
     
     @IBAction func ac_click(_ sender: Any) {
         tapAction?()
+        
+        let web = BaseWebViewController()
+        web.url = urlStr
+        topVC?.navigationController?.pushViewController(web, animated: true)
     }
     
 }

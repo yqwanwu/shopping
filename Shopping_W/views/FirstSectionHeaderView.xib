@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -91,6 +91,19 @@
                         <constraint firstAttribute="height" constant="1" id="np2-Cp-W91"/>
                     </constraints>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="右2" translatesAutoresizingMaskIntoConstraints="NO" id="kep-hG-O7a">
+                    <rect key="frame" x="367" y="17" width="9" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="eoz-Cz-q8f"/>
+                        <constraint firstAttribute="width" constant="9" id="lFn-KK-5ub"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRo-zz-A0P">
+                    <rect key="frame" x="0.0" y="0.0" width="396" height="47"/>
+                    <connections>
+                        <action selector="ac_click:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="ztD-mt-Amt"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -102,11 +115,17 @@
                 <constraint firstItem="X4J-rb-w1a" firstAttribute="leading" secondItem="LEQ-K2-jJs" secondAttribute="trailing" constant="8" id="CUD-vx-yjM"/>
                 <constraint firstItem="Cgj-IJ-692" firstAttribute="leading" secondItem="Xld-2i-7N5" secondAttribute="trailing" constant="6" id="Dor-3W-aew"/>
                 <constraint firstItem="CHx-CU-ZTG" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="EYn-Gl-mif"/>
+                <constraint firstAttribute="trailing" secondItem="kep-hG-O7a" secondAttribute="trailing" constant="20" id="JdI-Js-eh0"/>
                 <constraint firstItem="Cgj-IJ-692" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="Jxu-cw-bbB"/>
+                <constraint firstItem="kep-hG-O7a" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="R97-4d-RwE"/>
                 <constraint firstItem="X4J-rb-w1a" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="Rn1-PR-CsG"/>
+                <constraint firstItem="6SQ-90-tX7" firstAttribute="top" secondItem="HRo-zz-A0P" secondAttribute="bottom" id="V3f-Ni-7lX"/>
                 <constraint firstItem="Xld-2i-7N5" firstAttribute="leading" secondItem="Rii-tQ-zOs" secondAttribute="trailing" constant="6" id="VuT-Yw-IgK"/>
+                <constraint firstItem="HRo-zz-A0P" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="XkE-AQ-3PU"/>
                 <constraint firstItem="Rii-tQ-zOs" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="ary-Qd-vc9"/>
+                <constraint firstAttribute="trailing" secondItem="HRo-zz-A0P" secondAttribute="trailing" id="axl-hS-kcW"/>
                 <constraint firstItem="Rii-tQ-zOs" firstAttribute="leading" secondItem="bJH-MZ-rPJ" secondAttribute="trailing" constant="6" id="bzu-Jz-Po6"/>
+                <constraint firstItem="HRo-zz-A0P" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="cjQ-wX-hN6"/>
                 <constraint firstItem="6SQ-90-tX7" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="cqU-g1-0Ks"/>
                 <constraint firstAttribute="trailing" secondItem="CHx-CU-ZTG" secondAttribute="trailing" id="fn2-Sb-h6n"/>
                 <constraint firstItem="LEQ-K2-jJs" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="hD3-gl-paS"/>
@@ -122,4 +141,7 @@
             <point key="canvasLocation" x="-77" y="79"/>
         </collectionReusableView>
     </objects>
+    <resources>
+        <image name="右2" width="9" height="15"/>
+    </resources>
 </document>

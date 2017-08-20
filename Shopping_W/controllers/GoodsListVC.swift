@@ -11,10 +11,11 @@ import UIKit
 class GoodsListVC: BaseViewController {
     @IBOutlet weak var tableView: RefreshTableView!
     @IBOutlet weak var headerView: TabView!
+    @IBOutlet weak var headerHeight: NSLayoutConstraint!
     
     enum ListType: String {
-        ///   二级页面  团购   秒杀      一般的   促销
-        case level2, group = "1", seckill = "2", normal, promotions = "3,4,5,6"
+        ///   二级页面  团购   秒杀      一般的   促销   推荐
+        case level2, group = "1", seckill = "2", normal, promotions = "3,4,5,6", recommend
     }
     
     var tags = ""
@@ -27,8 +28,27 @@ class GoodsListVC: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        var tag = 0
+        if self.type == .group {
+            tag = -200
+        } else if self.type == .promotions {
+            tag = -400
+        }
         
-//        tableView.dataArray = [[c, c, c, c]]
+        if tag != 0 {
+            if let b = FirstHeaderCell.banners.filter({$0.fPage == tag}).first {
+                self.headerView.frame.origin.y += SecKillVC.getAdHeight()
+                let ad = UINib(nibName: "FirstADSectionHeader", bundle: Bundle.main).instantiate(withOwner: nil, options: nil)[0] as! FirstADSectionHeader
+                ad.frame = CGRect(x: 0, y: 64, width: self.view.frame.width, height: SecKillVC.getAdHeight())
+                self.view.addSubview(ad)
+                ad.imgView.sd_setImage(with: URL.encodeUrl(string: b.fPicurl))
+                ad.topVC = self
+                ad.urlStr = b.fLink
+                self.headerHeight.constant = 10 + SecKillVC.getAdHeight()
+            }
+        }
+        
         
         setupTabView()
         
@@ -46,7 +66,7 @@ class GoodsListVC: BaseViewController {
     
     ///促销列表
     func requestPromotions() {
-        if type != .normal && type != .level2 {
+        if type != .normal && type != .level2 && type != .recommend {
             var params = ["method":"apipromotions", "fTypes":type.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":currentPage, "pageSize":20] as [String : Any]
             if fOrderbys != "" {
                 params["fOrderby"] = fOrderbys
@@ -71,10 +91,13 @@ class GoodsListVC: BaseViewController {
             var params = ["method":"apigoodslist", "fTags":tags, "currentPage":currentPage, "pageSize":20] as [String : Any]
             if self.type == .level2 {
                 params["fCategoryid"] = categoryId
+            } else if type == .recommend {
+                params["fRecommend"] = "1"
             }
             if fOrderbys != "" {
                 params["fOrderby"] = fOrderbys
             }
+            
             NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<GoodsModel>) in
                 self.tableView.endHeaderRefresh()
                 self.tableView.endFooterRefresh()

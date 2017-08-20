@@ -36,17 +36,24 @@ class GoodsCommonTableViewCell: CustomTableViewCell {
                 imgView.sd_setImage(with: URL.encodeUrl(string: m.fUrl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
                 descLabel.text = m.fSummary
                 currentPriceLabel.text = m.fSalesprice.moneyValue()
-                
                 if m.type == .promotions {
 //                    let attrStr = NSMutableAttributedString(string: "满意100减20", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
 //                    oldPriceLabel.attributedText = attrStr
 //                    commonLabel.isHidden = true
+                    
+                    if m.fType == 6 {
+                        let attrStr1 = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                        countLabel.attributedText = attrStr1
+                        countLabel.isHidden = false
+                        currentPriceLabel.text = "¥" + m.fPromotionprice.moneyValue()
+                    }
                     self.dealType()
                 } else {
-                    let attrStr = NSMutableAttributedString(string: m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
                     oldPriceLabel.attributedText = attrStr
-                    
+                    //促销类别 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
                     if m.type == .group {
+                        currentPriceLabel.text = "¥" + m.fPromotionprice.moneyValue()
                         let htmlStr = CustomValue.htmlHeader + "<p>" +
                             "<span style='color: #fdc249'>10件</span>" +
                             "<span style='color: black'>成团，还差</span>" +
@@ -84,8 +91,9 @@ class GoodsCommonTableViewCell: CustomTableViewCell {
                 let attrStr = NSMutableAttributedString(string: "\(m.fMintegral)倍积分", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
                 oldPriceLabel.attributedText = attrStr
             case 6:
-                let attrStr = NSMutableAttributedString(string: "\(m.fDiscount)折扣", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                let attrStr = NSMutableAttributedString(string: "\(m.fDiscount)折", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
                 oldPriceLabel.attributedText = attrStr
+                
             default:
                 break
             }

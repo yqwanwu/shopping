@@ -10,9 +10,11 @@ import UIKit
 import MBProgressHUD
 
 class SecKillVC: BaseViewController {
-    
+    static func getAdHeight() -> CGFloat {
+        return UIScreen.main.bounds.width * 11 / 75
+    }
     lazy var tableView: RefreshTableView = {
-        let t = RefreshTableView(frame: CGRect(x: 0, y: 71 + 64, width: self.view.frame.width, height: self.view.frame.height - 71 - 64), style: .grouped)
+        let t = RefreshTableView(frame: CGRect(x: 0, y: self.headerView.frame.maxY + 1, width: self.view.frame.width, height: self.view.frame.height - 71 - 64), style: .grouped)
         t.separatorInset.left = 0
         return t
     } ()
@@ -28,6 +30,17 @@ class SecKillVC: BaseViewController {
         super.viewDidLoad()
 
         self.view.addSubview(headerView)
+        
+        if let b = FirstHeaderCell.banners.filter({$0.fPage == -300}).first {
+            self.headerView.frame.origin.y += SecKillVC.getAdHeight()
+            let ad = UINib(nibName: "FirstADSectionHeader", bundle: Bundle.main).instantiate(withOwner: nil, options: nil)[0] as! FirstADSectionHeader
+            ad.frame = CGRect(x: 0, y: 64, width: self.view.frame.width, height: SecKillVC.getAdHeight())
+            self.view.addSubview(ad)
+            ad.imgView.sd_setImage(with: URL.encodeUrl(string: b.fPicurl))
+            ad.topVC = self
+            ad.urlStr = b.fLink
+        }
+        
         self.view.addSubview(tableView)
         
         self.view.addSubview(headerView)

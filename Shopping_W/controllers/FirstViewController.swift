@@ -22,6 +22,8 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
     } ()
     
     var secKillList = [PromotionModel]()
+    var promotionList = [PromotionModel]()
+    var groupList = [PromotionModel]()
     
     //广告数据
     var topAdsData = [BannerModel]()
@@ -77,7 +79,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
 
     //下方商品
     func requestGoods() {
-        let params = ["method":"apigoodslist", "currentPage":"1", "pageSize":"16"] as [String:Any]
+        let params = ["method":"apigoodslist", "currentPage":"1", "pageSize":"16", "fRecommend":1] as [String:Any]
         NetworkManager.requestPageInfoModel(params: params)
             .setSuccessAction { (bm: BaseModel<GoodsModel>) in
                 self.refreshContrl.endRefresh()
@@ -90,17 +92,41 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
     
     ///请求秒杀
     func requestSecKill() {
-        let params = ["method":"apipromotions", "fTypes":GoodsListVC.ListType.seckill.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":1, "pageSize":4] as [String : Any]
+        let params = ["method":"apipromotions", "fTypes":GoodsListVC.ListType.seckill.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"1", "currentPage":1, "pageSize":6] as [String : Any]
         
         NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
             bm.whenSuccess {
                 self.secKillList = bm.pageInfo!.list!
                 self.collectionView.reloadData()
             }
+            self.reqeustOthers()
+        }) { (err) in
+            self.reqeustOthers()
+        }
+    }
+    
+    func reqeustOthers() {
+        let params = ["method":"apipromotions", "fTypes":GoodsListVC.ListType.promotions.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"1", "currentPage":1, "pageSize":6] as [String : Any]
+        NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
+            bm.whenSuccess {
+                self.promotionList = bm.pageInfo!.list!
+                self.collectionView.reloadData()
+            }
+        }) { (err) in
+            
+        }
+        
+        let params1 = ["method":"apipromotions", "fTypes":GoodsListVC.ListType.group.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"1", "currentPage":1, "pageSize":6] as [String : Any]
+        NetworkManager.requestPageInfoModel(params: params1, success: { (bm: BaseModel<PromotionModel>) in
+            bm.whenSuccess {
+                self.groupList = bm.pageInfo!.list!
+                self.collectionView.reloadData()
+            }
         }) { (err) in
             
         }
     }
+    
     
     @IBAction func ac_address(_ sender: Any) {
         let vc = Tools.getClassFromStorybord(sbName: .first, clazz: AddressVC.self)
@@ -125,13 +151,17 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             return 1
         } else if section == 1 {
             return self.secKillList.count
+        } else if section == 2 {
+            return self.groupList.count
+        } else if section == 3 {
+            return self.promotionList.count
         } else {
             return self.goodsList.count
         }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 5
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -147,19 +177,30 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
                 }
             }
             commonCell = cell
-        } else if indexPath.section == 1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FirstGoodsCell.getNameString(), for: indexPath) as! FirstGoodsCell
-            
-            let model = secKillList[indexPath.row]
-            cell.promotionModel = model
-            
-            commonCell = cell
-        } else if indexPath.section == 2 {
+        } else if indexPath.section == 4 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FirstGoodsCell.getNameString(), for: indexPath) as! FirstGoodsCell
             
             let model = goodsList[indexPath.row]
             cell.model = model
-            cell.tagBtn.setTitle("团购", for: .normal)
+            commonCell = cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FirstGoodsCell.getNameString(), for: indexPath) as! FirstGoodsCell
+            
+            var model = PromotionModel()
+            
+            switch indexPath.section {
+            case 1:
+                model = secKillList[indexPath.row]
+            case 2:
+                model = groupList[indexPath.row]
+            case 3:
+                model = promotionList[indexPath.row]
+            default:
+                break
+            }
+            
+            cell.promotionModel = model
+            
             commonCell = cell
         }
         
@@ -181,16 +222,10 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         
         if kind == UICollectionElementKindSectionHeader {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FirstSectionHeaderView.getNameString(), for: indexPath) as! FirstSectionHeaderView
-            
-            if indexPath.section == 2 {
-                header.titleLabel.text = "团购"
-                for label in header.subviews {
-                    if label is UILabel {
-                        label.isHidden = true
-                    }
-                }
-                header.titleLabel.isHidden = false
-            } else {
+            var vc: UIViewController!
+            var text = "团购"
+            if indexPath.section == 1 {
+                text = "秒杀"
                 header.titleLabel.text = "秒杀"
                 if let p = self.secKillList.first {
                     header.model = p
@@ -198,10 +233,37 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
                 for label in header.subviews {
                     label.isHidden = false
                 }
+                vc = SecKillVC()
+            } else {
+                vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self)
+                let listVC = vc as! GoodsListVC
+                switch indexPath.section {
+                case 2:
+                    listVC.type = .group
+                case 3:
+                    text = "促销"
+                    listVC.type = .promotions
+                case 4:
+                    text = "推荐"
+                default:
+                    break
+                }
+                header.titleLabel.text = text
+                for label in header.subviews {
+                    if label is UILabel {
+                        label.isHidden = true
+                    }
+                }
+                header.titleLabel.isHidden = false
+            }
+            vc.title = text
+            header.clickAction = { [unowned self] _ in
+                self.navigationController?.pushViewController(vc, animated: true)
             }
             return header
         } else {
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "FirstADSectionHeader", for: indexPath) as! FirstADSectionHeader
+            footer.topVC = self
             var tag = 0
 //            -100 首页上部 ,-101 首页中部,-102 首页下部,-200团购,-300秒杀,-400促销
             if indexPath.section == 0 {
@@ -212,11 +274,10 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             
             if let data = FirstHeaderCell.banners.filter({$0.fPage == tag}).first {
                 footer.imgView.sd_setImage(with: URL.encodeUrl(string: data.fPicurl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
-                footer.tapAction = { [unowned self] _ in
-                    let web = BaseWebViewController()
-                    web.url = data.fLink
-                    self.navigationController?.pushViewController(web, animated: true)
-                }
+//                footer.tapAction = { [unowned self] _ in
+//                    
+//                }
+                footer.urlStr = data.fLink
             }
             
             return footer
@@ -231,7 +292,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             if let _ = FirstHeaderCell.banners.filter({$0.fPage == -101}).first {
                 return CGSize(width: w, height: 11 / 75 * w)
             }
-        case 2:
+        case 3:
             if let _ = FirstHeaderCell.banners.filter({$0.fPage == -102}).first {
                 return CGSize(width: w, height: 11 / 75 * w)
             }
@@ -243,17 +304,31 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
     
     //header 高度
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0 {
+            return CGSize.zero
+        }
         if section == 1 {
             return secKillList.isEmpty ? CGSize.zero : CGSize(width: self.view.frame.width, height: 50)
-        } else if section == 2 {
+        } else {
             return CGSize(width: self.view.frame.width, height: 50)
         }
-        return CGSize.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
-            let goods = secKillList[indexPath.row]
+        if indexPath.section > 0 && indexPath.section < 4  {
+            var goods = PromotionModel()
+            
+            switch indexPath.section {
+            case 1:
+                goods = secKillList[indexPath.row]
+            case 2:
+                goods = groupList[indexPath.row]
+            case 3:
+                goods = promotionList[indexPath.row]
+            default:
+                break
+            }
+            
             let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
             vc.promotionid = goods.fPromotionid
             // 0:无 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
@@ -270,9 +345,21 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
                 break
             }
             self.navigationController?.pushViewController(vc, animated: true)
-        } else if indexPath.section == 2 {
+        } else if indexPath.section == 4 {
             let goods = goodsList[indexPath.row]
             let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+            switch goods.fPromotiontype {
+            case 0:
+                vc.type = .normal
+            case 1:
+                vc.type = .group
+            case 2:
+                vc.type = .seckill
+            case 3, 4, 5, 6:
+                vc.type = .promotions
+            default:
+                break
+            }
             vc.goodsId = goods.fGoodsid
             
             self.navigationController?.pushViewController(vc, animated: true)

@@ -41,6 +41,7 @@ class GoodsModel: CustomTableViewCellItem {
     ///分类ID
     var fCategoryid = 0
     var fGoodsname = ""
+    var fSummary = ""
     /////商品编码
     var fGoodscode = ""
     var fUrl = ""

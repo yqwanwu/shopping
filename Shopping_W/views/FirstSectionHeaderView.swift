@@ -1,3 +1,4 @@
+
 //
 //  FirstSectionHeaderView.swift
 //  Shopping_W
@@ -27,6 +28,7 @@ class FirstSectionHeaderView: UICollectionReusableView {
     var timer: Timer!
     
     var model: PromotionModel?
+    var clickAction: BLANK_CLOSURE?
     
     static var commonSysTime = 0.0
     
@@ -40,6 +42,10 @@ class FirstSectionHeaderView: UICollectionReusableView {
         f.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return f
     } ()
+    
+    @IBAction func ac_click(_ sender: Any) {
+        clickAction?()
+    }
     
     func requstServerTime() {
         NetworkManager.requestTModel(params: ["method":"apisystime"]).setSuccessAction { (bm: BaseModel<SystimeModel>) in
