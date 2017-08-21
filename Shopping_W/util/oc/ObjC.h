@@ -3,8 +3,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-static NSString *host = @"http://123.57.35.40:8080/privilege/";//@"http://kofuf.kofuf.com:8080/privilege/";//
-
+static NSString *host = @"http://111.161.41.28:8088/czw";
 /**s
  *  当前的swift 不能捕获异常，所以用oc捕获，转换成error给swift用
  */

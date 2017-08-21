@@ -37,7 +37,7 @@ struct CustomValue {
     static let placehoderImg = UIImage(named: "placehoder")
     
     
-    static let wxAppId = "wxdc1e388c3822c80b"
+    static let wxAppId = "wx94b9bb36958e7720"
     static let wxAppSecret = "3baf1193c85774b3fd9d18447d76cab0"
     static let qqAppId = "100424468"//41dacaaf
     static let qqAppSecret = "c7394704798a158208a74ab60104f0ba"

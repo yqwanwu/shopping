@@ -21,6 +21,10 @@
 #import <AlibabaAuthSDK/ALBBSDK.h>
 #import <AlipaySDK/AlipaySDK.h>
 
+#import "WXApi.h"
+#import "WXApiManager.h"
+//#import <TencentOpenAPI/TencentOAuth.h>
+
 
 //MD5
 #import <CommonCrypto/CommonDigest.h>

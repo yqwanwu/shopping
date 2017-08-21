@@ -33,6 +33,6 @@
 
 + (instancetype)sharedManager;
 
-+ (NSString *)jumpToBizPay:(int)oid isOrderList:(BOOL)isOrderList;
++ (NSString *)jumpToBizPay:(NSDictionary *)dict;
 
 @end

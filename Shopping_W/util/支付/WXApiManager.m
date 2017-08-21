@@ -28,7 +28,7 @@
 
 
 
-+ (NSString *)jumpToBizPay:(int)oid isOrderList:(BOOL)isOrderList {
++ (NSString *)jumpToBizPay:(NSDictionary *)dict; {
     
     //============================================================
     // V3&V4支付流程实现
@@ -36,23 +36,6 @@
     // 更新时间：2015年11月20日
     //============================================================
     //NSString *urlString   = @"http://wxpay.weixin.qq.com/pub_v2/app/app_pay.php?plat=ios";
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@person/memberService.d2js?_m=PayOrder4Weixin&params={\"id\":%d, \"isOrderList\":%@}", host, oid, isOrderList ? @"true" : @"false"];
-    NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    
-    //解析服务端返回json数据
-    //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    //将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    
-    NSString *str = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-    NSDictionary *dict = nil;
-    if ([str hasPrefix:@"\""]) {
-        dict = [NSDictionary dictionaryWithXMLString:[str substringWithRange:NSMakeRange(1, str.length - 2)]];
-    } else {
-        dict = [NSDictionary dictionaryWithXMLString:str];
-    }
     
     
     if ( dict != nil) {

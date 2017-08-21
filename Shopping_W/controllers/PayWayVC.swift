@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class PayWayVC: BaseViewController, UITableViewDelegate {
     @IBOutlet weak var totalPriceLabel: UILabel!
@@ -50,16 +51,34 @@ class PayWayVC: BaseViewController, UITableViewDelegate {
          isUseUserAmount	string	前台获取	是否使用余额0否1是
          useUserAmount	string	前台获取	使用余额
  */
-        let params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
         
-//        let params = ["method":"apiPayforAPP", "fOrderid":"3725114078400241", "fType":"0", "fAmount":0.01, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+//        let params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+//        NetworkManager.JsonPostRequest(params: params, success: { (json) in
+//            if json["code"].stringValue == "0" {
+//                let str = json["message"].stringValue
+//                AlipaySDK.defaultService().payOrder(str, fromScheme: "tjgy_ios") { (dic) in
+//                    print(dic)
+//                }
+//            }
+//        }) { (err) in
+//            
+//        }
         
+        
+        let params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"3", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
         NetworkManager.JsonPostRequest(params: params, success: { (json) in
             if json["code"].stringValue == "0" {
                 let str = json["message"].stringValue
-                AlipaySDK.defaultService().payOrder(str, fromScheme: "tjgy_ios") { (dic) in
-                    print(dic)
-                }
+                let j = JSON(parseJSON: str)
+
+                let request = PayReq()
+                request.partnerId = j["mch_id"].stringValue
+                request.prepayId = j["prepay_id"].stringValue
+                request.nonceStr = j["nonce_str"].stringValue
+                request.timeStamp = j["timestamp"].uInt32Value
+                request.package = "Sign=WXPay"
+                request.sign = j["sign"].stringValue
+                WXApi.send(request)
             }
         }) { (err) in
             
