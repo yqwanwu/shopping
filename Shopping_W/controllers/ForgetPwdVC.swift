@@ -28,21 +28,27 @@ class ForgetPwdVC: BaseViewController {
     @IBOutlet weak var segment: CustomSegment!
     @IBOutlet weak var questionView: CustomTableView!
     
+    @IBOutlet weak var segmentHeight: NSLayoutConstraint!
     var pwdPhoneView: PwdPhoneView!
+    var type = CodeModel.captChaType.b
     
     var isModify = false
     var selectPhone = true
     
+    var canWritePhone = false
+    
     var quetions = [PwdQuestion]()
     var selectedQuestions = [PwdQuestion(), PwdQuestion(), PwdQuestion()]
-
+    
+    var showOnlyOne = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
         
         bkVIew.snp.updateConstraints { (make) in
-            make.height.equalTo(203)
+            make.height.equalTo(152)
         }
         phoneView.isHidden = false
         
@@ -52,8 +58,33 @@ class ForgetPwdVC: BaseViewController {
         pwdPhoneView.snp.makeConstraints { [unowned self] (make) in
             make.top.bottom.left.right.equalTo(self.phoneView)
         }
-        
+        pwdPhoneView.codeType = type
         saveBtn.layer.cornerRadius = CustomValue.btnCornerRadius
+        
+        if !canWritePhone {
+            pwdPhoneView.phoneText.isEnabled = false
+            
+            if let p = PersonMdel.readData() {
+                pwdPhoneView.phoneText.text = p.fPhone
+            }
+        }
+        
+        if showOnlyOne {
+            self.saveBtn.setTitle("保存", for: .normal)
+            segmentHeight.constant = 0
+            if type == .t {
+                self.segment.selectedIndex = 0
+                self.title = "修改手机号码"
+            } else if type == .m {
+                self.segment.selectedIndex = 1
+                self.title = "修改密保"
+                self.selectPhone = false
+            }
+            bkVIew.snp.updateConstraints { (make) in
+                make.height.equalTo(101)
+            }
+        }
+        
         requestData()
     }
     
@@ -136,7 +167,7 @@ class ForgetPwdVC: BaseViewController {
     @IBAction func ac_phoneClick(_ sender: UIButton) {
         //356 203
         bkVIew.snp.updateConstraints { (make) in
-            make.height.equalTo(203)
+            make.height.equalTo(152)
         }
         
         phoneView.isHidden = false
@@ -151,42 +182,100 @@ class ForgetPwdVC: BaseViewController {
 
     //下一步
     @IBAction func ac_save(_ sender: UIButton) {
-        var params = ["method":"apiSecurityEntry", "":""]
         if segment.selectedIndex == 0 {
-            if !self.pwdPhoneView.phoneText.check() || !self.pwdPhoneView.codeText.check() || !self.pwdPhoneView.pwdText.check() {
+            if !self.pwdPhoneView.phoneText.check() || !self.pwdPhoneView.codeText.check() {
                 return
             }
-            
-            params["fActiontype"] = "u"
-            params["smsCode"] = self.pwdPhoneView.codeText.text
-            MBProgressHUD.showAdded(to: self.view, animated: true)
-            NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
-                MBProgressHUD.hideHUD(forView: self.view)
-                bm.whenSuccess {
-                    self.navigationController?.popViewController(animated: true)
-                }
-            }, failture: { (err) in
-                MBProgressHUD.hideHUD(forView: self.view)
-            })
         } else {
             for m in self.selectedQuestions {
                 if !Tools.stringIsNotBlank(text: m.answer) || m.fQuestionid == 0 {
                     MBProgressHUD.show(errorText: "请回答所有保密问题")
                     return
                 }
-
+            }
+        }
+        if showOnlyOne {
+            if segment.selectedIndex == 0 {
+                var params = ["method":"apieditmyinofbysms", "fActiontype":"m"]
+                params["smsCode"] = self.pwdPhoneView.codeText.text!
                 MBProgressHUD.showAdded(to: self.view, animated: true)
-                let params = ["method":"apiSecurityEntry", "fActiontype":"q", "fAnswer1":selectedQuestions[0].answer, "fAnswer2":selectedQuestions[1].answer, "fAnswer3":selectedQuestions[2].answer]
                 NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
                     MBProgressHUD.hideHUD(forView: self.view)
                     bm.whenSuccess {
-                        MBProgressHUD.show(successText: "aaaa")
+                        for vc in (self.navigationController?.viewControllers)! {
+                            if vc is SafeCenterVC {
+                                self.navigationController?.popToViewController(vc, animated: true)
+                                break
+                            }
+                        }
+                    }
+                }, failture: { (err) in
+                    MBProgressHUD.hideHUD(forView: self.view)
+                })
+            } else {
+                MBProgressHUD.showAdded(to: self.view, animated: true)
+                let params = ["method":"apieditmyinofbysms", "fActiontype":"q", "fAnswer1":self.getAnsewerStr(q: selectedQuestions[0]), "fAnswer2":self.getAnsewerStr(q: selectedQuestions[1]), "fAnswer3":self.getAnsewerStr(q: selectedQuestions[2])]
+                NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+                    MBProgressHUD.hideHUD(forView: self.view)
+                    bm.whenSuccess {
+                        for vc in (self.navigationController?.viewControllers)! {
+                            if vc is SafeCenterVC {
+                                self.navigationController?.popToViewController(vc, animated: true)
+                                break
+                            }
+                        }
                     }
                 }, failture: { (err) in
                     MBProgressHUD.hideHUD(forView: self.view)
                 })
             }
+            return
         }
+        
+        
+        var vc: UIViewController!
+        if type == .c || type == .p {
+            vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ModifyPwdVC.self)
+            (vc as! ModifyPwdVC).isUpdateUserPwd = (type == .c)
+        } else {
+            vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self)
+            let fvc = vc as! ForgetPwdVC
+            fvc.showOnlyOne = true
+            fvc.type = type
+            canWritePhone = true
+        }
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        if segment.selectedIndex == 0 {
+            var params = ["method":"apiSecurityEntry", "fActiontype":"m"]
+            params["smsCode"] = self.pwdPhoneView.codeText.text!
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+                MBProgressHUD.hideHUD(forView: self.view)
+                bm.whenSuccess {
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }, failture: { (err) in
+                MBProgressHUD.hideHUD(forView: self.view)
+            })
+        } else {
+            
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            let params = ["method":"apiSecurityEntry", "fActiontype":"q", "fAnswer1":self.getAnsewerStr(q: selectedQuestions[0]), "fAnswer2":self.getAnsewerStr(q: selectedQuestions[1]), "fAnswer3":self.getAnsewerStr(q: selectedQuestions[2])]
+            NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+                MBProgressHUD.hideHUD(forView: self.view)
+                bm.whenSuccess {
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }, failture: { (err) in
+                MBProgressHUD.hideHUD(forView: self.view)
+            })
+        }
+    }
+    
+    func getAnsewerStr(q: PwdQuestion) -> String {
+        return "\(q.fQuestionid)#\(q.answer)"
     }
     
     override func viewWillAppear(_ animated: Bool) {

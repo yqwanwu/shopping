@@ -16,12 +16,23 @@ class PwdPhoneView: UIView {
     
     @IBOutlet weak var codeBtn: CountdownButton!
     
+    var nextAction: BLANK_CLOSURE?
+    var codeType = CodeModel.captChaType.b
     @IBAction func ac_getCode(_ sender: UIButton) {
+        if !phoneText.check() || sender.isSelected {
+            return
+        }
         sender.isSelected = true
+        CodeModel.requestData(phone: self.phoneText.text!, type: codeType)
+    }
+
+    
+    @IBAction func ac_next(_ sender: UIButton) {
+        nextAction?()
     }
     
     override func awakeFromNib() {
-        super.awakeFromNib()
+        super.awakeFromNib()        
         
         phoneText.setCheck { (tf) -> Bool in
             let r = Tools.searchStr(str: tf.text ?? "", regexStr: "(^\\d{11}$)")

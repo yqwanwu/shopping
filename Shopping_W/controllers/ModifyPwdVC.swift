@@ -21,13 +21,14 @@ class ModifyPwdVC: BaseViewController {
         super.viewDidLoad()
         
         bvView.layer.cornerRadius = 4
-        self.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+//        self.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
         
         pwd1.setCheck({Tools.stringIsNotBlank(text: $0.text)})
         pwd2.setCheck({Tools.stringIsNotBlank(text: $0.text)})
-        
+        self.title = "请修改登录密码"
         if !isUpdateUserPwd {
             self.titleLabel.text = "请修改支付密码"
+            self.title = "请修改支付密码"
         }
     }
     
@@ -47,7 +48,15 @@ class ModifyPwdVC: BaseViewController {
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             MBProgressHUD.hide(for: self.view, animated: true)
             bm.whenSuccess {
-                self.dismiss(animated: true, completion: nil)
+                if let p = PersonMdel.readData(), self.isUpdateUserPwd {
+                    p.password = self.pwd1.text!
+                }
+                for vc in (self.navigationController?.viewControllers)! {
+                    if vc is SafeCenterVC {
+                        self.navigationController?.popToViewController(vc, animated: true)
+                        break
+                    }
+                }
             }
         }) { (err) in
             MBProgressHUD.hide(for: self.view, animated: true)

@@ -29,22 +29,29 @@ class SafeCenterVC: BaseViewController {
         let c3 = CustomTableViewCellItem().build(text: "密保问题").build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
         
         c.setupCellAction { [unowned self] (idx) in
-            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ModifyPwdVC.self)
-            self.present(vc, animated: false, completion: nil)
+//            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ModifyPwdVC.self)
+//            self.present(vc, animated: false, completion: nil)
+            
+            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self) as! ForgetPwdVC
+            vc.type = .c
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         c1.setupCellAction { [unowned self] (idx) in
             let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self) as! ForgetPwdVC
             vc.isModify = true
+            vc.type = .t
             self.navigationController?.pushViewController(vc, animated: true)
         }
         c2.setupCellAction { [unowned self] (idx) in
-            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ModifyPwdVC.self)
-            self.present(vc, animated: false, completion: nil)
+            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self) as! ForgetPwdVC
+            vc.type = .p
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         c3.setupCellAction { [unowned self] (idx) in
             let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self) as! ForgetPwdVC
             vc.isModify = true
             vc.selectPhone = false
+            vc.type = .m
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

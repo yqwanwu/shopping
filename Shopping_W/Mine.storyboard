@@ -703,7 +703,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LNI-HT-IjT">
-                                <rect key="frame" x="51" y="247.5" width="273" height="172"/>
+                                <rect key="frame" x="51" y="120" width="273" height="172"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请修改登录密码" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zwn-6f-hAK">
                                         <rect key="frame" x="82.5" y="15" width="108" height="18"/>
@@ -799,7 +799,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="LNI-HT-IjT" firstAttribute="centerY" secondItem="gms-7a-v4o" secondAttribute="centerY" id="aS0-6h-EgR"/>
+                            <constraint firstItem="LNI-HT-IjT" firstAttribute="top" secondItem="2Bk-mo-gTL" secondAttribute="bottom" constant="100" id="J9E-Y3-hgV"/>
                             <constraint firstItem="LNI-HT-IjT" firstAttribute="leading" secondItem="gms-7a-v4o" secondAttribute="leadingMargin" constant="35" id="wbp-Ov-Mby"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LNI-HT-IjT" secondAttribute="trailing" constant="35" id="zGJ-Nu-YJG"/>
                         </constraints>
