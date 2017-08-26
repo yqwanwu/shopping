@@ -30,7 +30,7 @@ class GoodsCommonTableViewCell: CustomTableViewCell {
                 commonLabel.isHidden = false
                 let attrStr = NSMutableAttributedString(string: "12312", attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
                 oldPriceLabel.attributedText = attrStr
-                
+                descLabel.text = m.fSummary
             } else if let m = model as? PromotionModel {
                 nameLabel.text = m.fGoodsname
                 imgView.sd_setImage(with: URL.encodeUrl(string: m.fUrl), placeholderImage: #imageLiteral(resourceName: "placehoder"))

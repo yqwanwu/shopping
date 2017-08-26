@@ -8,8 +8,9 @@
 
 import UIKit
 import SnapKit
+import MBProgressHUD
 
-class SearchVC: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class SearchVC: BaseViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UITableViewDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBtn: UIButton!
@@ -28,18 +29,16 @@ class SearchVC: BaseViewController, UICollectionViewDelegate, UICollectionViewDa
         searchBtn.layer.cornerRadius = CustomValue.btnCornerRadius
         searchBtn.layer.masksToBounds = true
 
+        searchBar.delegate = self
+        
         layout.minimumLineSpacing = 15
         layout.minimumInteritemSpacing = 15
         collectionView.setCollectionViewLayout(layout, animated: true)
 //        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         
-        layout.setWidthFotItem { [unowned self] (idx) -> CGSize in
-            let rec = (self.datas[idx.row] as NSString).boundingRect(with: CGSize(width: 500, height: 20), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 17)], context: nil)
-            return CGSize(width: rec.width + 20, height: 30)
-        }
-        
         self.view.addSubview(tableView)
         tableView.isHidden = true
+        tableView.delegate = self
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.lineView.snp.bottom)
             make.left.right.bottom.equalTo(self.view)
@@ -48,10 +47,33 @@ class SearchVC: BaseViewController, UICollectionViewDelegate, UICollectionViewDa
             self.currentPage += 1
             self.requstData()
         }
+        
+        requestHot()
+    }
+    
+    func requestHot() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        NetworkManager.JsonPostRequest(params: ["method":"apihotsearchtags"], success: { (j) in
+            MBProgressHUD.hideHUD(forView: self.view)
+            if j["code"].stringValue == "0" {
+                self.datas = j["list"].arrayValue.map({ (json) -> String in
+                    return json["fSerchtext"].stringValue
+                })
+                self.layout.setWidthFotItem { [unowned self] (idx) -> CGSize in
+                    let rec = (self.datas[idx.row] as NSString).boundingRect(with: CGSize(width: 500, height: 20), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 17)], context: nil)
+                    return CGSize(width: rec.width + 20, height: 30)
+                }
+                self.collectionView.reloadData()
+            } else {
+                MBProgressHUD.show(errorText: j["message"].stringValue)
+            }
+        }) { (err) in
+            MBProgressHUD.hideHUD(forView: self.view)
+        }
     }
     
     func requstData() {
-        let params = ["method":"apigoodsSearch", "fSearchtext":self.searchBar.text ?? ""]
+        let params = ["method":"apigoodsSearch", "fSearchtext":self.searchBar.text ?? "", "currentPage":currentPage, "pageSize":CustomValue.pageSize] as [String : Any]
         NetworkManager.requestPageInfoModel(params: params).setSuccessAction { (bm: BaseModel<GoodsModel>) in
             self.tableView.endFooterRefresh()
             bm.whenSuccess {
@@ -69,11 +91,17 @@ class SearchVC: BaseViewController, UICollectionViewDelegate, UICollectionViewDa
                     return model
                 })
                 
+                if arr.isEmpty {
+                    MBProgressHUD.show(warningText: "没有相关数据")
+                } else {
+                    self.tableView.isHidden = false
+                }
+                
                 if !bm.pageInfo!.hasNextPage {
                     self.tableView.noMoreData()
                 }
                 
-                if self.tableView.dataArray.count > 0 {
+                if self.currentPage > 1 && self.tableView.dataArray.count > 0 {
                     arr.insert(contentsOf: self.tableView.dataArray[0] as! [GoodsModel], at: 0)
                 }
                 self.tableView.dataArray = [arr]
@@ -84,6 +112,9 @@ class SearchVC: BaseViewController, UICollectionViewDelegate, UICollectionViewDa
     }
 
     @IBAction func ac_search(_ sender: Any) {
+        self.currentPage = 1
+        self.searchBar.resignFirstResponder()
+        self.requstData()
     }
     
     
@@ -98,5 +129,31 @@ class SearchVC: BaseViewController, UICollectionViewDelegate, UICollectionViewDa
         cell.titleLabel.text = datas[indexPath.row]
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let text = datas[indexPath.row]
+        self.searchBar.text = text
+        
+        self.ac_search(searchBtn)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if searchBar.isFirstResponder {
+            self.searchBar.resignFirstResponder()
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !Tools.stringIsNotBlank(text: searchText) {
+            self.tableView.isHidden = true
+        }
+    }
 
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            self.ac_search(searchBtn)
+        }
+        return true
+    }
+    
 }

@@ -20,6 +20,11 @@ class BalanceTableViewCell: CustomTableViewCell {
                 self.titleLabel.text = m.fType == 0 ? "购买奖励" : "消费积分"
                 self.timeLabel.text = m.fCreatetime
                 self.moneyLabel.text = "\(m.fIntegral)"
+            } else if let m = model as? MyBalanceModel {
+//                self.titleLabel.text = m.fState == 0 ? "购买奖励" : "消费积分"
+                self.titleLabel.text = ""
+                self.timeLabel.text = m.fCreatetime
+                self.moneyLabel.text = "\(m.fAmount)"
             }
         }
     }

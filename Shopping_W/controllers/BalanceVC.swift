@@ -17,6 +17,8 @@ class BalanceVC: BaseViewController, UITableViewDelegate {
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var logoView: UIImageView!
     
+    var totalBalance = ""
+    
     enum VCType {
         case balance, integral
     }
@@ -29,12 +31,14 @@ class BalanceVC: BaseViewController, UITableViewDelegate {
         super.viewDidLoad()
 
         self.title = type == .balance ? "我的余额" : "我的积分"
-        
+        self.titleLabel.text = "可用余额 : " + self.totalBalance
         if type == .integral {
             logoView.image = #imageLiteral(resourceName: "p4.5-我的积分")
             headerBk.backgroundColor = UIColor.hexStringToColor(hexString: "fdb82d")
             tipLabel.text = "此积分可在结账时直接时可用"
             requestInteral()
+        } else {
+            requestBalance()
         }
         
 //        let c = CustomTableViewCellItem().build(cellClass: BalanceTableViewCell.self).build(isFromStoryBord: true).build(heightForRow: 50)
@@ -42,6 +46,23 @@ class BalanceVC: BaseViewController, UITableViewDelegate {
         tableView.delegate = self
     }
     
+    func requestBalance() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        NetworkManager.requestListModel(params: ["method":"apigetrechargelist"])
+            .setSuccessAction { (bm: BaseModel<MyBalanceModel>) in
+                bm.whenSuccess { [unowned self] _ in
+                    
+                    let arr = bm.list!.map({ (model) -> MyBalanceModel in
+                        model.build(cellClass: BalanceTableViewCell.self).build(isFromStoryBord: true).build(heightForRow: 50)
+                        return model
+                    })
+                    self.tableView.dataArray = [arr]
+                    self.tableView.reloadData()
+                }
+                
+                MBProgressHUD.hideHUD(forView: self.view)
+        }
+    }
     
     func requestInteral() {
         /*

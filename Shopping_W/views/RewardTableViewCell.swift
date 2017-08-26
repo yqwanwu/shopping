@@ -14,6 +14,16 @@ class RewardTableViewCell: CustomTableViewCell {
     @IBOutlet weak var integrateLabel: UILabel! //积分
     @IBOutlet weak var rewardPersent: UILabel!
     @IBOutlet weak var cangetLabel: UILabel!//可获取奖金
+    
+    override var model: CustomTableViewCellItem? {
+        didSet {
+            if let m = model as? RewardModel {
+                lavelLabel.text = m.fLevelintegraltext
+                integrateLabel.text = "\(m.fSumlevelintegral)"
+                rewardPersent.text = "\(m.fLevelpercentage)"
+            }
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

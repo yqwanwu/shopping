@@ -228,7 +228,11 @@ class MineVC: BaseViewController {
             if let vc = segue.destination as? BalanceVC {
                 vc.type = .integral
             }
-        } else if identifier == k_toAllRecive {
+        } else if identifier == k_toBalance {
+            if let vc = segue.destination as? BalanceVC {
+                vc.totalBalance = self.balanceLabel.text ?? ""
+            }
+        }else if identifier == k_toAllRecive {
             orderIndex = 0
         } else if identifier == k_toReceiving {
             let vc = segue.destination as! OrderVC
