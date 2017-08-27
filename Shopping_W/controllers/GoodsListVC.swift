@@ -139,14 +139,12 @@ class GoodsListVC: BaseViewController {
                     if self.type == .level2 {
                         vc.type = .normal
                     }
+                    vc.picUrl = m.fUrl
                     vc.goodsId = m.fGoodsid
                 } else if let model = model as? PromotionModel {
                     vc.promotionid = model.fPromotionid
-                    
+                    vc.picUrl = model.fUrl
                 }
-                
-                
-                
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             

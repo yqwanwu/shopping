@@ -65,6 +65,7 @@ class CookiesVC: BaseViewController, UITableViewDelegate {
                         }
                         vc.promotionid = model.F_PromotionID
                         vc.goodsId = model.F_GoodsID
+                        vc.picUrl = model.F_PicUrl
                         self.navigationController?.pushViewController(vc, animated: true)
                     })
                     return model

@@ -23,11 +23,10 @@ class LoginVC: BaseViewController {
     @IBOutlet weak var thirdLoginTitle: UILabel!
     
     let k_toRegisterVC = "toRegisterVC"
-    
 
     override func viewDidLoad() {
+        self.showFirstVCBackBtn = true
         super.viewDidLoad()
-
         phonrText.setCheck { (tf) -> Bool in
             let r = Tools.searchStr(str: tf.text ?? "", regexStr: "(^\\d{11}$)")
             return r != nil
@@ -47,6 +46,10 @@ class LoginVC: BaseViewController {
                 self.pwdText.text = p.fUserpass
             }
         }
+    }
+    
+    override func ac_back() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,8 +102,9 @@ class LoginVC: BaseViewController {
         
         MBProgressHUD.show(text: "登录中...")
         LoginVC.login(userName: phonrText.text ?? "", pwd: pwdText.text ?? "") {
-            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: CustomTabBarVC.self)
-            self.present(vc, animated: true, completion: nil)
+//            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: CustomTabBarVC.self)
+//            self.present(vc, animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
         
     }
@@ -150,6 +154,18 @@ class LoginVC: BaseViewController {
         textBack.layer.borderWidth = 1
         textBack.layer.cornerRadius = CustomValue.btnCornerRadius
         loginBtn.layer.cornerRadius = CustomValue.btnCornerRadius
+    }
+    
+    @discardableResult
+    static func showLogin() -> Bool {
+        if !PersonMdel.isLogined() {
+            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginVCNav")
+//            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: LoginVC.self)
+            CustomTabBarVC.instance.present(vc, animated: true, completion: nil)
+            return true
+        }
+        
+        return false
     }
     
     

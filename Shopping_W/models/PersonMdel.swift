@@ -67,6 +67,14 @@ class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
         return nil
     }
     
+    class func isLogined() -> Bool {
+        if let p = PersonMdel.readData() {
+            return Tools.stringIsNotBlank(text: p.password)
+        } else {
+            return false
+        }
+    }
+    
     func saveData() {
         let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
         let filePath = (path as NSString?)?.appendingPathComponent("pm.pf")

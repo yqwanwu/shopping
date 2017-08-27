@@ -34,14 +34,20 @@ class CollectionPopoverVC: BaseViewController, UITableViewDelegate {
         tableView.delegate = self
         
     }
-
+    
+    var selectedIndex = 0
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            addToCollection()
+            if PersonMdel.isLogined() {
+                addToCollection()
+            } else {
+                
+            }
             break
         case 1:
             ThirdLoginOrShare.show(viewController: parentVC!, title: "分享", text: shareText, img: #imageLiteral(resourceName: "placehoder"), url: NetworkManager.BASESERVER)
+            selectedIndex = 1
         default:
             break
         }
@@ -59,6 +65,13 @@ class CollectionPopoverVC: BaseViewController, UITableViewDelegate {
             bm.whenSuccess {
                 MBProgressHUD.show(successText: "收藏成功")
             }
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if selectedIndex == 0 {
+            LoginVC.showLogin()
         }
     }
     

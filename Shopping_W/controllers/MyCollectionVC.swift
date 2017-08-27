@@ -60,6 +60,7 @@ class MyCollectionVC: BaseViewController, UITableViewDelegate {
                         default:
                             break
                         }
+                        vc.picUrl = model.F_PicUrl
                         vc.promotionid = model.F_PromotionID
                         vc.goodsId = model.F_GoodsID
                         self.navigationController?.pushViewController(vc, animated: true)

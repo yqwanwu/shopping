@@ -331,6 +331,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             
             let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
             vc.promotionid = goods.fPromotionid
+            vc.picUrl = goods.fUrl
             // 0:无 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
             switch goods.fType {
             case 0:
@@ -361,7 +362,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
                 break
             }
             vc.goodsId = goods.fGoodsid
-            
+            vc.picUrl = goods.fUrl
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

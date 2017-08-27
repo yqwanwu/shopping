@@ -8,6 +8,8 @@
 
 import UIKit
 import MBProgressHUD
+import Realm
+import RealmSwift
 
 class CarVC: UIViewController, UITableViewDelegate {
     @IBOutlet weak var tableVIew: RefreshTableView!
@@ -31,63 +33,75 @@ class CarVC: UIViewController, UITableViewDelegate {
     }
     
     func requestData() {
+        if !PersonMdel.isLogined() {
+            let list = CarModel.readFromDB()
+            dealModels(models: list)
+            self.tableVIew.endHeaderRefresh()
+            return
+        }
+        
         NetworkManager.requestListModel(params: ["method":"apishopcartlist"]).setSuccessAction { (bm: BaseModel<CarModel>) in
             self.tableVIew.endHeaderRefresh()
             bm.whenSuccess {
-                let arr = bm.list!.map({ (model) -> CarModel in
-                    model.build(cellClass: CarTableViewCell.self)
-                        .build(isFromStoryBord: true)
-                        .build(heightForRow: 137)
-                    
-                    model.countAction = { _ in
-                        self.updateAllPrice()
-                    }
-                    
-                    model.setupCellAction { [unowned self] (idx) in
-                        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
-                        switch model.F_Type {
-                        case 0:
-                            vc.type = .normal
-                        case 1:
-                            vc.type = .group
-                        case 2:
-                            vc.type = .seckill
-                        case 3, 4, 5, 6:
-                            vc.type = .promotions
-                        default:
-                            break
-                        }
-                        vc.promotionid = model.F_PromotionID
-                        vc.goodsId = model.F_GoodsID
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }
-                    return model
-                })
-                
-                for item in arr {
-                    item.selectedAction = { [unowned self] _ in
-                        if !self.updateByAllBtn {
-                            for model in arr {
-                                if !model.isSelected {
-                                    self.selectAllBtn.isSelected = false
-                                    return
-                                }
-                            }
-                            let notSelected = arr.filter({ !$0.isSelected })
-                            self.selectAllBtn.isSelected = arr.count > 0 && notSelected.count < 1
-                            self.updateAllPrice()
-                        }
-                    }
-                }
-                
-                CarModel.items = arr
-                self.tableVIew.dataArray = [arr]
-                self.tableVIew.reloadData()
-                self.updateAllPrice()
+                self.dealModels(models: bm.list!)
             }
         }.seterrorAction { (err) in
             self.tableVIew.endHeaderRefresh()
         }
+    }
+    
+    func dealModels(models: [CarModel]) {
+        let arr = models.map({ (model) -> CarModel in
+            model.build(cellClass: CarTableViewCell.self)
+                .build(isFromStoryBord: true)
+                .build(heightForRow: 137)
+            
+            model.countAction = { _ in
+                self.updateAllPrice()
+            }
+            
+            model.setupCellAction { [unowned self] (idx) in
+                let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+                switch model.F_Type {
+                case 0:
+                    vc.type = .normal
+                case 1:
+                    vc.type = .group
+                case 2:
+                    vc.type = .seckill
+                case 3, 4, 5, 6:
+                    vc.type = .promotions
+                default:
+                    break
+                }
+                vc.promotionid = model.F_PromotionID
+                vc.goodsId = model.F_GoodsID
+                vc.picUrl = model.F_GoodImg
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            return model
+        })
+        
+        for item in arr {
+            item.selectedAction = { [unowned self] _ in
+                if !self.updateByAllBtn {
+                    for model in arr {
+                        if !model.isSelected {
+                            self.selectAllBtn.isSelected = false
+                            return
+                        }
+                    }
+                    let notSelected = arr.filter({ !$0.isSelected })
+                    self.selectAllBtn.isSelected = arr.count > 0 && notSelected.count < 1
+                    self.updateAllPrice()
+                }
+            }
+        }
+        
+        CarModel.items = arr
+        self.tableVIew.dataArray = [arr]
+        self.tableVIew.reloadData()
+        self.updateAllPrice()
     }
 
     func setupTableView() {
@@ -146,6 +160,10 @@ class CarVC: UIViewController, UITableViewDelegate {
     }
     
     @IBAction func ac_submit(_ sender: UIButton) {
+        if LoginVC.showLogin() {
+            return
+        }
+        
         let selectedArr = self.tableVIew.dataArray[0]
             .filter({ (item) -> Bool in
                 return (item as! CarModel).isSelected

@@ -74,6 +74,7 @@ class SecKillVC: BaseViewController {
                             model.setupCellAction { [unowned self] (idx) in
                             let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
                             vc.type = .seckill
+                            vc.picUrl = model.fPicurl
                             vc.promotionid = model.fPromotionid
                             self.navigationController?.pushViewController(vc, animated: true)
                             }

@@ -33,6 +33,14 @@ class CustomTabBarVC: BaseTabBarController {
     }
     
     override func tabBar(_ tabBar: CustomTabBar, form: Int, to: Int) {
+        //我的
+        if to == 3 {
+            if !PersonMdel.isLogined() {
+                LoginVC.showLogin()
+                super.tabBar(tabBar, form: form, to: form)
+                return
+            }
+        }
         super.tabBar(tabBar, form: form, to: to)
         
         if form == to {

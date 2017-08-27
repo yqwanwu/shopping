@@ -10,6 +10,8 @@ import UIKit
 import MBProgressHUD
 import SnapKit
 import WebKit
+import Realm
+import RealmSwift
 
 class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIPopoverPresentationControllerDelegate, WKUIDelegate, WKNavigationDelegate {
     @IBOutlet weak var scrollBk: UIScrollView!
@@ -67,7 +69,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     var detailModel = GoodsDetailModel()
     var goodsId: Int = 0
     var promotionid = 0
-    
+    var picUrl = ""
     lazy var webView: WKWebView = {
         let w = WKWebView(frame: CGRect.zero)
         w.uiDelegate = self
@@ -155,6 +157,10 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         }) { (err) in
             
         }
+    }
+    
+    func showLogin() {
+        LoginVC.showLogin()
     }
     
     func requestData() {
@@ -421,19 +427,47 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         
         let count = Int(countBtn.numberText.text ?? "") ?? 1
         
-        let params = ["method":"apiaddtoshopcart", "fGoodsid":self.goodsId, "fCount":count, "fGeid":fgid, "fPromotionid":""] as [String : Any]
+        if !PersonMdel.isLogined() {
+            let car = CarModel()
+            car.F_Count = count
+            car.F_GoodsID = self.goodsId
+            car.F_GEID = fgid
+            car.F_PromotionID = promotionid
+            
+            //todo
+            car.F_GoodImg = picUrl
+            car.F_GoodsName = detailModel.fGoodsname
+            car.saveToDB()
+            MBProgressHUD.show(successText: "添加成功")
+            
+//            let l = try! Realm().objects(CarRealmModel.self)
+//            print(l)
+            return
+        }
+        
+        let params = ["method":"apiaddtoshopcart", "fGoodsid":self.goodsId, "fCount":count, "fGeid":fgid, "fPromotionid":self.promotionid == 0 ? "" : "\(promotionid)"] as [String : Any]
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             bm.whenSuccess {
                 MBProgressHUD.show(successText: "添加成功")
                 CarVC.needsReload = true
-                if CarModel.items.isEmpty {
-                    self.carBtn.badgeValue = "1"
-                } else {
-                    self.carBtn.badgeValue = CarModel.getCount() == 0 ? nil : "\(CarModel.getCount(carId: Int(bm.ai) ?? 0))"
-                }
+                let id = Int(bm.ai) ?? 0
+                self.updateBadge(id: id)
             }
         }) { (err) in
             
+        }
+    }
+    
+    func updateBadge(id: Int) {
+        if PersonMdel.isLogined() {
+            if CarModel.items.isEmpty {
+                self.carBtn.badgeValue = "1"
+            } else {
+                self.carBtn.badgeValue = CarModel.getCount() == 0 ? nil : "\(CarModel.getCount(carId: id))"
+            }
+        } else {
+            let l = try! Realm().objects(CarRealmModel.self)
+            self.carBtn.badgeValue = l.count == 0 ? nil : "\(l.count)"
         }
     }
     

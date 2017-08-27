@@ -14,6 +14,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
     ///更改为 true 默认显示
     var showCustomBackbtn = true
     var showOriginalColor = true
+    var showFirstVCBackBtn = false
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return [.portrait/*, .landscapeLeft, .landscapeRight*/]
@@ -45,7 +46,7 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         
         self.navigationItem.hidesBackButton = showCustomBackbtn
         if let nav = navigationController, showCustomBackbtn {
-            if nav.viewControllers.count > 1 && navigationItem.leftBarButtonItem == nil {
+            if (showFirstVCBackBtn || nav.viewControllers.count > 1) && navigationItem.leftBarButtonItem == nil {
                 let bar = UIBarButtonItem(image: UIImage(named: "返回icon"), style: .plain, target: self, action: #selector(BaseViewController.ac_back))
 //                bar.title = "返回"
                 
