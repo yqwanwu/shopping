@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class CollectionPopoverVC: BaseViewController, UITableViewDelegate {
     @IBOutlet weak var tableView: CustomTableView!
     
     weak var parentVC: UIViewController?
+    var goodsId = 0
+    var promotionid = 0
+    var shareText = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +38,10 @@ class CollectionPopoverVC: BaseViewController, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
+            addToCollection()
             break
         case 1:
-            ThirdLoginOrShare.show(viewController: parentVC!, title: "分享", text: "asdsafew", img: #imageLiteral(resourceName: "placehoder"), url: "https://www.baidu.com")
+            ThirdLoginOrShare.show(viewController: parentVC!, title: "分享", text: shareText, img: #imageLiteral(resourceName: "placehoder"), url: NetworkManager.BASESERVER)
         default:
             break
         }
@@ -44,6 +49,18 @@ class CollectionPopoverVC: BaseViewController, UITableViewDelegate {
         self.dismiss(animated: true, completion: nil)
     }
 
+    func addToCollection() {
+        var params = ["method":"apiFavoritesAdd"]
+        params["fGoodsid"] = "\(goodsId)"
+        if promotionid != 0 {
+            params["fPromotionid"] = "\(promotionid)"
+        }
+        NetworkManager.requestTModel(params: params).setSuccessAction { (bm: BaseModel<CodeModel>) in
+            bm.whenSuccess {
+                MBProgressHUD.show(successText: "收藏成功")
+            }
+        }
+    }
     
 
 }

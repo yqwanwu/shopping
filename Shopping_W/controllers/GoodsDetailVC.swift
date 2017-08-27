@@ -108,6 +108,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             make.left.right.equalTo(self.view)
             make.height.equalTo(0)
         }
+        
+        addCookie()
     }
     
     func setupUI(model: GoodsDetailModel) {
@@ -142,6 +144,19 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         self.webView.loadHTMLString(model.fContentapp, baseURL: URL(string: NetworkManager.BASESERVER))
     }
     
+    func addCookie() {
+        var params = ["method":"apiBrowseLogAdd"]
+        params["fGoodsid"] = "\(goodsId)"
+        if promotionid != 0 {
+            params["fPromotionid"] = "\(promotionid)"
+        }
+        NetworkManager.JsonPostRequest(params: params, success: { (j) in
+            
+        }) { (err) in
+            
+        }
+    }
+    
     func requestData() {
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
@@ -163,6 +178,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
                 MBProgressHUD.hideHUD(forView: self.view)
                 if let m = bm.list?.first {
                     self.detailModel = m
+                    self.goodsId = m.fGoodsid
                     self.setupUI(model: m)
                 }
                 }.seterrorAction { (err) in
@@ -443,6 +459,9 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
                 vc.popoverPresentationController?.delegate = self
                 vc.preferredContentSize = CGSize(width: 140, height: 100)
                 vc.parentVC = self
+                vc.shareText = self.nameLabel.text ?? ""
+                vc.goodsId = goodsId
+                vc.promotionid = promotionid
             }
         } else if segue.identifier == "toEvaluateVC" {
             let vc = segue.destination as! EvaluateVC

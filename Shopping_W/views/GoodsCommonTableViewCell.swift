@@ -73,6 +73,45 @@ class GoodsCommonTableViewCell: CustomTableViewCell {
                 descLabel.text = desc
                 imgView.sd_setImage(with: URL.encodeUrl(string: m.fPicurl))
                 currentPriceLabel.text = m.fSaleprice.moneyValue()
+            } else if let m = model as? CollectionModel {
+                nameLabel.text = m.F_GoodsName
+                imgView.sd_setImage(with: URL.encodeUrl(string: m.F_PicUrl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
+                descLabel.text = m.F_Summary
+                currentPriceLabel.text = m.F_salesprice.moneyValue()
+                
+                commonLabel.isHidden = true
+                //促销类别 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
+                
+                switch m.F_Type {
+                case 1:
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.F_salesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                    oldPriceLabel.attributedText = attrStr
+                    currentPriceLabel.text = "¥" + m.F_PromotionPrice.moneyValue()
+//                    let htmlStr = CustomValue.htmlHeader + "<p>" +
+//                        "<span style='color: #fdc249'>10件</span>" +
+//                        "<span style='color: black'>成团，还差</span>" +
+//                        "<span style='color: #fdc249'>3件</span>" +
+//                        "</p>" + CustomValue.htmlFooter
+//                    let htmlData = htmlStr.data(using: .utf8)
+//                    let htmlattr = try! NSAttributedString(data: htmlData!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+                case 2:
+                    commonLabel.isHidden = true
+                case 3:
+                    let attrStr = NSMutableAttributedString(string: "满\(Int(m.F_Price))-\(Int(m.F_Deduction))", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                    oldPriceLabel.attributedText = attrStr
+                case 4:
+                    let attrStr = NSMutableAttributedString(string: "赠", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                    oldPriceLabel.attributedText = attrStr
+                case 5:
+                    let attrStr = NSMutableAttributedString(string: "\(m.F_MIntegral)倍积分", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                    oldPriceLabel.attributedText = attrStr
+                case 6:
+                    let attrStr = NSMutableAttributedString(string: "\(m.F_Discount)折", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                    oldPriceLabel.attributedText = attrStr
+                    
+                default:
+                    break
+                }
             }
         }
     }

@@ -142,6 +142,7 @@ class GoodsListVC: BaseViewController {
                     vc.goodsId = m.fGoodsid
                 } else if let model = model as? PromotionModel {
                     vc.promotionid = model.fPromotionid
+                    
                 }
                 
                 

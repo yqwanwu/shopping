@@ -132,6 +132,34 @@ class OrerListCell: CustomTableViewCell {
                 self.titleLabel.text = m.fGoodsname
                 self.priceLabel.text = m.fSaleamount.moneyValue()
                 self.countLabel.text = "\(m.F_Specifications)  x\(m.fCount)"
+            } else if let m = model as? CollectionModel {
+                self.imgView.sd_setImage(with: URL.encodeUrl(string: m.F_PicUrl))
+                self.titleLabel.text = m.F_GoodsName
+                self.priceLabel.text = m.F_salesprice.moneyValue()
+                customLabel.isHidden = false
+                switch m.F_Type {
+                case 1:
+                    self.countLabel.text = "团购"
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.F_salesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                    customLabel.attributedText = attrStr
+                    priceLabel.text = "¥\(m.F_PromotionPrice.moneyValue())"
+                case 2:
+                    self.customLabel.text = "秒杀"
+                case 3:
+                    customLabel.text = "满\(Int(m.F_Price))-\(Int(m.F_Deduction))"
+                case 4:
+                    customLabel.text = "赠"
+                case 5:
+                    customLabel.text = "\(m.F_MIntegral)倍积分"
+                    
+                case 6:
+                    customLabel.text = "\(m.F_Discount)折"
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.F_salesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+//                    oldPriceLabel.attributedText = attrStr
+                    priceLabel.text = "¥\(m.F_PromotionPrice.moneyValue())"
+                default:
+                    break
+                }
             }
             
         }
