@@ -225,6 +225,12 @@ class CustomTabBarItem: UIButton {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let h = CustomTabBarItem.imgHeightRatio * frame.height
+        badgeView.frame.origin.x = frame.width / 2 + h / 4
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()

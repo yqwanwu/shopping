@@ -23,6 +23,7 @@ class CarTableViewCell: CustomTableViewCell {
             if let m = model as? CarModel {
                 priceLabel.text = m.F_SalesPrice.moneyValue()
                 countBtn.numberText.text = "\(m.F_Count)"
+                countBtn.subtractBtn.isEnabled = m.F_Count > 1
                 numberLabel.text = ""
                 numberNameLabel.text = m.F_ExString
                 titleLabel.text = m.F_GoodsName
@@ -51,7 +52,11 @@ class CarTableViewCell: CustomTableViewCell {
     func changeCount() {
         if let m = self.model as? CarModel {
             m.F_Count = Int(self.countBtn.numberText.text ?? "") ?? 1
-            m.updateCount()
+            if PersonMdel.isLogined() {
+                m.updateCount()
+            } else {
+                m.saveToDB()
+            }
         }
     }
     

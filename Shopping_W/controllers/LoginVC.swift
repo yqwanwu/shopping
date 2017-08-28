@@ -76,6 +76,8 @@ class LoginVC: BaseViewController {
                 //登陆后需要请求的数据
                 AddressModel.requestData()
                 CarModel.requestList()
+                
+                CarModel.addToServer()
             }
         }) { (err) in
             MBProgressHUD.hideHUD()

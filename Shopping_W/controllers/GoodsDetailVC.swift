@@ -92,6 +92,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         carBtn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
         carBtn.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         carBtn.badgeValue = CarModel.getCount() == 0 ? nil : "\(CarModel.getCount())"
+        updateBadge(id: 0)
         CarModel.requestList()
         serverbtn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
         serverbtn.titleLabel?.font = UIFont.systemFont(ofSize: 11)
@@ -428,8 +429,16 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         let count = Int(countBtn.numberText.text ?? "") ?? 1
         
         if !PersonMdel.isLogined() {
+            let realm = try! Realm()
+            let l = realm.objects(CarRealmModel.self).filter("F_GoodsID=%@ and F_PromotionID=%@", goodsId, promotionid)
+            
             let car = CarModel()
-            car.F_Count = count
+            if l.count > 0 {
+                car.F_Count = count + l.first!.F_Count
+            } else {
+                car.F_Count = count
+            }
+            
             car.F_GoodsID = self.goodsId
             car.F_GEID = fgid
             car.F_PromotionID = promotionid
@@ -437,11 +446,14 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             //todo
             car.F_GoodImg = picUrl
             car.F_GoodsName = detailModel.fGoodsname
+            car.F_PromotionCount = detailModel.fPromotioncount
+            car.F_SalesPrice = Double(self.perPriceLabel.text ?? "0") ?? 0.0
             car.saveToDB()
             MBProgressHUD.show(successText: "添加成功")
-            
+            self.updateBadge(id: 0)
 //            let l = try! Realm().objects(CarRealmModel.self)
 //            print(l)
+            CarVC.needsReload = true
             return
         }
         
@@ -484,6 +496,11 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         
 //        self.scrollBk.contentSize.height = tableView.frame.maxY
         self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.updateBadge(id: 0)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

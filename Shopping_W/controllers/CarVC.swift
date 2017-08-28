@@ -36,7 +36,9 @@ class CarVC: UIViewController, UITableViewDelegate {
         if !PersonMdel.isLogined() {
             let list = CarModel.readFromDB()
             dealModels(models: list)
-            self.tableVIew.endHeaderRefresh()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: { 
+                self.tableVIew.endHeaderRefresh()
+            })
             return
         }
         
@@ -192,9 +194,15 @@ class CarVC: UIViewController, UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let a = UITableViewRowAction(style: .default, title: "删除") { (action, idx) in
             
-            MBProgressHUD.showAdded(to: self.view, animated: true)
-            
             if let model = self.tableVIew.dataArray[indexPath.section][indexPath.row] as? CarModel {
+                if !PersonMdel.isLogined() {
+                    model.deleteFromDB()
+                    self.tableVIew.dataArray[indexPath.section].remove(at: indexPath.row)
+                    self.tableVIew.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
+                    return
+                }
+                
+                MBProgressHUD.showAdded(to: self.view, animated: true)
                 model.delete(complete: { [unowned self] _ in
                     MBProgressHUD.hideHUD(forView: self.view)
                     self.tableVIew.dataArray[indexPath.section].remove(at: indexPath.row)
