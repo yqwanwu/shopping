@@ -455,7 +455,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="KbB-jq-lpG"/>
                                         </constraints>
-                                        <state key="normal" title="保存修改">
+                                        <state key="normal" title="保存">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -585,6 +585,7 @@
                         <outlet property="phoneTF" destination="6AC-Y3-YVD" id="C8n-cN-HE3"/>
                         <outlet property="saveBtn" destination="VSi-4s-kSd" id="4CC-FG-Vc1"/>
                         <outlet property="tagTF" destination="aDC-9Q-8dV" id="NRX-dV-RGX"/>
+                        <outlet property="titleLabel" destination="Aw9-E8-dHi" id="w8r-Ql-qla"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yTn-82-GiK" userLabel="First Responder" sceneMemberID="firstResponder"/>

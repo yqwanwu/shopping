@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import MBProgressHUD
 
 class FirstViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate {
     
@@ -75,6 +76,14 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         
         //MARK:一些初始化数据
         CarModel.requestList()
+        
+        if PersonMdel.isLogined() {
+            MBProgressHUD.show()
+            let p = PersonMdel.readData()!
+            LoginVC.login(userName: p.fPhone, pwd: p.fUserpass, successAction: {
+                MBProgressHUD.hideHUD()
+            })
+        }
     }
 
     //下方商品

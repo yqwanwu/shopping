@@ -450,7 +450,9 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             car.F_SalesPrice = Double(self.perPriceLabel.text ?? "0") ?? 0.0
             car.saveToDB()
             MBProgressHUD.show(successText: "添加成功")
-            self.updateBadge(id: 0)
+            if !PersonMdel.isLogined() {
+                self.updateBadge(id: 0)
+            }
 //            let l = try! Realm().objects(CarRealmModel.self)
 //            print(l)
             CarVC.needsReload = true

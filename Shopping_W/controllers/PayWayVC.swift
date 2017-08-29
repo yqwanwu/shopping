@@ -9,29 +9,45 @@
 import UIKit
 import SwiftyJSON
 
-class PayWayVC: BaseViewController, UITableViewDelegate {
+class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var tableView: CustomTableView!
     
     var orderModel: OrderModel!
     
     let k_toPayResultVC = "toPayResultVC"
-
+    let p = payWayModel().build(text: "支付宝支付").build(cellClass: PayByThird.self).build(heightForRow: 50).build(isFromStoryBord: true)
+    let p1 = payWayModel().build(text: "微信支付").build(cellClass: PayByThird.self).build(heightForRow: 50).build(isFromStoryBord: true)
+    let p2 = payWayModel().build(text: "银行卡支付").build(cellClass: PayByThird.self).build(heightForRow: 50).build(isFromStoryBord: true)
+    let p3 = payWayModel().build(cellClass: PayByBalance.self).build(heightForRow: 50).build(isFromStoryBord: true)
+    
+    lazy var payArr: [payWayModel] = {
+        return [self.p, self.p1, self.p2, self.p3]
+    } ()
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
-        
-        let p = payWayModel().build(text: "支付宝支付").build(cellClass: PayByThird.self).build(heightForRow: 50).build(isFromStoryBord: true)
+        tableView.dataSource = self
         p.img = #imageLiteral(resourceName: "支付宝支付")
-        let p1 = payWayModel().build(text: "微信支付").build(cellClass: PayByThird.self).build(heightForRow: 50).build(isFromStoryBord: true)
         p1.img = #imageLiteral(resourceName: "微信支付")
-        let p2 = payWayModel().build(text: "银行卡支付").build(cellClass: PayByThird.self).build(heightForRow: 50).build(isFromStoryBord: true)
         p2.img = #imageLiteral(resourceName: "银行卡支付")
-        let p3 = payWayModel().build(cellClass: PayByBalance.self).build(heightForRow: 50).build(isFromStoryBord: true)
+        
         p3.totalPrice = "¥123"
         
         tableView.dataArray = [[p, p1, p2], [p3]]
+        
+        for model in payArr {
+            model.setupCellAction({ [unowned self] (idx) in
+                for m in self.payArr {
+                    m.isSelected = false
+                }
+                model.isSelected = true
+                self.tableView.dataArray = [[self.p, self.p1, self.p2], [self.p3]]
+                self.tableView.reloadData()
+            })
+        }
+        
         tableView.sectionHeaderHeight = 8
     }
     
@@ -52,36 +68,38 @@ class PayWayVC: BaseViewController, UITableViewDelegate {
          useUserAmount	string	前台获取	使用余额
  */
         
-//        let params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
-//        NetworkManager.JsonPostRequest(params: params, success: { (json) in
-//            if json["code"].stringValue == "0" {
-//                let str = json["message"].stringValue
-//                AlipaySDK.defaultService().payOrder(str, fromScheme: "tjgy_ios") { (dic) in
-//                    print(dic)
-//                }
-//            }
-//        }) { (err) in
-//            
-//        }
         
-        
-        let params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"3", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
-        NetworkManager.JsonPostRequest(params: params, success: { (json) in
-            if json["code"].stringValue == "0" {
-                let str = json["message"].stringValue
-                let j = JSON(parseJSON: str)
-
-                let request = PayReq()
-                request.partnerId = j["mch_id"].stringValue
-                request.prepayId = j["prepay_id"].stringValue
-                request.nonceStr = j["nonce_str"].stringValue
-                request.timeStamp = j["timestamp"].uInt32Value
-                request.package = "Sign=WXPay"
-                request.sign = j["sign"].stringValue
-                WXApi.send(request)
+        if p.isSelected {
+            let params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+            NetworkManager.JsonPostRequest(params: params, success: { (json) in
+                if json["code"].stringValue == "0" {
+                    let str = json["message"].stringValue
+                    AlipaySDK.defaultService().payOrder(str, fromScheme: "tjgy_ios") { (dic) in
+                        print(dic)
+                    }
+                }
+            }) { (err) in
+                
             }
-        }) { (err) in
-            
+        } else if p1.isSelected {
+            let params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"3", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+            NetworkManager.JsonPostRequest(params: params, success: { (json) in
+                if json["code"].stringValue == "0" {
+                    let str = json["message"].stringValue
+                    let j = JSON(parseJSON: str)
+                    
+                    let request = PayReq()
+                    request.partnerId = j["mch_id"].stringValue
+                    request.prepayId = j["prepay_id"].stringValue
+                    request.nonceStr = j["nonce_str"].stringValue
+                    request.timeStamp = j["timestamp"].uInt32Value
+                    request.package = "Sign=WXPay"
+                    request.sign = j["sign"].stringValue
+                    WXApi.send(request)
+                }
+            }) { (err) in
+                
+            }
         }
         
         
@@ -94,6 +112,22 @@ class PayWayVC: BaseViewController, UITableViewDelegate {
             let b = self.navigationController?.viewControllers.count ?? 0 >= 4
             vc.isSuccess = b
         }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.createDefaultCell(indexPath: indexPath)
+        let model = self.tableView.dataArray[indexPath.section][indexPath.row] as! payWayModel
+        if let c = cell as? PayByBalance {
+            c.model = model
+        } else if let c = cell as? PayByThird {
+            c.model = model
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return -1
     }
 
 }
@@ -119,15 +153,15 @@ class PayByThird: CustomTableViewCell {
         }
     }
     
-    override var isSelected: Bool {
-        didSet {
-            selectImg.image = isSelected ? #imageLiteral(resourceName: "v") : #imageLiteral(resourceName: "o")
-            if let  m = model as? payWayModel {
-                m.isSelected = self.isSelected
-            
-            }
-        }
-    }
+//    override var isSelected: Bool {
+//        didSet {
+//            selectImg.image = isSelected ? #imageLiteral(resourceName: "v") : #imageLiteral(resourceName: "o")
+//            if let  m = model as? payWayModel {
+//                m.isSelected = self.isSelected
+//            
+//            }
+//        }
+//    }
 
 }
 
@@ -144,13 +178,13 @@ class PayByBalance: CustomTableViewCell {
         }
     }
     
-    override var isSelected: Bool {
-        didSet {
-            selectImg.image = isSelected ? #imageLiteral(resourceName: "v") : #imageLiteral(resourceName: "o")
-            if let  m = model as? payWayModel {
-                m.isSelected = self.isSelected
-            }
-        }
-    }
+//    override var isSelected: Bool {
+//        didSet {
+//            selectImg.image = isSelected ? #imageLiteral(resourceName: "v") : #imageLiteral(resourceName: "o")
+//            if let  m = model as? payWayModel {
+//                m.isSelected = self.isSelected
+//            }
+//        }
+//    }
     
 }

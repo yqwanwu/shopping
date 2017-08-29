@@ -12,6 +12,9 @@ import SwiftyJSON
 class AddressUpdateVC: UIViewController {
     @IBOutlet weak var bkView: UIView!
     @IBOutlet weak var nameTF: UITextField!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var phoneTF: UITextField!
     @IBOutlet weak var addressBtn: UIButton!
     @IBOutlet weak var detailText: PlacehodelTextView!
@@ -45,11 +48,7 @@ class AddressUpdateVC: UIViewController {
         addressBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         
         mailTF.keyboardType = .numberPad
-    }
-    
-    var pickerSeted = false
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
         if let m = model {
             nameTF.text = m.fName
             phoneTF.text = m.fPhone
@@ -62,6 +61,7 @@ class AddressUpdateVC: UIViewController {
             addressPicker.setup(data: [j["province"].stringValue, j["city"].stringValue, j["area"].stringValue])
         } else {
             self.saveBtn.setTitle("保存", for: .normal)
+            self.titleLabel.text = "添加地址"
             self.title = "添加地址"
         }
         
@@ -69,6 +69,12 @@ class AddressUpdateVC: UIViewController {
             setupPicker()
             pickerSeted = true
         }
+    }
+    
+    var pickerSeted = false
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         
     }
     
@@ -162,6 +168,8 @@ class AddressUpdateVC: UIViewController {
         addressPicker.frame.origin.x = self.bkView.bounds.width
         cancleBtn.frame = CGRect(x: 10, y: 10, width: 50, height: 35)
         sureBtn.frame = CGRect(x: self.bkView.bounds.width - 60, y: 10, width: 50, height: 35)
+        
+        bkView.center = self.view.center
     }
 }
 

@@ -115,12 +115,12 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func ac_pay() {
-        MBProgressHUD.show()
         let addressModel = self.tableView.dataArray[0][0] as! AddressModel
         if addressModel.fAddressid == 0 {
             MBProgressHUD.show(errorText: "请先选择收货地址")
+            return
         }
-        
+        MBProgressHUD.show()
         var cartIds = carModels!.reduce("", { (r, m) -> String in
             return r + "\(m.F_ID),"
         })
@@ -132,6 +132,8 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             MBProgressHUD.hideHUD()
             bm.whenSuccess {
                 let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: PayWayVC.self) as! PayWayVC
+//                let orderModel = OrderModel()
+//                orderModel.fSaleamount = 
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }) { (err) in

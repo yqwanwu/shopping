@@ -162,7 +162,7 @@ class CarVC: UIViewController, UITableViewDelegate {
     }
     
     @IBAction func ac_submit(_ sender: UIButton) {
-        if LoginVC.showLogin() {
+        if LoginVC.showLogin() || self.tableVIew.dataArray.isEmpty {
             return
         }
         

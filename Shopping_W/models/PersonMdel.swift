@@ -69,7 +69,7 @@ class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
     
     class func isLogined() -> Bool {
         if let p = PersonMdel.readData() {
-            return Tools.stringIsNotBlank(text: p.password)
+            return Tools.stringIsNotBlank(text: p.fUserpass)
         } else {
             return false
         }

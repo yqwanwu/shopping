@@ -122,7 +122,7 @@ class CarModel: CustomTableViewCellItem {
     
     ///传入id判断原来是否已有，不传就直接去items的数量
     static func getCount(carId: Int? = nil) -> Int {
-        if let id = carId {
+        if let id = carId, carId != 0 {
             for item in items {
                 if item.F_ID == id {
                     return items.count
