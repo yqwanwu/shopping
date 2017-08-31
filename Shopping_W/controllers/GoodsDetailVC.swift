@@ -475,7 +475,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     func updateBadge(id: Int) {
         if PersonMdel.isLogined() {
             if CarModel.items.isEmpty {
-                self.carBtn.badgeValue = "1"
+                self.carBtn.badgeValue = id == 0 ? nil : "1"
             } else {
                 self.carBtn.badgeValue = CarModel.getCount() == 0 ? nil : "\(CarModel.getCount(carId: id))"
             }

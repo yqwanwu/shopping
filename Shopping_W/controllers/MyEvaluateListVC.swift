@@ -10,12 +10,14 @@ import UIKit
 
 class MyEvaluateListVC: BaseViewController {
     
-    lazy var tableView: CustomTableView = {
-        let t = CustomTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height), style: .plain)
+    lazy var tableView: RefreshTableView = {
+        let t = RefreshTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height), style: .plain)
         t.sectionHeaderHeight = 8
 
         return t
     } ()
+    
+    var curentPage = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,14 +26,45 @@ class MyEvaluateListVC: BaseViewController {
         
         self.view.addSubview(tableView)
         
-        let c = OrderModel().build(cellClass: OrerListCell.self).build(heightForRow: 118)
-        c.type = .myEvaluate
-        
-        tableView.dataArray = [[c, c, c, c]]
+        tableView.addFooterAction { [unowned self] _ in
+            self.curentPage += 1
+            self.rquestData()
+        }
     }
     
     func rquestData() {
-//        let
+        NetworkManager.requestPageInfoModel(params: ["method":"apimyConsultList"]).setSuccessAction { (bm: BaseModel<MyEvaluationModel>) in
+            self.tableView.endHeaderRefresh()
+            self.tableView.endFooterRefresh()
+            
+            bm.whenSuccess {
+                var arr = bm.pageInfo!.list!.map({ (model) -> MyEvaluationModel in
+                    model.build(cellClass: OrerListCell.self).build(heightForRow: 118)
+                    return model
+                })
+                if self.curentPage > 1 {
+                    arr.insert(contentsOf: self.tableView.dataArray[0] as! [MyEvaluationModel], at: 0)
+                }
+                
+                if !bm.pageInfo!.hasNextPage {
+                    self.tableView.noMoreData()
+                }
+                
+                self.tableView.dataArray = [arr]
+                self.tableView.reloadData()
+            }
+        }
     }
 
+}
+
+class MyEvaluationModel: CustomTableViewCellItem {
+    var fUseraccountid = 0
+    var fCreatetime = 0.0//评价时间
+    var fContent = ""//评价内容
+    var fUrl = ""//商品图片
+    var fEvaluationid = 0//评价id
+    var fGoodsname = ""//商品名称
+    var fGoodsid = ""//商品id
+    var fStar = 0//评价星级
 }

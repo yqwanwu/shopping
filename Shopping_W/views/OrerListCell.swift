@@ -52,27 +52,6 @@ class OrerListCell: CustomTableViewCell {
                         let r = (UIScreen.main.bounds.width - 116 - 80) / 2
                         make.right.equalTo(self.contentView).offset(-r)
                     })
-                case .myEvaluate:
-                    reciveBtn.layer.borderColor = UIColor.hexStringToColor(hexString: "888888").cgColor
-                    reciveBtn.layer.borderWidth = 1
-                    reciveBtn.backgroundColor = UIColor.clear
-                    reciveBtn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
-                    logisticsBtn.isHidden = false
-                    logisticsBtn.backgroundColor = CustomValue.common_red
-                    logisticsBtn.setTitle("查看", for: .normal)
-                    logisticsBtn.setTitleColor(UIColor.white, for: .normal)
-                    logisticsBtn.layer.borderWidth = 0
-                    reciveBtn.setTitle("重新评价", for: .normal)
-                    
-                    logisticsBtn.snp.updateConstraints({ (make) in
-                        make.width.equalTo(50)
-                    })
-                    reciveBtn.snp.remakeConstraints({ (make) in
-                        make.height.equalTo(30)
-                        make.width.equalTo(80)
-                        make.top.equalTo(priceLabel.snp.bottom).offset(10)
-                        make.left.equalTo(logisticsBtn.snp.right).offset(15)
-                    })
                 case .cookies:
                     reciveBtn.setTitle("查看", for: .normal)
                     reciveBtn.snp.updateConstraints({ (make) in
@@ -160,6 +139,32 @@ class OrerListCell: CustomTableViewCell {
                 default:
                     break
                 }
+            } else if let m = model as? MyEvaluationModel {
+                //TODO: 样式不一样
+                imgView.sd_setImage(with: URL.encodeUrl(string: m.fUrl))
+                titleLabel.text = m.fGoodsname
+//                priceLabel.text = "¥\(m.f.moneyValue())"
+                reciveBtn.layer.borderColor = UIColor.hexStringToColor(hexString: "888888").cgColor
+                reciveBtn.layer.borderWidth = 1
+                reciveBtn.backgroundColor = UIColor.clear
+                reciveBtn.setTitleColor(UIColor.hexStringToColor(hexString: "888888"), for: .normal)
+                logisticsBtn.isHidden = false
+                logisticsBtn.backgroundColor = CustomValue.common_red
+                logisticsBtn.setTitle("查看", for: .normal)
+                logisticsBtn.setTitleColor(UIColor.white, for: .normal)
+                logisticsBtn.layer.borderWidth = 0
+                reciveBtn.setTitle("重新评价", for: .normal)
+                
+                logisticsBtn.snp.updateConstraints({ (make) in
+                    make.width.equalTo(50)
+                })
+                reciveBtn.snp.remakeConstraints({ (make) in
+                    make.height.equalTo(30)
+                    make.width.equalTo(80)
+                    make.top.equalTo(priceLabel.snp.bottom).offset(10)
+                    make.left.equalTo(logisticsBtn.snp.right).offset(15)
+                })
+
             }
             
         }
