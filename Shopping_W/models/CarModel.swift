@@ -14,36 +14,46 @@ import RealmSwift
 typealias BLANK_CLOSURE = () -> Void
 
 
+class CarListModel: CustomTableViewCellItem {
+    var goodList = [CarModel]()
+    var fShopid = 0
+    var fShopName = ""
+}
+
 
 class CarModel: CustomTableViewCellItem {
-    
-    var F_Deduction = 0.0//减额,type=3时使用,满F_Price减F_Deduction
-    var F_Count = 1 {//数量
+    var fBuycount = 0
+    var fSalecount = 0
+    var fStock = 0
+    var fFreegoodName = ""
+    var fDeduction = 0.0//减额,type=3时使用,满F_Price减F_Deduction
+    var fCount = 1 {//数量
         didSet {
             countAction?()
         }
     }
-    var F_Type = 0//类型 0:普通 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
-    var F_PurchaseCount = 0//单人限购数量(type不为0时使用,修改数量时需要限制)
+    var fType = 0//类型 0:普通 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
+    var fPurchasecount = 0//单人限购数量(type不为0时使用,修改数量时需要限制)
     var F_PState = 0//促销状态(type不为0时使用,判断此值为1时才能提交订单)
     var F_SaleState = 0//促销上架状态(type不为0时使用,判断此值为1时才能提交订单)
-    var F_State = false//0:未上架 1:已上架(type为0需要判断)
+    var fState = false//0:未上架 1:已上架(type为0需要判断)
     var F_IsDel = false//是否删除 0:否 1:是(type为0需要判断)
-    var F_PromotionCount = 0//促销总数量(type不为0时使用)
-    var F_PromotionPrice = 0.0//活动价(团购,秒杀用)
-    var F_Discount = 0.0//折扣,type=6时使用,最终价格为F_SalePrice*F_Discount
-    var F_SalesPrice = 0.0//销售价(type为0表示销售价,不为0表示原价)
-    var F_ExString = ""//所选规格信息
-    var F_GoodsID = 0//商品ID
-    var F_GoodsName = ""//商品名称
+    var fPromotioncount = 0//促销总数量(type不为0时使用)
+    var fPromotionprice = 0.0//活动价(团购,秒杀用)
+    var fDiscount = 0.0//折扣,type=6时使用,最终价格为F_SalePrice*F_Discount
+    var fSalesprice = 0.0//销售价(type为0表示销售价,不为0表示原价)
+    var fExstring = ""//所选规格信息
+    var fGoodsid = 0//商品ID
+    var fGoodsname = ""//商品名称
     var F_UserAccountID = 0//用户ID
-    var F_MIntegral = 0.0//多倍积分倍数,type=5时使用
-    var F_ID = 0//购物车ID
-    var F_GoodImg = ""//商品图片
-    var F_PEID = 0//促销扩展信息ID
-    var F_GEID = 0//商品扩展信息ID
-    var F_Price = 0.0//满额,type=3时使用,满F_Price减F_Deduction
-    var F_PromotionID = 0//促销ID
+    var fIntegral = 0.0
+    var fMIntegral = 0.0//多倍积分倍数,type=5时使用
+    var fId = 0//购物车ID
+    var fGoodimg = ""//商品图片
+    var fPeid = 0//促销扩展信息ID
+    var fGeid = 0//商品扩展信息ID
+    var fPrice = 0.0//满额,type=3时使用,满F_Price减F_Deduction
+    var fPromotionid = 0//促销ID
     
     var countAction: BLANK_CLOSURE?
     var isSelected = false {
@@ -87,7 +97,7 @@ class CarModel: CustomTableViewCellItem {
     
     func deleteFromDB() {
         let realm = try! Realm()
-        let list = realm.objects(CarRealmModel.self).filter("F_GoodsID=%@ and F_PromotionID=%@", F_GoodsID, F_PromotionID)
+        let list = realm.objects(CarRealmModel.self).filter("F_GoodsID=%@ and F_PromotionID=%@", fGoodsid, fPromotionid)
         try! realm.write {
             if let obj = list.first {
                 realm.delete(obj)
@@ -97,7 +107,7 @@ class CarModel: CustomTableViewCellItem {
     
     static func addToServer() {
         for car in self.readFromDB() {
-            let params = ["method":"apiaddtoshopcart", "fGoodsid":car.F_GoodsID, "fCount":car.F_Count, "fGeid":car.F_GEID, "fPromotionid":car.F_PromotionID == 0 ? "" : "\(car.F_PromotionID)"] as [String : Any]
+            let params = ["method":"apiaddtoshopcart", "fGoodsid":car.fGoodsid, "fCount":car.fCount, "fGeid":car.fGeid, "fPromotionid":car.fPromotionid == 0 ? "" : "\(car.fPromotionid)"] as [String : Any]
             NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
                 bm.whenSuccess {
                     CarVC.needsReload = true
@@ -124,7 +134,7 @@ class CarModel: CustomTableViewCellItem {
     static func getCount(carId: Int? = nil) -> Int {
         if let id = carId, carId != 0 {
             for item in items {
-                if item.F_ID == id {
+                if item.fId == id {
                     return items.count
                 }
             }
@@ -141,7 +151,7 @@ class CarModel: CustomTableViewCellItem {
      fCout	int	自行获取	商品数量
      */
     func updateCount() {
-        NetworkManager.requestModel(params: ["method":"apiupdateshopcartcount", "fId":self.F_ID, "fCout":self.F_Count], success: { (bm: BaseModel<CodeModel>) in
+        NetworkManager.requestModel(params: ["method":"apiupdateshopcartcount", "fId":self.fId, "fCout":self.fCount], success: { (bm: BaseModel<CodeModel>) in
             bm.whenSuccess {
                 
             }
@@ -151,8 +161,8 @@ class CarModel: CustomTableViewCellItem {
     }
     
     func delete(complete: BLANK_CLOSURE?) {
-        NetworkManager.requestModel(params: ["method":"apidelshopcart", "fId":self.F_ID], success: { (bm: BaseModel<CodeModel>) in
-            CarModel.items = CarModel.items.filter({ $0.F_ID != self.F_ID })
+        NetworkManager.requestModel(params: ["method":"apidelshopcart", "fId":self.fId], success: { (bm: BaseModel<CodeModel>) in
+            CarModel.items = CarModel.items.filter({ $0.fId != self.fId })
             bm.whenSuccess {
                 complete?()
             }
@@ -164,31 +174,36 @@ class CarModel: CustomTableViewCellItem {
 
 
 class CarRealmModel: Object {
-    dynamic var F_Deduction: Double = 0.0//减额,type=3时使用,满F_Price减F_Deduction
-    dynamic var F_Count = 1
-    dynamic var F_Type = 0//类型 0:普通 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
-    dynamic var F_PurchaseCount = 0//单人限购数量(type不为0时使用,修改数量时需要限制)
+    dynamic var fBuycount = 0
+    dynamic var fSalecount = 0
+    dynamic var fStock = 0
+    dynamic var fFreegoodName = ""
+    dynamic var fDeduction = 0.0//减额,type=3时使用,满F_Price减F_Deduction
+    dynamic var fCount = 1
+    dynamic var fType = 0//类型 0:普通 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
+    dynamic var fPurchasecount = 0//单人限购数量(type不为0时使用,修改数量时需要限制)
     dynamic var F_PState = 0//促销状态(type不为0时使用,判断此值为1时才能提交订单)
     dynamic var F_SaleState = 0//促销上架状态(type不为0时使用,判断此值为1时才能提交订单)
-    dynamic var F_State = false//0:未上架 1:已上架(type为0需要判断)
+    dynamic var fState = false//0:未上架 1:已上架(type为0需要判断)
     dynamic var F_IsDel = false//是否删除 0:否 1:是(type为0需要判断)
-    dynamic var F_PromotionCount = 0//促销总数量(type不为0时使用)
-    dynamic var F_PromotionPrice = 0.0//活动价(团购,秒杀用)
-    dynamic var F_Discount = 0.0//折扣,type=6时使用,最终价格为F_SalePrice*F_Discount
-    dynamic var F_SalesPrice = 0.0//销售价(type为0表示销售价,不为0表示原价)
-    dynamic var F_ExString = ""//所选规格信息
-    dynamic var F_GoodsID = 0//商品ID
-    dynamic var F_GoodsName = ""//商品名称
+    dynamic var fPromotioncount = 0//促销总数量(type不为0时使用)
+    dynamic var fPromotionprice = 0.0//活动价(团购,秒杀用)
+    dynamic var fDiscount = 0.0//折扣,type=6时使用,最终价格为F_SalePrice*F_Discount
+    dynamic var fSalesprice = 0.0//销售价(type为0表示销售价,不为0表示原价)
+    dynamic var fExstring = ""//所选规格信息
+    dynamic var fGoodsid = 0//商品ID
+    dynamic var fGoodsname = ""//商品名称
     dynamic var F_UserAccountID = 0//用户ID
-    dynamic var F_MIntegral = 0.0//多倍积分倍数,type=5时使用
-    dynamic var F_ID = 0//购物车ID
-    dynamic var F_GoodImg = ""//商品图片
-    dynamic var F_PEID = 0//促销扩展信息ID
-    dynamic var F_GEID = 0//商品扩展信息ID
-    dynamic var F_Price = 0.0//满额,type=3时使用,满F_Price减F_Deduction
-    dynamic var F_PromotionID = 0//促销ID
+    dynamic var fIntegral = 0.0
+    dynamic var fMIntegral = 0.0//多倍积分倍数,type=5时使用
+    dynamic var fId = 0//购物车ID
+    dynamic var fGoodimg = ""//商品图片
+    dynamic var fPeid = 0//促销扩展信息ID
+    dynamic var fGeid = 0//商品扩展信息ID
+    dynamic var fPrice = 0.0//满额,type=3时使用,满F_Price减F_Deduction
+    dynamic var fPromotionid = 0//促销ID
     
     override static func primaryKey() -> String? {
-        return "F_GEID"
+        return "fGeid"
     }
 }

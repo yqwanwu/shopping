@@ -42,7 +42,7 @@ class CarVC: UIViewController, UITableViewDelegate {
             return
         }
         
-        NetworkManager.requestListModel(params: ["method":"apishopcartlist"]).setSuccessAction { (bm: BaseModel<CarModel>) in
+        NetworkManager.requestListModel(params: ["method":"apimyshopcartlist"]).setSuccessAction { (bm: BaseModel<CarModel>) in
             self.tableVIew.endHeaderRefresh()
             bm.whenSuccess {
                 self.dealModels(models: bm.list!)
@@ -64,7 +64,7 @@ class CarVC: UIViewController, UITableViewDelegate {
             
             model.setupCellAction { [unowned self] (idx) in
                 let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
-                switch model.F_Type {
+                switch model.fType {
                 case 0:
                     vc.type = .normal
                 case 1:
@@ -76,9 +76,9 @@ class CarVC: UIViewController, UITableViewDelegate {
                 default:
                     break
                 }
-                vc.promotionid = model.F_PromotionID
-                vc.goodsId = model.F_GoodsID
-                vc.picUrl = model.F_GoodImg
+                vc.promotionid = model.fPromotionid
+                vc.goodsId = model.fGoodsid
+                vc.picUrl = model.fGoodimg
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             return model
@@ -139,7 +139,7 @@ class CarVC: UIViewController, UITableViewDelegate {
         let arr = self.tableVIew.dataArray[0] as! [CarModel]
         for model in arr {
             if model.isSelected {
-                price += Double(model.F_Count) * model.F_SalesPrice
+                price += Double(model.fCount) * model.fSalesprice
             }
         }
         self.allPriceLabel.text = "¥" + price.moneyValue()
@@ -188,7 +188,7 @@ class CarVC: UIViewController, UITableViewDelegate {
 //    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 15//48
+        return 48
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {

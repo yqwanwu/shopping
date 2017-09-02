@@ -434,20 +434,20 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             
             let car = CarModel()
             if l.count > 0 {
-                car.F_Count = count + l.first!.F_Count
+                car.fCount = count + l.first!.fCount
             } else {
-                car.F_Count = count
+                car.fCount = count
             }
             
-            car.F_GoodsID = self.goodsId
-            car.F_GEID = fgid
-            car.F_PromotionID = promotionid
+            car.fGoodsid = self.goodsId
+            car.fGeid = fgid
+            car.fPromotionid = promotionid
             
             //todo
-            car.F_GoodImg = picUrl
-            car.F_GoodsName = detailModel.fGoodsname
-            car.F_PromotionCount = detailModel.fPromotioncount
-            car.F_SalesPrice = Double(self.perPriceLabel.text ?? "0") ?? 0.0
+            car.fGoodimg = picUrl
+            car.fGoodsname = detailModel.fGoodsname
+            car.fPromotioncount = detailModel.fPromotioncount
+            car.fSalesprice = Double(self.perPriceLabel.text ?? "0") ?? 0.0
             car.saveToDB()
             MBProgressHUD.show(successText: "添加成功")
             if !PersonMdel.isLogined() {

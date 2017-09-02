@@ -10,4 +10,5 @@ import UIKit
 
 class GoodsListModel: CustomTableViewCellItem {
     var type = GoodsListVC.ListType.normal
+    
 }

@@ -76,10 +76,10 @@ class OrerListCell: CustomTableViewCell {
                 self.priceLabel.text = m.fSaleamount.moneyValue()
                 self.countLabel.text = "\(ex.fSpecifications)  x\(ex.fCount)"
             } else if let m = model as? CarModel {
-                self.imgView.sd_setImage(with: URL.encodeUrl(string: m.F_GoodImg))
-                self.titleLabel.text = m.F_GoodsName
-                self.priceLabel.text = m.F_SalesPrice.moneyValue()
-                self.countLabel.text = "\(m.F_ExString)  x\(m.F_Count)"
+                self.imgView.sd_setImage(with: URL.encodeUrl(string: m.fGoodimg))
+                self.titleLabel.text = m.fGoodsname
+                self.priceLabel.text = m.fSalesprice.moneyValue()
+                self.countLabel.text = "\(m.fExstring)  x\(m.fCount)"
                 
             } else if let m = model as? ReturnedModel {
                 //退货状态 null 显示申请换货按钮  0待审核 1待回寄 2待发货\待退款 3待收货 4完成

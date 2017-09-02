@@ -49,7 +49,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             return
         }
         var ids = carModels!.reduce("", { (r, m) -> String in
-            return r + "\(m.F_ID),"
+            return r + "\(m.fId),"
         })
         ids = ids.substring(to: ids.index(ids.endIndex, offsetBy: -1))
         NetworkManager.requestTModel(params: ["method":"apiPreCreateOrder", "cartIDs":ids]).setSuccessAction { (bm: BaseModel<PreCreateOrder>) in
@@ -122,7 +122,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
         }
         MBProgressHUD.show()
         var cartIds = carModels!.reduce("", { (r, m) -> String in
-            return r + "\(m.F_ID),"
+            return r + "\(m.fId),"
         })
         cartIds = cartIds.substring(to: cartIds.index(cartIds.endIndex, offsetBy: -1))
         let isUseIntegral = self.integral == 0 ? 0 : 1
@@ -158,12 +158,12 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 let carModel = CarModel()
                 carModel.build(cellClass: OrerListCell.self).build(heightForRow: 118)
                 //模型是从上个tableView传过来的，所以不要影响原来的数据
-                carModel.F_ID = model.F_ID
-                carModel.F_Count = model.F_Count
-                carModel.F_SalesPrice = model.F_SalesPrice
-                carModel.F_GoodsName = model.F_GoodsName
-                carModel.F_GoodImg = model.F_GoodImg
-                carModel.F_ExString = model.F_ExString
+                carModel.fId = model.fId
+                carModel.fCount = model.fCount
+                carModel.fSalesprice = model.fSalesprice
+                carModel.fGoodsname = model.fGoodsname
+                carModel.fGoodimg = model.fGoodimg
+                carModel.fExstring = model.fExstring
                 return carModel
             })
             

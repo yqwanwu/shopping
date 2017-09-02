@@ -134,7 +134,7 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
                             if let p = PersonMdel.readData() {
                                 p.fHeadImgUrl = dic["f_SavePath"].stringValue
                                 p.update {
-                                    self.headerImg.sd_setImage(with: URL.encodeUrl(string: dic["f_SavePath"].stringValue), placeholderImage: #imageLiteral(resourceName: "placehoder"))
+                                    self.headerImg.sd_setImage(with: URL.encodeUrl(string: dic["f_SavePath"].stringValue), placeholderImage: #imageLiteral(resourceName: "默认头像-方@2x"))
                                     }
                             } else {
                                 MBProgressHUD.show(errorText: "上传失败")
@@ -168,7 +168,7 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
     
     override func viewWillAppear(_ animated: Bool) {
         if let p = PersonMdel.readData() {
-            self.headerImg.sd_setImage(with: URL.encodeUrl(string: p.fHeadImgUrl), placeholderImage: #imageLiteral(resourceName: "placehoder"))
+            self.headerImg.sd_setImage(with: URL.encodeUrl(string: p.fHeadImgUrl), placeholderImage: #imageLiteral(resourceName: "默认头像-方@2x"))
             self.nameLabel.text = p.fNickname
             let sexStr = p.sexString().characters.count >= 2 ? p.sexString() : " " + p.sexString()
             self.sexBtn.setTitle(sexStr, for: .normal)

@@ -21,13 +21,13 @@ class CarTableViewCell: CustomTableViewCell {
     override var model: CustomTableViewCellItem? {
         didSet {
             if let m = model as? CarModel {
-                priceLabel.text = m.F_SalesPrice.moneyValue()
-                countBtn.numberText.text = "\(m.F_Count)"
-                countBtn.subtractBtn.isEnabled = m.F_Count > 1
+                priceLabel.text = m.fSalesprice.moneyValue()
+                countBtn.numberText.text = "\(m.fCount)"
+                countBtn.subtractBtn.isEnabled = m.fCount > 1
                 numberLabel.text = ""
-                numberNameLabel.text = m.F_ExString
-                titleLabel.text = m.F_GoodsName
-                goodsimg.sd_setImage(with: URL.encodeUrl(string: m.F_GoodImg))
+                numberNameLabel.text = m.fExstring
+                titleLabel.text = m.fGoodsname
+                goodsimg.sd_setImage(with: URL.encodeUrl(string: m.fGoodimg))
                 chooseBtn.isSelected = m.isSelected
             }
         }
@@ -51,7 +51,7 @@ class CarTableViewCell: CustomTableViewCell {
     
     func changeCount() {
         if let m = self.model as? CarModel {
-            m.F_Count = Int(self.countBtn.numberText.text ?? "") ?? 1
+            m.fCount = Int(self.countBtn.numberText.text ?? "") ?? 1
             if PersonMdel.isLogined() {
                 m.updateCount()
             } else {
