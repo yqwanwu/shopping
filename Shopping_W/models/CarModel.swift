@@ -18,10 +18,40 @@ class CarListModel: CustomTableViewCellItem {
     var goodList = [CarModel]()
     var fShopid = 0
     var fShopName = ""
+    var isListSelected = false
+    
+    func setSelected() {
+        for item in goodList {
+            item.isSelected = isListSelected
+        }
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        if object == nil {
+            return false
+        }
+        
+        if let o = object as? CarListModel {
+            return self.fShopid == o.fShopid
+        }
+        
+        return false
+    }
+    
+    override var hash: Int {
+        return fShopid;
+        
+    }
 }
 
 
 class CarModel: CustomTableViewCellItem {
+    weak var carList: CarListModel?
+    
+    var fShopid = 0
+    var fShopName = ""
+    
+    var fGoodsummary: String?
     var fBuycount = 0
     var fSalecount = 0
     var fStock = 0
@@ -95,9 +125,27 @@ class CarModel: CustomTableViewCellItem {
         return arr
     }
     
+    static func readTreeDataFromDB() -> [CarListModel] {
+        var ids = Set<Int>()
+        let arr = readFromDB()
+        for car in arr {
+            ids.insert(car.fShopid)
+        }
+        var carList = [CarListModel]()
+        for id in ids {
+            let model = CarListModel()
+            let list = arr.filter({ $0.fShopid == id })
+            model.fShopid = id
+            model.goodList = list
+            model.fShopName = list.first!.fShopName
+            carList.append(model)
+        }
+        return carList
+    }
+    
     func deleteFromDB() {
         let realm = try! Realm()
-        let list = realm.objects(CarRealmModel.self).filter("F_GoodsID=%@ and F_PromotionID=%@", fGoodsid, fPromotionid)
+        let list = realm.objects(CarRealmModel.self).filter("fGoodsid=%@ and fPromotionid=%@", fGoodsid, fPromotionid)
         try! realm.write {
             if let obj = list.first {
                 realm.delete(obj)
@@ -174,6 +222,11 @@ class CarModel: CustomTableViewCellItem {
 
 
 class CarRealmModel: Object {
+    dynamic var fShopid = 0
+    dynamic var fShopName = ""
+    
+    dynamic var fGoodsummary: String?
+    
     dynamic var fBuycount = 0
     dynamic var fSalecount = 0
     dynamic var fStock = 0

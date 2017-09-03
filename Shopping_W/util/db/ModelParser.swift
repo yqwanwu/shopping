@@ -127,7 +127,7 @@ class ModelParser: NSObject {
                             let type = m1.subjectType
                             let str = String(describing: type).replacingOccurrences(of: "Optional<", with: "").replacingOccurrences(of: ">", with: "")
                             var typeStr = ""
-                            
+   
                             //若为数组
                             if let clazzType = typeDic[child.label!], val is NSArray {
                                 let list = getModelList(dicVal: val as! NSArray, typeStr: clazzType, originalModel: originalModel)
@@ -157,7 +157,7 @@ class ModelParser: NSObject {
 //                                    typeStr = header + "." + typeStr
 //                                }
                                 
-                                if let clazz = NSClassFromString(typeStr) ?? NSClassFromString(header + "." + typeStr), let v = val as? NSDictionary {
+                                if let clazz = (NSClassFromString(typeStr) ?? NSClassFromString(header + "." + typeStr)), let v = val as? NSDictionary {
                                     let obj = clazz.alloc()
                                     let _ = parse(dic: v , model: obj as! NSObject, originalModel: originalModel)
                                     modelObj.setValue(obj, forKey: child.label!)

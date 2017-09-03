@@ -14,7 +14,7 @@ class MyMsgVC: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 40
+        tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.addHeaderAction { [unowned self] _ in
             self.curentPage = 1
@@ -64,18 +64,20 @@ class MyMsgModel: CustomTableViewCellItem {
     var fReplyusername = ""//回复管理员
     var fReplycontent = ""//回复内容
     var fContent = ""//咨询内容
-    var fConsulttime = 0//咨询时间
-    var fReplytime = 0//回复时间
+    var fConsulttime = 0.0//咨询时间
+    var fReplytime = 0.0//回复时间
     var fGoodsname = ""//标题
 }
 
 class MyMsgCell: CustomTableViewCell {
     
+    @IBOutlet weak var questionTimeLabel: UILabel!
     @IBOutlet weak var goodsNameLabel: UILabel!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var replyName: UILabel!
     @IBOutlet weak var replyContent: UILabel!
-    
+    @IBOutlet weak var replyTimeLabel: UILabel!
+
     override var model: CustomTableViewCellItem? {
         didSet {
             if let m = model as? MyMsgModel {
@@ -83,6 +85,11 @@ class MyMsgCell: CustomTableViewCell {
                 questionLabel.text = "咨询内容" + m.fContent
                 replyName.text = m.fReplyusername
                 replyContent.text = m.fReplycontent
+                
+                let fmt = DateFormatter()
+                fmt.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                questionLabel.text = fmt.string(from: Date(timeIntervalSince1970: m.fConsulttime / 1000))
+                replyTimeLabel.text = fmt.string(from: Date(timeIntervalSince1970: m.fReplytime / 1000))
             }
         }
     }

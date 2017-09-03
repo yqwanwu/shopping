@@ -40,7 +40,7 @@ class MyEvaluateVC: BaseViewController {
 //        fContent	string	前台获取	评价内容
 //        fEvaluationid	int	前台获取	评价ID,存在值为修改，否则为添加
         let score = Int(starView.score)
-        let params = ["method":"apieditevaluation", "fGoodsid":orderModel.OrderEx.fGoodsid, "fOrderid":orderModel.fOrderid, "fStar":score, "fContent":textView.text ?? ""] as [String : Any]
+        let params = ["method":"apieditevaluation", "fGoodsid":orderModel.orderEx[0].fGoodsid, "fOrderid":orderModel.fOrderid, "fStar":score, "fContent":textView.text ?? ""] as [String : Any]
         MBProgressHUD.show()
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             MBProgressHUD.hideHUD()

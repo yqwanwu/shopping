@@ -430,7 +430,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         
         if !PersonMdel.isLogined() {
             let realm = try! Realm()
-            let l = realm.objects(CarRealmModel.self).filter("F_GoodsID=%@ and F_PromotionID=%@", goodsId, promotionid)
+            let l = realm.objects(CarRealmModel.self).filter("fGoodsid=%@ and fPromotionid=%@", goodsId, promotionid)
             
             let car = CarModel()
             if l.count > 0 {
@@ -448,6 +448,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             car.fGoodsname = detailModel.fGoodsname
             car.fPromotioncount = detailModel.fPromotioncount
             car.fSalesprice = Double(self.perPriceLabel.text ?? "0") ?? 0.0
+            car.fShopid = detailModel.fShopid
+            car.fShopName = detailModel.fShopname
             car.saveToDB()
             MBProgressHUD.show(successText: "添加成功")
             if !PersonMdel.isLogined() {

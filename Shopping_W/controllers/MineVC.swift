@@ -210,7 +210,7 @@ class MineVC: BaseViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         if let person = PersonMdel.readData() {
-            headImg.sd_setImage(with: URL.encodeUrl(string: person.fHeadImgUrl), placeholderImage: #imageLiteral(resourceName: "默认头像-方@2x"))
+            headImg.sd_setImage(with: URL.encodeUrl(string: person.fHeadimgurl), placeholderImage: #imageLiteral(resourceName: "默认头像-方@2x"))
             self.nameLabel.text = person.fNickname
             self.phoneLabel.text = person.fPhone
         }

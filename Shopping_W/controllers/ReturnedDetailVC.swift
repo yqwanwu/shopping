@@ -124,7 +124,7 @@ class ReturnedDetailVC: BaseViewController, UIImagePickerControllerDelegate, UIN
             let hud = MBProgressHUD.show(text: "上传中...", view: self.view, autoHide: false)
             hud.mode = .annularDeterminate
             let header = NetworkManager.getAllparams(params: nil) as! [String:String]
-            let url = try! (NetworkManager.BASESERVER + "/uploadedFile/fileupaload?SaveFolder=refund").asURL()
+            let url = try! (NetworkManager.BASESERVER + "/uploadedFile/fileupaload?SaveFolder=evaluation").asURL()
 
             Alamofire.upload(multipartFormData: { (multipartFormData) in
                 multipartFormData.append(data, withName: "file", fileName: "img.jpg", mimeType: "image/jpeg")

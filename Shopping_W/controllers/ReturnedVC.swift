@@ -18,7 +18,6 @@ class ReturnedVC: BaseViewController, UITableViewDataSource {
     } ()
     
     static var needReload = false
-    
     var currentPage = 1
     
     override func viewDidLoad() {

@@ -20,6 +20,8 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
         return t
     } ()
     
+    var perOrder: PreCreateOrder = PreCreateOrder()
+    
     //就是这么任性，纯代码写的，，，
     var showPayBtn = false
     let totalPriceLabel = UILabel()
@@ -33,7 +35,6 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
         self.title = "订单详情"
         self.tableView.delegate = self
         self.view.addSubview(tableView)
-        
         
         if showPayBtn {
             tableView.frame.size.height -= 51
@@ -55,6 +56,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
         NetworkManager.requestTModel(params: ["method":"apiPreCreateOrder", "cartIDs":ids]).setSuccessAction { (bm: BaseModel<PreCreateOrder>) in
             bm.whenSuccess {
                 let model = bm.t!
+                self.perOrder = model
                 let total = CustomTableViewCellItem().build(text: "总价").build(detailText: "¥\(model.payAmount.moneyValue())").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
                 //运费
                 let freight = CustomTableViewCellItem().build(text: "运费").build(detailText: "¥\(model.payFreight.moneyValue())").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
@@ -132,8 +134,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             MBProgressHUD.hideHUD()
             bm.whenSuccess {
                 let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: PayWayVC.self) as! PayWayVC
-//                let orderModel = OrderModel()
-//                orderModel.fSaleamount = 
+                vc.preOrderModel = self.perOrder
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }) { (err) in

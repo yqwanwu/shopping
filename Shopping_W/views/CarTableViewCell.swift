@@ -13,22 +13,59 @@ class CarTableViewCell: CustomTableViewCell {
     @IBOutlet weak var chooseBtn: UIButton!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var countBtn: CalculateBtn!
-    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var extLabel: UILabel!
+    @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var numberNameLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var oldPriceLabel: UILabel!
     @IBOutlet weak var goodsimg: UIImageView!
     
     override var model: CustomTableViewCellItem? {
         didSet {
             if let m = model as? CarModel {
+                oldPriceLabel.isHidden = true
                 priceLabel.text = m.fSalesprice.moneyValue()
                 countBtn.numberText.text = "\(m.fCount)"
                 countBtn.subtractBtn.isEnabled = m.fCount > 1
-                numberLabel.text = ""
-                numberNameLabel.text = m.fExstring
+                
+                let s = m.fGoodsummary ?? ""
+                numberNameLabel.text = "\(s)"
+                
+                extLabel.text = m.fExstring
                 titleLabel.text = m.fGoodsname
                 goodsimg.sd_setImage(with: URL.encodeUrl(string: m.fGoodimg))
                 chooseBtn.isSelected = m.isSelected
+                typeLabel.isHidden = false
+                switch m.fType {
+                case 1:
+                    typeLabel.text = "团购"
+                    priceLabel.text = m.fPromotionprice.moneyValue()
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                    oldPriceLabel.attributedText = attrStr
+                    oldPriceLabel.isHidden = false
+                case 2:
+                    typeLabel.text = "秒杀"
+                    priceLabel.text = m.fPromotionprice.moneyValue()
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                    oldPriceLabel.attributedText = attrStr
+                    oldPriceLabel.isHidden = false
+                case 3:
+                    let attrStr = NSMutableAttributedString(string: "满\(Int(m.fPrice))-\(Int(m.fDeduction))", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                    typeLabel.attributedText = attrStr
+                case 4:
+                    let attrStr = NSMutableAttributedString(string: "赠", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                    typeLabel.attributedText = attrStr
+                case 5:
+                    let attrStr = NSMutableAttributedString(string: "\(m.fMIntegral)倍积分", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                    typeLabel.attributedText = attrStr
+                case 6:
+                    let attrStr = NSMutableAttributedString(string: "\(m.fDiscount)折", attributes: [NSForegroundColorAttributeName:UIColor.hexStringToColor(hexString: "fdc249"), NSFontAttributeName:UIFont.boldSystemFont(ofSize: 13)])
+                    typeLabel.attributedText = attrStr
+                    
+                default:
+                    typeLabel.isHidden = true
+                    break
+                }
             }
         }
     }

@@ -13,7 +13,8 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var tableView: CustomTableView!
     
-    var orderModel: OrderModel!
+    var orderModel = OrderModel()
+    var preOrderModel: PreCreateOrder?
     
     let k_toPayResultVC = "toPayResultVC"
     let p = payWayModel().build(text: "支付宝支付").build(cellClass: PayByThird.self).build(heightForRow: 50).build(isFromStoryBord: true)
@@ -67,10 +68,15 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
          isUseUserAmount	string	前台获取	是否使用余额0否1是
          useUserAmount	string	前台获取	使用余额
  */
-        
+        var params = [String: Any]()
+        if let p = preOrderModel {
+            params = ["method":"apiPayforAPP", "fOrderid":p.IDS, "fType":"0", "fAmount":p.payAmount, "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+        } else {
+            params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+        }
         
         if p.isSelected {
-            let params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+            params["fPaytype"] = "2"
             NetworkManager.JsonPostRequest(params: params, success: { (json) in
                 if json["code"].stringValue == "0" {
                     let str = json["message"].stringValue
@@ -82,7 +88,7 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                 
             }
         } else if p1.isSelected {
-            let params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"3", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+            params["fPaytype"] = "3"
             NetworkManager.JsonPostRequest(params: params, success: { (json) in
                 if json["code"].stringValue == "0" {
                     let str = json["message"].stringValue

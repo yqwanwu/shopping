@@ -18,6 +18,7 @@ class CarVC: UIViewController, UITableViewDelegate {
     @IBOutlet weak var selectAllBtn: UIButton!
     
     static var needsReload = false
+    var carList = [CarListModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,25 +35,39 @@ class CarVC: UIViewController, UITableViewDelegate {
     
     func requestData() {
         if !PersonMdel.isLogined() {
-            let list = CarModel.readFromDB()
-            dealModels(models: list)
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: { 
+            self.carList = CarModel.readTreeDataFromDB()
+            self.updateView()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
                 self.tableVIew.endHeaderRefresh()
             })
             return
         }
         
-        NetworkManager.requestListModel(params: ["method":"apimyshopcartlist"]).setSuccessAction { (bm: BaseModel<CarModel>) in
+        NetworkManager.requestListModel(params: ["method":"apimyshopcartlist"]).setSuccessAction { (bm: BaseModel<CarListModel>) in
             self.tableVIew.endHeaderRefresh()
             bm.whenSuccess {
-                self.dealModels(models: bm.list!)
+                self.carList = bm.list!
+                self.updateView()
             }
         }.seterrorAction { (err) in
             self.tableVIew.endHeaderRefresh()
         }
     }
     
-    func dealModels(models: [CarModel]) {
+    func updateView() {
+        var arr = [[CarModel]]()
+        for item in self.carList {
+            arr.append(self.dealModels(models: item.goodList))
+            for goods in item.goodList {
+                goods.carList = item
+            }
+        }
+        self.tableVIew.dataArray = arr
+        self.tableVIew.reloadData()
+        self.updateAllPrice()
+    }
+    
+    func dealModels(models: [CarModel]) -> [CarModel] {
         let arr = models.map({ (model) -> CarModel in
             model.build(cellClass: CarTableViewCell.self)
                 .build(isFromStoryBord: true)
@@ -96,14 +111,13 @@ class CarVC: UIViewController, UITableViewDelegate {
                     let notSelected = arr.filter({ !$0.isSelected })
                     self.selectAllBtn.isSelected = arr.count > 0 && notSelected.count < 1
                     self.updateAllPrice()
+                    self.tableVIew.reloadData()
                 }
             }
         }
         
         CarModel.items = arr
-        self.tableVIew.dataArray = [arr]
-        self.tableVIew.reloadData()
-        self.updateAllPrice()
+        return arr
     }
 
     func setupTableView() {
@@ -116,13 +130,13 @@ class CarVC: UIViewController, UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if self.tableVIew.dataArray.count > 0 {
-            let arr = self.tableVIew.dataArray[0] as! [CarModel]
+            let arr = self.tableVIew.dataArray.flatMap({$0}) as! [CarModel]
             let notSelected = arr.filter({ !$0.isSelected })
             self.selectAllBtn.isSelected = arr.count > 0 && notSelected.count < 1
         }
         
         if CarVC.needsReload {
-            self.requestData()
+            self.tableVIew.beginHeaderRefresh()
         }
         
         if let nav = self.tabBarController?.viewControllers?.first as? UINavigationController {
@@ -136,7 +150,7 @@ class CarVC: UIViewController, UITableViewDelegate {
             return
         }
         var price = 0.0
-        let arr = self.tableVIew.dataArray[0] as! [CarModel]
+        let arr = self.tableVIew.dataArray.flatMap({ $0 }) as! [CarModel]
         for model in arr {
             if model.isSelected {
                 price += Double(model.fCount) * model.fSalesprice
@@ -152,7 +166,7 @@ class CarVC: UIViewController, UITableViewDelegate {
             return
         }
         updateByAllBtn = true
-        for item in self.tableVIew.dataArray[0] {
+        for item in self.tableVIew.dataArray.flatMap({$0}) {
             let model = item as! CarModel
             model.isSelected = sender.isSelected
         }
@@ -166,7 +180,7 @@ class CarVC: UIViewController, UITableViewDelegate {
             return
         }
         
-        let selectedArr = self.tableVIew.dataArray[0]
+        let selectedArr = self.tableVIew.dataArray.flatMap({$0})
             .filter({ (item) -> Bool in
                 return (item as! CarModel).isSelected
             })
@@ -182,10 +196,19 @@ class CarVC: UIViewController, UITableViewDelegate {
     
     
     //MARK: 代理
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CarSectionHeader") as! CarSectionHeader
-//        return header
-//    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CarSectionHeader") as! CarSectionHeader
+        let model = carList[section]
+        header.titleLabel.text = model.fShopName
+        header.selectBtn.isSelected = model.isListSelected
+        header.selectAction = { [unowned self] _ in
+            model.isListSelected = !model.isListSelected
+            model.setSelected()
+            self.tableVIew.reloadSections([section], with: .none)
+        }
+        header.selectBtn.isSelected = model.goodList.filter({ !$0.isSelected }).count == 0
+        return header
+    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 48

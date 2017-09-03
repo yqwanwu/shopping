@@ -26,7 +26,7 @@ class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
     var fNumber = ""
     var fName = ""
     var fReferee = -1
-    var fHeadImgUrl = ""
+    var fHeadimgurl = ""
     
     func sexString() -> String {
         return self.fSex == 0 ? "女" : fSex == 1 ? "男" : "保密"
@@ -82,7 +82,7 @@ class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
     }
     
     func update(complete: @escaping () -> Void) {
-        let params = ["method":"apieditmyinfo", "fHeadimgurl":self.fHeadImgUrl, "fNickname":self.fNickname, "fSex":self.fSex] as [String : Any]
+        let params = ["method":"apieditmyinfo", "fHeadimgurl":self.fHeadimgurl, "fNickname":self.fNickname, "fSex":self.fSex] as [String : Any]
         let person = self
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             complete()

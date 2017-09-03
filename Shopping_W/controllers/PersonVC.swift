@@ -118,7 +118,7 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
             let hud = MBProgressHUD.show(text: "上传中...", view: self.view, autoHide: false)
             hud.mode = .annularDeterminate
             let header = NetworkManager.getAllparams(params: nil) as! [String:String]
-            let url = try! (NetworkManager.BASESERVER + "/uploadedFile/fileupaload?SaveFolder=refund").asURL()
+            let url = try! (NetworkManager.BASESERVER + "/uploadedFile/fileupaload?SaveFolder=HeadImg").asURL()
 //            let url = try! "http://192.168.1.14:8080/tjgy/uploadedFile/fileupaload?SaveFolder=refund".asURL()
             
             Alamofire.upload(multipartFormData: { (multipartFormData) in
@@ -132,7 +132,7 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
                         if j["success"].boolValue {
                             let dic = j["files"][0]
                             if let p = PersonMdel.readData() {
-                                p.fHeadImgUrl = dic["f_SavePath"].stringValue
+                                p.fHeadimgurl = dic["f_SavePath"].stringValue
                                 p.update {
                                     self.headerImg.sd_setImage(with: URL.encodeUrl(string: dic["f_SavePath"].stringValue), placeholderImage: #imageLiteral(resourceName: "默认头像-方@2x"))
                                     }
@@ -153,8 +153,7 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
             
         }
     }
-    
-    
+
     //MARK: 重写
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popoverSexVC" {
@@ -168,7 +167,7 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
     
     override func viewWillAppear(_ animated: Bool) {
         if let p = PersonMdel.readData() {
-            self.headerImg.sd_setImage(with: URL.encodeUrl(string: p.fHeadImgUrl), placeholderImage: #imageLiteral(resourceName: "默认头像-方@2x"))
+            self.headerImg.sd_setImage(with: URL.encodeUrl(string: p.fHeadimgurl), placeholderImage: #imageLiteral(resourceName: "默认头像-方@2x"))
             self.nameLabel.text = p.fNickname
             let sexStr = p.sexString().characters.count >= 2 ? p.sexString() : " " + p.sexString()
             self.sexBtn.setTitle(sexStr, for: .normal)

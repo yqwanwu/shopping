@@ -34,7 +34,7 @@ class OrderModel: CustomTableViewCellItem {
     var fIntegral = 0//可用积分
     var fMintegral = 0.0//多倍积分倍数
     var fType = -1
-    var OrderEx = OrderEXModel()
+    var orderEx = [OrderEXModel]()
 }
 
 class OrderEXModel: NSObject, ParseModelProtocol {
@@ -44,6 +44,9 @@ class OrderEXModel: NSObject, ParseModelProtocol {
     
     var fCount =  0 //购买数量
     var fPeid = 0 //促销明细ID
+    var fUnitprice = 0.0//商品单价
+    var fExpayamount = 0.0//商品实际付款金额
+    var fExsaleamount = 0.0//商品实际销售金额
     var fGoodsid = 0 //商品ID
     var fOeid =  0  //订单明细ID
     var fSpecifications =  ""//商品类型

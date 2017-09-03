@@ -70,7 +70,7 @@ class OrerListCell: CustomTableViewCell {
                 default:
                     break
                 }
-                let ex = m.OrderEx
+                let ex = m.orderEx.first!
                 self.imgView.sd_setImage(with: URL.encodeUrl(string: ex.fUrl))
                 self.titleLabel.text = ex.fGoodsname
                 self.priceLabel.text = m.fSaleamount.moneyValue()
@@ -83,7 +83,6 @@ class OrerListCell: CustomTableViewCell {
                 
             } else if let m = model as? ReturnedModel {
                 //退货状态 null 显示申请换货按钮  0待审核 1待回寄 2待发货\待退款 3待收货 4完成
-                
                 reciveWidth.constant = 100
                 customLabel.isHidden = true
                 logisticsBtn.isHidden = true

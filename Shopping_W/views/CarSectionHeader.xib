@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -29,6 +28,7 @@
                         <constraint firstAttribute="height" constant="44" id="mwS-0S-cOK"/>
                         <constraint firstAttribute="width" constant="43" id="vHr-rN-lNC"/>
                     </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="18" maxY="0.0"/>
                     <state key="normal" image="o"/>
                     <state key="selected" image="v"/>
                     <connections>
@@ -84,6 +84,7 @@
             <connections>
                 <outlet property="ac_go" destination="sSb-um-3hS" id="0em-zI-iC6"/>
                 <outlet property="lineView" destination="Q7i-YQ-hOB" id="eEg-QZ-DRC"/>
+                <outlet property="rightBtn" destination="sSb-um-3hS" id="MtZ-YC-3ZY"/>
                 <outlet property="selectBtn" destination="QmI-1H-3ge" id="Mdu-lZ-8k7"/>
                 <outlet property="titleLabel" destination="ZTf-WS-s4b" id="Iu0-4m-w4I"/>
             </connections>
