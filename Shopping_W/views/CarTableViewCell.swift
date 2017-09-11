@@ -8,6 +8,7 @@
 
 import SDWebImage
 import UIKit
+import MBProgressHUD
 
 class CarTableViewCell: CustomTableViewCell {
     @IBOutlet weak var chooseBtn: UIButton!
@@ -88,7 +89,11 @@ class CarTableViewCell: CustomTableViewCell {
     
     func changeCount() {
         if let m = self.model as? CarModel {
-            m.fCount = Int(self.countBtn.numberText.text ?? "") ?? 1
+            var count = Int(self.countBtn.numberText.text ?? "") ?? 1
+            
+            count = count > m.fStock ? m.fStock : count
+            
+            m.fCount = count
             if PersonMdel.isLogined() {
                 m.updateCount()
             } else {
@@ -98,7 +103,30 @@ class CarTableViewCell: CustomTableViewCell {
     }
     
     @IBAction func ac_select(_ sender: UIButton) {
+        var flag = false
+        
         if let m = model as? CarModel {
+            if m.fState == 0 {
+                MBProgressHUD.show(errorText: "商品已不在销售状态")
+                flag = true
+            }
+            if m.fType == 0 {
+                if m.fCount > m.fStock {
+                    MBProgressHUD.show(errorText: "库存不足")
+                    flag = true
+                }
+            } else {
+                if m.fCount + m.fBuycount > m.fPurchasecount {
+                    MBProgressHUD.show(errorText: "超过限购数量")
+                    flag = true
+                }
+            }
+            if flag {
+                m.isSelected = false
+                sender.isSelected = false
+                return
+            }
+            
             m.selectedAction?()
             m.isSelected = !m.isSelected
             sender.isSelected = m.isSelected

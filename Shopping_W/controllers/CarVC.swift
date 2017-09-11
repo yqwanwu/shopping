@@ -153,7 +153,19 @@ class CarVC: UIViewController, UITableViewDelegate {
         let arr = self.tableVIew.dataArray.flatMap({ $0 }) as! [CarModel]
         for model in arr {
             if model.isSelected {
-                price += Double(model.fCount) * model.fSalesprice
+                switch model.fType {
+                case 0, 4 , 5:
+                    price += Double(model.fCount) * model.fSalesprice
+                case 1, 2:
+                    price += Double(model.fCount) * model.fPromotionprice
+                case 3:
+                    let p = Double(model.fCount) * model.fSalesprice
+                    price += p >= model.fPrice ? p - model.fPrice : p
+                case 6:
+                    price += Double(model.fCount) * model.fSalesprice * (model.fDiscount / 100)
+                default:
+                    break
+                }
             }
         }
         self.allPriceLabel.text = "¥" + price.moneyValue()

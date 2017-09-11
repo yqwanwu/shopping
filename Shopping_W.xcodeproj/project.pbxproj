@@ -658,8 +658,8 @@
 			isa = PBXGroup;
 			children = (
 				96610A621ED5696400C117D6 /* LoginVC.swift */,
-				96610A681ED667F100C117D6 /* RegisterVC.swift */,
 				96610A6C1ED67AB400C117D6 /* ForgetPwdVC.swift */,
+				96610A681ED667F100C117D6 /* RegisterVC.swift */,
 				141DCCCA1F4827E100C88EDC /* QuestionVC.swift */,
 			);
 			name = login;

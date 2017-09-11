@@ -49,11 +49,10 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
         if carModels == nil {
             return
         }
-        var ids = carModels!.reduce("", { (r, m) -> String in
-            return r + "\(m.fId),"
-        })
-        ids = ids.substring(to: ids.index(ids.endIndex, offsetBy: -1))
-        NetworkManager.requestTModel(params: ["method":"apiPreCreateOrder", "cartIDs":ids]).setSuccessAction { (bm: BaseModel<PreCreateOrder>) in
+        
+        let ids = carModels!.map({ "\($0.fId),\($0.fCount)" }).joined(separator: "|")
+        
+        NetworkManager.requestTModel(params: ["method":"apiPreCreateOrderNew", "cartIDs":ids]).setSuccessAction { (bm: BaseModel<PreCreateOrder>) in
             bm.whenSuccess {
                 let model = bm.t!
                 self.perOrder = model

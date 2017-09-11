@@ -66,7 +66,7 @@ class CarModel: CustomTableViewCellItem {
     var fPurchasecount = 0//单人限购数量(type不为0时使用,修改数量时需要限制)
     var F_PState = 0//促销状态(type不为0时使用,判断此值为1时才能提交订单)
     var F_SaleState = 0//促销上架状态(type不为0时使用,判断此值为1时才能提交订单)
-    var fState = false//0:未上架 1:已上架(type为0需要判断)
+    var fState = 0//0:未上架 1:已上架(type为0需要判断)
     var F_IsDel = false//是否删除 0:否 1:是(type为0需要判断)
     var fPromotioncount = 0//促销总数量(type不为0时使用)
     var fPromotionprice = 0.0//活动价(团购,秒杀用)
