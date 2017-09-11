@@ -27,6 +27,7 @@ class MyMsgVC: BaseViewController {
         }
         
         tableView.beginHeaderRefresh()
+        self.title = "我的消息"
     }
     
     func reqestData() {

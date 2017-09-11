@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class GoodsTypeView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-    
+    var aotuSelected = false
     let k_name = "name"
     let k_value = "value"
     let k_isShow = "isshow"
@@ -55,8 +55,13 @@ class GoodsTypeView: UICollectionView, UICollectionViewDelegate, UICollectionVie
             }
             
         }
-        setArr = arr
         
+        if arr.filter({$0.count > 2}).isEmpty {
+            aotuSelected = true
+            setArr = arr.map({ $0.map({ $0.state = .selected; return $0}) })
+        } else {
+            setArr = arr
+        }
     }
     
     func getSize(idx: IndexPath) -> CGSize {
@@ -143,6 +148,10 @@ class GoodsTypeView: UICollectionView, UICollectionViewDelegate, UICollectionVie
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if aotuSelected {
+            return
+        }
+        
         let arr = setArr[indexPath.section]
         let m = arr[indexPath.row]
         if m.state == .title || m.state == .disable {

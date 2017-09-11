@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import MBProgressHUD
 
 class AddressUpdateVC: UIViewController {
     @IBOutlet weak var bkView: UIView!
@@ -110,7 +111,22 @@ class AddressUpdateVC: UIViewController {
     }
     
     @IBAction func ac_save(_ sender: Any) {
+        if !Tools.stringIsNotBlank(text: phoneTF.text) {
+            MBProgressHUD.show(errorText: "请输入电话号码")
+            return
+        }
+        if !Tools.stringIsNotBlank(text: nameTF.text) {
+            MBProgressHUD.show(errorText: "请输入姓名")
+            return
+        }
+        
         let areaArr = addressPicker.getAddressArr()
+        
+        if areaArr.isEmpty {
+            MBProgressHUD.show(errorText: "请选择地区")
+            return
+        }
+        
         let area = NetworkManager.ObjToJson(obj: ["area":areaArr[2], "city":areaArr[1], "province":areaArr[0]])
         var params = ["method":"apiaddressadd", "fPhone":phoneTF.text ?? "", "fName":nameTF.text ?? "", "fAddressparams":area, "fTagname":tagTF.text ?? "", "fAddress":detailText.text ?? "", "fType":1] as [String:Any]
         

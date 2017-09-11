@@ -42,6 +42,13 @@ class ForgetPwdVC: BaseViewController {
     
     var showOnlyOne = false
     
+    let c = PwdQuestion().build(text: "密保问题1: 请选择").build(accessoryType: .disclosureIndicator)
+    let c1 = PwdQuestion().build(text: "密保问题1:").build(detailText: "")
+    let c2 = PwdQuestion().build(text: "密保问题2: 请选择").build(accessoryType: .disclosureIndicator)
+    let c3 = PwdQuestion().build(text: "密保问题2:").build(detailText: "")
+    let c4 = PwdQuestion().build(text: "密保问题3: 请选择").build(accessoryType: .disclosureIndicator)
+    let c5 = PwdQuestion().build(text: "密保问题3:").build(detailText: "")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -123,13 +130,6 @@ class ForgetPwdVC: BaseViewController {
         segment.layer.borderColor = UIColor.hexStringToColor(hexString: "9d9d9d").cgColor
         segment.layer.borderWidth = 1
         
-        let c = PwdQuestion().build(text: "密保问题1: 请选择").build(accessoryType: .disclosureIndicator)
-        let c1 = PwdQuestion().build(text: "密保问题1:").build(detailText: "")
-        let c2 = PwdQuestion().build(text: "密保问题2: 请选择").build(accessoryType: .disclosureIndicator)
-        let c3 = PwdQuestion().build(text: "密保问题2:").build(detailText: "")
-        let c4 = PwdQuestion().build(text: "密保问题3: 请选择").build(accessoryType: .disclosureIndicator)
-        let c5 = PwdQuestion().build(text: "密保问题3:").build(detailText: "")
-        
         let data = [c, c1, c2, c3, c4, c5].map { (c) -> CustomTableViewCellItem in
             c.build(cellClass: PwdQuestionTableViewCell.self).build(heightForRow: 50).build(isFromStoryBord: true)
             if c.detailText == nil {
@@ -187,6 +187,9 @@ class ForgetPwdVC: BaseViewController {
                 return
             }
         } else {
+            selectedQuestions[0].answer = c1.answer
+            selectedQuestions[1].answer = c3.answer
+            selectedQuestions[2].answer = c5.answer
             for m in self.selectedQuestions {
                 if !Tools.stringIsNotBlank(text: m.answer) || m.fQuestionid == 0 {
                     MBProgressHUD.show(errorText: "请回答所有保密问题")

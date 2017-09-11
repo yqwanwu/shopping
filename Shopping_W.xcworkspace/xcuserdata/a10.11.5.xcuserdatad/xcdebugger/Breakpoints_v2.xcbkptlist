@@ -44,12 +44,12 @@
                   moduleName = "Shopping_W"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/PersonVC.swift"
-                  timestampString = "526828912.154729"
+                  timestampString = "526836416.189779"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "136"
                   endingLineNumber = "136"
-                  offsetFromSymbolStart = "3748">
+                  offsetFromSymbolStart = "2512">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -59,12 +59,12 @@
                   moduleName = "Shopping_W"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/PersonVC.swift"
-                  timestampString = "526828912.157852"
+                  timestampString = "526836416.19204"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "137"
                   endingLineNumber = "137"
-                  offsetFromSymbolStart = "117">
+                  offsetFromSymbolStart = "116">
                </Location>
             </Locations>
          </BreakpointContent>

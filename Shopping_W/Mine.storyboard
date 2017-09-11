@@ -433,7 +433,7 @@
                                         <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入邮编" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aDC-9Q-8dV">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入标签" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aDC-9Q-8dV">
                                         <rect key="frame" x="113" y="263.5" width="173" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="shx-zB-aOF"/>
@@ -1881,12 +1881,44 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hnS-Qk-OEc">
                                 <rect key="frame" x="0.0" y="28" width="375" height="200"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iGE-1t-CGy" customClass="DotRefresh" customModule="Shopping_W" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iGE-1t-CGy">
                                         <rect key="frame" x="45" y="90.5" width="60" height="20"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MRp-l4-Td6">
+                                                <rect key="frame" x="0.0" y="5" width="10" height="10"/>
+                                                <color key="backgroundColor" red="0.96078431369999995" green="0.078431372550000003" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="10" id="RjC-YE-Yrt"/>
+                                                    <constraint firstAttribute="width" constant="10" id="sEx-Uf-8wq"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jjb-NL-Hsw">
+                                                <rect key="frame" x="18" y="5" width="10" height="10"/>
+                                                <color key="backgroundColor" red="0.96078431369999995" green="0.078431372550000003" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="10" id="7PM-Nt-lM7"/>
+                                                    <constraint firstAttribute="width" constant="10" id="ISD-PY-XdH"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="adO-Qm-kyE">
+                                                <rect key="frame" x="36" y="5" width="10" height="10"/>
+                                                <color key="backgroundColor" red="0.96078431369999995" green="0.078431372550000003" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="10" id="4Vv-Nn-YVF"/>
+                                                    <constraint firstAttribute="height" constant="10" id="njj-sj-P2S"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="MRp-l4-Td6" firstAttribute="top" secondItem="iGE-1t-CGy" secondAttribute="top" constant="5" id="E9o-Pc-oQY"/>
                                             <constraint firstAttribute="width" constant="60" id="EtM-LL-9oP"/>
+                                            <constraint firstItem="adO-Qm-kyE" firstAttribute="leading" secondItem="Jjb-NL-Hsw" secondAttribute="trailing" constant="8" id="apx-OX-j1g"/>
+                                            <constraint firstItem="MRp-l4-Td6" firstAttribute="leading" secondItem="iGE-1t-CGy" secondAttribute="leading" id="cc6-al-00h"/>
+                                            <constraint firstItem="Jjb-NL-Hsw" firstAttribute="top" secondItem="iGE-1t-CGy" secondAttribute="top" constant="5" id="hPC-Ih-CbH"/>
                                             <constraint firstAttribute="height" constant="20" id="mAG-06-QWh"/>
+                                            <constraint firstItem="adO-Qm-kyE" firstAttribute="top" secondItem="iGE-1t-CGy" secondAttribute="top" constant="5" id="qfA-fS-h3T"/>
+                                            <constraint firstItem="Jjb-NL-Hsw" firstAttribute="leading" secondItem="MRp-l4-Td6" secondAttribute="trailing" constant="8" id="rsR-eN-vTP"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6z-on-jXo">
@@ -1919,11 +1951,14 @@
                     </view>
                     <connections>
                         <outlet property="tipLabel" destination="W6z-on-jXo" id="bgH-SJ-CTE"/>
+                        <outletCollection property="reds" destination="MRp-l4-Td6" collectionClass="NSMutableArray" id="2vz-0X-qtJ"/>
+                        <outletCollection property="reds" destination="Jjb-NL-Hsw" collectionClass="NSMutableArray" id="kYw-uR-IPD"/>
+                        <outletCollection property="reds" destination="adO-Qm-kyE" collectionClass="NSMutableArray" id="7H1-EP-ZaK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHN-wC-zJ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3906" y="276"/>
+            <point key="canvasLocation" x="3904.8000000000002" y="275.71214392803603"/>
         </scene>
         <!--My MsgVC-->
         <scene sceneID="cN7-Ed-DtL">
