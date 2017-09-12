@@ -92,7 +92,7 @@ class CarTableViewCell: CustomTableViewCell {
             var count = Int(self.countBtn.numberText.text ?? "") ?? 1
             
             count = count > m.fStock ? m.fStock : count
-            
+            self.countBtn.numberText.text = "\(count)"
             m.fCount = count
             if PersonMdel.isLogined() {
                 m.updateCount()

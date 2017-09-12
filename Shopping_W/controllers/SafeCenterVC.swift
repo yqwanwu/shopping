@@ -20,11 +20,11 @@ class SafeCenterVC: BaseViewController {
         super.viewDidLoad()
         
         self.title = "安全中心"
-        
         self.view.addSubview(tableView)
         
+        let phone = PersonMdel.readData()?.fPhone
         let c = CustomTableViewCellItem().build(text: "登录密码").build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
-        let c1 = CustomTableViewCellItem().build(text: "手机号").build(detailText: "124324324").build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
+        let c1 = CustomTableViewCellItem().build(text: "手机号").build(detailText: phone).build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
         let c2 = CustomTableViewCellItem().build(text: "支付密码").build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
         let c3 = CustomTableViewCellItem().build(text: "密保问题").build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
         

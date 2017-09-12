@@ -50,6 +50,9 @@ class FirstGoodsCell: UICollectionViewCell {
                     priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
                 case 2:
                     tagBtn.setTitle("秒杀", for: .normal)
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                    oldPriceLabel.attributedText = attrStr
+                    priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
                 case 3:
                     tagBtn.setTitle("满\(Int(m.fPrice))-\(Int(m.fDeduction))", for: .normal)
                 case 4:

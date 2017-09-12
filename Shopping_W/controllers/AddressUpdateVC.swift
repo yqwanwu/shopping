@@ -111,13 +111,20 @@ class AddressUpdateVC: UIViewController {
     }
     
     @IBAction func ac_save(_ sender: Any) {
-        if !Tools.stringIsNotBlank(text: phoneTF.text) {
-            MBProgressHUD.show(errorText: "请输入电话号码")
+        if !Tools.stringIsNotBlank(text: phoneTF.text) || phoneTF.text?.characters.count != 11 {
+            MBProgressHUD.show(errorText: "请输入11位电话号码")
             return
         }
         if !Tools.stringIsNotBlank(text: nameTF.text) {
             MBProgressHUD.show(errorText: "请输入姓名")
             return
+        }
+        
+        if let mail = mailTF.text {
+            if mail.characters.count > 0 && mail.characters.count != 6 {
+                MBProgressHUD.show(errorText: "邮编必须是6位")
+                return
+            }
         }
         
         let areaArr = addressPicker.getAddressArr()

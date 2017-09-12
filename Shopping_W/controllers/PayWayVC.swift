@@ -27,6 +27,12 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     } ()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let p = preOrderModel {
+            totalPriceLabel.text = "￥" + p.payAmount.moneyValue()
+        } else {
+//            totalPriceLabel.text = "￥" + orderModel.
+        }
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -36,7 +42,7 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         
         p3.totalPrice = "¥123"
         
-        tableView.dataArray = [[p, p1, p2], [p3]]
+        tableView.dataArray = [[p1, p, p2], [p3]]
         
         for model in payArr {
             model.setupCellAction({ [unowned self] (idx) in
