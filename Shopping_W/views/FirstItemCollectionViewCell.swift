@@ -16,6 +16,12 @@ class FirstItemCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        imgView1.clipsToBounds = true
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imgView1.layer.cornerRadius = imgView1.frame.width / 2
+    }
+    
 }
