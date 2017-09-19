@@ -43,22 +43,28 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     }
     
     func requesIndexLabel() {
-        NetworkManager.requestListModel(params: ["method":"apiindexlabels"]).setSuccessAction { (bm: BaseModel<FirstItem>) in
-            bm.whenSuccess {
-                let list = bm.list!
-                if !list.isEmpty {
-                    FirstItem.defaultDatas.append(list)
-                } else {
-                    var arr = [FirstItem]()
-                    arr.append(FirstItem(title: "健康中国", imgName: "健康"))
-                    arr.append(FirstItem(title: "特色中国", imgName: "特色中国"))
-                    arr.append(FirstItem(title: "清真专区", imgName: "清真专区"))
-                    arr.append(FirstItem(title: "绿色中国", imgName: "绿色专区"))
-                    FirstItem.defaultDatas.append(list)
-                }
-                self.itemCollectionView.reloadData()
-            }
-        }
+        var arr = [FirstItem]()
+        arr.append(FirstItem(title: "健康中国", imgName: "健康"))
+        arr.append(FirstItem(title: "特色中国", imgName: "特色中国"))
+        arr.append(FirstItem(title: "清真专区", imgName: "清真专区"))
+        arr.append(FirstItem(title: "绿色中国", imgName: "绿色专区"))
+        FirstItem.defaultDatas.append(arr)
+//        NetworkManager.requestListModel(params: ["method":"apiindexlabels"]).setSuccessAction { (bm: BaseModel<FirstItem>) in
+//            bm.whenSuccess {
+//                let list = bm.list!
+//                if !list.isEmpty {
+//                    FirstItem.defaultDatas.append(list)
+//                } else {
+//                    var arr = [FirstItem]()
+//                    arr.append(FirstItem(title: "健康中国", imgName: "健康"))
+//                    arr.append(FirstItem(title: "特色中国", imgName: "特色中国"))
+//                    arr.append(FirstItem(title: "清真专区", imgName: "清真专区"))
+//                    arr.append(FirstItem(title: "绿色中国", imgName: "绿色专区"))
+//                    FirstItem.defaultDatas.append(arr)
+//                }
+//                self.itemCollectionView.reloadData()
+//            }
+//        }
     }
     
     func requestADs(complete: BLANK_CLOSURE) {

@@ -21,7 +21,7 @@ class FirstItemCollectionViewCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        imgView1.layer.cornerRadius = imgView1.frame.width / 2
+//        imgView1.layer.cornerRadius = imgView1.frame.width / 2
     }
     
 }

@@ -12,8 +12,7 @@ import MBProgressHUD
 
 class ReviceAddressVC: BaseViewController, UITableViewDelegate {
     @IBOutlet weak var tableView: CustomTableView!
-    let addVC = Tools.getClassFromStorybord(sbName: .mine, clazz: AddressUpdateVC.self) as! AddressUpdateVC
-    
+
     var selectedAction: ((_ model: AddressModel) -> Void)?
     
     override func viewDidLoad() {
@@ -33,9 +32,6 @@ class ReviceAddressVC: BaseViewController, UITableViewDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.delegate = self
         
-        self.addChildViewController(addVC)
-        addVC.topVC = self
-        
     }
     
     func requestData() {
@@ -46,8 +42,11 @@ class ReviceAddressVC: BaseViewController, UITableViewDelegate {
                 let arr = bm.list!.map({ (model) -> AddressModel in
                     model.build(cellClass: AddressTableViewCell.self).build(isFromStoryBord: true)
                     model.updateAcrion = { [unowned self] _ in
-                        self.addVC.model = model
-                        self.view.addSubview(self.addVC.view)
+                        let addVC = Tools.getClassFromStorybord(sbName: .mine, clazz: AddressUpdateVC.self) as! AddressUpdateVC
+                        addVC.topVC = self
+                        addVC.modalPresentationStyle = .overCurrentContext
+                        addVC.model = model
+                        self.present(addVC, animated: false, completion: nil)
                     }
                     if model.fType == 1 {
                         AddressModel.defaultAddress = model
@@ -71,8 +70,11 @@ class ReviceAddressVC: BaseViewController, UITableViewDelegate {
     }
     
     func ac_add() {
+        let addVC = Tools.getClassFromStorybord(sbName: .mine, clazz: AddressUpdateVC.self) as! AddressUpdateVC
+        addVC.topVC = self
+        addVC.modalPresentationStyle = .overCurrentContext
         addVC.model = nil
-        view.addSubview(addVC.view)
+        self.present(addVC, animated: false, completion: nil)
     }
     
     

@@ -27,6 +27,7 @@ class AddressTableViewCell: CustomTableViewCell {
                 add1Label.text = j["province"].stringValue + j["city"].stringValue + j["area"].stringValue
                 addressdetailLabel.text = m.fAddress
                 typeLabel.text = m.fTagname
+                mailLabel.text = m.fPost
             }
         }
     }

@@ -58,7 +58,7 @@ class AddressUpdateVC: UIViewController {
             addressBtn.setTitle(addressName, for: .normal)
             detailText.text = m.fAddress
             tagTF.text = m.fTagname
-            
+            mailTF.text = m.fPost
             addressPicker.setup(data: [j["province"].stringValue, j["city"].stringValue, j["area"].stringValue])
         } else {
             self.saveBtn.setTitle("保存", for: .normal)
@@ -99,7 +99,8 @@ class AddressUpdateVC: UIViewController {
     }
     
     @IBAction func ac_dismiss(_ sender: Any) {
-        self.view.removeFromSuperview()
+//        self.view.removeFromSuperview()
+        self.dismiss(animated: false, completion: nil)
     }
     
     
@@ -135,7 +136,7 @@ class AddressUpdateVC: UIViewController {
         }
         
         let area = NetworkManager.ObjToJson(obj: ["area":areaArr[2], "city":areaArr[1], "province":areaArr[0]])
-        var params = ["method":"apiaddressadd", "fPhone":phoneTF.text ?? "", "fName":nameTF.text ?? "", "fAddressparams":area, "fTagname":tagTF.text ?? "", "fAddress":detailText.text ?? "", "fType":1] as [String:Any]
+        var params = ["method":"apiaddressadd", "fPhone":phoneTF.text ?? "", "fName":nameTF.text ?? "", "fAddressparams":area, "fTagname":tagTF.text ?? "", "fAddress":detailText.text ?? "", "fType":1, "fPost": mailTF.text ?? ""] as [String:Any]
         
         if let m = model {
             params["fAddressid"] = m.fAddressid
@@ -144,7 +145,7 @@ class AddressUpdateVC: UIViewController {
         
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             bm.whenSuccess {
-                self.view.removeFromSuperview()
+                self.dismiss(animated: false, completion: nil)
                 self.topVC.requestData()
             }
         }) { (err) in

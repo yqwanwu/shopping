@@ -89,7 +89,7 @@ class MyMsgCell: CustomTableViewCell {
                 
                 let fmt = DateFormatter()
                 fmt.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                questionLabel.text = fmt.string(from: Date(timeIntervalSince1970: m.fConsulttime / 1000))
+                questionTimeLabel.text = fmt.string(from: Date(timeIntervalSince1970: m.fConsulttime / 1000))
                 replyTimeLabel.text = fmt.string(from: Date(timeIntervalSince1970: m.fReplytime / 1000))
             }
         }

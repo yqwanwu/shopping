@@ -181,6 +181,7 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                         
                         c.setupCellAction({ [unowned self] (idx) in
                             let vc = OrderDetailVC()
+                            vc.orderModel = c
                             if let data = tableView.dataArray[idx.section][idx.row] as? OrderModel {
                                 vc.showPayBtn = data.type == .pay
                             }
@@ -233,7 +234,16 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         let progress = scrollView.contentOffset.x / view.frame.width
         headerView.selectedIndex = Int(progress + 0.1)
         selectedIndex = headerView.selectedIndex
-        loadData()
+        loadData(byPull: true)
+    }
+    
+    func cancleOrder(orderId: Int) {
+        NetworkManager.requestTModel(params: ["method":"apicancelorder", "fOrderid":orderId]).setSuccessAction { (bm: BaseModel<CodeModel>) in
+            bm.whenSuccess {
+                self.loadedIndex &= ~3
+                self.loadData()
+            }
+        }
     }
     
     
@@ -247,6 +257,8 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
             if let model = data as? OrderModel {
                 if model.type == .recive {
                     self.performSegue(withIdentifier: self.k_Logistics, sender: self)
+                } else if model.type == .pay {
+                    self.cancleOrder(orderId: model.fOrderid)
                 }
             }
         }

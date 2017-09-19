@@ -44,7 +44,7 @@
                   moduleName = "Shopping_W"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/PersonVC.swift"
-                  timestampString = "526922082.832076"
+                  timestampString = "527527237.023144"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "136"
@@ -59,12 +59,76 @@
                   moduleName = "Shopping_W"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/PersonVC.swift"
-                  timestampString = "526922082.835109"
+                  timestampString = "527527237.025306"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "137"
                   endingLineNumber = "137"
                   offsetFromSymbolStart = "117">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shopping_W/controllers/PayWayVC.swift"
+            timestampString = "527527308.902141"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "ac_ok(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shopping_W/controllers/PayWayVC.swift"
+            timestampString = "527527309.99218"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "ac_ok(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Shopping_W.PayWayVC.ac_ok (Any) -&gt; ()"
+                  moduleName = "Shopping_W"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/PayWayVC.swift"
+                  timestampString = "527527309.998764"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "113"
+                  endingLineNumber = "113"
+                  offsetFromSymbolStart = "3574">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Shopping_W.PayWayVC.(ac_ok (Any) -&gt; ()).(closure #4)"
+                  moduleName = "Shopping_W"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/PayWayVC.swift"
+                  timestampString = "527527310.002129"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "113"
+                  endingLineNumber = "113"
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>

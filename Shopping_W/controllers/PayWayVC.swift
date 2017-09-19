@@ -15,6 +15,9 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     var orderModel = OrderModel()
     var preOrderModel: PreCreateOrder?
+    var useIntegral = false
+    var fIntegral = 0
+    var totalPrice = ""
     
     let k_toPayResultVC = "toPayResultVC"
     let p = payWayModel().build(text: "支付宝支付").build(cellClass: PayByThird.self).build(heightForRow: 50).build(isFromStoryBord: true)
@@ -23,16 +26,12 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     let p3 = payWayModel().build(cellClass: PayByBalance.self).build(heightForRow: 50).build(isFromStoryBord: true)
     
     lazy var payArr: [payWayModel] = {
-        return [self.p, self.p1, self.p2, self.p3]
+        return [self.p1, self.p, self.p2, self.p3]
     } ()
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let p = preOrderModel {
-            totalPriceLabel.text = "￥" + p.payAmount.moneyValue()
-        } else {
-//            totalPriceLabel.text = "￥" + orderModel.
-        }
+        totalPriceLabel.text = totalPrice != "" ? totalPrice : orderModel.fSaleamount.moneyValue()
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -50,7 +49,7 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                     m.isSelected = false
                 }
                 model.isSelected = true
-                self.tableView.dataArray = [[self.p, self.p1, self.p2], [self.p3]]
+                self.tableView.dataArray = [[self.p1, self.p, self.p2], [self.p3]]
                 self.tableView.reloadData()
             })
         }
@@ -76,9 +75,9 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
  */
         var params = [String: Any]()
         if let p = preOrderModel {
-            params = ["method":"apiPayforAPP", "fOrderid":p.IDS, "fType":"0", "fAmount":p.payAmount, "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+            params = ["method":"apiPayforAPP", "fOrderid":p.IDS, "fType":"0", "fAmount":p.payAmount, "isUseIntegral":useIntegral ? "1" : "0", "useIntegral":fIntegral, "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
         } else {
-            params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"2", "isUseIntegral":"0", "useIntegral":"0", "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
+            params = ["method":"apiPayforAPP", "fOrderid":orderModel.fOrderid, "fType":"0", "fAmount":orderModel.fSaleamount, "fPaytype":"2", "isUseIntegral":useIntegral ? "1" : "0", "useIntegral":fIntegral, "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
         }
         
         if p.isSelected {

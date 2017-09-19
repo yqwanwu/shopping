@@ -27,6 +27,26 @@ class SettingsVC: BaseViewController, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataArray = [data]
         tableView.sectionHeaderHeight = 10
+        
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 65))
+        let btn = UIButton(frame: CGRect(x: 50, y: 20, width: view.frame.width - 100, height: 45))
+        btn.backgroundColor = CustomValue.common_red
+        btn.layer.cornerRadius = CustomValue.btnCornerRadius
+        btn.setTitleColor(UIColor.white, for: .normal)
+        btn.setTitle("退出登录", for: .normal)
+        footerView.addSubview(btn)
+        tableView.tableFooterView = footerView
+        btn.addTarget(self, action: #selector(ac_out), for: .touchUpInside)
+        
+    }
+    
+    func ac_out() {
+        let p = PersonMdel.readData()
+        p?.fUserpass = ""
+        p?.saveData()
+        self.navigationController?.popToRootViewController(animated: false)
+        CustomTabBarVC.instance.selectedIndex = 0
+        LoginVC.showLogin()
     }
     
   

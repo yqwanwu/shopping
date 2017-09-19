@@ -11,6 +11,8 @@ import UIKit
 class RightTitleCell: CustomTableViewCell {
     @IBOutlet weak var leftLabel: UILabel!
     @IBOutlet weak var rightLabel: UILabel!
+    @IBOutlet weak var letftCons: NSLayoutConstraint!
+    @IBOutlet weak var selectBtn: UIButton!
     
     override var model: CustomTableViewCellItem? {
         didSet {
@@ -23,7 +25,8 @@ class RightTitleCell: CustomTableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        selectBtn.isHidden = true
+        letftCons.constant = 0
     }
 
     

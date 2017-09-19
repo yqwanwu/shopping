@@ -58,6 +58,7 @@ class AddressModel: CustomTableViewCellItem {
     var fAddressparams = ""//"{\"area\ = \"高新区\" \"city\ = \"成都市\" \"address\ = \"xxxxxx\" \"province\ = \"四川省\"}" //地址json
     var fTagname = ""//标签
     var fType = -1 //类型 1默认 0 其他
+    var fPost = ""
     
     var updateAcrion: BLANK_CLOSURE?
     

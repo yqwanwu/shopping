@@ -36,8 +36,11 @@ class OrerListCell: CustomTableViewCell {
             if let m = model as? OrderModel {
                 logisticsBtn.isHidden = m.type != .recive
                 reciveWidth.constant = 80
+                logisticsBtn.setTitle("查看物流", for: .normal)
                 switch m.type {
                 case .pay:
+                    logisticsBtn.isHidden = false
+                    logisticsBtn.setTitle("取消订单", for: .normal)
                     reciveBtn.setTitle("立即付款", for: .normal)
                 case .send:
                     reciveBtn.setTitle("提醒卖家发货", for: .normal)

@@ -85,6 +85,7 @@ class MyCollectionVC: BaseViewController, UITableViewDelegate {
             MBProgressHUD.showAdded(to: self.view, animated: true)
             var arr = self.tableView.dataArray[0] as! [CollectionModel]
             NetworkManager.requestTModel(params: ["method":"apiFavoritesDel", "fFavoritesid":arr[index.row].F_FavoritesID]).setSuccessAction(action: { (bm: BaseModel<CodeModel>) in
+                MBProgressHUD.hideHUD(forView: self.view)
                 bm.whenSuccess {
                     arr.remove(at: index.row)
                     self.tableView.dataArray = [arr]
