@@ -82,8 +82,8 @@ class MyMsgCell: CustomTableViewCell {
     override var model: CustomTableViewCellItem? {
         didSet {
             if let m = model as? MyMsgModel {
-                goodsNameLabel.text = "商品名称" + m.fGoodsname
-                questionLabel.text = "咨询内容" + m.fContent
+                goodsNameLabel.text = "商品名称: " + m.fGoodsname
+                questionLabel.text = "咨询内容: " + m.fContent
                 replyName.text = m.fReplyusername
                 replyContent.text = m.fReplycontent
                 
@@ -93,5 +93,13 @@ class MyMsgCell: CustomTableViewCell {
                 replyTimeLabel.text = fmt.string(from: Date(timeIntervalSince1970: m.fReplytime / 1000))
             }
         }
+    }
+    
+    override func awakeFromNib() {
+        replyContent.layer.borderColor = UIColor.gray.cgColor
+        replyContent.layer.borderWidth = 0.5
+        
+        questionLabel.layer.borderColor = UIColor.gray.cgColor
+        questionLabel.layer.borderWidth = 0.5
     }
 }

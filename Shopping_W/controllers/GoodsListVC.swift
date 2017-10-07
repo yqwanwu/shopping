@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class GoodsListVC: BaseViewController {
     @IBOutlet weak var tableView: RefreshTableView!
@@ -32,8 +33,11 @@ class GoodsListVC: BaseViewController {
         var tag = 0
         if self.type == .group {
             tag = -200
+            //后面的界面改了，，，
+            setupTabView()
         } else if self.type == .promotions {
             tag = -400
+            setupPromotionsTab()
         }
         
         if tag != 0 {
@@ -50,29 +54,69 @@ class GoodsListVC: BaseViewController {
         }
         
         
-        setupTabView()
         
         self.tableView.addFooterAction { [unowned self] _ in
             self.currentPage += 1
-            self.requestPromotions()
+            if self.type == .promotions {
+                self.requestPromotions(types: "\(self.headerView.selectedIndex + 3)")
+            } else {
+                self.requestPromotions()
+            }
+            
         }
         
         self.tableView.addHeaderAction { [unowned self] _ in
             self.currentPage = 1
-            self.requestPromotions()
+            if self.type == .promotions {
+                self.requestPromotions(types: "\(self.headerView.selectedIndex + 3)")
+            } else {
+                self.requestPromotions()
+            }
         }
         self.tableView.beginHeaderRefresh()
     }
     
+    //促销界面
+    func setupPromotionsTab() {
+        headerView.lineTopMargin = 6
+        var arr = [UIButton]()
+        let titles = ["满减", "多倍积分", "买赠", "折扣"]
+        for title in titles {
+            let btn = UIButton(type: .custom)
+            btn.setTitle(title, for: .normal)
+            //239  47   53
+            btn.setTitleColor(CustomValue.common_red, for: .selected)
+            btn.setTitleColor(UIColor.black, for: .normal)
+            arr.append(btn)
+            btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+            
+            btn.tag = 0
+        }
+        
+        headerView.showSeparator = true
+        headerView.margin = 10
+        //隐藏下面的横线
+//        headerView.bottomView.isHidden = true
+        headerView.items = arr
+        
+        headerView.actions = { [unowned self] index in
+            self.requestPromotions(types: "\(index + 3)", showHUD: true)
+        }
+    }
+    
     ///促销列表
-    func requestPromotions() {
+    func requestPromotions(types: String? = nil, showHUD: Bool = false) {
         if type != .normal && type != .level2 && type != .recommend {
-            var params = ["method":"apipromotions", "fTypes":type.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":currentPage, "pageSize":20] as [String : Any]
+            var params = ["method":"apipromotions", "fTypes": types ?? type.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":currentPage, "pageSize":20] as [String : Any]
             if fOrderbys != "" {
                 params["fOrderby"] = fOrderbys
             }
             
+            if showHUD {
+                MBProgressHUD.showAdded(to: self.view, animated: true)
+            }
             NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
+                MBProgressHUD.hideHUD(forView: self.view)
                 self.tableView.endHeaderRefresh()
                 self.tableView.endFooterRefresh()
                 bm.whenSuccess {

@@ -22,7 +22,7 @@ class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
     
     var dataArray: [[CustomTableViewCellItem]] = [[CustomTableViewCellItem]]() {
         willSet {
-            var identifier = ""
+//            var identifier = ""
             
 //            var set: Set = Set<String>()
 //            for outData in newValue {

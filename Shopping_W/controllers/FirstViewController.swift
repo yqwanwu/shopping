@@ -12,6 +12,8 @@ import MBProgressHUD
 
 class FirstViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate {
     
+    static let WELCOME_SHOWED = "WELCOME_SHOWED"
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var addressBtn: UIButton!
@@ -49,6 +51,8 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UserDefaults.standard.set(true, forKey: FirstViewController.WELCOME_SHOWED)
+        
         titleBack.bounds.size.width = self.view.frame.width - 40
         searchBtn.layer.cornerRadius = 6
         
@@ -85,6 +89,8 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             })
         }
     }
+    
+    
 
     //下方商品
     func requestGoods() {
@@ -105,6 +111,10 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         
         NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
             bm.whenSuccess {
+                let count = bm.pageInfo!.list!.count / 2 * 2
+                if bm.pageInfo!.list!.count != count {
+                    bm.pageInfo!.list!.removeLast()
+                }
                 self.secKillList = bm.pageInfo!.list!
                 self.collectionView.reloadData()
             }

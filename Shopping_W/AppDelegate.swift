@@ -29,6 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UMSocialManager.default().setPlaform(.sina, appKey: CustomValue.sinaAppId, appSecret: CustomValue.sinaAppSecret, redirectURL: redirectUrl)
         UMSocialManager.default().removePlatformProvider(withPlatformTypes: [UMSocialPlatformType.qzone.rawValue, UMSocialPlatformType.wechatFavorite.rawValue])
         
+        if let _ = UserDefaults.standard.value(forKey: FirstViewController.WELCOME_SHOWED) {
+            window?.rootViewController = Tools.getClassFromStorybord(sbName: .main, clazz: CustomTabBarVC.self)
+        } else {
+            window?.rootViewController = WelcomeVC()
+        }
+        
         return true
     }
 

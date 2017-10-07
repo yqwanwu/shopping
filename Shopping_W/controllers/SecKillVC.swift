@@ -11,7 +11,7 @@ import MBProgressHUD
 
 class SecKillVC: BaseViewController {
     static func getAdHeight() -> CGFloat {
-        return UIScreen.main.bounds.width * 11 / 75
+        return UIScreen.main.bounds.width * 2 / 5 //11 : 75
     }
     lazy var tableView: RefreshTableView = {
         let t = RefreshTableView(frame: CGRect(x: 0, y: self.headerView.frame.maxY + 1, width: self.view.frame.width, height: self.view.frame.height - 71 - 64), style: .grouped)

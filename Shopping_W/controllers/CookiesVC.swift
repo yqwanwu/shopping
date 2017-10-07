@@ -27,7 +27,6 @@ class CookiesVC: BaseViewController, UITableViewDelegate {
         self.view.addSubview(tableView)
         
         tableView.addFooterAction { [unowned self] _ in
-            self.currentPage = 1
             self.requestData()
         }
         
@@ -45,6 +44,8 @@ class CookiesVC: BaseViewController, UITableViewDelegate {
             bm.whenSuccess {
                 if !bm.pageInfo!.hasNextPage {
                     self.tableView.noMoreData()
+                } else {
+                    self.currentPage += 1
                 }
                 
                 var arr = bm.pageInfo!.list!.map({ (model) -> CollectionModel in

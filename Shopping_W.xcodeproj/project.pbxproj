@@ -12,6 +12,8 @@
 		141DCCCB1F4827E100C88EDC /* QuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141DCCCA1F4827E100C88EDC /* QuestionVC.swift */; };
 		141DCCCE1F493BA700C88EDC /* FirstADSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141DCCCC1F493BA700C88EDC /* FirstADSectionHeader.swift */; };
 		141DCCCF1F493BA700C88EDC /* FirstADSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141DCCCD1F493BA700C88EDC /* FirstADSectionHeader.xib */; };
+		149ED99D1F88FA05008C64FE /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149ED99C1F88FA04008C64FE /* WelcomeVC.swift */; };
+		149ED99F1F8916F4008C64FE /* HelpsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149ED99E1F8916F4008C64FE /* HelpsModel.swift */; };
 		14A85B251F58469000A2B5F1 /* MyMsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A85B241F58469000A2B5F1 /* MyMsgVC.swift */; };
 		14C2F6BF1F51AD8100A5A08A /* MyBalanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C2F6BE1F51AD8100A5A08A /* MyBalanceModel.swift */; };
 		14C2F6C11F529D8100A5A08A /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C2F6C01F529D8100A5A08A /* CollectionModel.swift */; };
@@ -243,6 +245,8 @@
 		141DCCCA1F4827E100C88EDC /* QuestionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionVC.swift; sourceTree = "<group>"; };
 		141DCCCC1F493BA700C88EDC /* FirstADSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstADSectionHeader.swift; sourceTree = "<group>"; };
 		141DCCCD1F493BA700C88EDC /* FirstADSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstADSectionHeader.xib; sourceTree = "<group>"; };
+		149ED99C1F88FA04008C64FE /* WelcomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
+		149ED99E1F8916F4008C64FE /* HelpsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpsModel.swift; sourceTree = "<group>"; };
 		14A85B241F58469000A2B5F1 /* MyMsgVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMsgVC.swift; sourceTree = "<group>"; };
 		14C2F6BE1F51AD8100A5A08A /* MyBalanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBalanceModel.swift; sourceTree = "<group>"; };
 		14C2F6C01F529D8100A5A08A /* CollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
@@ -1224,6 +1228,7 @@
 				96F761EB1F2B30A5003CF970 /* PreCreateOrder.swift */,
 				96A9A6701F31C291007E7590 /* ReturnedModel.swift */,
 				14C2F6C01F529D8100A5A08A /* CollectionModel.swift */,
+				149ED99E1F8916F4008C64FE /* HelpsModel.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -1332,6 +1337,7 @@
 				96DE99761ECB2FA80011290E /* models */,
 				96DE99771ECB2FA80011290E /* views */,
 				96DE99631ECB2D0E0011290E /* AppDelegate.swift */,
+				149ED99C1F88FA04008C64FE /* WelcomeVC.swift */,
 				968511211ECC1BA50083244F /* storyBoard */,
 				96DE996A1ECB2D0E0011290E /* Assets.xcassets */,
 				96DE996C1ECB2D0E0011290E /* LaunchScreen.storyboard */,
@@ -1718,6 +1724,7 @@
 				96610A4F1ED51F1500C117D6 /* CategoryGoodsCollectionViewCell.swift in Sources */,
 				96902F051ECB32B100B219D7 /* AnimationsProtocol.swift in Sources */,
 				96DE99921ECB2FC90011290E /* UIImage+QRCode.swift in Sources */,
+				149ED99F1F8916F4008C64FE /* HelpsModel.swift in Sources */,
 				9674E2BA1EE643910004D9EE /* EvaluateVC.swift in Sources */,
 				14C2F6BF1F51AD8100A5A08A /* MyBalanceModel.swift in Sources */,
 				96610A6D1ED67AB400C117D6 /* ForgetPwdVC.swift in Sources */,
@@ -1783,6 +1790,7 @@
 				96610A631ED5696400C117D6 /* LoginVC.swift in Sources */,
 				96F761E91F2B2765003CF970 /* UseIntegralVCViewController.swift in Sources */,
 				96610A7F1ED95FEC00C117D6 /* ReviceAddressVC.swift in Sources */,
+				149ED99D1F88FA05008C64FE /* WelcomeVC.swift in Sources */,
 				965B9D7A1ECC93F1002016C2 /* OrderVC.swift in Sources */,
 				96902F1C1ECB32F200B219D7 /* ShadowView.swift in Sources */,
 				96ADF8FF1F13ACAC0045EB3A /* FirstListTableViewCell.swift in Sources */,

@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import SnapKit
 
 class BaseWebViewController: BaseViewController, WKNavigationDelegate, WKUIDelegate {
 
@@ -20,16 +21,23 @@ class BaseWebViewController: BaseViewController, WKNavigationDelegate, WKUIDeleg
     
     var url: String = ""
     private var progressView = UIProgressView()
+    var htmlStr: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.addSubview(webView)
         
+        webView.frame.origin.y = (self.navigationController?.navigationBar.frame.height)! + 20
+        
         self.url = self.url.hasPrefix("http") ? self.url : NetworkManager.BASESERVER + "/" + self.url
         let url = URL(string: self.url)
         let request = URLRequest(url: url!)
         webView.load(request)
+        
+        if let str = htmlStr {
+            webView.loadHTMLString(str, baseURL: nil)
+        }
         
         /**
          增加的属性：
@@ -44,6 +52,10 @@ class BaseWebViewController: BaseViewController, WKNavigationDelegate, WKUIDeleg
         progressView.trackTintColor = UIColor.white
         progressView.progressTintColor = UIColor.orange
         self.navigationController?.navigationBar.addSubview(progressView)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     override func ac_back() {
