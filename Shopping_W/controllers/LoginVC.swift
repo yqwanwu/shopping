@@ -67,6 +67,7 @@ class LoginVC: BaseViewController {
         let params = ["method":"apiuserlogin", "fUsername":userName, "fUserpass":pwd.MD5.uppercased()]
         NetworkManager.requestTModel(params: params, success: { (bm: BaseModel<PersonMdel>) in
             MBProgressHUD.hideHUD()
+            MBProgressHUD.hideAllHUDs(for: UIApplication.shared.keyWindow!, animated: true)
             bm.whenSuccess {
                 bm.t?.fUserpass = pwd
                 bm.t!.saveData()

@@ -10,6 +10,7 @@ import UIKit
 import ObjectMapper
 import RealmSwift
 
+
 class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
     ///必须卸载这防止提前被释放
     fileprivate weak var originalDataSouce: UITableViewDataSource?
@@ -17,68 +18,55 @@ class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
     private var dataSouceProxy: _CustomTableViewDataSource?
     private var delegateProxy: _CustomTableViewDelegate?
     
+    private var destroyed = false
+    
     var dataArray: [[CustomTableViewCellItem]] = [[CustomTableViewCellItem]]() {
         willSet {
             var identifier = ""
             
-            var set: Set = Set<String>()
-            for outData in newValue {
-                for data in outData {
-                    if data.isFromStoryBord { continue }
-                    set.insert(NSStringFromClass(data.cellClass))
-                }
-            }
+//            var set: Set = Set<String>()
+//            for outData in newValue {
+//                for data in outData {
+//                    if data.isFromStoryBord { continue }
+//                    set.insert(NSStringFromClass(data.cellClass))
+//                }
+//            }
             
-            for s in set {
-                identifier = (s as NSString).pathExtension
-                self.register(NSClassFromString(s), forCellReuseIdentifier: identifier)
-                
-                if Bundle.main.path(forResource: identifier, ofType: "nib") != nil {
-                    let nib = UINib(nibName: identifier, bundle: Bundle.main)
-                    self.register(nib, forCellReuseIdentifier: identifier)
-                }
-            }
+//            for s in set {
+//                identifier = (s as NSString).pathExtension
+//                self.register(NSClassFromString(s), forCellReuseIdentifier: identifier)
+//                
+//                if Bundle.main.path(forResource: identifier, ofType: "nib") != nil {
+//                    let nib = UINib(nibName: identifier, bundle: Bundle.main)
+//                    self.register(nib, forCellReuseIdentifier: identifier)
+//                }
+//            }
         }
     }
     
     override var dataSource: UITableViewDataSource? {
-//        didSet {
-//            originalDataSouce = dataSource
-//            super.dataSource = self
-//        }
-        set {
-            if newValue != nil {
-                dataSouceProxy = _CustomTableViewDataSource(delegate: newValue, commonDelegate: self)
-                dataSouceProxy?.obj = self
+        didSet {
+            if destroyed {
+                return
             }
-            
+            originalDataSouce = dataSource
+            dataSouceProxy = dataSource == nil ? nil : _CustomTableViewDataSource(delegate: dataSource, commonDelegate: self)
+            dataSouceProxy?.obj = self
             super.dataSource = dataSouceProxy
-            originalDataSouce = self.isEqual(newValue) ? nil : newValue
-        }
-        
-        get {
-            return super.dataSource
         }
     }
     
     override var delegate: UITableViewDelegate? {
-        
-//        didSet {
-//            originalDelegate = delegate
-//            super.delegate = self
-//        }
-        set {
-            if newValue != nil {
-                delegateProxy = _CustomTableViewDelegate(delegate: newValue, commonDelegate: self)
+        didSet {
+            if destroyed {
+                return
             }
+            originalDelegate = delegate
+            delegateProxy = delegate == nil ? nil : _CustomTableViewDelegate(delegate: delegate, commonDelegate: self)
             super.delegate = delegateProxy
-            originalDelegate = self.isEqual(newValue) ? nil : newValue
-        }
-        
-        get {
-            return super.delegate
         }
     }
+
     
     override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
@@ -103,6 +91,7 @@ class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
     
     deinit {
         debugPrint("tableView销毁")
+        destroyed = true
     }
     
     private class _CustomTableViewDataSource: CommonProxy, UITableViewDataSource {
@@ -113,6 +102,17 @@ class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
         }
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let data = obj.dataArray[indexPath.section][indexPath.row]
+            let identifier = (NSStringFromClass(data.cellClass) as NSString).pathExtension
+            
+            if obj.dequeueReusableCell(withIdentifier: identifier) == nil {
+                if Bundle.main.path(forResource: identifier, ofType: "nib") != nil {
+                    let nib = UINib(nibName: identifier, bundle: Bundle.main)
+                    obj.register(nib, forCellReuseIdentifier: identifier)
+                } else {
+                    obj.register(data.cellClass, forCellReuseIdentifier: identifier)
+                }
+            }
             return obj.tableView(tableView, cellForRowAt: indexPath)
         }
     }

@@ -152,7 +152,9 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
             }
             
             let tableView = tableViewList[si]
-            NetworkManager.requestPageInfoModel(params: ["method":"apiorders", "fState":state, "currentPage":tableView.currentPage, "pageSize":CustomValue.pageSize]).setSuccessAction(action: { (bm: BaseModel<OrderModel>) in
+            //
+            let method = si != 4 ? "apiorders" : "apigetPendingevaluationOrder"
+            NetworkManager.requestPageInfoModel(params: ["method":method, "fState":state, "currentPage":tableView.currentPage, "pageSize":CustomValue.pageSize]).setSuccessAction(action: { (bm: BaseModel<OrderModel>) in
                 tableView.endFooterRefresh()
                 tableView.endHeaderRefresh()
                 bm.whenSuccess {
