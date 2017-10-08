@@ -45,13 +45,10 @@ class TabView: UIView {
     }
     let bottomView = UIView()
     
-    
-    var items: [UIButton]! {
+    var items = [UIButton]() {
         didSet {
-            if oldValue != nil {
-                for btn in oldValue {
-                    btn.removeFromSuperview()
-                }
+            for btn in oldValue {
+                btn.removeFromSuperview()
             }
             
             for btn in items {
