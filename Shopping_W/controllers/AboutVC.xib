@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutVC" customModule="Shopping_W" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9MJ-7h-1hQ">
+                    <rect key="frame" x="30" y="200.5" width="259.5" height="167"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="166.5" id="xQv-tc-SEW"/>
+                    </constraints>
+                    <string key="text">《重整网》是一家新兴的互联网+物联网平台，成立于2014年。它是中华民族自主知识产权的、没有任何外资控股的互联网+物联网(F2C,C2I,O2P)电商平台.该平台为国内拥有民族自主知识产权的大中小型企业提供符合中国国情的电子商务网上生存环境和商业运作空间，借此提升中国民族企业的市场竞争力；同时满足用户对中国自主品牌的购买需求</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright 2017 重整集团股份有限公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Akx-df-ugb">
+                    <rect key="frame" x="29" y="470" width="262" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="262" id="S6G-C8-Tdt"/>
+                        <constraint firstAttribute="height" constant="18" id="kzM-N6-MH3"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered By 博晟泽" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sai-we-9k7">
+                    <rect key="frame" x="94.5" y="500" width="131" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="CJm-5G-9RC"/>
+                        <constraint firstAttribute="width" constant="131" id="qQ1-WX-qRG"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAy-JU-FWV">
+                    <rect key="frame" x="116.5" y="530" width="87" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="5Vw-BT-y9i"/>
+                        <constraint firstAttribute="width" constant="87" id="nq6-jT-sam"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="9MJ-7h-1hQ" secondAttribute="trailing" constant="30.5" id="AIQ-y6-hoj"/>
+                <constraint firstItem="9MJ-7h-1hQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="FER-oJ-jGh"/>
+                <constraint firstItem="MAy-JU-FWV" firstAttribute="top" secondItem="Sai-we-9k7" secondAttribute="bottom" constant="12" id="GAc-2J-fhU"/>
+                <constraint firstItem="9MJ-7h-1hQ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Oxj-KR-d4K"/>
+                <constraint firstItem="Sai-we-9k7" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PCk-hl-PAF"/>
+                <constraint firstAttribute="bottom" secondItem="MAy-JU-FWV" secondAttribute="bottom" constant="20" id="hW2-Uh-kc2"/>
+                <constraint firstItem="MAy-JU-FWV" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="oXX-iH-088"/>
+                <constraint firstItem="9MJ-7h-1hQ" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="pYM-4R-gIa"/>
+                <constraint firstItem="Sai-we-9k7" firstAttribute="top" secondItem="Akx-df-ugb" secondAttribute="bottom" constant="12" id="sO6-gH-Yu7"/>
+                <constraint firstItem="Akx-df-ugb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="vuR-sD-W0V"/>
+            </constraints>
+            <point key="canvasLocation" x="34" y="54"/>
+        </view>
+    </objects>
+</document>

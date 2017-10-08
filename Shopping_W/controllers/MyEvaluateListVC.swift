@@ -25,15 +25,14 @@ class MyEvaluateListVC: BaseViewController {
         self.title = "我的评价"
         
         self.view.addSubview(tableView)
-        
+        self.rquestData()
         tableView.addFooterAction { [unowned self] _ in
-            self.curentPage += 1
             self.rquestData()
         }
     }
     
     func rquestData() {
-        NetworkManager.requestPageInfoModel(params: ["method":"apimyConsultList"]).setSuccessAction { (bm: BaseModel<MyEvaluationModel>) in
+        NetworkManager.requestPageInfoModel(params: ["method":"apimyevaluations"]).setSuccessAction { (bm: BaseModel<MyEvaluationModel>) in
             self.tableView.endHeaderRefresh()
             self.tableView.endFooterRefresh()
             
@@ -52,6 +51,7 @@ class MyEvaluateListVC: BaseViewController {
                 
                 self.tableView.dataArray = [arr]
                 self.tableView.reloadData()
+                self.curentPage += 1
             }
         }
     }

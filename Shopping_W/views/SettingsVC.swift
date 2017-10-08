@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import StoreKit
+import MBProgressHUD
 
-class SettingsVC: BaseViewController, UITableViewDelegate {
+class SettingsVC: BaseViewController, UITableViewDelegate, SKStoreProductViewControllerDelegate {
+    
+    let productVC = SKStoreProductViewController()
     
     lazy var tableView: CustomTableView = {
         let t = CustomTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height), style: .plain)
@@ -53,6 +57,20 @@ class SettingsVC: BaseViewController, UITableViewDelegate {
     //MARK: 代理
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
+        case 0:
+            self.navigationController?.pushViewController(AboutVC(), animated: true)
+        case 1:
+//            let APPID = ""
+//            let urlStr = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=\(APPID)&pageNumber=0&sortOrdering=2&mt=8"
+            productVC.delegate = self
+            productVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: "appid"], completionBlock: { (f, err) in
+                if f {
+                    self.present(self.productVC, animated: true, completion: nil)
+                } else {
+                    MBProgressHUD.show(errorText: err!.localizedDescription)
+                }
+            })
+            
         case 2:
             let vc = TextVC()
             self.navigationController?.pushViewController(vc, animated: true)
@@ -63,4 +81,8 @@ class SettingsVC: BaseViewController, UITableViewDelegate {
         }
     }
 
+    
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        productVC.dismiss(animated: true, completion: nil)
+    }
 }
