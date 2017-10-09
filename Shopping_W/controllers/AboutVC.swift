@@ -14,6 +14,7 @@ class AboutVC: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.title = "关于"
     }
 
     override func didReceiveMemoryWarning() {
