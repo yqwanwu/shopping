@@ -80,6 +80,9 @@ class Tools: NSObject {
     
     //转换成拼音
     class func transformToPinyin(str: String) -> String {
+        if str == "" {
+            return ""
+        }
         if !isIncludeChinese(str: str) {
             let index = str.index(str.startIndex, offsetBy: 1)
             return str.substring(to: index)

@@ -11,6 +11,7 @@ import MBProgressHUD
 import SDWebImage
 import Alamofire
 import SwiftyJSON
+import SnapKit
 
 class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var headerImg: UIImageView!
@@ -177,6 +178,10 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
     //MARK: 代理
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.1
     }
 
 }
