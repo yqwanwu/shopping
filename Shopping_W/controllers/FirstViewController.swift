@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import MBProgressHUD
+import SnapKit
 
 class FirstViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate {
     
@@ -53,6 +54,11 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         
         UserDefaults.standard.set(true, forKey: FirstViewController.WELCOME_SHOWED)
         
+        titleBack.snp.makeConstraints { (make) in
+            make.top.bottom.equalToSuperview()
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+        }
         titleBack.bounds.size.width = self.view.frame.width - 40
         searchBtn.layer.cornerRadius = 6
         
@@ -90,7 +96,10 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         }
     }
     
-    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+    }
 
     //下方商品
     func requestGoods() {
@@ -128,6 +137,10 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         let params = ["method":"apipromotions", "fTypes":GoodsListVC.ListType.promotions.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"1", "currentPage":1, "pageSize":6] as [String : Any]
         NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<PromotionModel>) in
             bm.whenSuccess {
+                let count = bm.pageInfo!.list!.count / 2 * 2
+                if bm.pageInfo!.list!.count != count {
+                    bm.pageInfo!.list!.removeLast()
+                }
                 self.promotionList = bm.pageInfo!.list!
                 self.collectionView.reloadData()
             }
@@ -138,6 +151,10 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         let params1 = ["method":"apipromotions", "fTypes":GoodsListVC.ListType.group.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"1", "currentPage":1, "pageSize":6] as [String : Any]
         NetworkManager.requestPageInfoModel(params: params1, success: { (bm: BaseModel<PromotionModel>) in
             bm.whenSuccess {
+                let count = bm.pageInfo!.list!.count / 2 * 2
+                if bm.pageInfo!.list!.count != count {
+                    bm.pageInfo!.list!.removeLast()
+                }
                 self.groupList = bm.pageInfo!.list!
                 self.collectionView.reloadData()
             }
@@ -161,6 +178,14 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.titleBack.isHidden = false
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        titleBack.snp.remakeConstraints { (make) in
+            make.top.bottom.equalToSuperview()
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+        }
     }
     
     
@@ -328,6 +353,10 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         }
         if section == 1 {
             return secKillList.isEmpty ? CGSize.zero : CGSize(width: self.view.frame.width, height: 50)
+        } else if section == 2 {
+            return groupList.isEmpty ? CGSize.zero : CGSize(width: self.view.frame.width, height: 50)
+        } else if section == 3 {
+            return promotionList.isEmpty ? CGSize.zero : CGSize(width: self.view.frame.width, height: 50)
         } else {
             return CGSize(width: self.view.frame.width, height: 50)
         }

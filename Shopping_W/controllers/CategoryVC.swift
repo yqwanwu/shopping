@@ -37,6 +37,11 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         
         self.view.backgroundColor = CategoryVC.bkColor
         
+        titleBack.snp.makeConstraints { (make) in
+            make.top.bottom.equalToSuperview()
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+        }
         titleBack.bounds.size.width = self.view.frame.width - 40
         searchBtn.layer.cornerRadius = 6
 
@@ -52,6 +57,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
 //            
 //        })
     }
+    
     
     ///请求左边的数据
     func requestCategoryData() {
@@ -93,7 +99,11 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     //MARK: 重写
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        titleBack.snp.remakeConstraints { (make) in
+            make.top.bottom.equalToSuperview()
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+        }
     }
     
     override func viewDidLayoutSubviews() {
