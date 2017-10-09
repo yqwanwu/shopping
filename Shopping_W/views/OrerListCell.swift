@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class OrerListCell: CustomTableViewCell {
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -141,11 +142,11 @@ class OrerListCell: CustomTableViewCell {
                 default:
                     break
                 }
-            } else if let m = model as? MyEvaluationModel {
+            } else if let m = model as? MyEvaluationModelItem {
                 //TODO: 样式不一样
                 imgView.sd_setImage(with: URL.encodeUrl(string: m.fUrl))
                 titleLabel.text = m.fGoodsname
-//                priceLabel.text = "¥\(m.f.moneyValue())"
+                priceLabel.text = "" //"¥\(m.f.moneyValue())"
                 reciveBtn.layer.borderColor = UIColor.hexStringToColor(hexString: "888888").cgColor
                 reciveBtn.layer.borderWidth = 1
                 reciveBtn.backgroundColor = UIColor.clear

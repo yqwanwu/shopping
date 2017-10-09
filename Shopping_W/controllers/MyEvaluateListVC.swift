@@ -37,12 +37,13 @@ class MyEvaluateListVC: BaseViewController {
             self.tableView.endFooterRefresh()
             
             bm.whenSuccess {
-                var arr = bm.pageInfo!.list!.map({ (model) -> MyEvaluationModel in
+                var arr = bm.pageInfo!.list!.map({ $0.fList }).flatMap({ $0 })
+                    .map({ (model) -> MyEvaluationModelItem in
                     model.build(cellClass: OrerListCell.self).build(heightForRow: 118)
                     return model
                 })
                 if self.curentPage > 1 {
-                    arr.insert(contentsOf: self.tableView.dataArray[0] as! [MyEvaluationModel], at: 0)
+                    arr.insert(contentsOf: self.tableView.dataArray[0] as! [MyEvaluationModelItem], at: 0)
                 }
                 
                 if !bm.pageInfo!.hasNextPage {
@@ -59,6 +60,11 @@ class MyEvaluateListVC: BaseViewController {
 }
 
 class MyEvaluationModel: CustomTableViewCellItem {
+    var fOrderid = 0
+    var fList = [MyEvaluationModelItem]()
+}
+
+class MyEvaluationModelItem: CustomTableViewCellItem {
     var fUseraccountid = 0
     var fCreatetime = 0.0//评价时间
     var fContent = ""//评价内容
