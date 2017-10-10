@@ -8,12 +8,12 @@
 
 import UIKit
 
-class MyEvaluateListVC: BaseViewController {
+class MyEvaluateListVC: BaseViewController, UITableViewDataSource {
     
     lazy var tableView: RefreshTableView = {
         let t = RefreshTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height), style: .plain)
         t.sectionHeaderHeight = 8
-
+        t.dataSource = self
         return t
     } ()
     
@@ -25,6 +25,7 @@ class MyEvaluateListVC: BaseViewController {
         self.title = "我的评价"
         
         self.view.addSubview(tableView)
+
         self.rquestData()
         tableView.addFooterAction { [unowned self] _ in
             self.rquestData()
@@ -37,11 +38,34 @@ class MyEvaluateListVC: BaseViewController {
             self.tableView.endFooterRefresh()
             
             bm.whenSuccess {
-                var arr = bm.pageInfo!.list!.map({ $0.fList }).flatMap({ $0 })
-                    .map({ (model) -> MyEvaluationModelItem in
-                    model.build(cellClass: OrerListCell.self).build(heightForRow: 118)
-                    return model
-                })
+                var arr = bm.pageInfo!.list!.map({ (model) -> [MyEvaluationModelItem] in
+                    return model.fList.map({ (item) -> MyEvaluationModelItem in
+                        item.fOrderid = model.fOrderid
+                        item.build(cellClass: OrerListCell.self).build(heightForRow: 118)
+                        
+                        item.setupCellAction { [unowned self] (idx) in
+                            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+//                            switch model.fType {
+//                            case 0:
+//                                vc.type = .normal
+//                            case 1:
+//                                vc.type = .group
+//                            case 2:
+//                                vc.type = .seckill
+//                            case 3, 4, 5, 6:
+//                                vc.type = .promotions
+//                            default:
+//                                break
+//                            }
+                            vc.goodsId = item.fGoodsid
+                            vc.picUrl = item.fUrl
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                        
+                        return item
+                    })
+                }).flatMap({ $0 })
+                    
                 if self.curentPage > 1 {
                     arr.insert(contentsOf: self.tableView.dataArray[0] as! [MyEvaluationModelItem], at: 0)
                 }
@@ -55,6 +79,35 @@ class MyEvaluateListVC: BaseViewController {
                 self.curentPage += 1
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return -1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.createDefaultCell(indexPath: indexPath) as! OrerListCell
+        let model = self.tableView.dataArray[indexPath.section][indexPath.row] as! MyEvaluationModelItem
+        cell.reciveAction = { [unowned self] () in
+            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: MyEvaluateVC.self) as! MyEvaluateVC
+            vc.evaluateItem = model
+            //rderModel.orderEx[0].fGoodsid, "fOrderid":orderModel.fOrderid,
+            let order = OrderModel()
+            vc.orderModel = order
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        cell.logisticsAction = { [unowned self] () in
+            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: MyEvaluateVC.self) as! MyEvaluateVC
+            vc.evaluateItem = model
+            //rderModel.orderEx[0].fGoodsid, "fOrderid":orderModel.fOrderid,
+            let order = OrderModel()
+            vc.orderModel = order
+            vc.canEdit = false
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        return cell
     }
 
 }
@@ -71,6 +124,7 @@ class MyEvaluationModelItem: CustomTableViewCellItem {
     var fUrl = ""//商品图片
     var fEvaluationid = 0//评价id
     var fGoodsname = ""//商品名称
-    var fGoodsid = ""//商品id
+    var fGoodsid = 0//商品id
     var fStar = 0//评价星级
+    var fOrderid = 0
 }

@@ -84,7 +84,16 @@ class OrerListCell: CustomTableViewCell {
                 self.titleLabel.text = m.fGoodsname
                 self.priceLabel.text = m.fSalesprice.moneyValue()
                 self.countLabel.text = "\(m.fExstring)  x\(m.fCount)"
+                customLabel.isHidden = false
                 
+                let htmlStr = CustomValue.htmlHeader + "<p>" +
+                    "<span style='color: black'>可用</span>" +
+                    "<span style='color: red'>\(Int(m.fIntegral))</span>" +
+                    "<span style='color: black'>积分</span>" +
+                    "</p>" + CustomValue.htmlFooter
+                let htmlData = htmlStr.data(using: .utf8)
+                let htmlattr = try! NSAttributedString(data: htmlData!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+                customLabel.attributedText = htmlattr
             } else if let m = model as? ReturnedModel {
                 //退货状态 null 显示申请换货按钮  0待审核 1待回寄 2待发货\待退款 3待收货 4完成
                 reciveWidth.constant = 100

@@ -28,6 +28,8 @@ class MyEvaluateVC: BaseViewController, UICollectionViewDelegate, UICollectionVi
     var selectedPhotos = [UIImage]()
     
     var orderModel: OrderModel!
+    var canEdit = true
+    var evaluateItem: MyEvaluationModelItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +48,19 @@ class MyEvaluateVC: BaseViewController, UICollectionViewDelegate, UICollectionVi
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(TZTestCell.self, forCellWithReuseIdentifier: "TZTestCell")
+        
+        if !canEdit {
+            for v in view.subviews {
+                v.isUserInteractionEnabled = false
+                submitBtn.isHidden = true
+            }
+        }
+        
+        if let m = evaluateItem {
+            self.starView.score = CGFloat(m.fStar)
+            self.textView.text = m.fContent
+            self.textView.placehoderLabel?.isHidden = true
+        }
     }
 
     @IBAction func ac_submit(_ sender: Any) {
@@ -59,7 +74,15 @@ class MyEvaluateVC: BaseViewController, UICollectionViewDelegate, UICollectionVi
     
     func requestData() {
         let score = Int(starView.score)
-        let params = ["method":"apieditevaluation", "fGoodsid":orderModel.orderEx[0].fGoodsid, "fOrderid":orderModel.fOrderid, "fStar":score, "fContent":textView.text ?? "", "fPiclist": fimgs] as [String : Any]
+        var params = ["method":"apieditevaluation", "fStar":score, "fContent":textView.text ?? "", "fPiclist": fimgs] as [String : Any]
+        if let m = evaluateItem {
+            params["fEvaluationid"] = m.fEvaluationid
+            params["fGoodsid"] = m.fGoodsid
+            params["fOrderid"] = m.fOrderid
+        } else {
+            params["fGoodsid"] = orderModel.orderEx[0].fGoodsid
+            params["fOrderid"] = orderModel.fOrderid
+        }
         MBProgressHUD.show()
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             MBProgressHUD.hideHUD()

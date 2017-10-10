@@ -35,38 +35,6 @@
             endingLineNumber = "136"
             landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Shopping_W.PersonVC.(imagePickerController (__ObjC.UIImagePickerController, didFinishPickingMediaWithInfo : Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()).(closure #2).(closure #1)"
-                  moduleName = "Shopping_W"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/PersonVC.swift"
-                  timestampString = "529169264.71614"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "136"
-                  endingLineNumber = "136"
-                  offsetFromSymbolStart = "3748">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Shopping_W.PersonVC.(imagePickerController (__ObjC.UIImagePickerController, didFinishPickingMediaWithInfo : Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; ()).(closure #2).(closure #1).(closure #1)"
-                  moduleName = "Shopping_W"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/PersonVC.swift"
-                  timestampString = "529169264.718215"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "137"
-                  endingLineNumber = "137"
-                  offsetFromSymbolStart = "117">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -76,7 +44,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Shopping_W/controllers/PayWayVC.swift"
-            timestampString = "527527308.902141"
+            timestampString = "529338962.812459"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
@@ -92,7 +60,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Shopping_W/controllers/PayWayVC.swift"
-            timestampString = "527527309.99218"
+            timestampString = "529338962.812547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "112"
@@ -104,31 +72,31 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Shopping_W.PayWayVC.ac_ok (Any) -&gt; ()"
+                  symbolName = "Shopping_W.PayWayVC.ac_ok(Any) -&gt; ()"
                   moduleName = "Shopping_W"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/PayWayVC.swift"
-                  timestampString = "529169264.726692"
+                  timestampString = "529340615.747518"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "113"
                   endingLineNumber = "113"
-                  offsetFromSymbolStart = "3574">
+                  offsetFromSymbolStart = "3116">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "Shopping_W.PayWayVC.(ac_ok (Any) -&gt; ()).(closure #4)"
+                  symbolName = "closure #4 (Swift.Error) -&gt; () in Shopping_W.PayWayVC.ac_ok(Any) -&gt; ()"
                   moduleName = "Shopping_W"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/a10.11.5/Desktop/shopping/Shopping_W/controllers/PayWayVC.swift"
-                  timestampString = "529169264.728736"
+                  timestampString = "529340615.749507"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "113"
                   endingLineNumber = "113"
-                  offsetFromSymbolStart = "12">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>

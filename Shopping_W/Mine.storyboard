@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -75,10 +76,10 @@
                                 <inset key="separatorInset" minX="56" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogisticsCell" rowHeight="110" id="4a2-Ul-5mF" customClass="LogisticsCell" customModule="Shopping_W" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="320" height="110"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="320" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4a2-Ul-5mF" id="XeM-Oc-KX5">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="109.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bYv-kM-m51">
@@ -900,7 +901,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aXR-fL-Dw7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="商品总价合计：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejH-4l-oor">
                                                     <rect key="frame" x="25" y="41" width="108" height="18"/>
@@ -913,7 +914,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥124214" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2EI-p2-olc">
-                                                    <rect key="frame" x="136" y="23" width="214" height="36"/>
+                                                    <rect key="frame" x="136" y="23" width="159" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="y1B-Bk-3Cg"/>
                                                     </constraints>
@@ -933,7 +934,7 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ls-7b-dJa">
-                                            <rect key="frame" x="0.0" y="108" width="375" height="50"/>
+                                            <rect key="frame" x="0.0" y="108" width="320" height="50"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择支付方式：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJi-ag-rq0">
                                                     <rect key="frame" x="18" y="15" width="122" height="21"/>
@@ -966,10 +967,10 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PayByThird" rowHeight="65" id="4Sp-8h-ifa" customClass="PayByThird" customModule="Shopping_W" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="214" width="320" height="65"/>
+                                        <rect key="frame" x="0.0" y="213.5" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Sp-8h-ifa" id="akp-cP-9uR">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="o" translatesAutoresizingMaskIntoConstraints="NO" id="pgr-we-qxJ">
@@ -1013,10 +1014,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PayByBalance" id="y60-yH-GIl" customClass="PayByBalance" customModule="Shopping_W" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="279" width="320" height="65"/>
+                                        <rect key="frame" x="0.0" y="278.5" width="320" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y60-yH-GIl" id="hQy-vv-u1T">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="o" translatesAutoresizingMaskIntoConstraints="NO" id="edb-D2-CUA">
@@ -1240,7 +1241,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="frm-48-8YY">
-                                            <rect key="frame" x="66" y="18" width="243" height="40"/>
+                                            <rect key="frame" x="38.5" y="18" width="243" height="40"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="CiJ-Q5-ps2"/>
@@ -1263,10 +1264,10 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RewardTableViewCell" rowHeight="103" id="DUm-pa-ZAK" customClass="RewardTableViewCell" customModule="Shopping_W" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="320" height="103"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="320" height="103"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DUm-pa-ZAK" id="FUH-RZ-ATK">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="102"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="102.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前等级：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQY-Cn-edY">
@@ -1566,10 +1567,10 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwi-or-4qs">
-                                            <rect key="frame" x="0.0" y="136" width="375" height="40"/>
+                                            <rect key="frame" x="0.0" y="136" width="320" height="40"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="此余额结账时可直接使用" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b03-QQ-ZUe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.090196078430000007" green="0.090196078430000007" blue="0.090196078430000007" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1584,7 +1585,7 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lSY-WL-fAh">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="136"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="136"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="p4.3-我的余额" translatesAutoresizingMaskIntoConstraints="NO" id="eNm-7a-OC7">
                                                     <rect key="frame" x="38" y="36" width="62" height="64"/>
@@ -1594,7 +1595,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可用" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2WG-Y1-pcQ">
-                                                    <rect key="frame" x="130" y="50" width="230" height="36"/>
+                                                    <rect key="frame" x="130" y="50" width="175" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="36" id="BFV-E0-CRB"/>
                                                     </constraints>
@@ -1627,10 +1628,10 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BalanceTableViewCell" rowHeight="51" id="aXx-16-B7R" customClass="BalanceTableViewCell" customModule="Shopping_W" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="240" width="320" height="51"/>
+                                        <rect key="frame" x="0.0" y="239.5" width="320" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aXx-16-B7R" id="kit-HP-crh">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="50.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="      " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hqc-zg-el0">
@@ -1808,7 +1809,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Da-5u-ql3">
-                                        <rect key="frame" x="0.0" y="275" width="320" height="234"/>
+                                        <rect key="frame" x="0.0" y="275" width="320" height="140"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eFb-5P-v0V">
                                                 <rect key="frame" x="8" y="8" width="96" height="30"/>
@@ -1820,24 +1821,43 @@
                                                 <state key="normal" title="上传照片">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <connections>
-                                                    <action selector="ac_uploadPhoto:" destination="Eoi-Vu-oNR" eventType="touchUpInside" id="ULb-2D-KU1"/>
-                                                </connections>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="fmO-Ne-98N">
-                                                <rect key="frame" x="8" y="53" width="304" height="173"/>
-                                                <color key="backgroundColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            </imageView>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MPv-az-47I">
+                                                <rect key="frame" x="8" y="58" width="304" height="60"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="kCq-1N-i4V"/>
+                                                </constraints>
+                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="r4n-vR-tNw">
+                                                    <size key="itemSize" width="50" height="50"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fUg-OM-IrW">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </view>
+                                                    </collectionViewCell>
+                                                </cells>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="Eoi-Vu-oNR" id="wLt-ui-a2J"/>
+                                                    <outlet property="delegate" destination="Eoi-Vu-oNR" id="XAO-Np-AP2"/>
+                                                </connections>
+                                            </collectionView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="eFb-5P-v0V" firstAttribute="leading" secondItem="5Da-5u-ql3" secondAttribute="leading" constant="8" id="3Wm-VN-Chu"/>
-                                            <constraint firstAttribute="trailing" secondItem="fmO-Ne-98N" secondAttribute="trailing" constant="8" id="9uR-T5-YLN"/>
-                                            <constraint firstItem="fmO-Ne-98N" firstAttribute="leading" secondItem="5Da-5u-ql3" secondAttribute="leading" constant="8" id="LIo-fG-fbP"/>
+                                            <constraint firstAttribute="trailing" secondItem="MPv-az-47I" secondAttribute="trailing" constant="8" id="Puy-lu-Kuc"/>
+                                            <constraint firstItem="MPv-az-47I" firstAttribute="top" secondItem="eFb-5P-v0V" secondAttribute="bottom" constant="20" id="S5k-wF-EXV"/>
                                             <constraint firstItem="eFb-5P-v0V" firstAttribute="top" secondItem="5Da-5u-ql3" secondAttribute="top" constant="8" id="cIS-1O-kz6"/>
-                                            <constraint firstItem="fmO-Ne-98N" firstAttribute="top" secondItem="eFb-5P-v0V" secondAttribute="bottom" constant="15" id="dd9-dD-Pso"/>
-                                            <constraint firstAttribute="bottom" secondItem="fmO-Ne-98N" secondAttribute="bottom" constant="8" id="tua-AN-61L"/>
-                                            <constraint firstAttribute="height" constant="234" id="xz1-oT-zdf"/>
+                                            <constraint firstItem="MPv-az-47I" firstAttribute="leading" secondItem="5Da-5u-ql3" secondAttribute="leading" constant="8" id="tiP-Cq-FLx"/>
+                                            <constraint firstAttribute="height" constant="140" id="xz1-oT-zdf"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1856,7 +1876,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rxK-DA-k6a">
-                                <rect key="frame" x="22.5" y="508" width="275" height="40"/>
+                                <rect key="frame" x="22.5" y="459" width="275" height="40"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="3dy-6q-6rF"/>
@@ -1875,13 +1895,13 @@
                             <constraint firstItem="pHH-ce-yhd" firstAttribute="top" secondItem="vhA-18-DJU" secondAttribute="bottom" id="1oB-kk-91q"/>
                             <constraint firstItem="JAL-tq-rS4" firstAttribute="top" secondItem="pHH-ce-yhd" secondAttribute="bottom" constant="80" id="fG7-F5-THV"/>
                             <constraint firstItem="pHH-ce-yhd" firstAttribute="leading" secondItem="RTw-FE-uiI" secondAttribute="leading" id="fpH-g7-erA"/>
-                            <constraint firstItem="rxK-DA-k6a" firstAttribute="top" secondItem="pHH-ce-yhd" secondAttribute="bottom" constant="20" id="iJQ-XG-8c8"/>
+                            <constraint firstItem="rxK-DA-k6a" firstAttribute="top" secondItem="pHH-ce-yhd" secondAttribute="bottom" constant="-29" id="iJQ-XG-8c8"/>
                             <constraint firstItem="rxK-DA-k6a" firstAttribute="centerX" secondItem="RTw-FE-uiI" secondAttribute="centerX" id="p45-t1-ZMa"/>
                             <constraint firstAttribute="trailing" secondItem="pHH-ce-yhd" secondAttribute="trailing" id="r5I-sm-B1c"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="photoView" destination="fmO-Ne-98N" id="48U-Wh-3yy"/>
+                        <outlet property="collectionView" destination="MPv-az-47I" id="nny-PQ-rXz"/>
                         <outlet property="reasonText" destination="kgm-1f-1Vv" id="9M0-n2-f1E"/>
                         <outlet property="submitBtn" destination="rxK-DA-k6a" id="ymt-r4-ViF"/>
                         <outlet property="uploadBtn" destination="eFb-5P-v0V" id="Lau-qy-hjE"/>
@@ -1891,7 +1911,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xEs-Qj-4t5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3208.8000000000002" y="308.9955022488756"/>
+            <point key="canvasLocation" x="3208.125" y="308.45070422535213"/>
         </scene>
         <!--WaitVC-->
         <scene sceneID="gdW-t3-ecv">
@@ -2007,7 +2027,7 @@
                                         <rect key="frame" x="0.0" y="28" width="320" height="145"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MiQ-GY-zHK" id="y1C-UA-xxB">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="145"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="144.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="weqwe " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cO-9b-k6S">
@@ -2145,7 +2165,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dkb-Yv-ncY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6OI-5b-xsg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -19711,7 +19731,6 @@ AAAAAAAQDwA
         </image>
         <image name="o" width="18" height="18"/>
         <image name="p4.3-我的余额" width="62" height="64"/>
-        <image name="photo" width="42" height="36"/>
         <image name="v" width="18" height="18"/>
         <image name="右2" width="9" height="15"/>
         <image name="支付宝支付" width="31" height="31"/>
