@@ -72,7 +72,6 @@ class CarVC: UIViewController, UITableViewDelegate {
             model.build(cellClass: CarTableViewCell.self)
                 .build(isFromStoryBord: true)
                 .build(heightForRow: 137)
-            
             model.countAction = { _ in
                 self.updateAllPrice()
             }

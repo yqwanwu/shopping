@@ -10,6 +10,7 @@ import UIKit
 
 class GoodsTypeModel: NSObject, ParseModelProtocol {
     
+    var fPromotionprice = 0.0
     var fNo = ""
     var fGeid = 1
     var fSalesprice = 0.0

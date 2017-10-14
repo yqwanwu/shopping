@@ -379,10 +379,20 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         var max = min
         var maxCount = models[0].fStock
         
-        for m in models {
-            min = m.fSalesprice < min ? m.fSalesprice : min
-            max = m.fSalesprice > max ? m.fSalesprice : max
-            maxCount = m.fStock > maxCount ? m.fStock : maxCount
+        if type == .normal {
+            for m in models {
+                min = m.fSalesprice < min ? m.fSalesprice : min
+                max = m.fSalesprice > max ? m.fSalesprice : max
+                maxCount = m.fStock > maxCount ? m.fStock : maxCount
+            }
+        } else {
+            min = models[0].fPromotionprice
+            max = min
+            for m in models {
+                min = m.fPromotionprice < min ? m.fPromotionprice : min
+                max = m.fPromotionprice > max ? m.fPromotionprice : max
+                maxCount = m.fStock > maxCount ? m.fStock : maxCount
+            }
         }
 
         if min < max {

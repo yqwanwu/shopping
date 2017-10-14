@@ -193,36 +193,46 @@ class GoodsTypeView: UICollectionView, UICollectionViewDelegate, UICollectionVie
     
     func resetSate() {
         let selectedArr = self.setArr.flatMap({ $0.filter({ $0.state == .selected }) })
-        if selectedArr.count < 1 {
-            return
-        }
         
         var tmpSet = Set<GoodsExtTypeModel>()
-        
-        for model in self.types {
-            let json = JSON(parseJSON: model.fExparams)
-            var i = 0
-            for type in json.arrayValue {
-                let tmp = GoodsExtTypeModel(json: type)
-                if selectedArr.contains(tmp) {
-                    i += 1
+        if selectedArr.count < 1 {
+            for items in self.setArr {
+                for item in items {
+                   tmpSet.insert(item)
                 }
             }
-            
-            let arr = GoodsExtTypeModel.gteArr(jsonString: model.fExparams)
-            if i >= selectedArr.count {//符合要求
-                for items in self.setArr {
-                    for item in items {
-                        if arr.contains(item) {
-                            tmpSet.insert(item)
+        } else {
+            for model in self.types {
+                model.isSelected = false
+                let json = JSON(parseJSON: model.fExparams)
+                var i = 0
+                for type in json.arrayValue {
+                    let tmp = GoodsExtTypeModel(json: type)
+                    if selectedArr.contains(tmp) {
+                        i += 1
+                    }
+                }
+                
+                if i >= selectedArr.count {
+                    model.isSelected = true
+                }
+                
+                if i > 0 {//符合要求的
+                    let arr = GoodsExtTypeModel.gteArr(jsonString: model.fExparams)
+                    for items in self.setArr {
+                        for item in items {
+                            if arr.contains(item) {//
+                                tmpSet.insert(item)
+                            }
                         }
                     }
                 }
-                model.isSelected = true
-            } else {
-                model.isSelected = false
             }
         }
+        
+        
+        
+        
         
         for items in self.setArr {
             for item in items {
@@ -231,18 +241,15 @@ class GoodsTypeView: UICollectionView, UICollectionViewDelegate, UICollectionVie
                         item.state = .enable
                     }
                 } else {
-//                    if selectedArr.count < setArr.count {
-//                        //下面的for 循环原来是写在这里的，，，，
-//                    } else {
-//                        item.state = .disable
-//                    }
                     for sa in selectedArr {
                         if items.contains(sa) {
-                            item.state = .enable
+//                            sa.state = .enable
+//                            item.state = .enable
                         } else {
                             item.state = .disable
                         }
                     }
+                    
                 }
             }
         }

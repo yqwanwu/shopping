@@ -108,7 +108,7 @@ class CarouselCollectionView: UICollectionView, UICollectionViewDelegate, UIColl
         self.dataSource = self
         self.showsVerticalScrollIndicator = false
         self.showsHorizontalScrollIndicator = false
-        
+        self.isPagingEnabled = true
         ///设置 页码
         pageControl = UIPageControl(frame: CGRect(x: 0, y: self.frame.maxY - 25, width: self.frame.width, height: 20))
         pageControl.currentPage = 0

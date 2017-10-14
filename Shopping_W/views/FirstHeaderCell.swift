@@ -158,7 +158,8 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             let data = topAdsData[self.carouselView.realCurrentIndexPath.row]
             let web = BaseWebViewController()
             web.url = data.fLink
-            topVC.navigationController?.pushViewController(web, animated: true)
+            //TODO: 需要修改
+//            topVC.navigationController?.pushViewController(web, animated: true)
         } else {
             let data = FirstItem.defaultDatas[indexPath.section][indexPath.row]
             

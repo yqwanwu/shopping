@@ -39,5 +39,6 @@ class AlertVC: UIViewController {
     }
     @IBAction func ac_cancle(_ sender: Any) {
         cancleAction?(self)
+        self.dismiss(animated: false, completion: nil)
     }
 }

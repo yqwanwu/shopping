@@ -274,6 +274,7 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                     self.navigationController?.pushViewController(vc, animated: true)
                 } else if model.type == OrderType.recive {
                     let alert = AlertVC()
+                    alert.modalPresentationStyle = .overCurrentContext
                     self.present(alert, animated: true, completion: nil)
                 } else if model.type == .send {
                     MBProgressHUD.show(successText: "已提醒卖家尽快发货")
