@@ -12,6 +12,8 @@
 		141DCCCB1F4827E100C88EDC /* QuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141DCCCA1F4827E100C88EDC /* QuestionVC.swift */; };
 		141DCCCE1F493BA700C88EDC /* FirstADSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141DCCCC1F493BA700C88EDC /* FirstADSectionHeader.swift */; };
 		141DCCCF1F493BA700C88EDC /* FirstADSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141DCCCD1F493BA700C88EDC /* FirstADSectionHeader.xib */; };
+		142F0C631F93543C0084A6CB /* OrderNumbercell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142F0C611F93543C0084A6CB /* OrderNumbercell.swift */; };
+		142F0C641F93543C0084A6CB /* OrderNumbercell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 142F0C621F93543C0084A6CB /* OrderNumbercell.xib */; };
 		148696961F8A5BE70021C74A /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1486967A1F8A5BE70021C74A /* NSBundle+TZImagePicker.m */; };
 		148696971F8A5BE70021C74A /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1486967C1F8A5BE70021C74A /* TZAssetCell.m */; };
 		148696981F8A5BE70021C74A /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1486967E1F8A5BE70021C74A /* TZAssetModel.m */; };
@@ -264,6 +266,8 @@
 		141DCCCA1F4827E100C88EDC /* QuestionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionVC.swift; sourceTree = "<group>"; };
 		141DCCCC1F493BA700C88EDC /* FirstADSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstADSectionHeader.swift; sourceTree = "<group>"; };
 		141DCCCD1F493BA700C88EDC /* FirstADSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstADSectionHeader.xib; sourceTree = "<group>"; };
+		142F0C611F93543C0084A6CB /* OrderNumbercell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderNumbercell.swift; sourceTree = "<group>"; };
+		142F0C621F93543C0084A6CB /* OrderNumbercell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderNumbercell.xib; sourceTree = "<group>"; };
 		148696791F8A5BE70021C74A /* NSBundle+TZImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TZImagePicker.h"; sourceTree = "<group>"; };
 		1486967A1F8A5BE70021C74A /* NSBundle+TZImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+TZImagePicker.m"; sourceTree = "<group>"; };
 		1486967B1F8A5BE70021C74A /* TZAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetCell.h; sourceTree = "<group>"; };
@@ -821,6 +825,8 @@
 			children = (
 				9674E2A21EE4F64D0004D9EE /* OrerListCell.swift */,
 				9674E2A31EE4F64D0004D9EE /* OrerListCell.xib */,
+				142F0C611F93543C0084A6CB /* OrderNumbercell.swift */,
+				142F0C621F93543C0084A6CB /* OrderNumbercell.xib */,
 				9674E2A91EE527670004D9EE /* Address_reciveCell.swift */,
 				9674E2AA1EE527670004D9EE /* Address_reciveCell.xib */,
 				9674E2AD1EE52AFE0004D9EE /* RightTitleCell.swift */,
@@ -1697,6 +1703,7 @@
 				1486969C1F8A5BE70021C74A /* TZImagePickerController.bundle in Resources */,
 				9674E2B01EE52AFE0004D9EE /* RightTitleCell.xib in Resources */,
 				968DFE7E1EE9443D00DE32F9 /* UMSocialSDKResources.bundle in Resources */,
+				142F0C641F93543C0084A6CB /* OrderNumbercell.xib in Resources */,
 				96BBC75D1F161B2B004CA4B6 /* FirstSectionHeaderView.xib in Resources */,
 				96480F191F26ECD60084F061 /* GoodTypeCollectionViewCell.xib in Resources */,
 				967187D51EDEB71800DDD61B /* GoodsCommonTableViewCell.xib in Resources */,
@@ -1892,6 +1899,7 @@
 				9674E2B71EE63E6C0004D9EE /* EvaluateCell.swift in Sources */,
 				96902F241ECB333700B219D7 /* NetworkManager.swift in Sources */,
 				96902EFB1ECB329A00B219D7 /* TimerExtension.swift in Sources */,
+				142F0C631F93543C0084A6CB /* OrderNumbercell.swift in Sources */,
 				9674E2B21EE52C010004D9EE /* OrderDetailVC.swift in Sources */,
 				967187D71EDFA5CC00DDD61B /* GoodsListVC.swift in Sources */,
 				14C2F6C11F529D8100A5A08A /* CollectionModel.swift in Sources */,

@@ -258,7 +258,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             return CGSize(width: UIScreen.main.bounds.width, height: h)
         } else {
             let w = UIScreen.main.bounds.width / 2 - 0.5
-            return CGSize(width: w, height: 155)
+            return CGSize(width: w, height: 145)
         }
     }
     

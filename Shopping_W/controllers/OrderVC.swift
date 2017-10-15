@@ -132,8 +132,11 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     func loadData(index: Int? = nil, byPull: Bool = false) {
         let si = index ?? selectedIndex
-        if loadedIndex & (1 << si) == 0 || byPull {//没有请求过 或者 拉动刷新控件
-//            tableViewList[si].beginHeaderRefresh()
+        if loadedIndex & (1 << si) == 0  {//没有请求过 或者 拉动刷新控件
+            if byPull {
+                tableViewList[si].beginHeaderRefresh()
+            }
+            
             loadedIndex = loadedIndex | (1 << si)
 //            method	string	apiorders	无
 //            fState	string	订单状态	0待付款 1已付款 2待发货 3已发货 4完成 5关闭,多个用逗号分割
@@ -178,14 +181,26 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                             break
                         }
                         
-                        c.build(cellClass: OrerListCell.self).build(heightForRow: 118)
+                        c.build(cellClass: OrderNumbercell.self).build(heightForRow: 180)
                         c.type = type
                         
                         c.setupCellAction({ [unowned self] (idx) in
-                            let vc = OrderDetailVC()
-                            vc.orderModel = c
-                            if let data = tableView.dataArray[idx.section][idx.row] as? OrderModel {
-                                vc.showPayBtn = data.type == .pay
+                            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+                            switch c.fType {
+                            case 0:
+                                vc.type = .normal
+                            case 1:
+                                vc.type = .group
+                            case 2:
+                                vc.type = .seckill
+                            case 3, 4, 5, 6:
+                                vc.type = .promotions
+                            default:
+                                break
+                            }
+                            vc.promotionid = c.fPromotionid
+                            if let good = c.orderEx.first {
+                                vc.goodsId = good.fGoodsid
                             }
                             self.navigationController?.pushViewController(vc, animated: true)
                         })
@@ -252,13 +267,24 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     //MARK: 代理
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = (tableView as! RefreshTableView).dataArray[indexPath.section][indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: OrerListCell.getNameString(), for: indexPath) as! OrerListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: OrderNumbercell.getNameString(), for: indexPath) as! OrderNumbercell
         cell.model = data
+        
+        cell.orderAction = { [unowned self] in
+            let vc = OrderDetailVC()
+            if let data = data as? OrderModel {
+                vc.orderModel = data
+                vc.showPayBtn = data.type == .pay
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
         cell.logisticsAction = { [unowned self] _ in
             if let model = data as? OrderModel {
                 if model.type == .recive {
-                    self.performSegue(withIdentifier: self.k_Logistics, sender: self)
+                    let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: LogisticsVC.self) as! LogisticsVC
+                    vc.fOrderid = model.fOrderid
+                    self.navigationController?.pushViewController(vc, animated: true)
                 } else if model.type == .pay {
                     self.cancleOrder(orderId: model.fOrderid)
                 }
@@ -290,7 +316,7 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+       
     }
     
     

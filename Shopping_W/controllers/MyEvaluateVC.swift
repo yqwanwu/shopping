@@ -18,7 +18,7 @@ class MyEvaluateVC: BaseViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var submitBtn: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     lazy var imagePickerVc: TZImagePickerController = {
-        let vc = TZImagePickerController(maxImagesCount: 2, delegate: self)!
+        let vc = TZImagePickerController(maxImagesCount: 5, delegate: self)!
         vc.allowPickingGif = false
         vc.allowPickingVideo = false
         return vc

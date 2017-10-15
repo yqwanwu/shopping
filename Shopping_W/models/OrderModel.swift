@@ -14,7 +14,7 @@ class OrderModel: CustomTableViewCellItem {
 
     var fPromotiontype = 0//促销类别 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
     var fSaleamount = 0.0//订单商品总额
-    var fExpress = ""//快递单号
+    var fExpress: Int64 = 0//快递单号
     var fPrice = 0.0//满额
     var fPaidfreight = 0.0//实付运费
     var fConcessions = 0.0//手动优惠金额(负数)

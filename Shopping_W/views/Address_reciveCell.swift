@@ -28,6 +28,7 @@ class Address_reciveCell: CustomTableViewCell {
                 
                 address2Label.text = j["province"].stringValue + j["city"].stringValue + j["area"].stringValue
                 tagLabel.text = m.fTagname
+                mailLabel.text = "邮编:" + m.fPost
                 if m.fTagname == "" {
                     bottomHeight.constant = 15
                 }

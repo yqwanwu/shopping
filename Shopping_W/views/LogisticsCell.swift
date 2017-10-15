@@ -20,6 +20,8 @@ class LogisticsCell: CustomTableViewCell {
     override var model: CustomTableViewCellItem? {
         didSet {
             if let m = model as? LogisticsModel {
+                timeLabel.text = m.AcceptTime
+                detailLabel.text = m.AcceptStation
                 if m.isLast {
                     self.timeLabel.textColor = CustomValue.common_red
                     detailLabel.textColor = CustomValue.common_red

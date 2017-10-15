@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -46,12 +47,8 @@
                         <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="dT4-wF-AML">
-                        <rect key="frame" x="123" y="52" width="105" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="105" id="D7d-eN-BGl"/>
-                            <constraint firstAttribute="height" constant="21" id="cUE-tD-Afc"/>
-                        </constraints>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="        " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="dT4-wF-AML">
+                        <rect key="frame" x="123" y="52" width="198" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -82,6 +79,7 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="dT4-wF-AML" firstAttribute="leading" secondItem="YZO-Dg-pbk" secondAttribute="trailing" constant="15" id="00y-gA-rAp"/>
                     <constraint firstItem="SMF-Xv-UFP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YIo-kf-t5d" secondAttribute="trailing" constant="15" id="1Um-yj-VBS"/>
                     <constraint firstAttribute="trailing" secondItem="SMF-Xv-UFP" secondAttribute="trailing" constant="77" id="5iu-qD-KvI"/>
                     <constraint firstItem="VAC-hi-41g" firstAttribute="leading" secondItem="J2s-r1-BES" secondAttribute="leadingMargin" constant="7" id="6vd-gd-4Tl"/>
@@ -90,14 +88,14 @@
                     <constraint firstItem="6lV-Wq-9Gb" firstAttribute="top" secondItem="XDO-KC-8T6" secondAttribute="bottom" constant="50" id="FuJ-1m-qpw"/>
                     <constraint firstAttribute="bottom" secondItem="6lV-Wq-9Gb" secondAttribute="bottom" id="LUh-5S-0vQ"/>
                     <constraint firstAttribute="trailingMargin" secondItem="XDO-KC-8T6" secondAttribute="trailing" constant="69" id="MOV-u3-pOW"/>
-                    <constraint firstItem="dT4-wF-AML" firstAttribute="leading" secondItem="YZO-Dg-pbk" secondAttribute="trailing" constant="15" id="SWd-qc-43C"/>
+                    <constraint firstItem="dT4-wF-AML" firstAttribute="top" secondItem="SMF-Xv-UFP" secondAttribute="bottom" constant="11" id="OwL-2c-wf7"/>
                     <constraint firstItem="XDO-KC-8T6" firstAttribute="top" secondItem="YZO-Dg-pbk" secondAttribute="bottom" constant="7.5" id="Sny-wR-FhP"/>
                     <constraint firstItem="YIo-kf-t5d" firstAttribute="leading" secondItem="J2s-r1-BES" secondAttribute="leadingMargin" constant="7" id="VPD-iA-UMa"/>
                     <constraint firstItem="6lV-Wq-9Gb" firstAttribute="leading" secondItem="J2s-r1-BES" secondAttribute="leading" id="eNs-QS-7e9"/>
                     <constraint firstItem="VAC-hi-41g" firstAttribute="top" secondItem="XDO-KC-8T6" secondAttribute="bottom" constant="7.5" id="fe1-X2-0ZX"/>
                     <constraint firstAttribute="trailing" secondItem="6lV-Wq-9Gb" secondAttribute="trailing" id="hE0-M7-M5n"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="dT4-wF-AML" secondAttribute="trailing" constant="15" id="iSa-vs-2YP"/>
                     <constraint firstItem="SMF-Xv-UFP" firstAttribute="top" secondItem="J2s-r1-BES" secondAttribute="top" constant="20" id="jYb-K7-Dwd"/>
-                    <constraint firstItem="dT4-wF-AML" firstAttribute="top" secondItem="SMF-Xv-UFP" secondAttribute="bottom" constant="11" id="jtw-8D-x5b"/>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="YZO-Dg-pbk" secondAttribute="trailing" constant="133" id="kOV-q0-0Hd"/>
                     <constraint firstItem="XDO-KC-8T6" firstAttribute="leading" secondItem="J2s-r1-BES" secondAttribute="leadingMargin" constant="7" id="uCf-hy-ISu"/>
                     <constraint firstItem="YZO-Dg-pbk" firstAttribute="top" secondItem="YIo-kf-t5d" secondAttribute="bottom" constant="11" id="wNe-8r-Vgh"/>

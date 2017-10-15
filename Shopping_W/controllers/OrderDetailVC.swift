@@ -179,6 +179,8 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 carModel.fGoodsname = model.fGoodsname
                 carModel.fGoodimg = model.fGoodimg
                 carModel.fExstring = model.fExstring
+                carModel.fGoodsid = model.fGoodsid
+                carModel.fPromotionid = model.fPromotionid
                 return carModel
             })
         } else {
@@ -194,6 +196,9 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 carModel.fGoodsname = model.fGoodsname
                 carModel.fGoodimg = model.fUrl
                 carModel.fExstring = model.fSpecifications
+                carModel.fGoodsid = model.fGoodsid
+                carModel.fPromotionid = order.fPromotionid
+                
                 price += model.fExpayamount
                 return carModel
             })
@@ -288,6 +293,24 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             }
             
             self.totalPriceLabel.text = "¥\(price.moneyValue())"
+        } else if indexPath.section == 1 {
+            let c = self.tableView.dataArray[1][indexPath.row] as! CarModel
+            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+            switch c.fType {
+            case 0:
+                vc.type = .normal
+            case 1:
+                vc.type = .group
+            case 2:
+                vc.type = .seckill
+            case 3, 4, 5, 6:
+                vc.type = .promotions
+            default:
+                break
+            }
+            vc.promotionid = c.fPromotionid
+            vc.goodsId = c.fGoodsid
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

@@ -7,23 +7,42 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 ///物流
 class LogisticsVC: BaseViewController {
 
     @IBOutlet weak var tableView: CustomTableView!
+    var fOrderid = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.estimatedRowHeight = 110
         tableView.rowHeight = UITableViewAutomaticDimension
-        
-        let c = LogisticsModel().build(cellClass: LogisticsCell.self).build(isFromStoryBord: true)
-        c.isLast = true
-        let c1 = LogisticsModel().build(cellClass: LogisticsCell.self).build(isFromStoryBord: true)
-        
-        tableView.dataArray = [[c, c1, c1 , c1]]
+        requestData()
+    }
+
+    func requestData() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        NetworkManager.requestTModel(params: ["method": "apigetExpressInfo", "fOrderid": fOrderid]).setSuccessAction { (bm: BaseModel<LogisticsModelTop>) in
+            MBProgressHUD.hideHUD(forView: self.view)
+            bm.whenSuccess {
+                var i = 0
+                let arr = bm.t!.Traces.map({ (m) -> LogisticsModel in
+                    m.build(cellClass: LogisticsCell.self)
+                        .build(isFromStoryBord: true)
+                        .build(heightForRow: 110)
+                    if i == 0 {
+                        m.isLast = true
+                        i = 2
+                    }
+                    return m
+                })
+                self.tableView.dataArray = [arr]
+                self.tableView.reloadData()
+            }
+        }
     }
 
 }

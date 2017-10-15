@@ -10,4 +10,12 @@ import UIKit
 
 class LogisticsModel: CustomTableViewCellItem {
     var isLast = false
+    var AcceptStation = ""
+    var AcceptTime = ""
+}
+
+class LogisticsModelTop: CustomTableViewCellItem {
+    var LogisticCode = ""
+    var ShipperCode = ""
+    var Traces = [LogisticsModel]()
 }
