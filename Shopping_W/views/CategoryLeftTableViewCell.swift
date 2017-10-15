@@ -22,7 +22,7 @@ class CategoryLeftTableViewCell: CustomTableViewCell {
                 self.titleLabel.text = m.fCategoryname
                 self.redVIew.isHidden = !m.isSelected
                 self.titleLabel.textColor = m.isSelected ? CustomValue.common_red : CategoryLeftTableViewCell.textColor
-                self.contentView.backgroundColor = m.isSelected ? CategoryVC.bkColor : CategoryLeftTableViewCell.bkColor
+                self.contentView.backgroundColor = m.isSelected ? UIColor.white : CategoryLeftTableViewCell.bkColor
             }
         }
     }

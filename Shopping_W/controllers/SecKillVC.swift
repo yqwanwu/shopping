@@ -84,8 +84,10 @@ class SecKillVC: BaseViewController {
                     })
                     
                     self.datas = arr
+                    if !arr.isEmpty {
+                        self.tableView.dataArray = [arr[0].exList]
+                    }
                     
-                    self.tableView.dataArray = [arr[0].exList]
                     self.tableView.reloadData()
                     
                     //设置header

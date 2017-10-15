@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,16 +20,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9MJ-7h-1hQ">
-                    <rect key="frame" x="30" y="200.5" width="259.5" height="167"/>
+                    <rect key="frame" x="30" y="184.5" width="259.5" height="200"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="166.5" id="xQv-tc-SEW"/>
+                        <constraint firstAttribute="height" constant="200" id="xQv-tc-SEW"/>
                     </constraints>
-                    <string key="text">《重整网》是一家新兴的互联网+物联网平台，成立于2014年。它是中华民族自主知识产权的、没有任何外资控股的互联网+物联网(F2C,C2I,O2P)电商平台.该平台为国内拥有民族自主知识产权的大中小型企业提供符合中国国情的电子商务网上生存环境和商业运作空间，借此提升中国民族企业的市场竞争力；同时满足用户对中国自主品牌的购买需求</string>
+                    <string key="text">      重整网是由天津市博晟泽科技发展有限公司为天津重整集团商贸有限公司定制的一款B2C购物平台。       重整购物平台是一款集母婴玩具、办公文娱、五金化工、本地服务、美食生鲜、家电数码、日用家居、个人护理、服务饰品、户外运动于一体的购物软件。价格实惠，品种齐全。您可以在重整网中尽情享受购物过程，体验不一样的购物！</string>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright 2017 重整集团股份有限公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Akx-df-ugb">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright ©2017 重整集团商贸有限公司 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Akx-df-ugb">
                     <rect key="frame" x="29" y="470" width="262" height="18"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="262" id="S6G-C8-Tdt"/>

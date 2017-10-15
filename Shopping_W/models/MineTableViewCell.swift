@@ -36,7 +36,7 @@ class MineTableViewCell: CustomTableViewCell {
                     btn.backgroundColor = UIColor.white
                     
                     let img = UIImageView(image: UIImage(named: datas[i].imageUrl ?? ""))
-                    img.frame = CGRect(x: width / 2 - 15, y: 15, width: 30, height: 30)
+                    img.frame = CGRect(x: width / 2 - 12, y: 15, width: 24, height: 24)
                     img.contentMode = .scaleAspectFit
                     btn.addSubview(img)
                     

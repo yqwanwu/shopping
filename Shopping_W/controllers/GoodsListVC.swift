@@ -13,6 +13,7 @@ class GoodsListVC: BaseViewController {
     @IBOutlet weak var tableView: RefreshTableView!
     @IBOutlet weak var headerView: TabView!
     @IBOutlet weak var headerHeight: NSLayoutConstraint!
+    @IBOutlet weak var tableViewTop: NSLayoutConstraint!
     
     enum ListType: String {
         ///   二级页面  团购   秒杀      一般的   促销   推荐
@@ -38,6 +39,7 @@ class GoodsListVC: BaseViewController {
         } else if self.type == .promotions {
             tag = -400
             setupPromotionsTab()
+            tableViewTop.constant = 1
         }
         
         if tag != 0 {

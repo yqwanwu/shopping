@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -53,7 +54,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ooX-jN-XUf" customClass="RefreshTableView" customModule="Shopping_W" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="110" width="375" height="557"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
@@ -62,7 +63,7 @@
                         <constraints>
                             <constraint firstItem="Phk-9m-WEN" firstAttribute="top" secondItem="EMs-sb-6QD" secondAttribute="bottom" constant="10" id="Fob-9a-aiE"/>
                             <constraint firstItem="Phk-9m-WEN" firstAttribute="leading" secondItem="yrv-f2-ZgS" secondAttribute="leading" id="MHx-F3-tYq"/>
-                            <constraint firstItem="ooX-jN-XUf" firstAttribute="top" secondItem="Phk-9m-WEN" secondAttribute="bottom" constant="1" id="OVg-Qa-rdD"/>
+                            <constraint firstItem="ooX-jN-XUf" firstAttribute="top" secondItem="Phk-9m-WEN" secondAttribute="bottom" constant="-45" id="OVg-Qa-rdD"/>
                             <constraint firstItem="ooX-jN-XUf" firstAttribute="leading" secondItem="yrv-f2-ZgS" secondAttribute="leading" id="ree-WY-JqF"/>
                             <constraint firstAttribute="trailing" secondItem="Phk-9m-WEN" secondAttribute="trailing" id="s0f-5B-fD0"/>
                             <constraint firstItem="JOX-Nl-haL" firstAttribute="top" secondItem="ooX-jN-XUf" secondAttribute="bottom" id="xO5-85-e0p"/>
@@ -73,6 +74,7 @@
                         <outlet property="headerHeight" destination="Fob-9a-aiE" id="hZB-Pk-8eV"/>
                         <outlet property="headerView" destination="Phk-9m-WEN" id="cGu-lh-EmJ"/>
                         <outlet property="tableView" destination="ooX-jN-XUf" id="d3e-Ig-Wk6"/>
+                        <outlet property="tableViewTop" destination="OVg-Qa-rdD" id="sbM-5p-HQY"/>
                         <segue destination="bFe-Kb-7br" kind="push" id="CUt-q9-qyg"/>
                     </connections>
                 </viewController>
@@ -880,7 +882,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J7u-ml-ZVM" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Ag-NV-eJx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

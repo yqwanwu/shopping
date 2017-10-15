@@ -42,31 +42,31 @@ class FirstGoodsCell: UICollectionViewCell {
                 
                 ImgView.sd_setImage(with: URL.encodeUrl(string: m.fUrl))
                 
-//                switch m.fType {
-//                case 1:
+                switch m.fType {
+                case 1:
 //                    tagBtn.setTitle("团购", for: .normal)
-//                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
-//                    oldPriceLabel.attributedText = attrStr
-//                    priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
-//                case 2:
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                    oldPriceLabel.attributedText = attrStr
+                    priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
+                case 2:
 //                    tagBtn.setTitle("秒杀", for: .normal)
-//                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
-//                    oldPriceLabel.attributedText = attrStr
-//                    priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                    oldPriceLabel.attributedText = attrStr
+                    priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
 //                case 3:
 //                    tagBtn.setTitle("满\(Int(m.fPrice))-\(Int(m.fDeduction))", for: .normal)
 //                case 4:
 //                    tagBtn.setTitle("赠", for: .normal)
 //                case 5:
 //                    tagBtn.setTitle("\(m.fMintegral)倍积分", for: .normal)
-//                case 6:
+                case 6:
 //                    tagBtn.setTitle("\(m.fDiscount)折", for: .normal)
-//                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
-//                    oldPriceLabel.attributedText = attrStr
-//                    priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
-//                default:
-//                    break
-//                }
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                    oldPriceLabel.attributedText = attrStr
+                    priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
+                default:
+                    break
+                }
             }
         }
     }
