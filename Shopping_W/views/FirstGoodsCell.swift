@@ -20,6 +20,7 @@ class FirstGoodsCell: UICollectionViewCell {
         didSet {
             let attrStr = NSMutableAttributedString(string: "", attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
             oldPriceLabel.attributedText = attrStr
+            tagBtn.isHidden = true
             if let m = model {
                 titleLabel.text = m.fGoodsname
                 specsLabel.text = m.fSummary
