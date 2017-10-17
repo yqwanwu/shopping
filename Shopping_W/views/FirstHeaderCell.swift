@@ -156,8 +156,8 @@ class FirstHeaderCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         if collectionView == carouselView {
             //MARK: 必须用 realCurrentIndexPath才是准确的
             let data = topAdsData[self.carouselView.realCurrentIndexPath.row]
-            let web = BaseWebViewController()
-            web.url = data.fLink
+//            let web = BaseWebViewController()
+//            web.url = data.fLink
             //TODO: 需要修改
 //            topVC.navigationController?.pushViewController(web, animated: true)
         } else {
