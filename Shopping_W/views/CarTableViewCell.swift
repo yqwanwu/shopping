@@ -9,6 +9,7 @@
 import SDWebImage
 import UIKit
 import MBProgressHUD
+import SnapKit
 
 class CarTableViewCell: CustomTableViewCell {
     @IBOutlet weak var chooseBtn: UIButton!
@@ -21,9 +22,12 @@ class CarTableViewCell: CustomTableViewCell {
     @IBOutlet weak var oldPriceLabel: UILabel!
     @IBOutlet weak var goodsimg: UIImageView!
     
+    var notValiableLabel = UILabel()
+    
     override var model: CustomTableViewCellItem? {
         didSet {
             if let m = model as? CarModel {
+                notValiableLabel.isHidden =  m.fState != 0
                 oldPriceLabel.isHidden = true
                 priceLabel.text = m.fSalesprice.moneyValue()
                 countBtn.numberText.text = "\(m.fCount)"
@@ -85,6 +89,14 @@ class CarTableViewCell: CustomTableViewCell {
         }
         
         countBtn.numberText.addTarget(self, action: #selector(CarTableViewCell.changeCount), for: .editingDidEnd)
+        notValiableLabel.backgroundColor = UIColor.lightGray
+        notValiableLabel.font = UIFont.systemFont(ofSize: 11)
+        notValiableLabel.text = "不在销售状态"
+        notValiableLabel.textAlignment = .center
+        goodsimg.addSubview(notValiableLabel)
+        notValiableLabel.snp.makeConstraints { (make) in
+            make.bottom.left.right.equalToSuperview()
+        }
     }
     
     func changeCount() {
