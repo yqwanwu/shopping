@@ -102,8 +102,16 @@ class CarTableViewCell: CustomTableViewCell {
     func changeCount() {
         if let m = self.model as? CarModel {
             var count = Int(self.countBtn.numberText.text ?? "") ?? 1
+            if m.fCount + m.fBuycount > m.fPurchasecount {
+                MBProgressHUD.show(errorText: "超过限购数量")
+                count = 1
+                self.countBtn.numberText.text = "\(count)"
+                m.fCount = count
+                return
+            } else {
+                count = count > m.fStock ? m.fStock : count
+            }
             
-            count = count > m.fStock ? m.fStock : count
             self.countBtn.numberText.text = "\(count)"
             m.fCount = count
             if PersonMdel.isLogined() {

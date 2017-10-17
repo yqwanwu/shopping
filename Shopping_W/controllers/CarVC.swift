@@ -64,6 +64,8 @@ class CarVC: UIViewController, UITableViewDelegate {
         }
         self.tableVIew.dataArray = arr
         self.tableVIew.reloadData()
+        let notSelected = (arr.flatMap({ $0 })).filter({ !$0.isSelected })
+        self.selectAllBtn.isSelected = arr.count > 0 && notSelected.count < 1
         self.updateAllPrice()
     }
     
@@ -136,6 +138,7 @@ class CarVC: UIViewController, UITableViewDelegate {
         
         if CarVC.needsReload {
             self.tableVIew.beginHeaderRefresh()
+            CarVC.needsReload = false
         }
         
         if let nav = self.tabBarController?.viewControllers?.first as? UINavigationController {
@@ -172,6 +175,27 @@ class CarVC: UIViewController, UITableViewDelegate {
     
     private var updateByAllBtn = false
     @IBAction func ac_selectAll(_ sender: UIButton) {
+        if !sender.isSelected {
+            let arr = self.tableVIew.dataArray.flatMap({ $0 }) as! [CarModel]
+            for m in arr {
+                if m.fState == 0 {
+                    MBProgressHUD.show(errorText: "商品已不在销售状态")
+                    return
+                }
+                if m.fType == 0 {
+                    if m.fCount > m.fStock {
+                        MBProgressHUD.show(errorText: "库存不足")
+                        return
+                    }
+                } else {
+                    if m.fCount + m.fBuycount > m.fPurchasecount {
+                        MBProgressHUD.show(errorText: "超过限购数量")
+                        return
+                    }
+                }
+            }
+        }
+        
         sender.isSelected = !sender.isSelected
         if self.tableVIew.dataArray.count < 1 {
             return

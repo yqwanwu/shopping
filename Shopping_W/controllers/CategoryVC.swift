@@ -37,7 +37,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
         
         self.view.backgroundColor = CategoryVC.bkColor
         
-        if Float(UIDevice.current.systemVersion) ?? 0 > 10 {
+        if Tools.getSystemVersion() > 10 {
             titleBack.snp.makeConstraints { (make) in
                 make.top.bottom.equalToSuperview()
                 make.left.equalToSuperview().offset(10)
@@ -102,7 +102,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     //MARK: 重写
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if Float(UIDevice.current.systemVersion) ?? 0 > 10 {
+        if Tools.getSystemVersion() > 10 {
             titleBack.snp.remakeConstraints { (make) in
                 make.top.bottom.equalToSuperview()
                 make.left.equalToSuperview().offset(10)

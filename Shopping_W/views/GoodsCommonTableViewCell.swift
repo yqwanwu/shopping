@@ -55,13 +55,13 @@ class GoodsCommonTableViewCell: CustomTableViewCell {
                     if m.type == .group {
                         currentPriceLabel.text = "¥" + m.fPromotionprice.moneyValue()
                         let htmlStr = CustomValue.htmlHeader + "<p>" +
-                            "<span style='color: #fdc249'>10件</span>" +
+                            "<span style='color: #fdc249'>\(m.fPromotioncount)件</span>" +
                             "<span style='color: black'>成团，还差</span>" +
-                            "<span style='color: #fdc249'>3件</span>" +
+                            "<span style='color: #fdc249'>\(m.fRemainnumber)件</span>" +
                             "</p>" + CustomValue.htmlFooter
                         let htmlData = htmlStr.data(using: .utf8)
                         let htmlattr = try! NSAttributedString(data: htmlData!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-//                        commonLabel.attributedText = htmlattr
+                        commonLabel.attributedText = htmlattr
                     } else if m.type == .seckill {
                         commonLabel.isHidden = true
                     }

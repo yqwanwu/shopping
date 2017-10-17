@@ -22,6 +22,12 @@ class Tools: NSObject {
         }
     }
     
+    //返回整数
+    class func getSystemVersion() -> Int {
+        let arr = UIDevice.current.systemVersion.components(separatedBy: ".")
+        return Int(arr[0]) ?? 0
+    }
+    
     class func getClassFromStorybord(sbName: StoryboardName, clazz: AnyClass) -> UIViewController {
         let s = UIStoryboard(name: sbName.rawValue, bundle: Bundle.main)
         let str = NSStringFromClass(clazz).components(separatedBy: ".").last

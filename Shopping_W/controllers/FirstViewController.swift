@@ -54,7 +54,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         
         UserDefaults.standard.set(true, forKey: FirstViewController.WELCOME_SHOWED)
         
-        if Float(UIDevice.current.systemVersion) ?? 0 > 10 {
+        if Tools.getSystemVersion() > 10 {
             titleBack.snp.remakeConstraints { (make) in
                 make.top.bottom.equalToSuperview()
                 make.left.equalToSuperview().offset(10)
@@ -183,13 +183,14 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if Float(UIDevice.current.systemVersion) ?? 0 > 10 {
+        if Tools.getSystemVersion() > 10 {
             titleBack.snp.remakeConstraints { (make) in
                 make.top.bottom.equalToSuperview()
                 make.left.equalToSuperview().offset(10)
                 make.right.equalToSuperview().offset(-10)
             }
         }
+        
     }
     
     

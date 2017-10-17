@@ -233,9 +233,9 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
         customCell.model = model
         
         if let cell = cell as? OrerListCell {
-            cell.titleLabel.snp.updateConstraints({ (make) in
-                make.top.equalTo(30)
-            })
+//            cell.titleLabel.snp.updateConstraints({ (make) in
+//                make.top.equalTo(30)
+//            })
             cell.logisticsBtn.isHidden = true
             cell.reciveBtn.isHidden = true
         } else if let cell = cell as? RightTitleCell, model.text == "使用积分抵扣" {
