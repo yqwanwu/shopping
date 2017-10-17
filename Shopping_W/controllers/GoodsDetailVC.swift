@@ -84,7 +84,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         super.viewDidLoad()
         //fdc249
 //        setupCustomBk()
-        
+     
         starView.sadImg = #imageLiteral(resourceName: "p4.6.1.1-评价-灰.png")
         starView.likeImg = #imageLiteral(resourceName: "p4.6.1.1-评价-红.png")
         starView.margin = 5

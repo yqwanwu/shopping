@@ -44,7 +44,7 @@ class PersonVC: UITableViewController, UIImagePickerControllerDelegate, UINaviga
         tableView.sectionFooterHeight = 0.1
         tableView.sectionHeaderHeight = 8
         if  Float(UIDevice.current.systemVersion) ?? 0 < 11 {
-            tableView.contentInset.top = 64 - 28
+            tableView.contentInset.top = 64
         }
         
         sexBtn.titleLabel?.textAlignment = .center

@@ -202,7 +202,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 price += model.fExpayamount
                 return carModel
             })
-            total.detailText = String(format: "￥%.2f", price)
+            total.detailText = String(format: "￥%.2f", price + order.fPaidfreight)
             freight.detailText = String(format: "￥%.2f", order.fPaidfreight)
             discount.detailText = String(format: "￥%.2f", order.fConcessions)
             self.fIntegral = order.fIntegral

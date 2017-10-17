@@ -30,7 +30,7 @@ class GoodsListVC: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+ 
         var tag = 0
         if self.type == .group {
             tag = -200
