@@ -90,7 +90,7 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         headerView.actions = { [unowned self] index in
             self.title = self.titles[self.selectedIndex]
             self.selectedIndex = index
-            self.loadData(index: index)
+            self.tableViewList[index].beginHeaderRefresh()
             UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
                 self.scrollView.contentOffset.x = CGFloat(index) * UIScreen.main.bounds.width
             }, completion: { (finish) in
@@ -110,13 +110,13 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
             let index = i
             tableView.addHeaderAction { [unowned self] _ in
                 tableView.currentPage = 1
+                self.loadedIndex = self.loadedIndex & ~(1 << self.selectedIndex)
                 self.loadData(index: index, byPull: true)
             }
             
             tableView.autoLoadWhenIsBottom = false
             
             tableView.addFooterAction { [unowned self] _ in
-                tableView.currentPage += 1
                 self.loadData(index: index, byPull: true)
             }
             
@@ -132,18 +132,15 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     func loadData(index: Int? = nil, byPull: Bool = false) {
         let si = index ?? selectedIndex
-        if loadedIndex & (1 << si) == 0  {//没有请求过 或者 拉动刷新控件
-            if byPull {
-                tableViewList[si].beginHeaderRefresh()
-            }
-            
+        let tableView = tableViewList[si]
+        if loadedIndex & (1 << si) == 0 || tableView.currentPage > 1 {//没有请求过
             loadedIndex = loadedIndex | (1 << si)
 //            method	string	apiorders	无
 //            fState	string	订单状态	0待付款 1已付款 2待发货 3已发货 4完成 5关闭,多个用逗号分割
             var state = "0"
             switch si {
             case 0:
-                state = "0,1,2,3,4"
+                state = "0,1,2,3,4,5"
             case 2:
                 state = "1,2"
             case 3:
@@ -154,7 +151,6 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                 break
             }
             
-            let tableView = tableViewList[si]
             //
             let method = si != 4 ? "apiorders" : "apigetPendingevaluationOrder"
             NetworkManager.requestPageInfoModel(params: ["method":method, "fState":state, "currentPage":tableView.currentPage, "pageSize":CustomValue.pageSize]).setSuccessAction(action: { (bm: BaseModel<OrderModel>) in
@@ -163,6 +159,8 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                 bm.whenSuccess {
                     if !bm.pageInfo!.hasNextPage {
                         tableView.noMoreData()
+                    } else {
+                        tableView.currentPage += 1
                     }
                     let arr = bm.pageInfo!.list!.map({ (c) -> OrderModel in
                         
@@ -251,7 +249,12 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         let progress = scrollView.contentOffset.x / view.frame.width
         headerView.selectedIndex = Int(progress + 0.1)
         selectedIndex = headerView.selectedIndex
-        loadData(byPull: true)
+        if loadedIndex & (1 << selectedIndex) == 0 {
+            tableViewList[selectedIndex].beginHeaderRefresh()
+        } else {
+            loadData(byPull: true)
+        }
+        
     }
     
     func cancleOrder(orderId: Int) {

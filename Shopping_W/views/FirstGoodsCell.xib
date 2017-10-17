@@ -32,29 +32,34 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iqx-TA-S0y">
-                        <rect key="frame" x="8" y="24.5" width="131" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="nZb-QY-XWM"/>
-                        </constraints>
+                        <rect key="frame" x="8" y="24.5" width="131" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tjv-IZ-QDP">
-                        <rect key="frame" x="8" y="55.5" width="131" height="16"/>
+                        <rect key="frame" x="8" y="49" width="131" height="16"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                         <color key="textColor" red="0.96078431369999995" green="0.078431372550000003" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jkQ-tq-lNX">
-                        <rect key="frame" x="8" y="76.5" width="133" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="ac4-CH-1aF"/>
-                        </constraints>
+                        <rect key="frame" x="8" y="70" width="133" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gg-MO-Arq">
+                        <rect key="frame" x="10" y="75" width="57" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="57" id="hH0-nT-325"/>
+                            <constraint firstAttribute="height" constant="30" id="vR1-dc-5Gn"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal">
+                            <color key="titleColor" red="0.96271759270000001" green="0.077344976369999999" blue="0.2544875741" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                    </button>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -62,9 +67,11 @@
                 <constraint firstItem="Iqx-TA-S0y" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="5aI-oT-mp3"/>
                 <constraint firstItem="k5n-3U-fpr" firstAttribute="leading" secondItem="jkQ-tq-lNX" secondAttribute="trailing" constant="6" id="6Sk-Ih-JS7"/>
                 <constraint firstAttribute="bottom" secondItem="k5n-3U-fpr" secondAttribute="bottom" constant="10" id="9fn-Ht-Q3h"/>
+                <constraint firstItem="5gg-MO-Arq" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Ep3-9j-P0p"/>
                 <constraint firstItem="k5n-3U-fpr" firstAttribute="leading" secondItem="tjv-IZ-QDP" secondAttribute="trailing" constant="8" id="H3X-fu-BgV"/>
                 <constraint firstItem="jkQ-tq-lNX" firstAttribute="top" secondItem="tjv-IZ-QDP" secondAttribute="bottom" constant="5" id="RX2-BQ-uzv"/>
                 <constraint firstItem="k5n-3U-fpr" firstAttribute="leading" secondItem="Iqx-TA-S0y" secondAttribute="trailing" constant="8" id="Rji-NR-HsD"/>
+                <constraint firstItem="5gg-MO-Arq" firstAttribute="top" secondItem="jkQ-tq-lNX" secondAttribute="bottom" constant="5" id="Rm4-Ir-rD4"/>
                 <constraint firstAttribute="trailing" secondItem="k5n-3U-fpr" secondAttribute="trailing" constant="10" id="bfP-ex-zF8"/>
                 <constraint firstItem="Dfg-DP-7c1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="lr1-cr-p1r"/>
                 <constraint firstAttribute="trailing" secondItem="Dfg-DP-7c1" secondAttribute="trailing" constant="8" id="n3R-TD-yQU"/>
@@ -80,6 +87,7 @@
                 <outlet property="oldPriceLabel" destination="jkQ-tq-lNX" id="f5n-0L-iHy"/>
                 <outlet property="priceLabel" destination="tjv-IZ-QDP" id="TBl-H7-qB6"/>
                 <outlet property="specsLabel" destination="Iqx-TA-S0y" id="Tvh-Yx-a8f"/>
+                <outlet property="tagBtn" destination="5gg-MO-Arq" id="mK6-xy-LKW"/>
                 <outlet property="titleLabel" destination="Dfg-DP-7c1" id="wdW-wk-EGw"/>
             </connections>
             <point key="canvasLocation" x="-6.5" y="105"/>

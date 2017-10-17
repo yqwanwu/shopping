@@ -12,7 +12,7 @@ class FirstGoodsCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var specsLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-//    @IBOutlet weak var tagBtn: UIButton!
+    @IBOutlet weak var tagBtn: UIButton!
     @IBOutlet weak var ImgView: UIImageView!
     @IBOutlet weak var oldPriceLabel: UILabel!
     
@@ -35,6 +35,7 @@ class FirstGoodsCell: UICollectionViewCell {
         didSet {
             let attrStr = NSMutableAttributedString(string: "", attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
             oldPriceLabel.attributedText = attrStr
+            tagBtn.isHidden = true
             if let m = promotionModel {
                 titleLabel.text = m.fGoodsname
                 specsLabel.text = m.fSummary
@@ -53,14 +54,18 @@ class FirstGoodsCell: UICollectionViewCell {
                     let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
                     oldPriceLabel.attributedText = attrStr
                     priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
-//                case 3:
-//                    tagBtn.setTitle("满\(Int(m.fPrice))-\(Int(m.fDeduction))", for: .normal)
-//                case 4:
-//                    tagBtn.setTitle("赠", for: .normal)
-//                case 5:
-//                    tagBtn.setTitle("\(m.fMintegral)倍积分", for: .normal)
+                case 3:
+                    tagBtn.isHidden = false
+                    tagBtn.setTitle("满\(Int(m.fPrice))-\(Int(m.fDeduction))", for: .normal)
+                case 4:
+                    tagBtn.isHidden = false
+                    tagBtn.setTitle("赠", for: .normal)
+                case 5:
+                    tagBtn.isHidden = false
+                    tagBtn.setTitle("\(m.fMintegral)倍积分", for: .normal)
                 case 6:
-//                    tagBtn.setTitle("\(m.fDiscount)折", for: .normal)
+                    tagBtn.isHidden = false
+                    tagBtn.setTitle("\(m.fDiscount)折", for: .normal)
                     let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
                     oldPriceLabel.attributedText = attrStr
                     priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
@@ -78,11 +83,11 @@ class FirstGoodsCell: UICollectionViewCell {
     //height 155
     override func awakeFromNib() {
         super.awakeFromNib()
-//        tagBtn.layer.cornerRadius = CustomValue.btnCornerRadius
-//        tagBtn.titleLabel?.lineBreakMode = .byTruncatingTail
-//        tagBtn.layer.borderColor = CustomValue.common_red.cgColor
-//        tagBtn.layer.borderWidth = 0.5
-//        tagBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+        tagBtn.layer.cornerRadius = CustomValue.btnCornerRadius
+        tagBtn.titleLabel?.lineBreakMode = .byTruncatingTail
+        tagBtn.layer.borderColor = CustomValue.common_red.cgColor
+        tagBtn.layer.borderWidth = 0.5
+        tagBtn.titleLabel?.adjustsFontSizeToFitWidth = true
     }
 
 }

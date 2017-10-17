@@ -17,12 +17,7 @@ class MyEvaluateVC: BaseViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet weak var textView: PlacehodelTextView!
     @IBOutlet weak var submitBtn: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
-    lazy var imagePickerVc: TZImagePickerController = {
-        let vc = TZImagePickerController(maxImagesCount: 5, delegate: self)!
-        vc.allowPickingGif = false
-        vc.allowPickingVideo = false
-        return vc
-    } ()
+    
     var selectedAsset = [Any]()
     
     var selectedPhotos = [UIImage]()
@@ -104,7 +99,7 @@ class MyEvaluateVC: BaseViewController, UICollectionViewDelegate, UICollectionVi
             self.collectionView.deleteItems(at: [index])
             
         }) { (f) in
-            self.imagePickerVc.selectedAssets = NSMutableArray(array: self.selectedAsset)
+            
             self.collectionView.reloadData()
         }
     }
@@ -180,7 +175,10 @@ class MyEvaluateVC: BaseViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == selectedPhotos.count {
-            self.present(self.imagePickerVc, animated: true, completion: nil)
+            let imagePickerVc: TZImagePickerController = TZImagePickerController(maxImagesCount: 5 - selectedPhotos.count, delegate: self)!
+            imagePickerVc.allowPickingGif = false
+            imagePickerVc.allowPickingVideo = false
+            self.present(imagePickerVc, animated: true, completion: nil)
         }
     }
     
@@ -190,8 +188,8 @@ class MyEvaluateVC: BaseViewController, UICollectionViewDelegate, UICollectionVi
     
     
     func imagePickerController(_ picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [Any]!, isSelectOriginalPhoto: Bool, infos: [[AnyHashable : Any]]!) {
-        selectedPhotos = photos
-        selectedAsset = assets
+        selectedPhotos.append(contentsOf: photos)
+        selectedAsset.append(contentsOf: assets)
         collectionView.reloadData()
     }
 }

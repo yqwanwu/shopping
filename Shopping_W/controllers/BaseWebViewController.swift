@@ -12,12 +12,7 @@ import SnapKit
 
 class BaseWebViewController: BaseViewController, WKNavigationDelegate, WKUIDelegate {
 
-    lazy var webView: WKWebView = {
-        let web = WKWebView(frame: self.view.bounds)
-        web.navigationDelegate = self
-        web.uiDelegate = self
-        return web
-    } ()
+    var webView = WKWebView()
     
     var url: String = ""
     private var progressView = UIProgressView()
@@ -26,6 +21,9 @@ class BaseWebViewController: BaseViewController, WKNavigationDelegate, WKUIDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        webView.frame = self.view.bounds
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
         self.view.addSubview(webView)
         
         webView.frame.origin.y = (self.navigationController?.navigationBar.frame.height)! + 20
