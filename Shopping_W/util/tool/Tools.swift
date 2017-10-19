@@ -28,10 +28,10 @@ class Tools: NSObject {
         return Int(arr[0]) ?? 0
     }
     
-    class func getClassFromStorybord(sbName: StoryboardName, clazz: AnyClass) -> UIViewController {
+    class func getClassFromStorybord<T: UIViewController>(sbName: StoryboardName, clazz: T.Type) -> T {
         let s = UIStoryboard(name: sbName.rawValue, bundle: Bundle.main)
         let str = NSStringFromClass(clazz).components(separatedBy: ".").last
-        return s.instantiateViewController(withIdentifier: str!)
+        return s.instantiateViewController(withIdentifier: str!) as! T
     }
     
     private class func findAllSubViews(topView: UIView, arr: inout [UIView]) {

@@ -16,6 +16,9 @@ class ModifyPwdVC: BaseViewController {
     @IBOutlet weak var titleLabel: UILabel!
     
     var isUpdateUserPwd = true
+    
+    var forgetModel: ForgetUserPassModel?
+    var topVC: UIViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +45,24 @@ class ModifyPwdVC: BaseViewController {
             return
         }
         
+        ///新加的接口
+        if let m = forgetModel {
+            let params = ["method": "apiChangePassForForget", "fPass": self.pwd1.text!.MD5.uppercased(), "fPhone": m.fPhone]
+            NetworkManager.requestTModel(params: params).setSuccessAction(action: { (bm: BaseModel<CodeModel>) in
+                bm.whenSuccess {
+                    MBProgressHUD.show(successText: "重置成功")
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+                if !bm.isSuccess {
+                    let vcs = self.navigationController!.viewControllers
+                    let vc = vcs[vcs.count - 3]
+                    self.navigationController?.popToViewController(vc, animated: true)
+                }
+            })
+            return
+        }
+        
+        ///这是原来的逻辑
         MBProgressHUD.showAdded(to: self.view, animated: true)
         var params = ["method":"apieditmyinofbysms", "fUserpass":self.pwd1.text!.MD5.uppercased()]
         params["fActiontype"] = isUpdateUserPwd ? "u" : "p"
@@ -64,10 +85,10 @@ class ModifyPwdVC: BaseViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let p = touches.first?.location(in: self.view) ?? CGPoint.zero
-        if !bvView.frame.contains(p) {
-            self.dismiss(animated: true, completion: nil)
-        }
+//        let p = touches.first?.location(in: self.view) ?? CGPoint.zero
+//        if !bvView.frame.contains(p) {
+//            self.dismiss(animated: true, completion: nil)
+//        }
     }
 
 }

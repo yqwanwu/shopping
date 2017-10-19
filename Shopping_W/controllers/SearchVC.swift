@@ -82,7 +82,7 @@ class SearchVC: BaseViewController, UICollectionViewDelegate, UICollectionViewDa
                     model.build(cellClass: GoodsCommonTableViewCell.self)
                     
                     model.setupCellAction { [unowned self] (idx) in
-                        let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+                        let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) 
                         vc.goodsId = model.fGoodsid
                         vc.picUrl = model.fUrl
                         self.navigationController?.pushViewController(vc, animated: true)

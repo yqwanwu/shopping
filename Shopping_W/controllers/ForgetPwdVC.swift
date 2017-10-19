@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import SnapKit
 
 class PwdQuestion: CustomTableViewCellItem {
     var fQuestionid = 0 //问题ID
@@ -19,6 +20,9 @@ class PwdQuestion: CustomTableViewCellItem {
 }
 
 class ForgetPwdVC: BaseViewController {
+    enum PwdViewType {
+        case onlyPhone, onlyQuesion, all
+    }
     @IBOutlet weak var phoneView: UIView!
     @IBOutlet weak var saveBtn: UIButton!
     
@@ -29,17 +33,21 @@ class ForgetPwdVC: BaseViewController {
     @IBOutlet weak var questionView: CustomTableView!
     
     @IBOutlet weak var segmentHeight: NSLayoutConstraint!
+    @IBOutlet weak var bkHeight: NSLayoutConstraint!
     var pwdPhoneView: PwdPhoneView!
     var type = CodeModel.captChaType.b
-    
+    var viewType = PwdViewType.all
     var isModify = false
     var selectPhone = true
     
     var canWritePhone = false
     
+    var isFirstSave = false
+    
+    var model: ForgetUserPassModel?
+    
     var quetions = [PwdQuestion]()
     var selectedQuestions = [PwdQuestion(), PwdQuestion(), PwdQuestion()]
-    
     var showOnlyOne = false
     
     let c = PwdQuestion().build(text: "密保问题1: 请选择").build(accessoryType: .disclosureIndicator)
@@ -86,13 +94,41 @@ class ForgetPwdVC: BaseViewController {
                 self.segment.selectedIndex = 1
                 self.title = "修改密保"
                 self.selectPhone = false
+                bkHeight.constant -= 50
             }
             bkVIew.snp.updateConstraints { (make) in
                 make.height.equalTo(101)
             }
         }
         
+        setView()
+        
+        if viewType != .all {
+            let coverLabel = UILabel()
+            coverLabel.backgroundColor = UIColor.white
+            coverLabel.textAlignment = .center
+            coverLabel.isUserInteractionEnabled = true
+            segment.addSubview(coverLabel)
+            coverLabel.snp.makeConstraints { (make) in
+                make.edges.equalToSuperview()
+            }
+            
+            if viewType == .onlyPhone {
+                coverLabel.text = "手机"
+                self.title = "找回密码"
+                return
+            } else if viewType == .onlyQuesion {
+                coverLabel.text = "密保"
+                self.title = "找回密码"
+            }
+        }
         requestData()
+    }
+    
+    func setView() {
+        if let m = model {
+            self.pwdPhoneView.phoneText.text = m.fPhone
+        }
     }
     
     func requestData() {
@@ -101,7 +137,7 @@ class ForgetPwdVC: BaseViewController {
             MBProgressHUD.hideHUD(forView: self.view)
             bm.whenSuccess {
                 self.quetions = bm.list!
-               
+                self.setupQuestions()
 //                var arr = [PwdQuestion]()
 //                for model in bm.list! {
 //                    let titleModel = PwdQuestion()
@@ -119,20 +155,29 @@ class ForgetPwdVC: BaseViewController {
         }
     }
     
-    func setupUI() {
-        segment.addItem(item: phoneBtn)
-        segment.addItem(item: pwdBtn)
-        segment.selectedBackgroundColor = UIColor.hexStringToColor(hexString: "eaeaea")
-        segment.selectedIndex = 0
-        bkVIew.layer.cornerRadius = CustomValue.btnCornerRadius
-        bkVIew.layer.borderColor = UIColor.hexStringToColor(hexString: "9d9d9d").cgColor
-        bkVIew.layer.borderWidth = 1
-        segment.layer.borderColor = UIColor.hexStringToColor(hexString: "9d9d9d").cgColor
-        segment.layer.borderWidth = 1
+    func setupQuestions() {
+        let models = self.quetions
+        var answerIds = [Int]()
+        if let p = PersonMdel.readData() {
+            answerIds = [p.fAnswer1, p.fAnswer2, p.fAnswer3]
+        } else if let m = model {
+            answerIds = [m.fAnswer1, m.fAnswer2, m.fAnswer3]
+        }
+        
+        if answerIds[0] != 0 {
+            selectedQuestions = models.filter({ $0.fQuestionid == answerIds[0] || $0.fQuestionid == answerIds[1] || $0.fQuestionid == answerIds[2] })
+            c.text = selectedQuestions[0].fQuestioncontent
+            c2.text = selectedQuestions[1].fQuestioncontent
+            c4.text = selectedQuestions[2].fQuestioncontent
+        } else {
+            isFirstSave = true
+            self.saveBtn.setTitle("保存", for: .normal)
+        }
         
         let data = [c, c1, c2, c3, c4, c5].map { (c) -> CustomTableViewCellItem in
             c.build(cellClass: PwdQuestionTableViewCell.self).build(heightForRow: 50).build(isFromStoryBord: true)
-            if c.detailText == nil {
+            
+            if c.detailText == nil && isFirstSave {
                 c.setupCellAction({ [unowned self] (idx) in
                     let vc = QuestionVC()
                     vc.models = self.quetions.filter({ (q) -> Bool in
@@ -161,7 +206,19 @@ class ForgetPwdVC: BaseViewController {
         }
         
         questionView.dataArray = [data]
-        
+        questionView.reloadData()
+    }
+    
+    func setupUI() {
+        segment.addItem(item: phoneBtn)
+        segment.addItem(item: pwdBtn)
+        segment.selectedBackgroundColor = UIColor.hexStringToColor(hexString: "eaeaea")
+        segment.selectedIndex = 0
+        bkVIew.layer.cornerRadius = CustomValue.btnCornerRadius
+        bkVIew.layer.borderColor = UIColor.hexStringToColor(hexString: "9d9d9d").cgColor
+        bkVIew.layer.borderWidth = 1
+        segment.layer.borderColor = UIColor.hexStringToColor(hexString: "9d9d9d").cgColor
+        segment.layer.borderWidth = 1
     }
 
     @IBAction func ac_phoneClick(_ sender: UIButton) {
@@ -179,8 +236,31 @@ class ForgetPwdVC: BaseViewController {
         }
         phoneView.isHidden = true
     }
+    
+    func saveQuestions() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        let params = ["method":"apieditmyinofbysms", "fActiontype":"q", "fAnswer1":self.getAnsewerStr(q: selectedQuestions[0]), "fAnswer2":self.getAnsewerStr(q: selectedQuestions[1]), "fAnswer3":self.getAnsewerStr(q: selectedQuestions[2])]
+        NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
+            MBProgressHUD.hideHUD(forView: self.view)
+            bm.whenSuccess {
+                if let p = PersonMdel.readData() {
+                    p.fAnswer1 = self.selectedQuestions[0].fQuestionid
+                    p.fAnswer2 = self.selectedQuestions[1].fQuestionid
+                    p.fAnswer3 = self.selectedQuestions[2].fQuestionid
+                }
+                for vc in (self.navigationController?.viewControllers)! {
+                    if vc is SafeCenterVC {
+                        self.navigationController?.popToViewController(vc, animated: true)
+                        break
+                    }
+                }
+            }
+        }, failture: { (err) in
+            MBProgressHUD.hideHUD(forView: self.view)
+        })
+    }
 
-    //下一步
+    //下一步  后台改版好几次，很烦，只能将就写，
     @IBAction func ac_save(_ sender: UIButton) {
         if segment.selectedIndex == 0 {
             if !self.pwdPhoneView.phoneText.check() || !self.pwdPhoneView.codeText.check() {
@@ -197,6 +277,37 @@ class ForgetPwdVC: BaseViewController {
                 }
             }
         }
+        
+        if isFirstSave {
+            saveQuestions()
+            return
+        }
+        
+        //忘记密码界面
+        if let m = model, viewType != .all {
+            var params = ["method": "apiCheckForForget", "fPhone": m.fPhone]
+            if viewType == .onlyPhone {
+                params["fActiontype"] = "m"
+                params["smsCode"] = pwdPhoneView.codeText.text ?? ""
+            } else {
+                params["fActiontype"] = "q"
+                params["fAnswer1"] = self.getAnsewerStr(q: selectedQuestions[0])
+                params["fAnswer2"] = self.getAnsewerStr(q: selectedQuestions[1])
+                params["fAnswer3"] = self.getAnsewerStr(q: selectedQuestions[2])
+            }
+            
+            NetworkManager.requestTModel(params: params).setSuccessAction(action: { (bm: BaseModel<CodeModel>) in
+                bm.whenSuccess {
+                    let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ModifyPwdVC.self)
+                    vc.isUpdateUserPwd = true
+                    vc.forgetModel = self.model
+                    vc.topVC = self
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            })
+            return
+        }
+        
         if showOnlyOne {
             if segment.selectedIndex == 0 {
                 var params = ["method":"apieditmyinofbysms", "fActiontype":"m"]
@@ -216,25 +327,10 @@ class ForgetPwdVC: BaseViewController {
                     MBProgressHUD.hideHUD(forView: self.view)
                 })
             } else {
-                MBProgressHUD.showAdded(to: self.view, animated: true)
-                let params = ["method":"apieditmyinofbysms", "fActiontype":"q", "fAnswer1":self.getAnsewerStr(q: selectedQuestions[0]), "fAnswer2":self.getAnsewerStr(q: selectedQuestions[1]), "fAnswer3":self.getAnsewerStr(q: selectedQuestions[2])]
-                NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
-                    MBProgressHUD.hideHUD(forView: self.view)
-                    bm.whenSuccess {
-                        for vc in (self.navigationController?.viewControllers)! {
-                            if vc is SafeCenterVC {
-                                self.navigationController?.popToViewController(vc, animated: true)
-                                break
-                            }
-                        }
-                    }
-                }, failture: { (err) in
-                    MBProgressHUD.hideHUD(forView: self.view)
-                })
+                saveQuestions()
             }
             return
         }
-        
         
         var vc: UIViewController!
         if type == .c || type == .p {
@@ -248,7 +344,7 @@ class ForgetPwdVC: BaseViewController {
             canWritePhone = true
         }
         
-        self.navigationController?.pushViewController(vc, animated: true)
+//        self.navigationController?.pushViewController(vc, animated: true)
         
         if segment.selectedIndex == 0 {
             var params = ["method":"apiSecurityEntry", "fActiontype":"m"]
@@ -284,7 +380,7 @@ class ForgetPwdVC: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if !self.selectPhone {
+        if !self.selectPhone || viewType == .onlyQuesion {
             ac_pwdClick(pwdBtn)
             segment.selectedIndex = 1
         }

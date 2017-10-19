@@ -79,7 +79,7 @@ class CarVC: UIViewController, UITableViewDelegate {
             }
             
             model.setupCellAction { [unowned self] (idx) in
-                let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+                let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) 
                 switch model.fType {
                 case 0:
                     vc.type = .normal

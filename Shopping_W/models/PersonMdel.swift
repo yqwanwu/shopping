@@ -9,6 +9,10 @@
 import UIKit
 
 class PersonMdel: NSObject, ParseModelProtocol, NSCoding {
+    var fPaypass = ""
+    var fAnswer1 = 0
+    var fAnswer2 = 0
+    var fAnswer3 = 0
     
     var fAccountid = 0
     ///登录名

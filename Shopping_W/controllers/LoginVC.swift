@@ -10,6 +10,7 @@ import UIKit
 import MBProgressHUD
 
 class LoginVC: BaseViewController {
+    
     @IBOutlet weak var headerImgBack: UIView!
     @IBOutlet weak var textBack: UIView!
     @IBOutlet weak var phonrText: CheckTextFiled!
@@ -23,7 +24,7 @@ class LoginVC: BaseViewController {
     @IBOutlet weak var thirdLoginTitle: UILabel!
     
     let k_toRegisterVC = "toRegisterVC"
-
+    
     override func viewDidLoad() {
         self.showFirstVCBackBtn = true
         super.viewDidLoad()
@@ -77,7 +78,6 @@ class LoginVC: BaseViewController {
                 //登陆后需要请求的数据
                 AddressModel.requestData()
                 CarModel.requestList()
-                
                 CarModel.addToServer()
             }
         }) { (err) in
@@ -85,7 +85,7 @@ class LoginVC: BaseViewController {
             MBProgressHUD.show(errorText: NetworkManager.REQUEST_ERROR)
         }
     }
-    
+
 
     @IBAction func ac_autoLogin(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
@@ -98,6 +98,11 @@ class LoginVC: BaseViewController {
         }
     }
     
+    @IBAction func ac_pwd(_ sender: Any) {
+        let vc = PwdRouteVC()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func ac_login(_ sender: Any) {
         if !self.phonrText.check() || !self.pwdText.check() {
             return
@@ -106,8 +111,9 @@ class LoginVC: BaseViewController {
         MBProgressHUD.show(text: "登录中...")
         LoginVC.login(userName: phonrText.text ?? "", pwd: pwdText.text ?? "") {
 //            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: CustomTabBarVC.self)
-//            self.present(vc, animated: true, completion: nil)
             self.dismiss(animated: true, completion: nil)
+//            self.present(vc, animated: true, completion: nil)
+            FirstViewController.isShowQuestion = true
         }
         
     }
@@ -186,6 +192,8 @@ class LoginVC: BaseViewController {
         if segue.identifier == k_toRegisterVC {
             let vc = segue.destination as! RegisterVC
             vc.loginVC = self
+        } else if let vc = segue.destination as? ForgetPwdVC {
+            vc.canWritePhone = true
         }
     }
     

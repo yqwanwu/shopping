@@ -72,7 +72,7 @@ class SecKillVC: BaseViewController {
                             model.build(cellClass: GoodsCommonTableViewCell.self)
                             
                             model.setupCellAction { [unowned self] (idx) in
-                            let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+                            let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) 
                             vc.type = .seckill
                             vc.picUrl = model.fPicurl
                             vc.promotionid = model.fPromotionid

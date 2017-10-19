@@ -26,7 +26,7 @@ class ReturnedDetailVC: BaseViewController, UIImagePickerControllerDelegate, UIN
     var returnedModel: ReturnedModel!
     
     let waitVC: WaitVC = {
-        let w = Tools.getClassFromStorybord(sbName: .mine, clazz: WaitVC.self) as! WaitVC
+        let w = Tools.getClassFromStorybord(sbName: .mine, clazz: WaitVC.self) 
         return w
     } ()
 
