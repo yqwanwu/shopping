@@ -24,7 +24,7 @@ class SafeCenterVC: BaseViewController {
         
         let phone = PersonMdel.readData()?.fPhone
         let c = CustomTableViewCellItem().build(text: "登录密码").build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
-        let c1 = CustomTableViewCellItem().build(text: "手机号").build(detailText: phone).build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
+        let c1 = CustomTableViewCellItem().build(text: "手机号码").build(detailText: phone).build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
         let c2 = CustomTableViewCellItem().build(text: "支付密码").build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
         let c3 = CustomTableViewCellItem().build(text: "密保问题").build(cellClass: RightTitleCell.self).build(heightForRow: 50).build(accessoryType: .disclosureIndicator)
         
@@ -32,26 +32,30 @@ class SafeCenterVC: BaseViewController {
 //            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ModifyPwdVC.self)
 //            self.present(vc, animated: false, completion: nil)
             
-            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self) as! ForgetPwdVC
+            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self)
             vc.type = .c
+            vc.title = "登录密码"
             self.navigationController?.pushViewController(vc, animated: true)
         }
         c1.setupCellAction { [unowned self] (idx) in
-            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self) as! ForgetPwdVC
+            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self)
             vc.isModify = true
             vc.type = .t
+            vc.title = "手机号码"
             self.navigationController?.pushViewController(vc, animated: true)
         }
         c2.setupCellAction { [unowned self] (idx) in
-            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self) as! ForgetPwdVC
+            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self)
             vc.type = .p
             self.navigationController?.pushViewController(vc, animated: true)
+            vc.title = "支付密码"
         }
         c3.setupCellAction { [unowned self] (idx) in
-            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self) as! ForgetPwdVC
+            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self) 
             vc.isModify = true
             vc.selectPhone = false
             vc.type = .m
+            vc.title = "密保问题"
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

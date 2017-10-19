@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import SnapKit
 
 class PwdQuestion: CustomTableViewCellItem {
     var fQuestionid = 0 //问题ID
@@ -19,6 +20,9 @@ class PwdQuestion: CustomTableViewCellItem {
 }
 
 class ForgetPwdVC: BaseViewController {
+    enum PwdViewType {
+        case onlyPhone, onlyQuesion, all
+    }
     @IBOutlet weak var phoneView: UIView!
     @IBOutlet weak var saveBtn: UIButton!
     
@@ -31,15 +35,16 @@ class ForgetPwdVC: BaseViewController {
     @IBOutlet weak var segmentHeight: NSLayoutConstraint!
     var pwdPhoneView: PwdPhoneView!
     var type = CodeModel.captChaType.b
-    
+    var viewType = PwdViewType.all
     var isModify = false
     var selectPhone = true
     
     var canWritePhone = false
     
+    var model: ForgetUserPassModel?
+    
     var quetions = [PwdQuestion]()
     var selectedQuestions = [PwdQuestion(), PwdQuestion(), PwdQuestion()]
-    
     var showOnlyOne = false
     
     let c = PwdQuestion().build(text: "密保问题1: 请选择").build(accessoryType: .disclosureIndicator)
@@ -92,7 +97,36 @@ class ForgetPwdVC: BaseViewController {
             }
         }
         
+        setView()
+        
+        if viewType != .all {
+            let coverLabel = UILabel()
+            coverLabel.backgroundColor = UIColor.white
+            coverLabel.textAlignment = .center
+            coverLabel.isUserInteractionEnabled = true
+            segment.addSubview(coverLabel)
+            coverLabel.snp.makeConstraints { (make) in
+                make.edges.equalToSuperview()
+            }
+            
+            if viewType == .onlyPhone {
+                segment.selectedIndex = 0
+                coverLabel.text = "手机"
+                self.title = "找回密码"
+                return
+            } else if viewType == .onlyQuesion {
+                segment.selectedIndex = 1
+                coverLabel.text = "密保"
+                self.title = "找回密码"
+            }
+        }
         requestData()
+    }
+    
+    func setView() {
+        if let m = model {
+            self.pwdPhoneView.phoneText.text = m.fPhone
+        }
     }
     
     func requestData() {
@@ -197,6 +231,45 @@ class ForgetPwdVC: BaseViewController {
                 }
             }
         }
+        
+        //忘记密码界面
+        if let m = model, viewType != .all {
+            var params = ["method": "apiCheckForForget", "fPhone": m.fPhone]
+            if viewType == .onlyPhone {
+                params["fActiontype"] = "m"
+                params["smsCode"] = pwdPhoneView.codeText.text ?? ""
+            } else {
+                params["fActiontype"] = "q"
+                params["fAnswer1"] = self.getAnsewerStr(q: selectedQuestions[0])
+                params["fAnswer2"] = self.getAnsewerStr(q: selectedQuestions[1])
+                params["fAnswer3"] = self.getAnsewerStr(q: selectedQuestions[2])
+            }
+           
+            //测试
+//            if true {
+//                let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ModifyPwdVC.self)
+//                vc.isUpdateUserPwd = true
+//                vc.forgetModel = self.model
+//                vc.topVC = self
+//                vc.modalPresentationStyle = .overCurrentContext
+//                self.present(vc, animated: false, completion: nil)
+//                return
+//            }
+            //测试end
+            
+            NetworkManager.requestTModel(params: params).setSuccessAction(action: { (bm: BaseModel<CodeModel>) in
+                bm.whenSuccess {
+                    let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ModifyPwdVC.self)
+                    vc.isUpdateUserPwd = true
+                    vc.forgetModel = self.model
+                    vc.topVC = self
+                    vc.modalPresentationStyle = .overCurrentContext
+                    self.present(vc, animated: false, completion: nil)
+                }
+            })
+            return
+        }
+        
         if showOnlyOne {
             if segment.selectedIndex == 0 {
                 var params = ["method":"apieditmyinofbysms", "fActiontype":"m"]
@@ -234,7 +307,6 @@ class ForgetPwdVC: BaseViewController {
             }
             return
         }
-        
         
         var vc: UIViewController!
         if type == .c || type == .p {

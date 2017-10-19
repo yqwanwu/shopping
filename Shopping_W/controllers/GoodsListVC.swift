@@ -179,7 +179,7 @@ class GoodsListVC: BaseViewController {
             }
             
             model.setupCellAction { [unowned self] (idx) in
-                let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+                let vc = Tools.getClassFromStorybord(sbName: Tools.StoryboardName.shoppingCar, clazz: GoodsDetailVC.self) 
                 vc.type = self.type
                 if let m = model as? GoodsModel {
                     if self.type == .level2 {

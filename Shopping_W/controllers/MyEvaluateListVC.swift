@@ -44,7 +44,7 @@ class MyEvaluateListVC: BaseViewController, UITableViewDataSource {
                         item.build(cellClass: OrerListCell.self).build(heightForRow: 118)
                         
                         item.setupCellAction { [unowned self] (idx) in
-                            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+                            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self)
 //                            switch model.fType {
 //                            case 0:
 //                                vc.type = .normal
@@ -89,7 +89,7 @@ class MyEvaluateListVC: BaseViewController, UITableViewDataSource {
         let cell = self.tableView.createDefaultCell(indexPath: indexPath) as! OrerListCell
         let model = self.tableView.dataArray[indexPath.section][indexPath.row] as! MyEvaluationModelItem
         cell.reciveAction = { [unowned self] () in
-            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: MyEvaluateVC.self) as! MyEvaluateVC
+            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: MyEvaluateVC.self)
             vc.evaluateItem = model
             //rderModel.orderEx[0].fGoodsid, "fOrderid":orderModel.fOrderid,
             let order = OrderModel()
@@ -99,7 +99,7 @@ class MyEvaluateListVC: BaseViewController, UITableViewDataSource {
         }
         
         cell.logisticsAction = { [unowned self] () in
-            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: MyEvaluateVC.self) as! MyEvaluateVC
+            let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: MyEvaluateVC.self) 
             vc.evaluateItem = model
             //rderModel.orderEx[0].fGoodsid, "fOrderid":orderModel.fOrderid,
             let order = OrderModel()

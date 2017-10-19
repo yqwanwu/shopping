@@ -80,7 +80,7 @@ class ReturnedVC: BaseViewController, UITableViewDataSource {
         let model = self.tableView.dataArray[indexPath.section][indexPath.row] as! ReturnedModel
         if model.fState < 0 {
             cell.reciveAction = { [unowned self] _ in
-                let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ReturnedDetailVC.self) as! ReturnedDetailVC
+                let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: ReturnedDetailVC.self) 
                 vc.returnedModel = model
                 self.navigationController?.pushViewController(vc, animated: true)
             }

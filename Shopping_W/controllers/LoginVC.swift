@@ -10,6 +10,7 @@ import UIKit
 import MBProgressHUD
 
 class LoginVC: BaseViewController {
+    
     @IBOutlet weak var headerImgBack: UIView!
     @IBOutlet weak var textBack: UIView!
     @IBOutlet weak var phonrText: CheckTextFiled!
@@ -23,7 +24,7 @@ class LoginVC: BaseViewController {
     @IBOutlet weak var thirdLoginTitle: UILabel!
     
     let k_toRegisterVC = "toRegisterVC"
-
+    
     override func viewDidLoad() {
         self.showFirstVCBackBtn = true
         super.viewDidLoad()
@@ -77,15 +78,18 @@ class LoginVC: BaseViewController {
                 //登陆后需要请求的数据
                 AddressModel.requestData()
                 CarModel.requestList()
-                
                 CarModel.addToServer()
+                
+                if bm.t!.fAnswer1 == 0 {
+                    MBProgressHUD.show(warningText: "你还没有设置密保问题")
+                }
+                
             }
         }) { (err) in
             MBProgressHUD.hideHUD()
             MBProgressHUD.show(errorText: NetworkManager.REQUEST_ERROR)
         }
     }
-    
 
     @IBAction func ac_autoLogin(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
@@ -96,6 +100,11 @@ class LoginVC: BaseViewController {
        UMSocialManager.default().getUserInfo(with: .QQ, currentViewController: self) { [unowned self] (result, err) in
             self.loginByUm(result: result, err: err)
         }
+    }
+    
+    @IBAction func ac_pwd(_ sender: Any) {
+        let vc = PwdRouteVC()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func ac_login(_ sender: Any) {
@@ -186,6 +195,8 @@ class LoginVC: BaseViewController {
         if segue.identifier == k_toRegisterVC {
             let vc = segue.destination as! RegisterVC
             vc.loginVC = self
+        } else if let vc = segue.destination as? ForgetPwdVC {
+            vc.canWritePhone = true
         }
     }
     

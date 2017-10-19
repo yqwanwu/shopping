@@ -47,7 +47,7 @@ class MyCollectionVC: BaseViewController, UITableViewDelegate {
                 var arr = bm.pageInfo!.list!.map({ (model) -> CollectionModel in
                     model.build(cellClass: GoodsCommonTableViewCell.self).build(heightForRow: 118)
                     model.setupCellAction({ [unowned self] (idx) in
-                        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+                        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) 
                         switch model.F_Type {
                         case 0:
                             vc.type = .normal

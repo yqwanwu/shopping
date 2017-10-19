@@ -382,7 +382,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
                 break
             }
             
-            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self)
             vc.promotionid = goods.fPromotionid
             vc.picUrl = goods.fUrl
             // 0:无 1:团购 2:秒杀 3:满减 4:买赠 5:多倍积分 6:折扣
@@ -401,7 +401,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             self.navigationController?.pushViewController(vc, animated: true)
         } else if indexPath.section == 4 {
             let goods = goodsList[indexPath.row]
-            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self)
             switch goods.fPromotiontype {
             case 0:
                 vc.type = .normal

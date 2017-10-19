@@ -209,7 +209,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
 //        self.navigationController?.pushViewController(vc, animated: true)
 //        }
         
-        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self) as! GoodsListVC
+        let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self) 
         vc.type = .level2
         vc.categoryId = goods.fCategoryid
         self.navigationController?.pushViewController(vc, animated: true)
