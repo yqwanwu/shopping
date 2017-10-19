@@ -56,6 +56,12 @@ class SafeCenterVC: BaseViewController {
             vc.selectPhone = false
             vc.type = .m
             vc.title = "密保问题"
+            if let p = PersonMdel.readData() {
+                if p.fAnswer1 != 0 {
+                    vc.showOnlyOne = true
+                }
+            }
+            
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

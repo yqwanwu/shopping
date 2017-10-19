@@ -171,6 +171,7 @@ class CustomTabBarItem: UIButton {
     }
     
     func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [String : Any]?, context: UnsafeMutableRawPointer?) {
+//        super.observeValue(forKeyPath: keyPath, of: object, change: change as! [NSKeyValueChangeKey : Any], context: context)
         if let item = object as? UITabBarItem {
             self.tabBarItem = item
         }

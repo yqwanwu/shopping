@@ -79,17 +79,13 @@ class LoginVC: BaseViewController {
                 AddressModel.requestData()
                 CarModel.requestList()
                 CarModel.addToServer()
-                
-                if bm.t!.fAnswer1 == 0 {
-                    MBProgressHUD.show(warningText: "你还没有设置密保问题")
-                }
-                
             }
         }) { (err) in
             MBProgressHUD.hideHUD()
             MBProgressHUD.show(errorText: NetworkManager.REQUEST_ERROR)
         }
     }
+
 
     @IBAction func ac_autoLogin(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
@@ -115,8 +111,9 @@ class LoginVC: BaseViewController {
         MBProgressHUD.show(text: "登录中...")
         LoginVC.login(userName: phonrText.text ?? "", pwd: pwdText.text ?? "") {
 //            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: CustomTabBarVC.self)
-//            self.present(vc, animated: true, completion: nil)
             self.dismiss(animated: true, completion: nil)
+//            self.present(vc, animated: true, completion: nil)
+            FirstViewController.isShowQuestion = true
         }
         
     }

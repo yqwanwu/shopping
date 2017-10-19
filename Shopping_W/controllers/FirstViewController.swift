@@ -14,6 +14,7 @@ import SnapKit
 class FirstViewController: BaseViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate {
     
     static let WELCOME_SHOWED = "WELCOME_SHOWED"
+    static var isShowQuestion = false
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -94,6 +95,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             let p = PersonMdel.readData()!
             LoginVC.login(userName: p.fPhone, pwd: p.fUserpass, successAction: {
                 MBProgressHUD.hideHUD()
+                self.showQuestion()
             })
         }
     }
@@ -191,6 +193,31 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
             }
         }
         
+        if FirstViewController.isShowQuestion {
+            showQuestion()
+            FirstViewController.isShowQuestion = false
+        }
+    }
+    
+    func showQuestion() {
+        guard let person = PersonMdel.readData() else { return }
+        if person.fAnswer1 == 0 && UserDefaults.standard.value(forKey: "notsetmibao") == nil {
+            let alert = UIAlertController(title: "提示", message: "您还没有设置密保问题", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "不再提示", style: .default, handler: { (a) in
+                UserDefaults.standard.set("嗯", forKey: "notsetmibao")
+            }))
+            alert.addAction(UIAlertAction(title: "设置", style: .default, handler: { (a) in
+                let fvc = Tools.getClassFromStorybord(sbName: .main, clazz: ForgetPwdVC.self)
+                fvc.selectPhone = false
+                fvc.showOnlyOne = true
+                fvc.title = "密保问题"
+                self.navigationController?.pushViewController(fvc, animated: true)
+            }))
+            alert.addAction(UIAlertAction(title: "取消", style: .default, handler: { (a) in
+                
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     

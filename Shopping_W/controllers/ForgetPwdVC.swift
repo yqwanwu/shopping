@@ -171,7 +171,6 @@ class ForgetPwdVC: BaseViewController {
             c4.text = selectedQuestions[2].fQuestioncontent
         } else {
             isFirstSave = true
-            MBProgressHUD.show(text: "请先设置密保问题")
             self.saveBtn.setTitle("保存", for: .normal)
         }
         
