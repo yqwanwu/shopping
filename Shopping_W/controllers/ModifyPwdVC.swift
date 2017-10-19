@@ -24,7 +24,7 @@ class ModifyPwdVC: BaseViewController {
         super.viewDidLoad()
         
         bvView.layer.cornerRadius = 4
-        self.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+//        self.view.backgroundColor = UIColor(white: 0, alpha: 0.5)
         
         pwd1.setCheck({Tools.stringIsNotBlank(text: $0.text)})
         pwd2.setCheck({Tools.stringIsNotBlank(text: $0.text)})
@@ -51,16 +51,12 @@ class ModifyPwdVC: BaseViewController {
             NetworkManager.requestTModel(params: params).setSuccessAction(action: { (bm: BaseModel<CodeModel>) in
                 bm.whenSuccess {
                     MBProgressHUD.show(successText: "重置成功")
-                    self.dismiss(animated: false, completion: {
-                        self.topVC?.navigationController?.popToRootViewController(animated: true)
-                    })
+                    self.navigationController?.popToRootViewController(animated: true)
                 }
                 if !bm.isSuccess {
-                    let vcs = self.topVC!.navigationController!.viewControllers
-                    let vc = vcs[vcs.count - 2]
-                    self.dismiss(animated: false, completion: {
-                        self.topVC?.navigationController?.popToViewController(vc, animated: true)
-                    })
+                    let vcs = self.navigationController!.viewControllers
+                    let vc = vcs[vcs.count - 3]
+                    self.navigationController?.popToViewController(vc, animated: true)
                 }
             })
             return
@@ -89,10 +85,10 @@ class ModifyPwdVC: BaseViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let p = touches.first?.location(in: self.view) ?? CGPoint.zero
-        if !bvView.frame.contains(p) {
-            self.dismiss(animated: true, completion: nil)
-        }
+//        let p = touches.first?.location(in: self.view) ?? CGPoint.zero
+//        if !bvView.frame.contains(p) {
+//            self.dismiss(animated: true, completion: nil)
+//        }
     }
 
 }
