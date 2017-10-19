@@ -21,7 +21,7 @@ class WelcomeVC: UIViewController, UIScrollViewDelegate {
         scrollView.snp.makeConstraints { (make) in
             make.left.top.right.bottom.equalTo(self.view)
         }
-        
+        scrollView.delegate = self
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 3, height: 0)
         scrollView.bounces = false
         scrollView.isPagingEnabled = true
@@ -40,36 +40,38 @@ class WelcomeVC: UIViewController, UIScrollViewDelegate {
                 if i == 3 {
                     make.right.equalToSuperview()
                     imgView.isUserInteractionEnabled = true
-                    let tap = UITapGestureRecognizer(target: self, action: #selector(ac_enter))
-                    imgView.addGestureRecognizer(tap)
+//                    let tap = UITapGestureRecognizer(target: self, action: #selector(ac_enter))
+//                    imgView.addGestureRecognizer(tap)
                 }
                 make.height.equalToSuperview()
             })
             
-//            if i == 2 {
-//                let btn = UIButton(type: .system)
-//                btn.addTarget(self, action: #selector(ac_enter), for: .touchUpInside)
-//                imgView.addSubview(btn)
-//                btn.snp.makeConstraints({ (make) in
-//                    make.bottom.equalToSuperview().offset(-70)
-//                    make.centerX.equalToSuperview()
-//                    make.height.equalTo(46)
-//                    make.width.equalTo(100)
-//                })
-//                btn.layer.cornerRadius = 23
-//                btn.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
-//                btn.setTitle("立即体验", for: .normal)
-//            }
+            if i == 3 {
+                let btn = UIButton(type: .system)
+                btn.addTarget(self, action: #selector(ac_enter), for: .touchUpInside)
+                imgView.addSubview(btn)
+                btn.snp.makeConstraints({ (make) in
+                    make.bottom.equalToSuperview().offset(-70)
+                    make.centerX.equalToSuperview()
+                    make.height.equalTo(46)
+                    make.width.equalTo(300)
+                })
+                btn.layer.cornerRadius = 23//
+                btn.setTitleColor(UIColor.hexStringToColor(hexString: "#f7d24c"), for: .normal)
+                btn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+                btn.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
+                btn.setTitle("立即体验", for: .normal)
+            }
         }
         
-        //pageControl
-//        pc.numberOfPages = 3
-//        view.addSubview(pc)
-//        pc.snp.makeConstraints { (make) in
-//            make.left.right.equalTo(self.view)
-//            make.height.equalTo(30)
-//            make.bottom.equalToSuperview().offset(-30)
-//        }
+        
+        pc.numberOfPages = 3
+        view.addSubview(pc)
+        pc.snp.makeConstraints { (make) in
+            make.left.right.equalTo(self.view)
+            make.height.equalTo(30)
+            make.bottom.equalToSuperview().offset(-30)
+        }
     }
     
     func ac_enter() {
