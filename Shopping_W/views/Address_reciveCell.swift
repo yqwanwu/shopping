@@ -23,10 +23,11 @@ class Address_reciveCell: CustomTableViewCell {
             if let m = model as? AddressModel, m.fAddressid != 0 {
                 nameLabel.text = m.fName
                 phoneLabel.text = m.fPhone
-                address1Label.text = m.fAddress
                 let j = JSON(parseJSON: m.fAddressparams)
+
+                address1Label.text = j["province"].stringValue + j["city"].stringValue + j["area"].stringValue
                 
-                address2Label.text = j["province"].stringValue + j["city"].stringValue + j["area"].stringValue
+                address2Label.text = m.fAddress
                 tagLabel.text = m.fTagname
                 mailLabel.text = "邮编:" + m.fPost
                 if m.fTagname == "" {

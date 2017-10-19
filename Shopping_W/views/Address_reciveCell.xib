@@ -39,7 +39,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择收货地址" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YZO-Dg-pbk">
-                        <rect key="frame" x="15" y="52" width="93" height="21"/>
+                        <rect key="frame" x="15" y="52" width="188" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="Gw3-06-Z0b"/>
                         </constraints>
@@ -48,7 +48,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="        " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="dT4-wF-AML">
-                        <rect key="frame" x="123" y="52" width="198" height="16"/>
+                        <rect key="frame" x="218" y="52" width="103" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -96,7 +96,7 @@
                     <constraint firstAttribute="trailing" secondItem="6lV-Wq-9Gb" secondAttribute="trailing" id="hE0-M7-M5n"/>
                     <constraint firstAttribute="trailingMargin" secondItem="dT4-wF-AML" secondAttribute="trailing" constant="15" id="iSa-vs-2YP"/>
                     <constraint firstItem="SMF-Xv-UFP" firstAttribute="top" secondItem="J2s-r1-BES" secondAttribute="top" constant="20" id="jYb-K7-Dwd"/>
-                    <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="YZO-Dg-pbk" secondAttribute="trailing" constant="133" id="kOV-q0-0Hd"/>
+                    <constraint firstAttribute="trailingMargin" relation="lessThanOrEqual" secondItem="YZO-Dg-pbk" secondAttribute="trailing" constant="133" id="kOV-q0-0Hd"/>
                     <constraint firstItem="XDO-KC-8T6" firstAttribute="leading" secondItem="J2s-r1-BES" secondAttribute="leadingMargin" constant="7" id="uCf-hy-ISu"/>
                     <constraint firstItem="YZO-Dg-pbk" firstAttribute="top" secondItem="YIo-kf-t5d" secondAttribute="bottom" constant="11" id="wNe-8r-Vgh"/>
                     <constraint firstAttribute="trailingMargin" secondItem="VAC-hi-41g" secondAttribute="trailing" constant="69" id="zJw-GQ-zhX"/>

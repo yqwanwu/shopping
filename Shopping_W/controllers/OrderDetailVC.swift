@@ -10,7 +10,7 @@ import UIKit
 import MBProgressHUD
 
 class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDelegate {
-
+    
     lazy var tableView: CustomTableView = {
         let t = CustomTableView(frame: CGRect(x: 0, y: 64, width: self.view.frame.width, height: self.view.frame.height - 64), style: .grouped)
         t.sectionHeaderHeight = 10
@@ -35,7 +35,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.title = "订单详情"
         self.tableView.delegate = self
         self.view.addSubview(tableView)
@@ -73,7 +73,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             }
         }
     }
-        
+    
     func setupPayBack() {
         let bk = UIView(frame: CGRect(x: 0, y: self.view.frame.height - 50, width: self.view.frame.width, height: 50))
         bk.backgroundColor = UIColor.white
@@ -135,16 +135,16 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             return
         }
         MBProgressHUD.show()
-//        var cartIds = carModels!.reduce("", { (r, m) -> String in
-//            return r + "\(m.fId),"
-//        })
-//        cartIds = cartIds.substring(to: cartIds.index(cartIds.endIndex, offsetBy: -1))
+        //        var cartIds = carModels!.reduce("", { (r, m) -> String in
+        //            return r + "\(m.fId),"
+        //        })
+        //        cartIds = cartIds.substring(to: cartIds.index(cartIds.endIndex, offsetBy: -1))
         
         let params = ["method":"apiCreateOrder", "isUseIntegral":isUseIntegral, "useIntegral":self.fIntegral, "address":addressModel.fAddress, "addressname":addressModel.fName, "phone":addressModel.fPhone, "addressID":addressModel.fAddressid] as [String : Any]
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             MBProgressHUD.hideHUD()
             bm.whenSuccess {
-                let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: PayWayVC.self) as! PayWayVC
+                let vc = Tools.getClassFromStorybord(sbName: .mine, clazz: PayWayVC.self)
                 vc.preOrderModel = self.perOrder
                 vc.useIntegral = self.useIntegral
                 vc.fIntegral = self.fIntegral
@@ -166,7 +166,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
         let freight = CustomTableViewCellItem().build(text: "运费").build(detailText: "¥0").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
         
         let discount = CustomTableViewCellItem().build(text: "优惠及折扣").build(detailText: "¥0").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
-    
+        
         var arr = [CarModel]()
         if let models = carModels {
             arr = models.map({ (model) -> CarModel in
@@ -190,24 +190,25 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 let carModel = CarModel()
                 carModel.build(cellClass: OrerListCell.self).build(heightForRow: 118)
                 //模型是从上个tableView传过来的，所以不要影响原来的数据
-//                carModel.fId = model.fGoodsid
+                //                carModel.fId = model.fGoodsid
                 carModel.fCount = model.fCount
-                carModel.fSalesprice = model.fExpayamount
+                carModel.fSalesprice = model.fUnitprice
                 carModel.fGoodsname = model.fGoodsname
                 carModel.fGoodimg = model.fUrl
                 carModel.fExstring = model.fSpecifications
                 carModel.fGoodsid = model.fGoodsid
                 carModel.fPromotionid = order.fPromotionid
+//                carModel.fPromotionprice = model.
                 
                 price += model.fExpayamount
                 return carModel
             })
-            total.detailText = String(format: "￥%.2f", price + order.fPaidfreight)
+            total.detailText = String(format: "￥%.2f", price)
             freight.detailText = String(format: "￥%.2f", order.fPaidfreight)
             discount.detailText = String(format: "￥%.2f", order.fConcessions)
             self.fIntegral = order.fIntegral
             self.fIntegralamount = order.fIntegralamount
-            self.totalPriceLabel.text = "¥\(order.fSaleamount.moneyValue())"
+            self.totalPriceLabel.text = "¥\((order.fSaleamount + order.fPaidfreight + order.fConcessions).moneyValue())"
         }
         
         if let ad = AddressModel.defaultAddress {
@@ -233,9 +234,9 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
         customCell.model = model
         
         if let cell = cell as? OrerListCell {
-//            cell.titleLabel.snp.updateConstraints({ (make) in
-//                make.top.equalTo(30)
-//            })
+            //            cell.titleLabel.snp.updateConstraints({ (make) in
+            //                make.top.equalTo(30)
+            //            })
             cell.logisticsBtn.isHidden = true
             cell.reciveBtn.isHidden = true
         } else if let cell = cell as? RightTitleCell, model.text == "使用积分抵扣" {
@@ -276,20 +277,20 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             }
             self.navigationController?.pushViewController(vc, animated: true)
         } else if indexPath.section == 2 {
-//            let vc = UseIntegralVCViewController()
-//            vc.submitAction = { [unowned self] num in
-//                self.integral = num
-//                self.tableView.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .automatic)
-//            }
-//            self.navigationController?.pushViewController(vc, animated: true)
+            //            let vc = UseIntegralVCViewController()
+            //            vc.submitAction = { [unowned self] num in
+            //                self.integral = num
+            //                self.tableView.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .automatic)
+            //            }
+            //            self.navigationController?.pushViewController(vc, animated: true)
             useIntegral = !useIntegral
             self.tableView.reloadRows(at: [indexPath], with: .automatic)
             var price = 0.0
             
             if let order = orderModel {
-                price = order.fSaleamount + (useIntegral ? order.fIntegralamount : 0)
+                price = order.fSaleamount + (useIntegral ? order.fIntegralamount : 0) + order.fPaidfreight + order.fConcessions
             } else {
-                price = perOrder.payAmount + (useIntegral ? perOrder.integralAmount : 0)
+                price = perOrder.payAmount + (useIntegral ? perOrder.integralAmount : 0) + perOrder.deDuction + perOrder.payFreight
             }
             
             self.totalPriceLabel.text = "¥\(price.moneyValue())"
@@ -319,3 +320,4 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
     }
     
 }
+

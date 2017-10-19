@@ -14,6 +14,7 @@
 		141DCCCF1F493BA700C88EDC /* FirstADSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141DCCCD1F493BA700C88EDC /* FirstADSectionHeader.xib */; };
 		142F0C631F93543C0084A6CB /* OrderNumbercell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142F0C611F93543C0084A6CB /* OrderNumbercell.swift */; };
 		142F0C641F93543C0084A6CB /* OrderNumbercell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 142F0C621F93543C0084A6CB /* OrderNumbercell.xib */; };
+		143581EC1F98F07100178F11 /* PwdRouteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143581EA1F98F07100178F11 /* PwdRouteVC.swift */; };
 		148696961F8A5BE70021C74A /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1486967A1F8A5BE70021C74A /* NSBundle+TZImagePicker.m */; };
 		148696971F8A5BE70021C74A /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1486967C1F8A5BE70021C74A /* TZAssetCell.m */; };
 		148696981F8A5BE70021C74A /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1486967E1F8A5BE70021C74A /* TZAssetModel.m */; };
@@ -268,6 +269,8 @@
 		141DCCCD1F493BA700C88EDC /* FirstADSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstADSectionHeader.xib; sourceTree = "<group>"; };
 		142F0C611F93543C0084A6CB /* OrderNumbercell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderNumbercell.swift; sourceTree = "<group>"; };
 		142F0C621F93543C0084A6CB /* OrderNumbercell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderNumbercell.xib; sourceTree = "<group>"; };
+		143581EA1F98F07100178F11 /* PwdRouteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdRouteVC.swift; sourceTree = "<group>"; };
+		143581EB1F98F07100178F11 /* PwdRouteVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PwdRouteVC.xib; sourceTree = "<group>"; };
 		148696791F8A5BE70021C74A /* NSBundle+TZImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TZImagePicker.h"; sourceTree = "<group>"; };
 		1486967A1F8A5BE70021C74A /* NSBundle+TZImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+TZImagePicker.m"; sourceTree = "<group>"; };
 		1486967B1F8A5BE70021C74A /* TZAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetCell.h; sourceTree = "<group>"; };
@@ -765,6 +768,8 @@
 				96610A6C1ED67AB400C117D6 /* ForgetPwdVC.swift */,
 				96610A681ED667F100C117D6 /* RegisterVC.swift */,
 				141DCCCA1F4827E100C88EDC /* QuestionVC.swift */,
+				143581EA1F98F07100178F11 /* PwdRouteVC.swift */,
+				143581EB1F98F07100178F11 /* PwdRouteVC.xib */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -1882,6 +1887,7 @@
 				968D03711EEA971100DE32F9 /* RSADataSigner.m in Sources */,
 				9643A8331F10C41C009A5AC0 /* CarModel.swift in Sources */,
 				96606D981F0CCC2800229F80 /* CategoryModel.swift in Sources */,
+				143581EC1F98F07100178F11 /* PwdRouteVC.swift in Sources */,
 				967187D11EDEA92000DDD61B /* CustomerServicesVC.swift in Sources */,
 				96610A7B1ED814CF00C117D6 /* MineTableViewCell.swift in Sources */,
 				96610A5C1ED5664500C117D6 /* ModelParser.swift in Sources */,
