@@ -5,12 +5,13 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutVC" customModule="Shopping_W" customModuleProvider="target">
             <connections>
+                <outlet property="textVieiw" destination="9MJ-7h-1hQ" id="68F-vw-aEs"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,15 +20,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="9MJ-7h-1hQ">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9MJ-7h-1hQ">
                     <rect key="frame" x="30" y="184.5" width="259.5" height="200"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="200" id="xQv-tc-SEW"/>
                     </constraints>
-                    <string key="text">
-     重整网是由天津市博晟泽科技发展有限公司为重整集团股份有限公司定制的一款(F2C,C2I,O2P)购物平台。
-     重整购物平台是一款集母婴玩具、办公文娱、五金化工、本地服务、美食生鲜、家电数码、日用家居、个人护理、服务饰品、户外运动于一体的购物软件。价格实惠，品种齐全。您可以在重整网中尽情享受购物过程，体验不一样的购物！</string>
+                    <string key="text">      重整网是由天津市博晟泽科技发展有限公司为重整集团股份有限公司定制的一款(F2C,C2I,O2P)购物平台。
+    重整购物平台是一款集母婴玩具、办公文娱、五金化工、本地服务、美食生鲜、家电数码、日用家居、个人护理、服务饰品、户外运动于一体的购物软件。价格实惠，品种齐全。您可以在重整网中尽情享受购物过程，体验不一样的购物！</string>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
