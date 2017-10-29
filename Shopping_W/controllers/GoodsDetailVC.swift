@@ -380,7 +380,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         var max = min
         var maxCount = models[0].fStock
         
-        if type == .normal || typeNumber == 6 {
+        if type == .normal || [3, 4, 5, 6].contains(typeNumber) {
             for m in models {
                 min = m.fSalesprice < min ? m.fSalesprice : min
                 max = m.fSalesprice > max ? m.fSalesprice : max

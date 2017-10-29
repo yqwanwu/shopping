@@ -77,12 +77,15 @@ class OrerListCell: CustomTableViewCell {
                 let ex = m.orderEx.first!
                 self.imgView.sd_setImage(with: URL.encodeUrl(string: ex.fUrl))
                 self.titleLabel.text = ex.fGoodsname
-                self.priceLabel.text = (ex.fUnitprice).moneyValue()
-                self.countLabel.text = "\(ex.fSpecifications)  x\(ex.fCount)"
+                self.priceLabel.text = (m.fSaleamount + m.fFreight + m.fConcessions + m.fDeduction + m.fIntegralamount).moneyValue()
+//                self.countLabel.text = "\(ex.fSpecifications)  x\(ex.fCount)"
             } else if let m = model as? CarModel {
                 self.imgView.sd_setImage(with: URL.encodeUrl(string: m.fGoodimg))
                 self.titleLabel.text = m.fGoodsname
                 self.priceLabel.text = m.fSalesprice.moneyValue()
+                if m.fState == 1 || m.fState == 2 {
+                    self.priceLabel.text = m.fPromotionprice.moneyValue()
+                }
                 self.countLabel.text = "\(m.fExstring)  x\(m.fCount)"
                 customLabel.isHidden = false
                 

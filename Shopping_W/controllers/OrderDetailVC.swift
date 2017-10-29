@@ -57,7 +57,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 bm.whenSuccess {
                     let model = bm.t!
                     self.perOrder = model
-                    let total = CustomTableViewCellItem().build(text: "总价").build(detailText: "¥\(model.payAmount.moneyValue())").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
+                    let total = CustomTableViewCellItem().build(text: "总价").build(detailText: "¥\(model.saleAmount.moneyValue())").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
                     //运费
                     let freight = CustomTableViewCellItem().build(text: "运费").build(detailText: "¥\(model.payFreight.moneyValue())").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
                     
@@ -68,7 +68,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                     self.tableView.dataArray[3][0] = total
                     self.tableView.dataArray[3][1] = freight
                     self.tableView.dataArray[4][0] = discount
-                    self.tableView.reloadRows(at: [IndexPath(row: 0, section: 3), IndexPath(row: 1, section: 3), IndexPath(row: 0, section: 4)], with: .automatic)
+                    self.tableView.reloadRows(at: [IndexPath(row: 0, section: 3), IndexPath(row: 1, section: 3), IndexPath(row: 2, section: 2), IndexPath(row: 0, section: 4)], with: .automatic)
                 }
             }
         }
