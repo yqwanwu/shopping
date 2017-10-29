@@ -31,7 +31,7 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        totalPriceLabel.text = totalPrice != "" ? totalPrice : orderModel.fSaleamount.moneyValue()
+        totalPriceLabel.text = totalPrice != "" ? totalPrice : (orderModel.fSaleamount + orderModel.fIntegralamount + orderModel.fPaidfreight + orderModel.fConcessions).moneyValue()
 
         tableView.delegate = self
         tableView.dataSource = self

@@ -17,6 +17,9 @@ class NetworkManager: NSObject {
     static let SERBERURL = "http://www.cz928.com:8088/api"
     static let BASESERVER = "http://www.cz928.com:8088"
     
+//    static let SERBERURL = "http://10.1.11.221:8089/api"
+//    static let BASESERVER = "http://10.1.11.221:8089"
+    
     static let REQUEST_ERROR = "请求失败"
     
 //    static let SERBERURL = "http://192.168.0.102:8080/tjgy/api"
@@ -239,7 +242,7 @@ extension NetworkManager {
                         let pageInfo = json["pageInfo"]
                         let pModel = PageInfo<T>()
                         pModel.pageNum = pageInfo["pageNum"].intValue
-                        pModel.pageSize = pageInfo["pageNum"].intValue
+                        pModel.pageSize = pageInfo["pageSize"].intValue
                         pModel.total = pageInfo["total"].intValue
                         pModel.pages = pageInfo["pages"].intValue
                         pModel.hasPreviousPage = pageInfo["hasPreviousPage"].boolValue

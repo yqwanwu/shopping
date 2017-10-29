@@ -67,9 +67,9 @@ class FirstGoodsCell: UICollectionViewCell {
                 case 6:
                     tagBtn.isHidden = false
                     tagBtn.setTitle("\(m.fDiscount)折", for: .normal)
-                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
-                    oldPriceLabel.attributedText = attrStr
-                    priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
+//                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+//                    oldPriceLabel.attributedText = attrStr
+                    priceLabel.text = "¥\(m.fSalesprice.moneyValue())"
                 default:
                     break
                 }

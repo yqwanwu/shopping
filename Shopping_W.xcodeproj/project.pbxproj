@@ -34,6 +34,7 @@
 		148696AA1F8A5C930021C74A /* TZTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 148696A81F8A5C930021C74A /* TZTestCell.m */; };
 		148696AF1F8A608B0021C74A /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148696AD1F8A608B0021C74A /* AboutVC.swift */; };
 		148696B01F8A608B0021C74A /* AboutVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 148696AE1F8A608B0021C74A /* AboutVC.xib */; };
+		1492A5591FA5B91D00C2EC9A /* PwdRouteVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1492A5581FA5B91D00C2EC9A /* PwdRouteVC.storyboard */; };
 		149ED99D1F88FA05008C64FE /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149ED99C1F88FA04008C64FE /* WelcomeVC.swift */; };
 		149ED99F1F8916F4008C64FE /* HelpsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149ED99E1F8916F4008C64FE /* HelpsModel.swift */; };
 		14A85B251F58469000A2B5F1 /* MyMsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A85B241F58469000A2B5F1 /* MyMsgVC.swift */; };
@@ -270,7 +271,6 @@
 		142F0C611F93543C0084A6CB /* OrderNumbercell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderNumbercell.swift; sourceTree = "<group>"; };
 		142F0C621F93543C0084A6CB /* OrderNumbercell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderNumbercell.xib; sourceTree = "<group>"; };
 		143581EA1F98F07100178F11 /* PwdRouteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdRouteVC.swift; sourceTree = "<group>"; };
-		143581EB1F98F07100178F11 /* PwdRouteVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PwdRouteVC.xib; sourceTree = "<group>"; };
 		148696791F8A5BE70021C74A /* NSBundle+TZImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TZImagePicker.h"; sourceTree = "<group>"; };
 		1486967A1F8A5BE70021C74A /* NSBundle+TZImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+TZImagePicker.m"; sourceTree = "<group>"; };
 		1486967B1F8A5BE70021C74A /* TZAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetCell.h; sourceTree = "<group>"; };
@@ -306,6 +306,7 @@
 		148696A81F8A5C930021C74A /* TZTestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZTestCell.m; sourceTree = "<group>"; };
 		148696AD1F8A608B0021C74A /* AboutVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		148696AE1F8A608B0021C74A /* AboutVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutVC.xib; sourceTree = "<group>"; };
+		1492A5581FA5B91D00C2EC9A /* PwdRouteVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PwdRouteVC.storyboard; sourceTree = "<group>"; };
 		149ED99C1F88FA04008C64FE /* WelcomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		149ED99E1F8916F4008C64FE /* HelpsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpsModel.swift; sourceTree = "<group>"; };
 		14A85B241F58469000A2B5F1 /* MyMsgVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMsgVC.swift; sourceTree = "<group>"; };
@@ -769,7 +770,7 @@
 				96610A681ED667F100C117D6 /* RegisterVC.swift */,
 				141DCCCA1F4827E100C88EDC /* QuestionVC.swift */,
 				143581EA1F98F07100178F11 /* PwdRouteVC.swift */,
-				143581EB1F98F07100178F11 /* PwdRouteVC.xib */,
+				1492A5581FA5B91D00C2EC9A /* PwdRouteVC.storyboard */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -1692,6 +1693,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				968D00D01EEA794000DE32F9 /* AlibabaAuthSDK.bundle in Resources */,
+				1492A5591FA5B91D00C2EC9A /* PwdRouteVC.storyboard in Resources */,
 				968D02E01EEA8E6200DE32F9 /* AlipaySDK.bundle in Resources */,
 				9674E2AC1EE527670004D9EE /* Address_reciveCell.xib in Resources */,
 				968D03001EEA930A00DE32F9 /* README.txt in Resources */,

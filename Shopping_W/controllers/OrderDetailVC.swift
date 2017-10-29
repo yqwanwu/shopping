@@ -40,7 +40,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
         self.tableView.delegate = self
         self.view.addSubview(tableView)
         
-        if showPayBtn {
+        if showPayBtn && carModels != nil {
             tableView.frame.size.height -= 51
             setupPayBack()
         }
@@ -244,12 +244,30 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             cell.selectBtn.isHidden = false
             cell.letftCons.constant = 25
             cell.leftLabel.font = UIFont.boldSystemFont(ofSize: 15)
-            let htmlStr = CustomValue.htmlHeader + "<p style='float: right;'>" +
+            
+            if self.carModels == nil {
+                cell.selectBtn.isHidden = true
+                cell.letftCons.constant = 0
+            }
+            
+            //现有积分，可用积分
+            var htmlStr = CustomValue.htmlHeader + "<p style='float: right;'>" +
                 "<span style='color: black'>积分</span>" +
                 "<span style='color: red'>\(fIntegral) </span>" +
                 "<span style='color: black'>抵扣</span>" +
                 "<span style='color: red'>¥\((abs(fIntegralamount)).moneyValue())</span>" +
                 "</p>" + CustomValue.htmlFooter
+            if perOrder.IDS != "" {
+             htmlStr = CustomValue.htmlHeader + "<p style='float: right;'>" +
+                    "<span style='color: black'>现有积分</span>" +
+                    "<span style='color: red'>\(perOrder.userIntegral) </span>" +
+                    "<span style='color: black'>可用积分</span>" +
+                    "<span style='color: red'>\(perOrder.canUseIntegral) </span>" +
+                    "<span style='color: black'>抵扣</span>" +
+                    "<span style='color: red'>¥\((abs(fIntegralamount)).moneyValue())</span>" +
+                    "</p>" + CustomValue.htmlFooter
+            }
+         
             let htmlData = htmlStr.data(using: .utf8)
             
             let htmlattr = try! NSMutableAttributedString(data: htmlData!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
@@ -264,10 +282,10 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 0 {
-            if orderModel == nil {
-                return
-            }
-            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ReviceAddressVC.self) as! ReviceAddressVC
+//            if orderModel == nil {
+//                return
+//            }
+            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: ReviceAddressVC.self)
             vc.selectedAction = { [unowned self] model in
                 self.tableView.dataArray[0][0] = model
                 model.build(cellClass: Address_reciveCell.self)

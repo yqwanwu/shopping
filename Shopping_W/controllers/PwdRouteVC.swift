@@ -44,7 +44,9 @@ class PwdRouteVC: BaseViewController {
         }
         title = "找回密码"
     }
-
+    
+    
+    
     @IBAction func ac_phone(_ sender: UIButton) {
         phoneBtn.isSelected = false
         questionBtn.isSelected = false
@@ -71,7 +73,7 @@ class PwdRouteVC: BaseViewController {
                 MBProgressHUD.hideHUD(forView: self.view)
                 bm.whenSuccess {
                     self.model = bm.t!
-                    let vc = PwdRouteVC()
+                    let vc = UIStoryboard(name: "PwdRouteVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "PwdRouteVC") as! PwdRouteVC
                     vc.canEnterUserName = false
                     vc.isShowSelectBtn = true
                     vc.model = self.model

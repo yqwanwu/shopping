@@ -115,6 +115,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         addCookie()
     }
     
+    var typeNumber = 0
     func setupUI(model: GoodsDetailModel) {
         self.detailModel = model
         self.carouselView.reloadData()
@@ -129,8 +130,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         evaluateCountLabel.text = "\(model.fFivestarperc)%的用户选择了好评"
         
         self.title = model.fGoodsname
-        
-        switch self.type == .normal ? model.fPromotiontype : model.fType {
+        typeNumber = self.type == .normal ? model.fPromotiontype : model.fType
+        switch typeNumber {
         case 1:
             self.type = .group
         case 2:
@@ -219,8 +220,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         } else if type == .group { // 团购
             groupH = 73
             
-            self.groupNUmber.text = "总数量\(detailModel.fPromotioncount)"
-            self.groupLaseTime.text = "剩余时间：" + self.getLasttime()
+            self.groupNUmber.text = "总数量：\(detailModel.fPromotioncount)"
+            self.groupLaseTime.text = "剩余数量：" + self.getLasttime()
             self.groupStartTime.text = "开始时间：" + ((self.detailModel.fStarttime.components(separatedBy: " ").first) ?? "")
             self.groupEndTime.text = "结束时间：" + ((self.detailModel.fEndtime.components(separatedBy: " ").first) ?? "")
         }
@@ -379,7 +380,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         var max = min
         var maxCount = models[0].fStock
         
-        if type == .normal {
+        if type == .normal || typeNumber == 6 {
             for m in models {
                 min = m.fSalesprice < min ? m.fSalesprice : min
                 max = m.fSalesprice > max ? m.fSalesprice : max

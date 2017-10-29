@@ -99,7 +99,9 @@ class LoginVC: BaseViewController {
     }
     
     @IBAction func ac_pwd(_ sender: Any) {
-        let vc = PwdRouteVC()
+        let vc = UIStoryboard(name: "PwdRouteVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "PwdRouteVC")
+//         = PwdRouteVC()
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

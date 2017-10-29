@@ -50,11 +50,11 @@ class ForgetPwdVC: BaseViewController {
     var selectedQuestions = [PwdQuestion(), PwdQuestion(), PwdQuestion()]
     var showOnlyOne = false
     
-    let c = PwdQuestion().build(text: "密保问题1: 请选择").build(accessoryType: .disclosureIndicator)
+    let c = PwdQuestion().build(text: "密保问题1: 请选择")
     let c1 = PwdQuestion().build(text: "密保问题1:").build(detailText: "")
-    let c2 = PwdQuestion().build(text: "密保问题2: 请选择").build(accessoryType: .disclosureIndicator)
+    let c2 = PwdQuestion().build(text: "密保问题2: 请选择")
     let c3 = PwdQuestion().build(text: "密保问题2:").build(detailText: "")
-    let c4 = PwdQuestion().build(text: "密保问题3: 请选择").build(accessoryType: .disclosureIndicator)
+    let c4 = PwdQuestion().build(text: "密保问题3: 请选择")
     let c5 = PwdQuestion().build(text: "密保问题3:").build(detailText: "")
     
     override func viewDidLoad() {
@@ -178,6 +178,7 @@ class ForgetPwdVC: BaseViewController {
             c.build(cellClass: PwdQuestionTableViewCell.self).build(heightForRow: 50).build(isFromStoryBord: true)
             
             if c.detailText == nil && isFirstSave {
+                c.build(accessoryType: .disclosureIndicator)
                 c.setupCellAction({ [unowned self] (idx) in
                     let vc = QuestionVC()
                     vc.models = self.quetions.filter({ (q) -> Bool in
@@ -247,6 +248,7 @@ class ForgetPwdVC: BaseViewController {
                     p.fAnswer1 = self.selectedQuestions[0].fQuestionid
                     p.fAnswer2 = self.selectedQuestions[1].fQuestionid
                     p.fAnswer3 = self.selectedQuestions[2].fQuestionid
+                    p.saveData()
                 }
                 for vc in (self.navigationController?.viewControllers)! {
                     if vc is SafeCenterVC {

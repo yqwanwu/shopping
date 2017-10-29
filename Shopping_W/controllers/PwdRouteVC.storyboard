@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Pwd RouteVC-->
+        <scene sceneID="Un9-aD-Ntd">
+            <objects>
+                <viewController storyboardIdentifier="PwdRouteVC" id="8Sq-zd-8Rn" customClass="PwdRouteVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SX0-pd-E2G">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAE-2e-i6r">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mlJ-Ay-Dr7">
+                                        <rect key="frame" x="30" y="35" width="315" height="45"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="手机" translatesAutoresizingMaskIntoConstraints="NO" id="idf-h1-P31">
+                                                <rect key="frame" x="14" y="13" width="13" height="18"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="18" id="4tT-e5-jhS"/>
+                                                    <constraint firstAttribute="width" constant="13" id="G6q-JK-NYI"/>
+                                                </constraints>
+                                            </imageView>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码或会员名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LqN-oZ-Gd9" customClass="CheckTextFiled" customModule="Shopping_W" customModuleProvider="target">
+                                                <rect key="frame" x="35" y="8" width="288" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="nrf-eg-aZr"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="idf-h1-P31" firstAttribute="centerY" secondItem="mlJ-Ay-Dr7" secondAttribute="centerY" id="3rB-4A-aaT"/>
+                                            <constraint firstItem="idf-h1-P31" firstAttribute="leading" secondItem="mlJ-Ay-Dr7" secondAttribute="leading" constant="14" id="C82-IU-qHJ"/>
+                                            <constraint firstItem="LqN-oZ-Gd9" firstAttribute="leading" secondItem="idf-h1-P31" secondAttribute="trailing" constant="8" id="EI4-ch-Yi5"/>
+                                            <constraint firstItem="LqN-oZ-Gd9" firstAttribute="centerY" secondItem="mlJ-Ay-Dr7" secondAttribute="centerY" id="RL4-2o-NmJ"/>
+                                            <constraint firstAttribute="height" constant="45" id="YSS-U6-ykN"/>
+                                            <constraint firstAttribute="trailing" secondItem="LqN-oZ-Gd9" secondAttribute="trailing" constant="-8" id="xHj-rx-Ky1"/>
+                                        </constraints>
+                                    </view>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Hr-Xy-xEf">
+                                        <rect key="frame" x="30" y="88" width="315" height="40"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kRe-DE-Fvi">
+                                                <rect key="frame" x="0.0" y="0.0" width="315" height="40"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LkF-1E-R1m">
+                                                        <rect key="frame" x="0.0" y="0.0" width="157.5" height="40"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="11" maxY="0.0"/>
+                                                        <state key="normal" title="手机号码找回" image="o">
+                                                            <color key="titleColor" red="0.2274509804" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <state key="selected" image="v"/>
+                                                        <connections>
+                                                            <action selector="ac_phone:" destination="8Sq-zd-8Rn" eventType="touchUpInside" id="wkd-iE-NKn"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oM9-X5-VIE">
+                                                        <rect key="frame" x="157.5" y="0.0" width="157.5" height="40"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="11" maxY="0.0"/>
+                                                        <state key="normal" title="密保问题找回" image="o">
+                                                            <color key="titleColor" red="0.2274509804" green="0.2274509804" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <state key="selected" image="v"/>
+                                                        <connections>
+                                                            <action selector="ac_phone:" destination="8Sq-zd-8Rn" eventType="touchUpInside" id="m0A-Xz-egr"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="kRe-DE-Fvi" firstAttribute="top" secondItem="7Hr-Xy-xEf" secondAttribute="top" id="4WG-cJ-hVz"/>
+                                            <constraint firstAttribute="trailing" secondItem="kRe-DE-Fvi" secondAttribute="trailing" id="Ed5-7i-jee"/>
+                                            <constraint firstAttribute="bottom" secondItem="kRe-DE-Fvi" secondAttribute="bottom" id="UaX-Jr-1ex"/>
+                                            <constraint firstAttribute="height" constant="40" id="Ws7-zW-35v"/>
+                                            <constraint firstItem="kRe-DE-Fvi" firstAttribute="leading" secondItem="7Hr-Xy-xEf" secondAttribute="leading" id="lQc-By-xen"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8d-TE-hCp">
+                                        <rect key="frame" x="30" y="154" width="315" height="40"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.20000000000000001" blue="0.21960784310000001" alpha="1" colorSpace="deviceRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Y02-Qv-WFz"/>
+                                        </constraints>
+                                        <state key="normal" title="下一步">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="ac_next:" destination="8Sq-zd-8Rn" eventType="touchUpInside" id="1EZ-ls-pME"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="7Hr-Xy-xEf" firstAttribute="top" secondItem="mlJ-Ay-Dr7" secondAttribute="bottom" constant="8" id="AtH-KB-0Wv"/>
+                                    <constraint firstItem="mlJ-Ay-Dr7" firstAttribute="leading" secondItem="2To-Py-gvA" secondAttribute="leading" constant="30" id="BwX-9R-Mpv"/>
+                                    <constraint firstItem="7Hr-Xy-xEf" firstAttribute="leading" secondItem="2To-Py-gvA" secondAttribute="leading" constant="30" id="HJh-4V-Bbl"/>
+                                    <constraint firstItem="mlJ-Ay-Dr7" firstAttribute="top" secondItem="2To-Py-gvA" secondAttribute="top" constant="35" id="Vik-2T-J92"/>
+                                    <constraint firstItem="2To-Py-gvA" firstAttribute="trailing" secondItem="mlJ-Ay-Dr7" secondAttribute="trailing" constant="30" id="XMl-7Y-YLj"/>
+                                    <constraint firstItem="v8d-TE-hCp" firstAttribute="leading" secondItem="2To-Py-gvA" secondAttribute="leading" constant="30" id="bdN-d2-3Lx"/>
+                                    <constraint firstItem="2To-Py-gvA" firstAttribute="trailing" secondItem="v8d-TE-hCp" secondAttribute="trailing" constant="30" id="jGO-er-vuw"/>
+                                    <constraint firstItem="v8d-TE-hCp" firstAttribute="top" secondItem="7Hr-Xy-xEf" secondAttribute="bottom" constant="26" id="jWo-w9-ZTN"/>
+                                    <constraint firstItem="2To-Py-gvA" firstAttribute="trailing" secondItem="7Hr-Xy-xEf" secondAttribute="trailing" constant="30" id="zaN-gh-Tam"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="2To-Py-gvA"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="XAE-2e-i6r" firstAttribute="trailing" secondItem="Wj6-cF-rPV" secondAttribute="trailing" id="FBg-Xm-9Nt"/>
+                            <constraint firstItem="XAE-2e-i6r" firstAttribute="bottom" secondItem="Wj6-cF-rPV" secondAttribute="bottom" id="IKt-gP-Tx1"/>
+                            <constraint firstItem="XAE-2e-i6r" firstAttribute="leading" secondItem="Wj6-cF-rPV" secondAttribute="leading" id="hSk-Zw-Qab"/>
+                            <constraint firstItem="XAE-2e-i6r" firstAttribute="top" secondItem="Wj6-cF-rPV" secondAttribute="top" id="w3D-aD-kNy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Wj6-cF-rPV"/>
+                    </view>
+                    <connections>
+                        <outlet property="bkHeight" destination="Ws7-zW-35v" id="wBt-NY-hAC"/>
+                        <outlet property="nextBtn" destination="v8d-TE-hCp" id="Xvh-8V-sbK"/>
+                        <outlet property="phoneBtn" destination="LkF-1E-R1m" id="YSq-uy-r2C"/>
+                        <outlet property="questionBtn" destination="oM9-X5-VIE" id="2DY-ww-xDN"/>
+                        <outlet property="userNameTF" destination="LqN-oZ-Gd9" id="QqP-rc-sWH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WDh-Qd-x0i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53.600000000000001" y="185.75712143928038"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="o" width="18" height="18"/>
+        <image name="v" width="18" height="18"/>
+        <image name="手机" width="13" height="18"/>
+    </resources>
+</document>

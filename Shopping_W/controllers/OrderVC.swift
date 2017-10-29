@@ -140,9 +140,9 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
             var state = "0"
             switch si {
             case 0:
-                state = "0,1,2,3,4,5"
+                state = ""
             case 2:
-                state = "1,2"
+                state = "2"
             case 3:
                 state = "3"
             case 4:
@@ -157,11 +157,6 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                 tableView.endFooterRefresh()
                 tableView.endHeaderRefresh()
                 bm.whenSuccess {
-                    if !bm.pageInfo!.hasNextPage {
-                        tableView.noMoreData()
-                    } else {
-                        tableView.currentPage += 1
-                    }
                     let arr = bm.pageInfo!.list!.map({ (c) -> OrderModel in
                         
                         var type = OrderType.pay
@@ -207,11 +202,18 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                     if tableView.currentPage == 1 {
                         tableView.dataArray = [arr]
                     } else {
-                        var oldArr = tableView.dataArray[0] as! [OrderModel]
-                        oldArr.append(contentsOf: arr)
-                        tableView.dataArray = [oldArr]
+                        if !tableView.dataArray.isEmpty {
+                            var oldArr = tableView.dataArray[0] as! [OrderModel]
+                            oldArr.append(contentsOf: arr)
+                            tableView.dataArray = [oldArr]
+                        }
+                        
                     }
-                    
+                    if !bm.pageInfo!.hasNextPage {
+                        tableView.noMoreData()
+                    } else {
+                        tableView.currentPage += 1
+                    }
                     tableView.reloadData()
                 }
                 
