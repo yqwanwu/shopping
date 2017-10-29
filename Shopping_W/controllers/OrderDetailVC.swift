@@ -68,7 +68,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                     self.tableView.dataArray[3][0] = total
                     self.tableView.dataArray[3][1] = freight
                     self.tableView.dataArray[4][0] = discount
-                    self.tableView.reloadRows(at: [IndexPath(row: 0, section: 3), IndexPath(row: 1, section: 3), IndexPath(row: 2, section: 2), IndexPath(row: 0, section: 4)], with: .automatic)
+                    self.tableView.reloadRows(at: [IndexPath(row: 0, section: 3), IndexPath(row: 1, section: 3), IndexPath(row: 0, section: 2), IndexPath(row: 0, section: 4)], with: .automatic)
                 }
             }
         }
