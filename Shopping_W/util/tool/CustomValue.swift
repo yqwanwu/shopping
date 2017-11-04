@@ -39,10 +39,10 @@ struct CustomValue {
     
     static let wxAppId = "wx94b9bb36958e7720"
     static let wxAppSecret = "3baf1193c85774b3fd9d18447d76cab0"
-    static let qqAppId = "100424468"//41dacaaf
-    static let qqAppSecret = "c7394704798a158208a74ab60104f0ba"
-    static let sinaAppId = "3921700954"
-    static let sinaAppSecret = "04b48b094faeb16683c32669824ebdad"
+    static let qqAppId = "1106253933"//41dacaaf
+    static let qqAppSecret = "FnoksVfSfa5JUkRo"
+    static let sinaAppId = "1640780760"
+    static let sinaAppSecret = "c0b48dbad62e2ef3d2ed96e75ba0a6f2"
         
     static func validatePhone(phone: String?) -> Bool {
         if Tools.stringIsNotBlank(text: phone) {

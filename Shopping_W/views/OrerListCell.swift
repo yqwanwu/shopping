@@ -83,20 +83,46 @@ class OrerListCell: CustomTableViewCell {
                 self.imgView.sd_setImage(with: URL.encodeUrl(string: m.fGoodimg))
                 self.titleLabel.text = m.fGoodsname
                 self.priceLabel.text = m.fSalesprice.moneyValue()
+                customLabel.isHidden = false
+                switch m.fType {
+                case 1:
+                    self.countLabel.text = "团购"
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                    customLabel.attributedText = attrStr
+                    priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
+                case 2:
+                    priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
+                    self.customLabel.text = "秒杀"
+                case 3:
+                    customLabel.text = "满\(Int(m.fPrice))-\(Int(m.fDeduction))"
+                case 4:
+                    customLabel.text = "赠"
+                case 5:
+                    customLabel.text = "\(m.fMIntegral)倍积分"
+                    
+                case 6:
+                    customLabel.text = "\(m.fDiscount)折"
+                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+                    //                    oldPriceLabel.attributedText = attrStr
+                    priceLabel.text = "¥\(m.fSalesprice.moneyValue())"
+                default:
+                    break
+                }
+                
                 if m.fState == 1 || m.fState == 2 {
                     self.priceLabel.text = m.fPromotionprice.moneyValue()
                 }
                 self.countLabel.text = "\(m.fExstring)  x\(m.fCount)"
                 customLabel.isHidden = false
                 
-                let htmlStr = CustomValue.htmlHeader + "<p>" +
-                    "<span style='color: black'>可用</span>" +
-                    "<span style='color: red'>\(Int(m.fIntegral))</span>" +
-                    "<span style='color: black'>积分</span>" +
-                    "</p>" + CustomValue.htmlFooter
-                let htmlData = htmlStr.data(using: .utf8)
-                let htmlattr = try! NSAttributedString(data: htmlData!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
-                customLabel.attributedText = htmlattr
+//                let htmlStr = CustomValue.htmlHeader + "<p>" +
+//                    "<span style='color: black'>可用</span>" +
+//                    "<span style='color: red'>\(Int(m.fIntegral))</span>" +
+//                    "<span style='color: black'>积分</span>" +
+//                    "</p>" + CustomValue.htmlFooter
+//                let htmlData = htmlStr.data(using: .utf8)
+//                let htmlattr = try! NSAttributedString(data: htmlData!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+//                customLabel.attributedText = htmlattr
             } else if let m = model as? ReturnedModel {
                 //退货状态 null 显示申请换货按钮  0待审核 1待回寄 2待发货\待退款 3待收货 4完成
                 reciveWidth.constant = 100
@@ -138,6 +164,7 @@ class OrerListCell: CustomTableViewCell {
                     customLabel.attributedText = attrStr
                     priceLabel.text = "¥\(m.F_PromotionPrice.moneyValue())"
                 case 2:
+                    priceLabel.text = "¥\(m.F_PromotionPrice.moneyValue())"
                     self.customLabel.text = "秒杀"
                 case 3:
                     customLabel.text = "满\(Int(m.F_Price))-\(Int(m.F_Deduction))"
@@ -150,7 +177,7 @@ class OrerListCell: CustomTableViewCell {
                     customLabel.text = "\(m.F_Discount)折"
                     let attrStr = NSMutableAttributedString(string: "¥" + m.F_salesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
 //                    oldPriceLabel.attributedText = attrStr
-                    priceLabel.text = "¥\(m.F_PromotionPrice.moneyValue())"
+                    priceLabel.text = "¥\(m.F_salesprice.moneyValue())"
                 default:
                     break
                 }

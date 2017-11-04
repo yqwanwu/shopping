@@ -170,6 +170,8 @@ class CarModel: CustomTableViewCellItem {
         }
     }
     
+    
+    
     static func requestList() {
         NetworkManager.requestListModel(params: ["method":"apishopcartlist"]).setSuccessAction { (bm: BaseModel<CarModel>) in
             if let list = bm.list {

@@ -14,8 +14,8 @@ import ObjectMapper
 
 class NetworkManager: NSObject {
     
-    static let SERBERURL = "http://www.cz928.com:8088/api"
-    static let BASESERVER = "http://www.cz928.com:8088"
+    static let SERBERURL = "http://www.cz928.com/api"
+    static let BASESERVER = "http://www.cz928.com"
     
 //    static let SERBERURL = "http://10.1.11.221:8089/api"
 //    static let BASESERVER = "http://10.1.11.221:8089"

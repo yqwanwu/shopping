@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,7 +22,7 @@
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9MJ-7h-1hQ">
                     <rect key="frame" x="30" y="184.5" width="259.5" height="200"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="200" id="xQv-tc-SEW"/>
                     </constraints>
@@ -62,7 +61,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="60" translatesAutoresizingMaskIntoConstraints="NO" id="xDp-eX-Vrg">
-                    <rect key="frame" x="130" y="40" width="60" height="60"/>
+                    <rect key="frame" x="130" y="84.5" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="I6r-gW-pCj"/>
                         <constraint firstAttribute="width" constant="60" id="LNh-69-ooi"/>
@@ -72,11 +71,11 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="9MJ-7h-1hQ" secondAttribute="trailing" constant="30.5" id="AIQ-y6-hoj"/>
-                <constraint firstItem="xDp-eX-Vrg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" constant="20" id="AS0-fa-BZv"/>
                 <constraint firstItem="9MJ-7h-1hQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="FER-oJ-jGh"/>
                 <constraint firstItem="MAy-JU-FWV" firstAttribute="top" secondItem="Sai-we-9k7" secondAttribute="bottom" constant="12" id="GAc-2J-fhU"/>
                 <constraint firstItem="9MJ-7h-1hQ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Oxj-KR-d4K"/>
                 <constraint firstItem="Sai-we-9k7" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PCk-hl-PAF"/>
+                <constraint firstItem="9MJ-7h-1hQ" firstAttribute="top" secondItem="xDp-eX-Vrg" secondAttribute="bottom" constant="40" id="QJk-Yt-u7y"/>
                 <constraint firstItem="xDp-eX-Vrg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Xco-0u-Z9q"/>
                 <constraint firstAttribute="bottom" secondItem="MAy-JU-FWV" secondAttribute="bottom" constant="20" id="hW2-Uh-kc2"/>
                 <constraint firstItem="MAy-JU-FWV" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="oXX-iH-088"/>

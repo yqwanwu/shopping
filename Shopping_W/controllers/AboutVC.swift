@@ -8,12 +8,12 @@
 
 import UIKit
 
-class AboutVC: UIViewController {
+class AboutVC: BaseViewController {
     @IBOutlet weak var textVieiw: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
         self.title = "关于"
         

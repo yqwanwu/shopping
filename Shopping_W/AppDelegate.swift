@@ -54,9 +54,57 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-
+    
+    func searchStr(str: String, regexStr: String) -> String? {
+        do {
+            let regex = try NSRegularExpression(pattern: regexStr, options: [.caseInsensitive])
+            let matches = regex.matches(in: str, options:  NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: str.characters.count))
+            for m in matches {
+                return (str as NSString).substring(with: m.range)
+            }
+        } catch {
+            return nil
+        }
+        return nil
+    }
+    
+    func urlParams(url: String) -> [String: String] {
+        var map = [String: String]()
+        let nsurl: NSString = url as NSString
+        let arr = (nsurl.components(separatedBy: "?").last! as NSString).components(separatedBy: "&")
+        for str in arr {
+            let ps = (str as NSString).components(separatedBy: "=")
+            if ps.count > 1 {
+                map[ps[0]] = ps[1]
+            }
+        }
+        return map
+    }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        let urlStr = url.absoluteString
+        if urlStr.starts(with: "czwios://www.cz928.com/goods") {
+            let s = (searchStr(str: urlStr, regexStr: "(/\\d+\\?)")) ?? ""
+            let id = (s as NSString).substring(with:  NSRange(location: 1, length: s.characters.count - 2))
+            let params = urlParams(url: urlStr)
+            var promotionid = 0
+            
+            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self)
+            
+            if let pid = Int(params["fPromotionid"] ?? "") {
+                promotionid = pid
+                vc.type = .promotions
+            }
+            
+            vc.fRecommender = params["q"]
+            
+            vc.promotionid = promotionid
+            vc.goodsId = Int(id) ?? 0
+            
+            (CustomTabBarVC.instance.selectedViewController as? UINavigationController)?.pushViewController(vc, animated: true)
+            
+            return true
+        }
         
         AlipaySDK.defaultService().processAuthResult(url) { (dic) in
             if let result = dic?["result"] as? String {
@@ -116,4 +164,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
 

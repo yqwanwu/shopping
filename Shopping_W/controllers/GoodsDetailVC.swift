@@ -65,6 +65,8 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     var type = GoodsListVC.ListType.normal
     var currentPage = 1
+    ///他们后面加的,
+    var fRecommender: String?
     
     var detailModel = GoodsDetailModel()
     var goodsId: Int = 0
@@ -84,7 +86,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
         super.viewDidLoad()
         //fdc249
 //        setupCustomBk()
-     
+     self.showCustomBackbtn = true
         starView.sadImg = #imageLiteral(resourceName: "p4.6.1.1-评价-灰.png")
         starView.likeImg = #imageLiteral(resourceName: "p4.6.1.1-评价-红.png")
         starView.margin = 5
@@ -221,7 +223,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             groupH = 73
             
             self.groupNUmber.text = "总数量：\(detailModel.fPromotioncount)"
-            self.groupLaseTime.text = "剩余数量：" + self.getLasttime()
+            self.groupLaseTime.text = "剩余数量：\(detailModel.fPromotioncount - detailModel.fSalescount)"
             self.groupStartTime.text = "开始时间：" + ((self.detailModel.fStarttime.components(separatedBy: " ").first) ?? "")
             self.groupEndTime.text = "结束时间：" + ((self.detailModel.fEndtime.components(separatedBy: " ").first) ?? "")
         }
@@ -580,6 +582,9 @@ extension GoodsDetailVC {
             print(carouselView.realCurrentIndexPath)
         }
     }
-    
+}
+
+
+extension GoodsDetailVC {
     
 }

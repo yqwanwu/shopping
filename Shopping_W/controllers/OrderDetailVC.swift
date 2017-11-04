@@ -181,6 +181,8 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 carModel.fExstring = model.fExstring
                 carModel.fGoodsid = model.fGoodsid
                 carModel.fPromotionid = model.fPromotionid
+                carModel.fPromotionprice = model.fPromotionprice
+                carModel.fType = model.fType
                 return carModel
             })
         } else {
@@ -198,7 +200,9 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 carModel.fExstring = model.fSpecifications
                 carModel.fGoodsid = model.fGoodsid
                 carModel.fPromotionid = order.fPromotionid
-//                carModel.fPromotionprice = model.
+                carModel.fType = order.fType
+                
+                carModel.fPromotionprice = model.fUnitprice
                 
                 price += model.fExpayamount
                 return carModel
