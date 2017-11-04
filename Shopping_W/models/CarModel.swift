@@ -250,7 +250,7 @@ class CarRealmModel: Object {
     dynamic var fGoodsname = ""//商品名称
     dynamic var F_UserAccountID = 0//用户ID
     dynamic var fIntegral = 0.0
-    dynamic var fMIntegral = 0.0//多倍积分倍数,type=5时使用
+    dynamic var fMIntegral = 0//多倍积分倍数,type=5时使用
     dynamic var fId = 0//购物车ID
     dynamic var fGoodimg = ""//商品图片
     dynamic var fPeid = 0//促销扩展信息ID

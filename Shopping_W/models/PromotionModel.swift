@@ -52,7 +52,7 @@ class PromotionModel: CustomTableViewCellItem {
     var fCategoryname = ""
     var fPromotionid = 0
     var fState = 0
-    var fMintegral = 0.0
+    var fMintegral = 0
     var fPromotioncount = 0
     var fRemainnumber = 0
     var fFreegoodname = ""

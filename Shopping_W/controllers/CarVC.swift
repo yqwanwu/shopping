@@ -237,6 +237,24 @@ class CarVC: UIViewController, UITableViewDelegate {
         header.titleLabel.text = model.fShopName
         header.selectBtn.isSelected = model.isListSelected
         header.selectAction = { [unowned self] _ in
+            for m in model.goodList {
+                if m.fState == 0 {
+                    MBProgressHUD.show(errorText: "商品已不在销售状态")
+                    return
+                }
+                if m.fType == 0 {
+                    if m.fCount > m.fStock {
+                        MBProgressHUD.show(errorText: "库存不足")
+                        return
+                    }
+                } else {
+                    if m.fCount + m.fBuycount > m.fPurchasecount {
+                        MBProgressHUD.show(errorText: "超过限购数量")
+                        return
+                    }
+                }
+            }
+            
             model.isListSelected = !model.isListSelected
             model.setSelected()
             self.tableVIew.reloadSections([section], with: .none)

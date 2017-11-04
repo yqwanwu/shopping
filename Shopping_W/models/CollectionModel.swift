@@ -20,7 +20,7 @@ class CollectionModel: CustomTableViewCellItem {
     var F_GoodsID = 0//商品ID
     var F_UserID = 0
     var F_GoodsName = ""//商品名称
-    var F_MIntegral = 0.0//多倍积分
+    var F_MIntegral = 0//多倍积分
     var F_salesprice = 0.0//销售价格
     var F_CreateTime = 0//记录创建时间
     var F_Price = 0.0//满额

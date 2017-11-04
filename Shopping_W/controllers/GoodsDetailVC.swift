@@ -474,7 +474,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
             return
         }
         
-        let params = ["method":"apiaddtoshopcart", "fGoodsid":self.goodsId, "fCount":count, "fGeid":fgid, "fPromotionid":self.promotionid == 0 ? "" : "\(promotionid)"] as [String : Any]
+        let params = ["method":"apiaddtoshopcart", "fGoodsid":self.goodsId, "fCount":count, "fGeid":fgid, "fPromotionid":self.promotionid == 0 ? "" : "\(promotionid)", "fRecommender": fRecommender ?? "-1"] as [String : Any]
         NetworkManager.requestModel(params: params, success: { (bm: BaseModel<CodeModel>) in
             bm.whenSuccess {
                 MBProgressHUD.show(successText: "添加成功")

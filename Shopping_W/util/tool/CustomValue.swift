@@ -32,8 +32,8 @@ struct CustomValue {
     
     //友盟
     //58228ae53eae251ae0002164
-    static let UMACountPPKEY = "58228ae53eae251ae0002164"
-    static let UMAPPKEY = "58228ae53eae251ae0002164"
+    static let UMACountPPKEY = "c73d92264f9a5d357f5a6466e8c9afb5"
+    static let UMAPPKEY = "2205130172520"
     static let placehoderImg = UIImage(named: "placehoder")
     
     

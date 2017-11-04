@@ -57,7 +57,9 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 bm.whenSuccess {
                     let model = bm.t!
                     self.perOrder = model
-                    let total = CustomTableViewCellItem().build(text: "总价").build(detailText: "¥\(model.saleAmount.moneyValue())").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
+                    let price = model.saleAmount.moneyValue()
+                    
+                    let total = CustomTableViewCellItem().build(text: "总价").build(detailText: "¥\(price)").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
                     //运费
                     let freight = CustomTableViewCellItem().build(text: "运费").build(detailText: "¥\(model.payFreight.moneyValue())").build(heightForRow: 50).build(cellClass: RightTitleCell.self)
                     
@@ -183,6 +185,12 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 carModel.fPromotionid = model.fPromotionid
                 carModel.fPromotionprice = model.fPromotionprice
                 carModel.fType = model.fType
+                
+                carModel.fPrice = model.fPrice
+                carModel.fDeduction = model.fDeduction
+                carModel.fMIntegral = model.fMIntegral
+                carModel.fDiscount = model.fDiscount
+                
                 return carModel
             })
         } else {
@@ -203,6 +211,11 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
                 carModel.fType = order.fType
                 
                 carModel.fPromotionprice = model.fUnitprice
+                
+                carModel.fPrice = order.fPrice
+                carModel.fDeduction = order.fDeduction
+                carModel.fMIntegral = order.fMintegral
+                carModel.fDiscount = order.fDiscount
                 
                 price += model.fExpayamount
                 return carModel
@@ -318,7 +331,7 @@ class OrderDetailVC: BaseViewController, UITableViewDataSource, UITableViewDeleg
             self.totalPriceLabel.text = "¥\(price.moneyValue())"
         } else if indexPath.section == 1 {
             let c = self.tableView.dataArray[1][indexPath.row] as! CarModel
-            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) as! GoodsDetailVC
+            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsDetailVC.self) 
             switch c.fType {
             case 0:
                 vc.type = .normal

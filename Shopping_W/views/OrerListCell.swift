@@ -83,12 +83,14 @@ class OrerListCell: CustomTableViewCell {
                 self.imgView.sd_setImage(with: URL.encodeUrl(string: m.fGoodimg))
                 self.titleLabel.text = m.fGoodsname
                 self.priceLabel.text = m.fSalesprice.moneyValue()
+                customLabel.text = ""
                 customLabel.isHidden = false
                 switch m.fType {
                 case 1:
-                    self.countLabel.text = "团购"
-                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
-                    customLabel.attributedText = attrStr
+                    
+                    self.customLabel.text = "团购"
+//                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
+//                    customLabel.attributedText = attrStr
                     priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
                 case 2:
                     priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
@@ -101,7 +103,7 @@ class OrerListCell: CustomTableViewCell {
                     customLabel.text = "\(m.fMIntegral)倍积分"
                     
                 case 6:
-                    customLabel.text = "\(m.fDiscount)折"
+                    customLabel.text = "\(Int(m.fDiscount))折"
                     let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
                     //                    oldPriceLabel.attributedText = attrStr
                     priceLabel.text = "¥\(m.fSalesprice.moneyValue())"

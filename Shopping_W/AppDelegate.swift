@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //realm版本
         let config = Realm.Configuration(
             // 设置新的架构版本。这个版本号必须高于之前所用的版本号（如果您之前从未设置过架构版本，那么这个版本号设置为 0）
-            schemaVersion: 1,
+            schemaVersion: 2,
             // 设置闭包，这个闭包将会在打开低于上面所设置版本号的 Realm 数据库的时候被自动调用
             migrationBlock: { migration, oldSchemaVersion in
                 // 目前我们还未进行数据迁移，因此 oldSchemaVersion == 0
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Realm.Configuration.defaultConfiguration = config
         
         //友盟
-        let redirectUrl = "https://www.baidu.com"
+        let redirectUrl = "https://www.cz928.com"
         UMSocialManager.default().umSocialAppkey = CustomValue.UMAPPKEY
         UMSocialManager.default().setPlaform(.wechatSession, appKey: CustomValue.wxAppId, appSecret: CustomValue.wxAppSecret, redirectURL: redirectUrl)
         UMSocialManager.default().setPlaform(.QQ, appKey: CustomValue.qqAppId, appSecret: CustomValue.qqAppSecret, redirectURL: redirectUrl)
