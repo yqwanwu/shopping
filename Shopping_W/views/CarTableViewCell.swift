@@ -78,9 +78,9 @@ class CarTableViewCell: CustomTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        goodsimg.layer.borderWidth = 1
-        goodsimg.layer.borderColor = UIColor.gray.cgColor
-        goodsimg.layer.cornerRadius = 10
+//        goodsimg.layer.borderWidth = 1
+//        goodsimg.layer.borderColor = UIColor.gray.cgColor
+        goodsimg.layer.cornerRadius = 4
         
         countBtn.changeAction = { [unowned self] _ in
             if let _ = self.model as? CarModel {

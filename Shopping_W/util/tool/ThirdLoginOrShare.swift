@@ -54,7 +54,7 @@ class ThirdLoginOrShare: UIView {
                     so.shareImage = iu
                 } else {
                     so.thumbImage = thumbImage
-                    so.shareImage = "http://kofuf.kofuf.com:8080/privilege/uploadedFile/share.png"
+//                    so.shareImage = "http://kofuf.kofuf.com:8080/privilege/uploadedFile/share.png"
                 }
                 
                 messageObject.shareObject = so
@@ -63,7 +63,7 @@ class ThirdLoginOrShare: UIView {
                 if let iu = img {
                     shareObject = UMShareWebpageObject.shareObject(withTitle: tstr, descr: str, thumImage: iu)
                 } else {
-                    shareObject = UMShareWebpageObject.shareObject(withTitle: tstr, descr: str, thumImage: "http://kofuf.kofuf.com:8080/privilege/uploadedFile/share.png")
+                    shareObject = UMShareWebpageObject.shareObject(withTitle: tstr, descr: str, thumImage: "")
                 }
                 
                 shareObject?.webpageUrl = url

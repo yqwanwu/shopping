@@ -42,7 +42,7 @@ class MineTableViewCell: CustomTableViewCell {
                     
                     let label = UILabel(frame: CGRect(x: 0, y: img.frame.maxY + 8, width: width, height: 20))
                     label.text = datas[i].detailText
-                    label.font = UIFont.systemFont(ofSize: 15)
+                    label.font = UIFont.systemFont(ofSize: 12)
                     label.textAlignment = .center
                     btn.addSubview(label)
                     

@@ -16,6 +16,9 @@ class CollectionPopoverVC: BaseViewController, UITableViewDelegate {
     var goodsId = 0
     var promotionid = 0
     var shareText = ""
+    var detailModel = GoodsDetailModel()
+    
+    var goodsImg: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +49,27 @@ class CollectionPopoverVC: BaseViewController, UITableViewDelegate {
             }
             break
         case 1:
-            ThirdLoginOrShare.show(viewController: parentVC!, title: "分享", text: shareText, img: #imageLiteral(resourceName: "placehoder"), url: NetworkManager.BASESERVER)
+            var url = ""
+            if let pic = detailModel.picList?.first?["fUrl"] as? String {
+                url = URL.encodeUrl(string: pic)?.absoluteString ?? ""
+            }
+            
+            var link = "http://www.cz928.com/Share?share=goods/\(detailModel.fGoodsid)?"//action=1&fPromotionid=32&q=-1
+            if let u = PersonMdel.readData() {
+                link += "q=\(u.fAccountid)"
+            } else {
+                link += "q=-1"
+            }
+            
+            if detailModel.fType > 0 {
+                link += "&action=\(detailModel.fType)&fPromotionid=\(detailModel.fPromotionid)"
+            }
+            
+            if let gi = goodsImg {
+                ThirdLoginOrShare.show(viewController: parentVC!, title: detailModel.fGoodsname, text: detailModel.fSummary, img: gi, url: link)
+            } else {
+                ThirdLoginOrShare.show(viewController: parentVC!, title: detailModel.fGoodsname, text: detailModel.fSummary, img: url, url: link)
+            }
             selectedIndex = 1
         default:
             break

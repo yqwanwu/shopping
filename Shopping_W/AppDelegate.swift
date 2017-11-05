@@ -39,7 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Realm.Configuration.defaultConfiguration = config
         
         //友盟
-        let redirectUrl = "https://www.cz928.com"
+        let redirectUrl = "czwios://"
+        UMSocialGlobal.shareInstance().isUsingHttpsWhenShareContent = false
         UMSocialManager.default().umSocialAppkey = CustomValue.UMAPPKEY
         UMSocialManager.default().setPlaform(.wechatSession, appKey: CustomValue.wxAppId, appSecret: CustomValue.wxAppSecret, redirectURL: redirectUrl)
         UMSocialManager.default().setPlaform(.QQ, appKey: CustomValue.qqAppId, appSecret: CustomValue.qqAppSecret, redirectURL: redirectUrl)

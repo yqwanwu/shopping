@@ -20,7 +20,7 @@ class LoginVC: BaseViewController {
     
     @IBOutlet weak var qqBtn: MineButton!
     @IBOutlet weak var wxBtn: MineButton!
-    @IBOutlet weak var tbBtn: MineButton!
+//    @IBOutlet weak var tbBtn: MineButton!
     @IBOutlet weak var thirdLoginTitle: UILabel!
     
     let k_toRegisterVC = "toRegisterVC"
@@ -57,8 +57,8 @@ class LoginVC: BaseViewController {
         super.viewWillAppear(animated)
         qqBtn.isHidden = !CustomValue.isQQInsted
         wxBtn.isHidden = !CustomValue.isWXInsted
-        tbBtn.isHidden = !CustomValue.isTBInsted
-        if qqBtn.isHidden && wxBtn.isHidden && tbBtn.isHidden {
+//        tbBtn.isHidden = !CustomValue.isTBInsted
+        if qqBtn.isHidden && wxBtn.isHidden  {//&& tbBtn.isHidden
             thirdLoginTitle.isHidden = true
         }
     }

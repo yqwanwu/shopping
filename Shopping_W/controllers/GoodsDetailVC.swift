@@ -522,6 +522,7 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "popoverSegue" {
+            
             if let vc = segue.destination as? CollectionPopoverVC {
                 vc.modalPresentationStyle = .popover
                 vc.popoverPresentationController?.delegate = self
@@ -530,11 +531,23 @@ class GoodsDetailVC: BaseViewController, UICollectionViewDataSource, UICollectio
                 vc.shareText = self.nameLabel.text ?? ""
                 vc.goodsId = goodsId
                 vc.promotionid = promotionid
+                vc.detailModel = self.detailModel
+                if let cell = self.carouselView.visibleCells.first as? CarouselCollectionViewCell {
+                    vc.goodsImg = cell.imageView.image
+                }
             }
         } else if segue.identifier == "toEvaluateVC" {
             let vc = segue.destination as! EvaluateVC
             vc.goodsId = self.goodsId
         }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if detailModel.fGoodsid == 0 {
+            MBProgressHUD.showTip(text: "数据记载中")
+            return false
+        }
+        return true
     }
 
     

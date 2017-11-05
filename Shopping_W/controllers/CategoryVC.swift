@@ -70,7 +70,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
             bm.whenSuccess {
                 self.allList = bm.list!
                 let arr = bm.list!.filter({ $0.fPid == 0 }).map({ (model) -> CategoryModel in
-                    return model.build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 45)
+                    return model.build(isFromStoryBord: true).build(cellClass: CategoryLeftTableViewCell.self).build(heightForRow: 40)
                 })
                 self.tableView.dataArray = [arr]
                 self.selectedModel = arr[0]

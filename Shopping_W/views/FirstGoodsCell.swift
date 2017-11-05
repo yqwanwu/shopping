@@ -57,16 +57,16 @@ class FirstGoodsCell: UICollectionViewCell {
                     priceLabel.text = "¥\(m.fPromotionprice.moneyValue())"
                 case 3:
                     tagBtn.isHidden = false
-                    tagBtn.setTitle("满\(Int(m.fPrice))-\(Int(m.fDeduction))", for: .normal)
+                    tagBtn.setTitle(" 满\(Int(m.fPrice))-\(Int(m.fDeduction)) ", for: .normal)
                 case 4:
                     tagBtn.isHidden = false
-                    tagBtn.setTitle("赠", for: .normal)
+                    tagBtn.setTitle(" 赠 ", for: .normal)
                 case 5:
                     tagBtn.isHidden = false
-                    tagBtn.setTitle("\(m.fMintegral)倍积分", for: .normal)
+                    tagBtn.setTitle(" \(m.fMintegral)倍积分 ", for: .normal)
                 case 6:
                     tagBtn.isHidden = false
-                    tagBtn.setTitle("\(m.fDiscount)折", for: .normal)
+                    tagBtn.setTitle(" \(m.fDiscount)折 ", for: .normal)
 //                    let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
 //                    oldPriceLabel.attributedText = attrStr
                     priceLabel.text = "¥\(m.fSalesprice.moneyValue())"
@@ -89,6 +89,7 @@ class FirstGoodsCell: UICollectionViewCell {
         tagBtn.layer.borderColor = CustomValue.common_red.cgColor
         tagBtn.layer.borderWidth = 0.5
         tagBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+        
     }
 
 }

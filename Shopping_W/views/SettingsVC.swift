@@ -63,7 +63,7 @@ class SettingsVC: BaseViewController, UITableViewDelegate, SKStoreProductViewCon
 //            let APPID = ""
 //            let urlStr = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=\(APPID)&pageNumber=0&sortOrdering=2&mt=8"
             productVC.delegate = self
-            productVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: "appid"], completionBlock: { (f, err) in
+            productVC.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: "1278580871"], completionBlock: { (f, err) in
                 if f {
                     self.present(self.productVC, animated: true, completion: nil)
                 } else {
