@@ -23,7 +23,9 @@ class GoodListLevel2Cell: CustomTableViewCell {
                 imgView.sd_setImage(with: URL.encodeUrl(string: m.fUrl))
                 nameLabel.text = m.fGoodsname
                 typeLabel.text = m.fNo
+//                typeLabel.isHidden = true
                 priceLabel.text = m.fSalesprice.moneyValue()
+                descLabel.text = m.fSummary
             }
         }
     }

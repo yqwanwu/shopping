@@ -217,7 +217,7 @@ class OrerListCell: CustomTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        logisticsBtn.layer.borderColor = UIColor.hexStringToColor(hexString: "888888").cgColor
+        logisticsBtn.layer.borderColor = CustomValue.common_red.cgColor
         logisticsBtn.layer.borderWidth = 1
         logisticsBtn.layer.cornerRadius = CustomValue.btnCornerRadius
         reciveBtn.layer.cornerRadius = CustomValue.btnCornerRadius

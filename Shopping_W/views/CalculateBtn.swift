@@ -12,7 +12,7 @@ import SnapKit
 ///购物车的计算按钮
 class CalculateBtn: UIView {
     
-    let fontSize: CGFloat = 10.0
+    let fontSize: CGFloat = 14.0
     
     var maxCount = Int.max {
         didSet {
@@ -56,6 +56,7 @@ class CalculateBtn: UIView {
         text.backgroundColor = UIColor.white
         text.textAlignment = .center
         text.adjustsFontSizeToFitWidth = true
+        text.font = UIFont.systemFont(ofSize: 12)
         text.keyboardType = .numberPad
         return text
     } ()

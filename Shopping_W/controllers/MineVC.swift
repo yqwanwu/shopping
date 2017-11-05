@@ -44,12 +44,12 @@ class MineVC: BaseViewController {
     
     func setupTableView() {
         //懒得创建新的类，text代表图片名称，detailText代表name
-        let c = CustomTableViewCellItem().build(imageUrl: "收藏").build(detailText: "我的收藏")
-        let c1 = CustomTableViewCellItem().build(imageUrl: "消费详情").build(detailText: "消费详情")
-        let c2 = CustomTableViewCellItem().build(imageUrl: "我的评价").build(detailText: "我的评价")
-        let c3 = CustomTableViewCellItem().build(imageUrl: "收货地址").build(detailText: "收货地址")
-        let c4 = CustomTableViewCellItem().build(imageUrl: "积分").build(detailText: "积分详情")
-        let c5 = CustomTableViewCellItem().build(imageUrl: "浏览记录").build(detailText: "浏览记录")
+        let c = CustomTableViewCellItem().build(imageUrl: "shapeGroup7716").build(detailText: "我的收藏")
+        let c1 = CustomTableViewCellItem().build(imageUrl: "shapeGroup7715").build(detailText: "消费详情")
+        let c2 = CustomTableViewCellItem().build(imageUrl: "shapeGroup7721").build(detailText: "我的评价")
+        let c3 = CustomTableViewCellItem().build(imageUrl: "shapeGroup7720").build(detailText: "收货地址")
+        let c4 = CustomTableViewCellItem().build(imageUrl: "shapeGroup7723").build(detailText: "积分详情")
+        let c5 = CustomTableViewCellItem().build(imageUrl: "shapeGroup7722").build(detailText: "浏览记录")
         
         c.setupCellAction { [unowned self] (idx) in
             let vc = MyCollectionVC()

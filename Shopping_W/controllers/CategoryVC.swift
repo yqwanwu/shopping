@@ -226,6 +226,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
             self.addSubview(imgView)
             imgView.contentMode = .scaleAspectFill
             imgView.layer.masksToBounds = true
+            label.font = UIFont.systemFont(ofSize: 14)
             label.snp.makeConstraints { (make) in
                 make.left.bottom.right.equalTo(self)
                 make.height.equalTo(40)
