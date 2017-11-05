@@ -10,6 +10,7 @@ import UIKit
 
 class CarSectionHeader: UITableViewHeaderFooterView {
 
+    @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var rightBtn: UIButton!
     @IBOutlet weak var selectBtn: UIButton!
     @IBOutlet weak var lineView: UIView!

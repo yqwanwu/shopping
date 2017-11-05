@@ -73,7 +73,7 @@ class CarVC: UIViewController, UITableViewDelegate {
         let arr = models.map({ (model) -> CarModel in
             model.build(cellClass: CarTableViewCell.self)
                 .build(isFromStoryBord: true)
-                .build(heightForRow: 137)
+                .build(heightForRow: 120)
             model.countAction = { _ in
                 self.updateAllPrice()
             }
@@ -235,6 +235,9 @@ class CarVC: UIViewController, UITableViewDelegate {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "CarSectionHeader") as! CarSectionHeader
         let model = carList[section]
         header.titleLabel.text = model.fShopName
+        
+        header.icon.sd_setImage(with: URL.encodeUrl(string: model.fImgurl), placeholderImage: #imageLiteral(resourceName: "店铺"))
+        
         header.selectBtn.isSelected = model.isListSelected
         header.selectAction = { [unowned self] _ in
             for m in model.goodList {

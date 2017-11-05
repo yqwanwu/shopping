@@ -19,6 +19,7 @@ class CarListModel: CustomTableViewCellItem {
     var fShopid = 0
     var fShopName = ""
     var isListSelected = false
+    var fImgurl = ""
     
     func setSelected() {
         for item in goodList {

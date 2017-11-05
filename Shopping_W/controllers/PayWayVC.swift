@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import MBProgressHUD
 
 class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var totalPriceLabel: UILabel!
@@ -74,6 +75,7 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
          useUserAmount	string	前台获取	使用余额
  */
         var params = [String: Any]()
+        MBProgressHUD.show()
         if let p = preOrderModel {
             params = ["method":"apiPayforAPP", "fOrderid":p.IDS, "fType":"0", "fAmount":p.payAmount, "isUseIntegral":useIntegral ? "1" : "0", "useIntegral":fIntegral, "isUseUserAmount":"0", "useUserAmount":"0"] as [String : Any]
         } else {
@@ -87,10 +89,15 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                     let str = json["message"].stringValue
                     AlipaySDK.defaultService().payOrder(str, fromScheme: "tjgy_ios") { (dic) in
                         print(dic)
+                        DispatchQueue.main.async {
+                            MBProgressHUD.hideHUD()
+                        }
                     }
                 }
             }) { (err) in
-                
+                DispatchQueue.main.async {
+                    MBProgressHUD.hideHUD()
+                }
             }
         } else if p1.isSelected {
             params["fPaytype"] = "3"
@@ -106,10 +113,15 @@ class PayWayVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                     request.timeStamp = j["timestamp"].uInt32Value
                     request.package = "Sign=WXPay"
                     request.sign = j["sign"].stringValue
+                    DispatchQueue.main.async {
+                        MBProgressHUD.hideHUD()
+                    }
                     WXApi.send(request)
                 }
             }) { (err) in
-                
+                DispatchQueue.main.async {
+                    MBProgressHUD.hideHUD()
+                }
             }
         }
         

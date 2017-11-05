@@ -29,7 +29,7 @@ class CarTableViewCell: CustomTableViewCell {
             if let m = model as? CarModel {
                 notValiableLabel.isHidden =  m.fState != 0
                 oldPriceLabel.isHidden = true
-                priceLabel.text = m.fSalesprice.moneyValue()
+                priceLabel.text = "￥" + m.fSalesprice.moneyValue()
                 countBtn.numberText.text = "\(m.fCount)"
                 countBtn.subtractBtn.isEnabled = m.fCount > 1
                 
@@ -44,13 +44,13 @@ class CarTableViewCell: CustomTableViewCell {
                 switch m.fType {
                 case 1:
                     typeLabel.text = "团购"
-                    priceLabel.text = m.fPromotionprice.moneyValue()
+                    priceLabel.text = "￥" + m.fPromotionprice.moneyValue()
                     let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
                     oldPriceLabel.attributedText = attrStr
                     oldPriceLabel.isHidden = false
                 case 2:
                     typeLabel.text = "秒杀"
-                    priceLabel.text = m.fPromotionprice.moneyValue()
+                    priceLabel.text = "￥" + m.fPromotionprice.moneyValue()
                     let attrStr = NSMutableAttributedString(string: "¥" + m.fSalesprice.moneyValue(), attributes: [NSStrikethroughStyleAttributeName:NSUnderlineStyle.styleSingle.rawValue])
                     oldPriceLabel.attributedText = attrStr
                     oldPriceLabel.isHidden = false
