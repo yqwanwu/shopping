@@ -102,7 +102,7 @@ class CarTableViewCell: CustomTableViewCell {
     func changeCount() {
         if let m = self.model as? CarModel {
             var count = Int(self.countBtn.numberText.text ?? "") ?? 1
-            if m.fCount + m.fBuycount > m.fPurchasecount {
+            if m.fCount + m.fBuycount > m.fPurchasecount && m.fType != 0 {
                 MBProgressHUD.show(errorText: "超过限购数量")
                 count = 1
                 self.countBtn.numberText.text = "\(count)"
@@ -126,21 +126,24 @@ class CarTableViewCell: CustomTableViewCell {
         var flag = false
         
         if let m = model as? CarModel {
-            if m.fState == 0 {
-                MBProgressHUD.show(errorText: "商品已不在销售状态")
-                flag = true
-            }
-            if m.fType == 0 {
-                if m.fCount > m.fStock {
-                    MBProgressHUD.show(errorText: "库存不足")
+            if m.fType != 0 {
+                if m.fState == 0 {
+                    MBProgressHUD.show(errorText: "商品已不在销售状态")
                     flag = true
                 }
-            } else {
-                if m.fCount + m.fBuycount > m.fPurchasecount {
-                    MBProgressHUD.show(errorText: "超过限购数量")
-                    flag = true
+                if m.fType == 0 {
+                    if m.fCount > m.fStock {
+                        MBProgressHUD.show(errorText: "库存不足")
+                        flag = true
+                    }
+                } else {
+                    if m.fCount + m.fBuycount > m.fPurchasecount {
+                        MBProgressHUD.show(errorText: "超过限购数量")
+                        flag = true
+                    }
                 }
             }
+            
             if flag {
                 m.isSelected = false
                 sender.isSelected = false

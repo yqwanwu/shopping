@@ -178,6 +178,9 @@ class CarVC: UIViewController, UITableViewDelegate {
         if !sender.isSelected {
             let arr = self.tableVIew.dataArray.flatMap({ $0 }) as! [CarModel]
             for m in arr {
+                if m.fType == 0 {
+                    break
+                }
                 if m.fState == 0 {
                     MBProgressHUD.show(errorText: "商品已不在销售状态")
                     return
@@ -241,6 +244,9 @@ class CarVC: UIViewController, UITableViewDelegate {
         header.selectBtn.isSelected = model.isListSelected
         header.selectAction = { [unowned self] _ in
             for m in model.goodList {
+                if m.fType == 0 {
+                    break
+                }
                 if m.fState == 0 {
                     MBProgressHUD.show(errorText: "商品已不在销售状态")
                     return
