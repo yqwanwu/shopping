@@ -197,6 +197,9 @@ class MineVC: BaseViewController {
         
         for btn in reciveBtns {
             btn.frame.size.height = reciveBk.frame.height
+            if let badgeView = btn.viewWithTag(1025) {
+                badgeView.center = CGPoint(x: btn.frame.width / 2 + 16, y: 15)
+            }
         }
         
         for line in lines {

@@ -268,6 +268,31 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func showReturn(orderId: Int) {
+        let alert = UIAlertController(title: "输入支付密码", message: "", preferredStyle: .alert)
+        var textField = UITextField()
+        alert.addTextField { (tf) in
+            tf.placeholder = "支付密码"
+            textField = tf
+            textField.isSecureTextEntry = true
+        }
+        alert.addAction(UIAlertAction(title: "取消", style: .default, handler: { (a) in
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { (a) in
+            NetworkManager.requestTModel(params: ["method":"apiSureDelivery", "fPaypass":(textField.text ?? "").MD5, "fOrderid":orderId]).setSuccessAction(action: { (bm: BaseModel<CodeModel>) in
+                bm.whenSuccess {
+                    self.loadedIndex = 0
+                    self.tableViewList[3].beginHeaderRefresh()
+                    alert.dismiss(animated: false, completion: nil)
+                    MBProgressHUD.show(successText: "收货成功")
+                    
+                }
+            })
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
     
     //MARK: 代理
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -306,6 +331,12 @@ class OrderVC: BaseViewController, UITableViewDelegate, UITableViewDataSource {
                 } else if model.type == OrderType.recive {
                     let alert = AlertVC()
                     alert.modalPresentationStyle = .overCurrentContext
+                    
+                    alert.okAction = { [unowned self] (a) in
+                        alert.dismiss(animated: false, completion: nil)
+                        self.showReturn(orderId: model.fOrderid)
+                    }
+                    
                     self.present(alert, animated: true, completion: nil)
                 } else if model.type == .send {
                     MBProgressHUD.show(successText: "已提醒卖家尽快发货")
