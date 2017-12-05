@@ -21,6 +21,7 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var addressBtn: UIButton!
     @IBOutlet weak var titleBack: UIView!
     @IBOutlet weak var searchBtn: UIButton!
+    @IBOutlet weak var searchLeft: NSLayoutConstraint!
     
     lazy var refreshContrl: PullToRefreshControl = {
        return PullToRefreshControl(scrollView: self.collectionView).addDefaultHeader()
@@ -54,6 +55,8 @@ class FirstViewController: BaseViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         
         UserDefaults.standard.set(true, forKey: FirstViewController.WELCOME_SHOWED)
+        
+        searchLeft.constant = -80
         
         if Tools.getSystemVersion() > 10 {
             titleBack.snp.remakeConstraints { (make) in

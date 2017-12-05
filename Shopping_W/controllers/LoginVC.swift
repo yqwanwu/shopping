@@ -23,6 +23,8 @@ class LoginVC: BaseViewController {
 //    @IBOutlet weak var tbBtn: MineButton!
     @IBOutlet weak var thirdLoginTitle: UILabel!
     
+    var loginSuccessAction: BLANK_CLOSURE?
+    
     let k_toRegisterVC = "toRegisterVC"
     
     override func viewDidLoad() {
@@ -116,6 +118,8 @@ class LoginVC: BaseViewController {
             self.dismiss(animated: true, completion: nil)
 //            self.present(vc, animated: true, completion: nil)
             FirstViewController.isShowQuestion = true
+            
+            self.loginSuccessAction?()
         }
         
     }
@@ -168,9 +172,13 @@ class LoginVC: BaseViewController {
     }
     
     @discardableResult
-    static func showLogin() -> Bool {
+    static func showLogin(successAction: BLANK_CLOSURE? = nil) -> Bool {
         if !PersonMdel.isLogined() {
-            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginVCNav")
+            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginVCNav") as! UINavigationController
+            
+            let lvc = vc.viewControllers.first! as! LoginVC
+            lvc.loginSuccessAction = successAction
+            
 //            let vc = Tools.getClassFromStorybord(sbName: .main, clazz: LoginVC.self)
             CustomTabBarVC.instance.present(vc, animated: true, completion: nil)
             return true

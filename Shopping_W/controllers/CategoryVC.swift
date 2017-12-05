@@ -17,6 +17,7 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     @IBOutlet weak var collectionView: UICollectionView!
     let cellWidth: CGFloat = 80
     
+    @IBOutlet weak var searchLeft: NSLayoutConstraint!
     var goodsList = [CategoryModel]()
     var allList = [CategoryModel]()
     
@@ -34,6 +35,8 @@ class CategoryVC: BaseViewController, UITableViewDelegate, UICollectionViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchLeft.constant = -72
         
         self.view.backgroundColor = CategoryVC.bkColor
         

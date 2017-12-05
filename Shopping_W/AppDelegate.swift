@@ -104,7 +104,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             (CustomTabBarVC.instance.selectedViewController as? UINavigationController)?.pushViewController(vc, animated: true)
             
-            return true
+            return true//
+        } else if urlStr.starts(with: "czwios://www.cz928.com/dlblist") {
+            let s = (searchStr(str: urlStr, regexStr: "(/\\d+\\?)")) ?? ""
+//            let id = (s as NSString).substring(with:  NSRange(location: 1, length: s.characters.count - 2))
+            let params = urlParams(url: urlStr)
+            let vc = Tools.getClassFromStorybord(sbName: .shoppingCar, clazz: GoodsListVC.self)
+            vc.fRecommender = params["q"]
+            vc.title = "大礼包"
+            
+            if !PersonMdel.isLogined() {
+                LoginVC.showLogin(successAction: {
+                    (CustomTabBarVC.instance.selectedViewController as? UINavigationController)?.pushViewController(vc, animated: true)
+                })
+            } else {
+                (CustomTabBarVC.instance.selectedViewController as? UINavigationController)?.pushViewController(vc, animated: true)
+            }
+            
         }
         
         AlipaySDK.defaultService().processAuthResult(url) { (dic) in

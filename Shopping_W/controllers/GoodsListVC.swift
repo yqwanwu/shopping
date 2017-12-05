@@ -27,6 +27,8 @@ class GoodsListVC: BaseViewController {
     
     var fOrderbys = ""
     var categoryId = 0
+    
+    var fRecommender: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +110,29 @@ class GoodsListVC: BaseViewController {
     
     ///促销列表
     func requestPromotions(types: String? = nil, showHUD: Bool = false) {
+        //新加的
+        if let r = fRecommender {
+            let params = ["method":"apiGetDLBList", "fRecommender": r, "currentPage":currentPage, "pageSize":20] as [String : Any]
+            NetworkManager.requestPageInfoModel(params: params, success: { (bm: BaseModel<GoodsModel>) in
+                self.tableView.endHeaderRefresh()
+                self.tableView.endFooterRefresh()
+                bm.whenSuccess {
+                    if let list = bm.pageInfo?.list {
+                        self.dealModels(list: list)
+                    }
+                    if !(bm.pageInfo?.hasNextPage ?? false) {
+                        self.tableView.pullTORefreshControl.footer?.state = .noMoreData
+                    }
+                    self.tableView.reloadData()
+                }
+            }) { (err) in
+                self.tableView.endHeaderRefresh()
+                self.tableView.endFooterRefresh()
+            }
+            
+            return
+        }
+        
         if type != .normal && type != .level2 && type != .recommend {
             var params = ["method":"apipromotions", "fTypes": types ?? type.rawValue, "fStates":"0,1,2,3,4", "fSalestates":"0,1,2", "currentPage":currentPage, "pageSize":20] as [String : Any]
             if fOrderbys != "" {
