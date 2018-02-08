@@ -40,7 +40,9 @@ class RegionModel: Object, ParseModelProtocol {
             let realm = try! Realm()
             
             try! realm.write {
-                realm.delete(realm.objects(RegionModel.self))
+                if !bm.list!.isEmpty {
+                    realm.delete(realm.objects(RegionModel.self))
+                }
                 
                 for obj in bm.list! {
                     realm.add(obj)

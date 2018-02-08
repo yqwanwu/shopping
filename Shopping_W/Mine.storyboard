@@ -1502,7 +1502,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <state key="normal" title="银行卡"/>
                                         <connections>
-                                            <segue destination="TtF-ww-ye3" kind="push" id="hVE-bQ-PM7"/>
+                                            <segue destination="TtF-ww-ye3" kind="push" id="kU0-uX-D7Y"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PWK-NF-Slb">
@@ -1607,6 +1607,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="balanceLabel" destination="GKX-6f-Jhy" id="UYW-7d-HF8"/>
+                        <outlet property="cardBtn" destination="AvL-ga-lIl" id="cjm-Sj-zTn"/>
                         <outlet property="commitBtn" destination="65c-jP-Gzd" id="89d-AO-nCt"/>
                         <outlet property="freezeLabel" destination="qgz-Ja-K2E" id="DzQ-Cn-SOr"/>
                         <outlet property="moneyTF" destination="M8K-1Q-ZO7" id="mi2-YH-Ah4"/>
@@ -1619,10 +1620,10 @@
             </objects>
             <point key="canvasLocation" x="1745.625" y="718.30985915492954"/>
         </scene>
-        <!--View Controller-->
+        <!--Bank Card ListVC-->
         <scene sceneID="qg2-Yz-7QL">
             <objects>
-                <viewController id="TtF-ww-ye3" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BankCardListVC" id="TtF-ww-ye3" customClass="BankCardListVC" customModule="Shopping_W" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y1a-or-cHV"/>
                         <viewControllerLayoutGuide type="bottom" id="Aq7-UY-wJf"/>
@@ -1631,9 +1632,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1lc-oJ-t5s">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1lc-oJ-t5s" customClass="CustomTableView" customModule="Shopping_W" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CardListCell" rowHeight="76" id="JJq-ew-xGd" customClass="CardListCell" customModule="Shopping_W" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="76"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JJq-ew-xGd" id="ERa-8d-Tn1">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="75.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="he9-vw-l4g">
+                                                    <rect key="frame" x="15" y="11" width="29" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="卡号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUF-ir-Yvm">
+                                                    <rect key="frame" x="15" y="40" width="33" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="he9-vw-l4g" firstAttribute="leading" secondItem="ERa-8d-Tn1" secondAttribute="leadingMargin" id="AUK-ep-klO"/>
+                                                <constraint firstItem="mUF-ir-Yvm" firstAttribute="leading" secondItem="ERa-8d-Tn1" secondAttribute="leadingMargin" id="B6c-6n-aSX"/>
+                                                <constraint firstItem="he9-vw-l4g" firstAttribute="top" secondItem="ERa-8d-Tn1" secondAttribute="topMargin" id="Gwz-jR-A8r"/>
+                                                <constraint firstItem="mUF-ir-Yvm" firstAttribute="top" secondItem="he9-vw-l4g" secondAttribute="bottom" constant="8" id="pRo-lK-aDP"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="numberLabel" destination="mUF-ir-Yvm" id="ulO-3m-vz3"/>
+                                            <outlet property="titleLabel" destination="he9-vw-l4g" id="aii-U2-Ubk"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1645,10 +1680,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qfo-KD-oce"/>
+                    <connections>
+                        <outlet property="tableView" destination="1lc-oJ-t5s" id="woh-QI-wR3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Ha-GD-chE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2539" y="705"/>
+            <point key="canvasLocation" x="2538.75" y="704.57746478873241"/>
         </scene>
         <!--BalanceVC-->
         <scene sceneID="RRX-W6-kWl">

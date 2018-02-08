@@ -11,6 +11,7 @@ import SwiftyJSON
 import MBProgressHUD
 
 class WithdrawVC: BaseViewController {
+    @IBOutlet weak var cardBtn: UIButton!
     @IBOutlet weak var balanceLabel: UILabel!//余额
     @IBOutlet weak var freezeLabel: UILabel!//冻结金额
     @IBOutlet weak var withDrawLabel: UILabel!
@@ -44,6 +45,15 @@ class WithdrawVC: BaseViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? BankCardListVC {
+            vc.selectedAction = { model in
+                self.cardBtn.setTitle("\(model.fBankname)(\(model.fMaskaccount))", for: .normal)
+            }
+        }
+    }
+    
     @IBAction func ac_commit(_ sender: UIButton) {
+        
     }
 }

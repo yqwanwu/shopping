@@ -18,9 +18,9 @@ class AddCardVC: UITableViewController {
     
     @IBOutlet weak var xzLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
-    @IBOutlet weak var cardNumTF: UITextField!
-    @IBOutlet weak var nameTF: UITextField!
-    @IBOutlet weak var phoneTF: UITextField!
+    @IBOutlet weak var cardNumTF: CheckTextFiled!
+    @IBOutlet weak var nameTF: CheckTextFiled!
+    @IBOutlet weak var phoneTF: CheckTextFiled!
     
     var bankList = [BankModel]()
     var regions: Results<RegionModel>!
@@ -58,6 +58,28 @@ class AddCardVC: UITableViewController {
     }
 
     @IBAction func ac_Submit(_ sender: Any) {
+        for tf in [cardNumTF, nameTF, phoneTF] {
+            if !tf!.check() {
+                MBProgressHUD.show(warningText: "请填写完整信息")
+                return
+            }
+        }
+        
+        let params = ["method":"apiaddfinance",
+                      "fName":self.nameTF.text ?? "",
+                      "fBankid":self.bank?.fBankid ?? 0,
+                      "fAccount":self.cardNumTF.text ?? "",
+                      "fType":self.xzLabel.text! == typeArr[0] ? 0 : 1,
+                      "fProvinceid":self.province.fRegionid,
+                      "fCityid":self.city.fRegionid,
+                      "fFlag":self.typeLabel.text! == flagArr[0] ? 0 : 1,
+                      "fPhone":self.phoneTF.text!] as [String : Any]
+        NetworkManager.requestTModel(params: params).setSuccessAction { (bm: BaseModel<CodeModel>) in
+            bm.whenSuccess {
+                MBProgressHUD.show(successText: "添加成功")
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
