@@ -9,6 +9,7 @@
 import UIKit
 import SDWebImage
 import SwiftyJSON
+import MBProgressHUD
 
 class MineVC: BaseViewController {
     let k_toReceiving = "toReceiving"
@@ -16,6 +17,7 @@ class MineVC: BaseViewController {
     let k_toIntegral = "toIntegral"
     let k_toAllRecive = "toAllRecive"
     let k_toBalance = "toBalance"
+    let k_toWithdrawVC = "toWithdrawVC"
     
     @IBOutlet weak var tableView: RefreshTableView!
     @IBOutlet weak var headImg: UIImageView!
@@ -30,6 +32,8 @@ class MineVC: BaseViewController {
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var msgLabel: UILabel!
     @IBOutlet weak var reciveBk: UIView!
+    
+    var userInfoState: JSON?
     
     var reciveBtns = [UIButton]()
     var lines = [UIView]()
@@ -164,6 +168,7 @@ class MineVC: BaseViewController {
                 self.balanceLabel.text = "\(j["list"].arrayValue.first!["fAmount"].intValue)"
                 self.msgLabel.text = "\(j["list"].arrayValue.first!["fMessaagecount"].intValue)"
                 self.integralLabel.text = "\(j["list"].arrayValue.first!["fIntegral"].intValue)"
+                self.userInfoState = j["list"].arrayValue.first
             }
         }) { (err) in
             
@@ -245,7 +250,21 @@ class MineVC: BaseViewController {
         } else if identifier == k_toReceiving {
             let vc = segue.destination as! OrderVC
             vc.selectedIndex = orderIndex
+        } else if identifier == k_toWithdrawVC {
+            let vc = segue.destination as! WithdrawVC
+            vc.moneyData = userInfoState
         }
+        
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == k_toWithdrawVC {
+            if userInfoState == nil {
+                MBProgressHUD.show(warningText: "数据加载中，请稍后")
+                return false
+            }
+        }
+        return true
     }
 
 }

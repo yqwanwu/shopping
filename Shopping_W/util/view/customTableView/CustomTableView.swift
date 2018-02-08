@@ -10,6 +10,7 @@ import UIKit
 import ObjectMapper
 import RealmSwift
 
+///这个代码有点老和高耦合，
 
 class CustomTableView: UITableView, UITableViewDataSource, UITableViewDelegate {
     ///必须卸载这防止提前被释放
@@ -130,7 +131,7 @@ extension CustomTableView {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let od = originalDataSouce, !od.isEqual(self) {
             let number = od.tableView(tableView, numberOfRowsInSection: section)
-            if number > 0 {
+            if number > -1 {
                 return number
             }
         }
