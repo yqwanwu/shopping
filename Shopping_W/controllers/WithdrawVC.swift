@@ -33,6 +33,7 @@ class WithdrawVC: BaseViewController {
             freezeLabel.text = "\(j["fFrozenamount"].intValue)"
             withDrawLabel.text = "\(j["fCancashamount"].intValue)"
         }
+        self.title = "提现"
     }
     @IBAction func acAddCard(_ sender: UIButton) {
         if RegionModel.findAllProvince().isEmpty {
