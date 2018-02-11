@@ -30,10 +30,10 @@ class LoginVC: BaseViewController {
     override func viewDidLoad() {
         self.showFirstVCBackBtn = true
         super.viewDidLoad()
-        phonrText.setCheck { (tf) -> Bool in
-            let r = Tools.searchStr(str: tf.text ?? "", regexStr: "(^\\d{11}$)")
-            return r != nil
-        }
+//        phonrText.setCheck { (tf) -> Bool in
+//            let r = Tools.searchStr(str: tf.text ?? "", regexStr: "(^\\d{11}$)")
+//            return r != nil
+//        }
         pwdText.setCheck { (tf) -> Bool in
             let c = (tf.text ?? "").characters.count
             return c < 15 && c > 5
