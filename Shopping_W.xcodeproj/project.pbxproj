@@ -40,6 +40,11 @@
 		14A85B251F58469000A2B5F1 /* MyMsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A85B241F58469000A2B5F1 /* MyMsgVC.swift */; };
 		14C2F6BF1F51AD8100A5A08A /* MyBalanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C2F6BE1F51AD8100A5A08A /* MyBalanceModel.swift */; };
 		14C2F6C11F529D8100A5A08A /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14C2F6C01F529D8100A5A08A /* CollectionModel.swift */; };
+		682A97C8202987BE00D991B3 /* BankCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A97C7202987BE00D991B3 /* BankCardModel.swift */; };
+		682A97CA20299E0300D991B3 /* BankCardListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A97C920299E0300D991B3 /* BankCardListVC.swift */; };
+		682A97CD2029A1E900D991B3 /* AddCardVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 682A97CC2029A1E900D991B3 /* AddCardVC.storyboard */; };
+		682A97CF2029A1F800D991B3 /* AddCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A97CE2029A1F800D991B3 /* AddCardVC.swift */; };
+		682A97D72029CAF800D991B3 /* RegionSelectVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682A97D62029CAF800D991B3 /* RegionSelectVC.swift */; };
 		6A1F391A8A34CEFB964A8FF0 /* Pods_Shopping_W.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA01B7970DC670F35FAA7E35 /* Pods_Shopping_W.framework */; };
 		960622FE1F1C98440057FE70 /* BaseWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960622FD1F1C98430057FE70 /* BaseWebViewController.swift */; };
 		960623001F1EF1BF0057FE70 /* RegionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960622FF1F1EF1BF0057FE70 /* RegionModel.swift */; };
@@ -313,6 +318,11 @@
 		14C2F6BE1F51AD8100A5A08A /* MyBalanceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBalanceModel.swift; sourceTree = "<group>"; };
 		14C2F6C01F529D8100A5A08A /* CollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		1E59D34583AA3C9FCFB04633 /* Pods-Shopping_W.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopping_W.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shopping_W/Pods-Shopping_W.debug.xcconfig"; sourceTree = "<group>"; };
+		682A97C7202987BE00D991B3 /* BankCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardModel.swift; sourceTree = "<group>"; };
+		682A97C920299E0300D991B3 /* BankCardListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCardListVC.swift; sourceTree = "<group>"; };
+		682A97CC2029A1E900D991B3 /* AddCardVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddCardVC.storyboard; sourceTree = "<group>"; };
+		682A97CE2029A1F800D991B3 /* AddCardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardVC.swift; sourceTree = "<group>"; };
+		682A97D62029CAF800D991B3 /* RegionSelectVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionSelectVC.swift; sourceTree = "<group>"; };
 		960622FD1F1C98430057FE70 /* BaseWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseWebViewController.swift; sourceTree = "<group>"; };
 		960622FF1F1EF1BF0057FE70 /* RegionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegionModel.swift; sourceTree = "<group>"; };
 		9643A8281F1085E4009A5AC0 /* EvaluationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EvaluationModel.swift; sourceTree = "<group>"; };
@@ -723,6 +733,18 @@
 			path = TZImagePickerController;
 			sourceTree = "<group>";
 		};
+		682A97CB2029A1B800D991B3 /* 银行卡 */ = {
+			isa = PBXGroup;
+			children = (
+				967187E21EE0F4F000DDD61B /* WithdrawVC.swift */,
+				682A97C920299E0300D991B3 /* BankCardListVC.swift */,
+				682A97CC2029A1E900D991B3 /* AddCardVC.storyboard */,
+				682A97CE2029A1F800D991B3 /* AddCardVC.swift */,
+				682A97D62029CAF800D991B3 /* RegionSelectVC.swift */,
+			);
+			name = "银行卡";
+			sourceTree = "<group>";
+		};
 		965B9D781ECC9353002016C2 /* mine */ = {
 			isa = PBXGroup;
 			children = (
@@ -739,7 +761,6 @@
 				967187DA1EDFFB3300DDD61B /* BalanceVC.swift */,
 				96F761E71F2B2765003CF970 /* UseIntegralVCViewController.swift */,
 				96F761E81F2B2765003CF970 /* UseIntegralVCViewController.xib */,
-				967187E21EE0F4F000DDD61B /* WithdrawVC.swift */,
 				967187E41EE0FDE000DDD61B /* RewardVC.swift */,
 				96DA5ABE1EE6880100E9CF8F /* MyEvaluateVC.swift */,
 				96DA5AC01EE68EAD00E9CF8F /* AlertVC.swift */,
@@ -747,6 +768,7 @@
 				96C403121EE78DEA003A2318 /* LogisticsVC.swift */,
 				968DFE5E1EE8FA3900DE32F9 /* PayWayVC.swift */,
 				968DFE601EE91ECD00DE32F9 /* PayResultVC.swift */,
+				682A97CB2029A1B800D991B3 /* 银行卡 */,
 				968DFE551EE7F87300DE32F9 /* 个人信息 */,
 				96C3C7AA1F246BA900D05F42 /* TextVC.swift */,
 				96C3C7AB1F246BA900D05F42 /* TextVC.xib */,
@@ -1337,6 +1359,7 @@
 				96A9A6701F31C291007E7590 /* ReturnedModel.swift */,
 				14C2F6C01F529D8100A5A08A /* CollectionModel.swift */,
 				149ED99E1F8916F4008C64FE /* HelpsModel.swift */,
+				682A97C7202987BE00D991B3 /* BankCardModel.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -1663,7 +1686,7 @@
 				TargetAttributes = {
 					96DE995F1ECB2D0E0011290E = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = 88356VV9L6;
+						DevelopmentTeam = 8RFW2TW3Q2;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Manual;
 					};
@@ -1697,6 +1720,7 @@
 				968D02E01EEA8E6200DE32F9 /* AlipaySDK.bundle in Resources */,
 				9674E2AC1EE527670004D9EE /* Address_reciveCell.xib in Resources */,
 				968D03001EEA930A00DE32F9 /* README.txt in Resources */,
+				682A97CD2029A1E900D991B3 /* AddCardVC.storyboard in Resources */,
 				96610A711ED686F900C117D6 /* PwdPhoneView.xib in Resources */,
 				967187CF1EDEA51800DDD61B /* NormalTableViewCell.xib in Resources */,
 				964EC5711F1507CA00E5CB5F /* FirstGoodsCell.xib in Resources */,
@@ -1873,10 +1897,12 @@
 				148696961F8A5BE70021C74A /* NSBundle+TZImagePicker.m in Sources */,
 				96A9726D1ED28A8D0007C324 /* CarSectionHeader.swift in Sources */,
 				967187EE1EE10F9000DDD61B /* GoodsDetailVC.swift in Sources */,
+				682A97CA20299E0300D991B3 /* BankCardListVC.swift in Sources */,
 				96C4030F1EE69F00003A2318 /* MyEvaluateListVC.swift in Sources */,
 				148696991F8A5BE70021C74A /* TZGifPhotoPreviewController.m in Sources */,
 				965B9D7F1ECD9146002016C2 /* CategoryVC.swift in Sources */,
 				96C4031B1EE7A864003A2318 /* ReturnedVC.swift in Sources */,
+				682A97CF2029A1F800D991B3 /* AddCardVC.swift in Sources */,
 				967187EA1EE106AC00DDD61B /* GoodListLevel2Cell.swift in Sources */,
 				141B88131F4812770048E230 /* FirstItemCollectionViewCell.swift in Sources */,
 				9674E2AF1EE52AFE0004D9EE /* RightTitleCell.swift in Sources */,
@@ -1936,6 +1962,8 @@
 				966F7FA91F14BFC1002A8FA3 /* FirstViewController.swift in Sources */,
 				96C403171EE79870003A2318 /* LogisticsCell.swift in Sources */,
 				96902F061ECB32B100B219D7 /* BadgeView.swift in Sources */,
+				682A97C8202987BE00D991B3 /* BankCardModel.swift in Sources */,
+				682A97D72029CAF800D991B3 /* RegionSelectVC.swift in Sources */,
 				96480F181F26ECD60084F061 /* GoodTypeCollectionViewCell.swift in Sources */,
 				96C403191EE79E51003A2318 /* CookiesVC.swift in Sources */,
 				96610A461ED4178700C117D6 /* FirstFlowTableViewCell.swift in Sources */,
@@ -2155,7 +2183,7 @@
 					"-framework",
 					"\"SwiftyJSON\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tjgy.shop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tjgy.shop1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "8e0c0840-8112-4f69-b1bf-bfc618a2a0b8";
 				PROVISIONING_PROFILE_SPECIFIER = ppf;
@@ -2231,7 +2259,7 @@
 					"-framework",
 					"\"SwiftyJSON\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tjgy.shop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tjgy.shop1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "8e0c0840-8112-4f69-b1bf-bfc618a2a0b8";
 				PROVISIONING_PROFILE_SPECIFIER = ppf;
