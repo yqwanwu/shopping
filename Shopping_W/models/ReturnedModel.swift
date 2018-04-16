@@ -9,6 +9,7 @@
 import UIKit
 
 class ReturnedModel: CustomTableViewCellItem {
+    var fReturnid = 0//退换货单ID
     var fOrderid = 0 //订单ID
     var fAccountid = 0 //用户ID
     var fSaleamount = 0.0 //商品价格

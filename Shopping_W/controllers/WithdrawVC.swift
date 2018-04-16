@@ -37,7 +37,7 @@ class WithdrawVC: BaseViewController {
     }
     @IBAction func acAddCard(_ sender: UIButton) {
         if RegionModel.findAllProvince().isEmpty {
-            MBProgressHUD.show(errorText: "地址数据尚未初始化完成，请稍后近进入")
+            MBProgressHUD.show(errorText: "地址数据尚未初始化完成，请稍后进入")
             return
         }
         let s = UIStoryboard(name: "AddCardVC", bundle: Bundle.main)

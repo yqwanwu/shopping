@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1406E8052084CDDC00B5D05B /* ReturnInfoVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1406E8042084CDDC00B5D05B /* ReturnInfoVC.storyboard */; };
+		1406E8072084CDF500B5D05B /* ReturnInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1406E8062084CDF500B5D05B /* ReturnInfoVC.swift */; };
+		1406E8092084D17900B5D05B /* ExpressInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1406E8082084D17900B5D05B /* ExpressInfoModel.swift */; };
 		141B88131F4812770048E230 /* FirstItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B88111F4812770048E230 /* FirstItemCollectionViewCell.swift */; };
 		141B88141F4812770048E230 /* FirstItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141B88121F4812770048E230 /* FirstItemCollectionViewCell.xib */; };
 		141DCCCB1F4827E100C88EDC /* QuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141DCCCA1F4827E100C88EDC /* QuestionVC.swift */; };
@@ -268,6 +271,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1406E8042084CDDC00B5D05B /* ReturnInfoVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ReturnInfoVC.storyboard; sourceTree = "<group>"; };
+		1406E8062084CDF500B5D05B /* ReturnInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnInfoVC.swift; sourceTree = "<group>"; };
+		1406E8082084D17900B5D05B /* ExpressInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressInfoModel.swift; sourceTree = "<group>"; };
 		141B88111F4812770048E230 /* FirstItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		141B88121F4812770048E230 /* FirstItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		141DCCCA1F4827E100C88EDC /* QuestionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionVC.swift; sourceTree = "<group>"; };
@@ -1360,6 +1366,7 @@
 				14C2F6C01F529D8100A5A08A /* CollectionModel.swift */,
 				149ED99E1F8916F4008C64FE /* HelpsModel.swift */,
 				682A97C7202987BE00D991B3 /* BankCardModel.swift */,
+				1406E8082084D17900B5D05B /* ExpressInfoModel.swift */,
 			);
 			name = mine;
 			sourceTree = "<group>";
@@ -1433,6 +1440,8 @@
 				96C403101EE69F13003A2318 /* MyCollectionVC.swift */,
 				96C403181EE79E51003A2318 /* CookiesVC.swift */,
 				96C4031A1EE7A864003A2318 /* ReturnedVC.swift */,
+				1406E8042084CDDC00B5D05B /* ReturnInfoVC.storyboard */,
+				1406E8062084CDF500B5D05B /* ReturnInfoVC.swift */,
 				96C4031C1EE7D080003A2318 /* ReturnedDetailVC.swift */,
 				968DFE511EE7E5F100DE32F9 /* WaitVC.swift */,
 				14A85B241F58469000A2B5F1 /* MyMsgVC.swift */,
@@ -1686,9 +1695,9 @@
 				TargetAttributes = {
 					96DE995F1ECB2D0E0011290E = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = 8RFW2TW3Q2;
+						DevelopmentTeam = 88356VV9L6;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1736,6 +1745,7 @@
 				968DFE7E1EE9443D00DE32F9 /* UMSocialSDKResources.bundle in Resources */,
 				142F0C641F93543C0084A6CB /* OrderNumbercell.xib in Resources */,
 				96BBC75D1F161B2B004CA4B6 /* FirstSectionHeaderView.xib in Resources */,
+				1406E8052084CDDC00B5D05B /* ReturnInfoVC.storyboard in Resources */,
 				96480F191F26ECD60084F061 /* GoodTypeCollectionViewCell.xib in Resources */,
 				967187D51EDEB71800DDD61B /* GoodsCommonTableViewCell.xib in Resources */,
 				9674E2B81EE63E6C0004D9EE /* EvaluateCell.xib in Resources */,
@@ -1963,6 +1973,7 @@
 				96C403171EE79870003A2318 /* LogisticsCell.swift in Sources */,
 				96902F061ECB32B100B219D7 /* BadgeView.swift in Sources */,
 				682A97C8202987BE00D991B3 /* BankCardModel.swift in Sources */,
+				1406E8092084D17900B5D05B /* ExpressInfoModel.swift in Sources */,
 				682A97D72029CAF800D991B3 /* RegionSelectVC.swift in Sources */,
 				96480F181F26ECD60084F061 /* GoodTypeCollectionViewCell.swift in Sources */,
 				96C403191EE79E51003A2318 /* CookiesVC.swift in Sources */,
@@ -1982,6 +1993,7 @@
 				96610A3F1ED3D13900C117D6 /* FirstItem.swift in Sources */,
 				96610A4D1ED4306800C117D6 /* CategoryLeftTableViewCell.swift in Sources */,
 				967187D91EDFE99500DDD61B /* SecKillVC.swift in Sources */,
+				1406E8072084CDF500B5D05B /* ReturnInfoVC.swift in Sources */,
 				9643A8371F10C6EE009A5AC0 /* AddressModel.swift in Sources */,
 				96902EF51ECB328200B219D7 /* Tools.swift in Sources */,
 				968D00FE1EEA86BE00DE32F9 /* WXApiManager.m in Sources */,
@@ -2125,8 +2137,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 88356VV9L6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2183,10 +2195,10 @@
 					"-framework",
 					"\"SwiftyJSON\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tjgy.shop1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tjgy.shop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8e0c0840-8112-4f69-b1bf-bfc618a2a0b8";
-				PROVISIONING_PROFILE_SPECIFIER = ppf;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Shopping_W/Shopping_W-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -2201,8 +2213,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 88356VV9L6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2259,10 +2271,10 @@
 					"-framework",
 					"\"SwiftyJSON\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tjgy.shop1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tjgy.shop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8e0c0840-8112-4f69-b1bf-bfc618a2a0b8";
-				PROVISIONING_PROFILE_SPECIFIER = ppf;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Shopping_W/Shopping_W-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;

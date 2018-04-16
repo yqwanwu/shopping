@@ -32,13 +32,14 @@ class CheckTextFiled: UITextField, AnimationsProtocol, UITextFieldDelegate {
 
     @discardableResult
     func check() -> Bool {
-        if let check = checkError {
-            if !canBeEmpty {
-                if !Tools.stringIsNotBlank(text: self.text) {
-                    self.shake()
-                    return false
-                }
+        if !canBeEmpty {
+            if !Tools.stringIsNotBlank(text: self.text) {
+                self.shake()
+                return false
             }
+        }
+        if let check = checkError {
+            
             if !check(self) {//不通过
                 self.shake()
 //                self.beRed()

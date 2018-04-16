@@ -84,6 +84,12 @@ class ReturnedVC: BaseViewController, UITableViewDataSource {
                 vc.returnedModel = model
                 self.navigationController?.pushViewController(vc, animated: true)
             }
+        } else if model.fState == 1 {
+            cell.reciveAction = { [unowned self] _ in
+                let vc = UIStoryboard(name: "ReturnInfoVC", bundle: Bundle.main).instantiateViewController(withIdentifier: "ReturnInfoVC") as! ReturnInfoVC
+                vc.orderModel = model
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
         
         return cell
@@ -92,5 +98,7 @@ class ReturnedVC: BaseViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return -1
     }
+    
+    
 
 }

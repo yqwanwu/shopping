@@ -162,6 +162,7 @@ class MineVC: BaseViewController {
         self.navigationController?.pushViewController(SettingsVC(), animated: true)
     }
     
+    var hasTiped = false
     func requestCount() {
         NetworkManager.JsonPostRequest(params: ["method":"apimyuserinfostate"], success: { (j) in
             if !j["list"].arrayValue.isEmpty {
@@ -169,6 +170,19 @@ class MineVC: BaseViewController {
                 self.msgLabel.text = "\(j["list"].arrayValue.first!["fMessaagecount"].intValue)"
                 self.integralLabel.text = "\(j["list"].arrayValue.first!["fIntegral"].intValue)"
                 self.userInfoState = j["list"].arrayValue.first
+                //fBankCount
+                if j["list"].arrayValue.first!["fBankCount"].intValue == 0 && !self.hasTiped {
+                    self.hasTiped = true
+                    let alert = UIAlertController(title: "您还没有绑定银行卡", message: "是否绑定", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "取消", style: .default, handler: nil))
+                    alert.addAction(UIAlertAction(title: "确定", style: .default, handler: { (a) in
+                        let s = UIStoryboard(name: "AddCardVC", bundle: Bundle.main)
+                        let vc = s.instantiateViewController(withIdentifier: "AddCardVC") as! AddCardVC
+                        vc.hidesBottomBarWhenPushed = true
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
         }) { (err) in
             
